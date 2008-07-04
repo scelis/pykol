@@ -38,7 +38,7 @@ well as use and smash items.
 	
 	# Smash a titanium assault umbrella and print out the results.
 	item = ItemDatabase.getItemFromName("titanium assault umbrella")
-	r = PulverizeRequest(r, item["id"])
+	r = PulverizeRequest(s, item["id"])
 	r.doRequest()
 	smashResults = r.getResults()
 	print "After smashing the item you have received the following:"
