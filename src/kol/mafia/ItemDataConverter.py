@@ -1,3 +1,9 @@
+from kol.Error import ItemNotFoundError
+from kol.Session import Session
+from kol.database import ItemDatabase
+from kol.request.ItemDescriptionRequest import ItemDescriptionRequest
+from kol.serialize import ItemsSerializer
+
 import re
 import sys
 import urllib2
@@ -20,6 +26,7 @@ INTRINSIC_PATTERN = re.compile('Intrinsic Effect: "([^"]+)"')
 CLASS_PATTERN = re.compile('Class: "([^"]+)"')
 
 ENCHANTMENT_MAPPINGS = {
+	'Adventures' : 'adventuresAtRollover',
 	'Cold Damage' : 'coldDamage',
 	'Cold Resistance' : 'coldResistance',
 	'Cold Spell Damage' : 'coldSpellDamage',
@@ -35,14 +42,18 @@ ENCHANTMENT_MAPPINGS = {
 	'Maximum MP' : 'maximumMP',
 	'Meat Drop' : 'meatDrop',
 	'Melee Damage' : 'meleeDamage',
+	'Moxie Percent' : 'moxiePercent',
+	'Muscle Percent' : 'musclePercent',
+	'Mysticality Percent' : 'mysticalityPercent',
 	'Moxie' : 'moxie',
 	'Muscle' : 'muscle',
 	'Mysticality' : 'mysticality',
 	'Ranged Damage' : 'rangedDamage',
 	'Sleaze Damage' : 'sleazeDamage',
 	'Sleaze Resistance' : 'sleazeResistance',
-	'Sleazw Spell Damage' : 'sleazeSpellDamage',
+	'Sleaze Spell Damage' : 'sleazeSpellDamage',
 	'Spell Damage' : 'spellDamage',
+	'Spell Damage Percent' : 'spellDamagePercent',
 	'Spooky Damage' : 'spookyDamage',
 	'Spooky Resistance' : 'spookyResistance',
 	'Spooky Spell Damage' : 'spookySpellDamage',
@@ -51,12 +62,14 @@ ENCHANTMENT_MAPPINGS = {
 	'Stench Spell Damage' : 'stenchSpellDamage',
 }
 
-items = []
-itemsById = {}
-itemsByName = {}
-opener = urllib2.build_opener()
+_items = []
+_itemsById = {}
+_itemsByName = {}
+_opener = urllib2.build_opener()
+_session = None
 
-def importItems():
+def main(argv=sys.argv):
+	login(argv[1], argv[2])
 	readItemDescsFile()
 	readEquipmentFile()
 	readFullnessFile()
@@ -68,9 +81,17 @@ def importItems():
 	readTradeItemsFile()
 	readModifiersFile()
 	fixupItems()
+	mergeItems()
+	_session.logout()
+	writeItems()
+
+def login(username, password):
+	global _session
+	_session = Session()
+	_session.login(username, password)
 
 def readItemDescsFile():
-	text = opener.open(ITEM_DESCS_FILE).read()
+	text = _opener.open(ITEM_DESCS_FILE).read()
 	for line in text.splitlines():
 		if len(line) > 0 and line[0] != '#':
 			parts = line.split('\t')
@@ -85,13 +106,13 @@ def readItemDescsFile():
 					if plural != name + 's':
 						item["plural"] = parts[3]
 				
-				items.append(item)
-				itemsById[itemId] = item
-				itemsByName[name] = item
+				_items.append(item)
+				_itemsById[itemId] = item
+				_itemsByName[name] = item
 
 def readEquipmentFile():
 	currentType = None
-	text = opener.open(EQUIPMENT_FILE).read()
+	text = _opener.open(EQUIPMENT_FILE).read()
 	for line in text.splitlines():
 		if len(line) > 0:
 			if line[0] == '#':
@@ -124,7 +145,7 @@ def readEquipmentFile():
 							offHandType = ""
 					
 					try:
-						item = itemsByName[name]
+						item = _itemsByName[name]
 					except KeyError:
 						continue
 					
@@ -163,7 +184,7 @@ def readEquipmentFile():
 						item["type"] = currentType
 
 def readFullnessFile():
-	text = opener.open(FULLNESS_FILE).read()
+	text = _opener.open(FULLNESS_FILE).read()
 	for line in text.splitlines():
 		if len(line) > 0 and line[0] != '#':
 			parts = line.split('\t')
@@ -177,7 +198,7 @@ def readFullnessFile():
 				mox = parts[6]
 				
 				try:
-					item = itemsByName[name]
+					item = _itemsByName[name]
 				except KeyError:
 					continue
 				
@@ -195,7 +216,7 @@ def readFullnessFile():
 					item["moxieGained"] = mox
 
 def readInebrietyFile():
-	text = opener.open(INEBRIETY_FILE).read()
+	text = _opener.open(INEBRIETY_FILE).read()
 	for line in text.splitlines():
 		if len(line) > 0 and line[0] != '#':
 			parts = line.split('\t')
@@ -209,7 +230,7 @@ def readInebrietyFile():
 				mox = parts[6]
 				
 				try:
-					item = itemsByName[name]
+					item = _itemsByName[name]
 				except KeyError:
 					continue
 				
@@ -227,7 +248,7 @@ def readInebrietyFile():
 					item["moxieGained"] = mox
 
 def readSpleenFile():
-	text = opener.open(SPLEEN_FILE).read()
+	text = _opener.open(SPLEEN_FILE).read()
 	for line in text.splitlines():
 		if len(line) > 0 and line[0] != '#':
 			parts = line.split('\t')
@@ -241,7 +262,7 @@ def readSpleenFile():
 				mox = parts[6]
 				
 				try:
-					item = itemsByName[name]
+					item = _itemsByName[name]
 				except KeyError:
 					continue
 				
@@ -259,7 +280,7 @@ def readSpleenFile():
 					item["moxieGained"] = mox
 
 def readPackagesFile():
-	text = opener.open(PACKAGES_FILE).read()
+	text = _opener.open(PACKAGES_FILE).read()
 	for line in text.splitlines():
 		if len(line) > 0 and line[0] != '#':
 			parts = line.split('\t')
@@ -268,14 +289,14 @@ def readPackagesFile():
 				numItems = int(parts[1])
 				
 				try:
-					item = itemsByName[name]
+					item = _itemsByName[name]
 				except KeyError:
 					continue
 				
 				item["numPackageItems"] = numItems
 
 def readOutfitsFile():
-	text = opener.open(OUTFITS_FILE).read()
+	text = _opener.open(OUTFITS_FILE).read()
 	for line in text.splitlines():
 		if len(line) > 0 and line[0] != '#':
 			parts = line.split('\t')
@@ -286,26 +307,26 @@ def readOutfitsFile():
 				for thisItem in outfitItems:
 					thisItem = thisItem.strip()
 					try:
-						item = itemsByName[thisItem]
+						item = _itemsByName[thisItem]
 					except KeyError:
 						continue
 					item["outfit"] = outfitName
 
 def readZapGroupsFile():
-	text = opener.open(ZAP_GROUPS_FILE).read()
+	text = _opener.open(ZAP_GROUPS_FILE).read()
 	for line in text.splitlines():
 		if len(line) > 1 and line[0] != '#':
 			zapItems = line.split(',')
 			for thisItem in zapItems:
 				thisItem = thisItem.strip()
 				try:
-					item = itemsByName[thisItem]
+					item = _itemsByName[thisItem]
 				except KeyError:
 					continue
 				item["isZappable"] = True
 
 def readTradeItemsFile():
-	text = opener.open(TRADE_ITEMS_FILE).read()
+	text = _opener.open(TRADE_ITEMS_FILE).read()
 	for line in text.splitlines():
 		if len(line) > 0 and line[0] != '#':
 			parts = line.split('\t')
@@ -317,7 +338,7 @@ def readTradeItemsFile():
 				autosell = int(parts[4])
 				
 				try:
-					item = itemsById[itemId]
+					item = _itemsById[itemId]
 				except KeyError:
 					continue
 				
@@ -338,7 +359,7 @@ def readTradeItemsFile():
 					item["notConsumedWhenUsed"] = True
 
 def readModifiersFile():
-	text = opener.open(MODIFIERS_FILE).read()
+	text = _opener.open(MODIFIERS_FILE).read()
 	for line in text.splitlines():
 		if len(line) > 0 and line[0] != '#':
 			parts = line.split('\t')
@@ -347,7 +368,7 @@ def readModifiersFile():
 				modifiers = parts[1].strip()
 				
 				try:
-					item = itemsByName[itemName]
+					item = _itemsByName[itemName]
 					item["enchantments"] = {}
 				except KeyError:
 					continue
@@ -397,33 +418,59 @@ def readModifiersFile():
 						else:
 							modifier = modifier.split(':')
 							item["enchantments"][modifier[0].strip()] = modifier[1].strip()
+				
+				if "enchantments" in item and len(item["enchantments"]) == 0:
+					del item["enchantments"]
 
 def fixupItems():
-	for item in items:
+	for item in _items:
 		if "enchantments" in item:
-			enchantments = item["enchantments"]
-			if "Moxie Percent" in enchantments:
-				enchantments["Moxie"] = enchantments["Moxie Percent"] + '%'
-				del enchantments["Moxie Percent"]
-			if "Muscle Percent" in enchantments:
-				enchantments["Muscle"] = enchantments["Muscle Percent"] + '%'
-				del enchantments["Muscle Percent"]
-			if "Mysticality Percent" in enchantments:
-				enchantments["Mysticality"] = enchantments["Mysticality Percent"] + '%'
-				del enchantments["Mysticality Percent"]
-			if "MP Regen Min" in enchantments:
-				min = enchantments["MP Regen Min"]
-				max = enchantments["MP Regen Max"]
-				del enchantments["MP Regen Min"]
-				del enchantments["MP Regen Max"]
-				enchantments["mpRegen"] = "%s-%s" % (min, max)
-			if "HP Regen Min" in enchantments:
-				min = enchantments["HP Regen Min"]
-				max = enchantments["HP Regen Max"]
-				del enchantments["HP Regen Min"]
-				del enchantments["HP Regen Max"]
-				enchantments["hpRegen"] = "%s-%s" % (min, max)
-			for k,v in ENCHANTMENT_MAPPINGS.iteritems():
-				if k in enchantments:
-					enchantments[v] = enchantments[k]
-					del enchantments[k]
+			if len(item["enchantments"]) == 0:
+				del item["enchantments"]
+			else:
+				enchantments = item["enchantments"]
+				if "MP Regen Min" in enchantments:
+					min = enchantments["MP Regen Min"]
+					max = enchantments["MP Regen Max"]
+					del enchantments["MP Regen Min"]
+					del enchantments["MP Regen Max"]
+					enchantments["mpRegen"] = "%s-%s" % (min, max)
+				if "HP Regen Min" in enchantments:
+					min = enchantments["HP Regen Min"]
+					max = enchantments["HP Regen Max"]
+					del enchantments["HP Regen Min"]
+					del enchantments["HP Regen Max"]
+					enchantments["hpRegen"] = "%s-%s" % (min, max)
+				for k,v in ENCHANTMENT_MAPPINGS.iteritems():
+					if k in enchantments:
+						enchantments[v] = enchantments[k]
+						del enchantments[k]
+
+def mergeItems():
+	ItemDatabase.init()
+	for i in range(len(_items)):
+		item = _items[i]
+		try:
+			savedItem = ItemDatabase.getItemFromId(item["id"])
+			
+			for k,v in item.iteritems():
+				if k != "enchantments" and k != "type":
+					savedItem[k] = v
+			if "enchantments" in item and len(item["enchantments"]) > 0:
+				if "enchantments" not in savedItem:
+					savedItem["enchantments"] = {}
+				for k,v in item["enchantments"].iteritems():
+					savedItem["enchantments"][k] = v
+			_items[i] = savedItem
+		except ItemNotFoundError:
+			r = ItemDescriptionRequest(_session, item["descId"])
+			r.doRequest()
+			r.addInformationToItem(item)
+
+def writeItems():
+	f = open("Items.py", "w")
+	ItemsSerializer.writeItems(_items, f)
+
+if __name__ == "__main__":
+    main()
+			

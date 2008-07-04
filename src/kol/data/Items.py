@@ -2329,6 +2329,10 @@ items = [
 		"autosell" : 60,
 		"requiredMysticality" : 10,
 		"isMaxEquipOne" : True,
+		"enchantments" :
+		{
+			"adventuresAtRollover" : "+1",
+		},
 	},
 	{
 		"id" : 231,
@@ -4149,6 +4153,7 @@ items = [
 		"enchantments" :
 		{
 			"muscle" : "+7",
+			"adventuresAtRollover" : "+3",
 		},
 	},
 	{
@@ -4164,6 +4169,7 @@ items = [
 		"enchantments" :
 		{
 			"mysticality" : "+7",
+			"adventuresAtRollover" : "+3",
 		},
 	},
 	{
@@ -4178,6 +4184,7 @@ items = [
 		"enchantments" :
 		{
 			"moxie" : "+7",
+			"adventuresAtRollover" : "+3",
 		},
 	},
 	{
@@ -5920,9 +5927,12 @@ items = [
 		"requiredMuscle" : 60,
 		"enchantments" :
 		{
-			"muscle" : "+3%",
-			"mysticality" : "+3%",
-			"moxie" : "+3%",
+			"muscle" : "+2",
+			"mysticality" : "+2",
+			"moxie" : "+2",
+			"musclePercent" : "+3",
+			"mysticalityPercent" : "+3",
+			"moxiePercent" : "+3",
 		},
 	},
 	{
@@ -9407,9 +9417,9 @@ items = [
 		"image" : "baiotal.gif",
 		"enchantments" :
 		{
-			"muscle" : "+0%",
-			"mysticality" : "+0%",
-			"moxie" : "+0%",
+			"musclePercent" : "+0",
+			"mysticalityPercent" : "+0",
+			"moxiePercent" : "+0",
 		},
 	},
 	{
@@ -10020,6 +10030,10 @@ items = [
 		"image" : "nicewatch.gif",
 		"requiredMysticality" : 35,
 		"isMaxEquipOne" : True,
+		"enchantments" :
+		{
+			"adventuresAtRollover" : "+3",
+		},
 	},
 	{
 		"id" : 936,
@@ -10563,6 +10577,10 @@ items = [
 		"autosell" : 30,
 		"isMaxEquipOne" : True,
 		"isZappable" : True,
+		"enchantments" :
+		{
+			"adventuresAtRollover" : "+1",
+		},
 	},
 	{
 		"id" : 990,
@@ -12931,7 +12949,7 @@ items = [
 		"requiredMuscle" : 30,
 		"enchantments" :
 		{
-			"muscle" : "+15%",
+			"musclePercent" : "+15",
 			"critical" : "4",
 			"meleeDamage" : "+20",
 		},
@@ -12945,7 +12963,7 @@ items = [
 		"requiredMoxie" : 30,
 		"enchantments" :
 		{
-			"muscle" : "+15%",
+			"musclePercent" : "+15",
 			"damageAbsorption" : "+60",
 			"maximumHP" : "+30",
 		},
@@ -12960,7 +12978,8 @@ items = [
 		"isMaxEquipOne" : True,
 		"enchantments" :
 		{
-			"mysticality" : "+15%",
+			"mysticalityPercent" : "+15",
+			"adventuresAtRollover" : "+2",
 		},
 	},
 	{
@@ -12973,7 +12992,7 @@ items = [
 		"isMaxEquipOne" : True,
 		"enchantments" :
 		{
-			"mysticality" : "+15%",
+			"mysticalityPercent" : "+15",
 			"spellDamage" : "+20",
 		},
 	},
@@ -12987,7 +13006,7 @@ items = [
 		"requiredMoxie" : 30,
 		"enchantments" :
 		{
-			"moxie" : "+15%",
+			"moxiePercent" : "+15",
 			"meatDrop" : "+20",
 			"initiative" : "+15",
 		},
@@ -13003,7 +13022,7 @@ items = [
 		"isMaxEquipOne" : True,
 		"enchantments" :
 		{
-			"moxie" : "+15%",
+			"moxiePercent" : "+15",
 			"damageAbsorption" : "+60",
 			"maximumMP" : "+40",
 		},
@@ -13017,7 +13036,7 @@ items = [
 		"requiredMuscle" : 75,
 		"enchantments" :
 		{
-			"muscle" : "+30%",
+			"musclePercent" : "+30",
 			"meleeDamage" : "+25",
 		},
 	},
@@ -13030,7 +13049,7 @@ items = [
 		"requiredMoxie" : 75,
 		"enchantments" :
 		{
-			"muscle" : "+30%",
+			"musclePercent" : "+30",
 			"hpRegen" : "10-12",
 			"mpRegen" : "10-12",
 		},
@@ -13046,7 +13065,8 @@ items = [
 		"isMaxEquipOne" : True,
 		"enchantments" :
 		{
-			"mysticality" : "+30%",
+			"mysticalityPercent" : "+30",
+			"adventuresAtRollover" : "+3",
 		},
 	},
 	{
@@ -13059,7 +13079,7 @@ items = [
 		"isMaxEquipOne" : True,
 		"enchantments" :
 		{
-			"mysticality" : "+30%",
+			"mysticalityPercent" : "+30",
 			"spellDamage" : "+30",
 			"coldResistance" : "+3",
 			"hotResistance" : "+3",
@@ -13078,7 +13098,7 @@ items = [
 		"requiredMoxie" : 75,
 		"enchantments" :
 		{
-			"moxie" : "+30%",
+			"moxiePercent" : "+30",
 			"itemDrop" : "+20",
 			"initiative" : "+25",
 		},
@@ -13093,7 +13113,7 @@ items = [
 		"isMaxEquipOne" : True,
 		"enchantments" :
 		{
-			"moxie" : "+30%",
+			"moxiePercent" : "+30",
 		},
 	},
 	{
@@ -13106,7 +13126,7 @@ items = [
 		"requiredMysticality" : 35,
 		"enchantments" :
 		{
-			"muscle" : "+5%",
+			"musclePercent" : "+5",
 		},
 	},
 	{
@@ -14034,6 +14054,10 @@ items = [
 		"image" : "timehat.gif",
 		"requiredMoxie" : 35,
 		"isZappable" : True,
+		"enchantments" :
+		{
+			"adventuresAtRollover" : "+3",
+		},
 	},
 	{
 		"id" : 1324,
@@ -14045,6 +14069,10 @@ items = [
 		"image" : "timepants.gif",
 		"requiredMoxie" : 35,
 		"isZappable" : True,
+		"enchantments" :
+		{
+			"adventuresAtRollover" : "+3",
+		},
 	},
 	{
 		"id" : 1325,
@@ -14055,6 +14083,10 @@ items = [
 		"image" : "timesword.gif",
 		"requiredMuscle" : 35,
 		"isZappable" : True,
+		"enchantments" :
+		{
+			"adventuresAtRollover" : "+3",
+		},
 	},
 	{
 		"id" : 1326,
@@ -14592,6 +14624,10 @@ items = [
 		"image" : "figdeer.gif",
 		"autosell" : 30,
 		"isMaxEquipOne" : True,
+		"enchantments" :
+		{
+			"adventuresAtRollover" : "+1",
+		},
 	},
 	{
 		"id" : 1381,
@@ -16243,7 +16279,8 @@ items = [
 		"requiredMoxie" : 47,
 		"enchantments" :
 		{
-			"mysticality" : "+0%",
+			"mysticalityPercent" : "+0",
+			"adventuresAtRollover" : "+3",
 		},
 	},
 	{
@@ -16255,7 +16292,7 @@ items = [
 		"requiredMuscle" : 47,
 		"enchantments" :
 		{
-			"muscle" : "+0%",
+			"musclePercent" : "+0",
 			"meleeDamage" : "+15",
 		},
 	},
@@ -16269,7 +16306,7 @@ items = [
 		"requiredMoxie" : 47,
 		"enchantments" :
 		{
-			"moxie" : "+0%",
+			"moxiePercent" : "+0",
 			"initiative" : "+20",
 		},
 	},
@@ -16282,7 +16319,7 @@ items = [
 		"requiredMysticality" : 17,
 		"enchantments" :
 		{
-			"mysticality" : "+0%",
+			"mysticalityPercent" : "+0",
 			"spellDamage" : "+15",
 		},
 	},
@@ -16296,7 +16333,7 @@ items = [
 		"requiredMysticality" : 17,
 		"enchantments" :
 		{
-			"moxie" : "+0%",
+			"moxiePercent" : "+0",
 			"meatDrop" : "+25",
 		},
 	},
@@ -16309,7 +16346,7 @@ items = [
 		"requiredMysticality" : 17,
 		"enchantments" :
 		{
-			"muscle" : "+0%",
+			"musclePercent" : "+0",
 			"itemDrop" : "+25",
 		},
 	},
@@ -17420,6 +17457,7 @@ items = [
 		"type" : "usable",
 		"image" : "hotvial.gif",
 		"isUsable" : True,
+		"isMultiUsable" : True,
 	},
 	{
 		"id" : 1638,
@@ -17429,6 +17467,7 @@ items = [
 		"type" : "usable",
 		"image" : "coldvial.gif",
 		"isUsable" : True,
+		"isMultiUsable" : True,
 	},
 	{
 		"id" : 1639,
@@ -17438,6 +17477,7 @@ items = [
 		"type" : "usable",
 		"image" : "spookyvial.gif",
 		"isUsable" : True,
+		"isMultiUsable" : True,
 	},
 	{
 		"id" : 1640,
@@ -17447,6 +17487,7 @@ items = [
 		"type" : "usable",
 		"image" : "stenchvial.gif",
 		"isUsable" : True,
+		"isMultiUsable" : True,
 	},
 	{
 		"id" : 1641,
@@ -17456,6 +17497,7 @@ items = [
 		"type" : "usable",
 		"image" : "sleazevial.gif",
 		"isUsable" : True,
+		"isMultiUsable" : True,
 	},
 	{
 		"id" : 1642,
@@ -18549,6 +18591,7 @@ items = [
 		"enchantments" :
 		{
 			"muscle" : "+7",
+			"adventuresAtRollover" : "+5",
 		},
 	},
 	{
@@ -18563,6 +18606,7 @@ items = [
 		"enchantments" :
 		{
 			"mysticality" : "+7",
+			"adventuresAtRollover" : "+3",
 			"meatDrop" : "+15",
 		},
 	},
@@ -18577,6 +18621,7 @@ items = [
 		"enchantments" :
 		{
 			"moxie" : "+7",
+			"adventuresAtRollover" : "+3",
 			"stenchDamage" : "+5",
 		},
 	},
@@ -18651,6 +18696,7 @@ items = [
 		"enchantments" :
 		{
 			"mysticality" : "+5",
+			"sleazeSpellDamage" : "+11",
 		},
 	},
 	{
@@ -18951,6 +18997,7 @@ items = [
 		"enchantments" :
 		{
 			"mysticality" : "+3",
+			"sleazeSpellDamage" : "+8",
 		},
 	},
 	{
@@ -19309,6 +19356,10 @@ items = [
 		"type" : "accessory",
 		"image" : "backwatch.gif",
 		"isMaxEquipOne" : True,
+		"enchantments" :
+		{
+			"adventuresAtRollover" : "+10",
+		},
 	},
 	{
 		"id" : 1796,
@@ -20145,6 +20196,7 @@ items = [
 		"enchantments" :
 		{
 			"sleazeDamage" : "+5",
+			"sleazeSpellDamage" : "+5",
 		},
 	},
 	{
@@ -23103,6 +23155,10 @@ items = [
 		"image" : "tpskelrein.gif",
 		"autosell" : 30,
 		"isMaxEquipOne" : True,
+		"enchantments" :
+		{
+			"adventuresAtRollover" : "+1",
+		},
 	},
 	{
 		"id" : 2204,
@@ -24655,7 +24711,7 @@ items = [
 		"requiredMoxie" : 85,
 		"enchantments" :
 		{
-			"mysticality" : "+5%",
+			"mysticalityPercent" : "+5",
 			"stenchDamage" : "+20",
 		},
 	},
@@ -26459,6 +26515,10 @@ items = [
 		"autosell" : 135,
 		"requiredMysticality" : 67,
 		"isMaxEquipOne" : True,
+		"enchantments" :
+		{
+			"spellDamagePercent" : "+25",
+		},
 	},
 	{
 		"id" : 2540,
@@ -26839,6 +26899,7 @@ items = [
 		{
 			"mysticality" : "+5",
 			"mpRegen" : "2-3",
+			"spellDamagePercent" : "+20",
 		},
 	},
 	{
@@ -26933,6 +26994,10 @@ items = [
 		"image" : "smjacket.gif",
 		"autosell" : 135,
 		"requiredMuscle" : 50,
+		"enchantments" :
+		{
+			"adventuresAtRollover" : "+3",
+		},
 	},
 	{
 		"id" : 2587,
@@ -27091,6 +27156,7 @@ items = [
 		"enchantments" :
 		{
 			"mpRegen" : "2-3",
+			"spellDamagePercent" : "+20",
 			"spookySpellDamage" : "+10",
 		},
 	},
@@ -27107,6 +27173,7 @@ items = [
 		{
 			"mpRegen" : "2-3",
 			"maximumHP" : "+15",
+			"spellDamagePercent" : "+25",
 		},
 	},
 	{
@@ -27129,9 +27196,9 @@ items = [
 		"requiredMysticality" : 45,
 		"enchantments" :
 		{
-			"muscle" : "+0%",
-			"mysticality" : "+0%",
-			"moxie" : "+0%",
+			"musclePercent" : "+0",
+			"mysticalityPercent" : "+0",
+			"moxiePercent" : "+0",
 			"itemDrop" : "+0",
 			"meatDrop" : "+0",
 		},
@@ -27772,7 +27839,7 @@ items = [
 		"isMaxEquipOne" : True,
 		"enchantments" :
 		{
-			"mysticality" : "+10%",
+			"mysticalityPercent" : "+10",
 		},
 	},
 	{
@@ -27815,7 +27882,7 @@ items = [
 		"requiredMoxie" : 15,
 		"enchantments" :
 		{
-			"moxie" : "+10%",
+			"moxiePercent" : "+10",
 		},
 	},
 	{
@@ -27828,7 +27895,7 @@ items = [
 		"requiredMoxie" : 15,
 		"enchantments" :
 		{
-			"muscle" : "+10%",
+			"musclePercent" : "+10",
 		},
 	},
 	{
@@ -28321,6 +28388,7 @@ items = [
 		{
 			"mysticality" : "+10",
 			"spellDamage" : "+10",
+			"spellDamagePercent" : "+5",
 		},
 	},
 	{
@@ -28487,7 +28555,10 @@ items = [
 		"requiredMysticality" : 20,
 		"enchantments" :
 		{
+			"mpRegen" : "3-4",
+			"spellDamagePercent" : "+35",
 			"hotSpellDamage" : "+10",
+			"sleazeSpellDamage" : "+10",
 		},
 	},
 	{
@@ -28502,6 +28573,7 @@ items = [
 		"enchantments" :
 		{
 			"mpRegen" : "8-10",
+			"spellDamagePercent" : "+150",
 			"coldResistance" : "+5",
 		},
 	},
@@ -28726,6 +28798,7 @@ items = [
 		"enchantments" :
 		{
 			"mpRegen" : "8-10",
+			"spellDamagePercent" : "+150",
 			"coldSpellDamage" : "+20",
 		},
 	},
@@ -28822,6 +28895,8 @@ items = [
 		"enchantments" :
 		{
 			"mpRegen" : "8-10",
+			"spellDamagePercent" : "+150",
+			"sleazeSpellDamage" : "+20",
 		},
 	},
 	{
@@ -29574,6 +29649,7 @@ items = [
 			"muscle" : "+3",
 			"mysticality" : "+3",
 			"moxie" : "+3",
+			"sleazeSpellDamage" : "+40",
 		},
 	},
 	{
@@ -29719,8 +29795,8 @@ items = [
 		"requiredMoxie" : 30,
 		"enchantments" :
 		{
-			"muscle" : "-20%",
-			"moxie" : "+50%",
+			"musclePercent" : "-20",
+			"moxiePercent" : "+50",
 		},
 	},
 	{
@@ -29732,8 +29808,8 @@ items = [
 		"requiredMuscle" : 30,
 		"enchantments" :
 		{
-			"muscle" : "+50%",
-			"mysticality" : "-20%",
+			"musclePercent" : "+50",
+			"mysticalityPercent" : "-20",
 			"meleeDamage" : "+30",
 		},
 	},
@@ -29746,8 +29822,8 @@ items = [
 		"requiredMuscle" : 30,
 		"enchantments" :
 		{
-			"muscle" : "+50%",
-			"moxie" : "-20%",
+			"musclePercent" : "+50",
+			"moxiePercent" : "-20",
 		},
 	},
 	{
@@ -29760,8 +29836,8 @@ items = [
 		"requiredMoxie" : 30,
 		"enchantments" :
 		{
-			"mysticality" : "-20%",
-			"moxie" : "+50%",
+			"mysticalityPercent" : "-20",
+			"moxiePercent" : "+50",
 			"initiative" : "+50",
 		},
 	},
@@ -29776,8 +29852,8 @@ items = [
 		"isMaxEquipOne" : True,
 		"enchantments" :
 		{
-			"mysticality" : "+50%",
-			"moxie" : "-20%",
+			"mysticalityPercent" : "+50",
+			"moxiePercent" : "-20",
 			"spellDamage" : "+40",
 		},
 	},
@@ -29791,8 +29867,8 @@ items = [
 		"isMaxEquipOne" : True,
 		"enchantments" :
 		{
-			"muscle" : "-20%",
-			"mysticality" : "+50%",
+			"musclePercent" : "-20",
+			"mysticalityPercent" : "+50",
 		},
 	},
 	{
@@ -29804,7 +29880,7 @@ items = [
 		"requiredMoxie" : 40,
 		"enchantments" :
 		{
-			"muscle" : "+0%",
+			"musclePercent" : "+0",
 			"meleeDamage" : "+15",
 		},
 	},
@@ -29817,7 +29893,7 @@ items = [
 		"requiredMoxie" : 40,
 		"enchantments" :
 		{
-			"moxie" : "+0%",
+			"moxiePercent" : "+0",
 			"initiative" : "+20",
 		},
 	},
@@ -29830,7 +29906,8 @@ items = [
 		"requiredMoxie" : 40,
 		"enchantments" :
 		{
-			"mysticality" : "+0%",
+			"mysticalityPercent" : "+0",
+			"adventuresAtRollover" : "+3",
 		},
 	},
 	{
@@ -29843,7 +29920,7 @@ items = [
 		"isMaxEquipOne" : True,
 		"enchantments" :
 		{
-			"muscle" : "+0%",
+			"musclePercent" : "+0",
 			"meatDrop" : "+30",
 		},
 	},
@@ -29857,7 +29934,7 @@ items = [
 		"isMaxEquipOne" : True,
 		"enchantments" :
 		{
-			"moxie" : "+0%",
+			"moxiePercent" : "+0",
 			"itemDrop" : "+30",
 		},
 	},
@@ -29871,7 +29948,7 @@ items = [
 		"isMaxEquipOne" : True,
 		"enchantments" :
 		{
-			"mysticality" : "+0%",
+			"mysticalityPercent" : "+0",
 			"spellDamage" : "+20",
 		},
 	},
@@ -29895,6 +29972,7 @@ items = [
 		"enchantments" :
 		{
 			"mpRegen" : "8-10",
+			"spellDamagePercent" : "+150",
 			"stenchSpellDamage" : "+20",
 		},
 	},
@@ -29970,7 +30048,7 @@ items = [
 		"isSoftcoreOnly" : True,
 		"enchantments" :
 		{
-			"moxie" : "+15%",
+			"moxiePercent" : "+15",
 			"itemDrop" : "+10",
 			"meatDrop" : "+15",
 		},
@@ -30024,9 +30102,9 @@ items = [
 		"isSoftcoreOnly" : True,
 		"enchantments" :
 		{
-			"muscle" : "+20%",
-			"mysticality" : "+20%",
-			"moxie" : "+20%",
+			"musclePercent" : "+20",
+			"mysticalityPercent" : "+20",
+			"moxiePercent" : "+20",
 		},
 	},
 	{
@@ -30085,7 +30163,8 @@ items = [
 		"isMaxEquipOne" : True,
 		"enchantments" :
 		{
-			"mysticality" : "+25%",
+			"mysticalityPercent" : "+25",
+			"spellDamagePercent" : "+100",
 		},
 	},
 	{
@@ -30174,6 +30253,7 @@ items = [
 		"enchantments" :
 		{
 			"maximumMP" : "+100",
+			"spellDamagePercent" : "+100",
 		},
 	},
 	{
@@ -30843,7 +30923,7 @@ items = [
 		"isMaxEquipOne" : True,
 		"enchantments" :
 		{
-			"muscle" : "+30%",
+			"musclePercent" : "+30",
 			"critical" : "1",
 		},
 	},
@@ -31882,6 +31962,11 @@ items = [
 		"name" : "nanite-infested gingerbread bugbear",
 		"type" : "food",
 		"image" : "gingerbear.gif",
+		"fullness" : 1,
+		"adventuresGained" : "1-5",
+		"muscleGained" : "10-20",
+		"mysticalityGained" : "10-20",
+		"moxieGained" : "10-20",
 	},
 	{
 		"id" : 3045,
@@ -32549,6 +32634,15 @@ items = [
 		"isUsable" : True,
 	},
 	{
+		"id" : 3116,
+		"descId" : 533429176,
+		"name" : "Stuffed Hodgman",
+		"plural" : "stuffed Hodgmen",
+		"type" : "usable",
+		"image" : "stuffhodg.gif",
+		"isUsable" : True,
+	},
+	{
 		"id" : 3117,
 		"descId" : 899226971,
 		"name" : "Libram of Divine Favors",
@@ -32623,6 +32717,12 @@ items = [
 		"isMultiUsable" : True,
 	},
 	{
+		"id" : 3126,
+		"descId" : 972721571,
+		"name" : "hobo nickel",
+		"image" : "nickel.gif",
+	},
+	{
 		"id" : 3127,
 		"descId" : 445850699,
 		"name" : "sandcastle",
@@ -32651,6 +32751,128 @@ items = [
 		"descId" : 722107846,
 		"name" : "strange shiny disc",
 		"image" : "cd.gif",
+	},
+	{
+		"id" : 3131,
+		"descId" : 334311392,
+		"name" : "tin cup of mulligan stew",
+		"plural" : "tin cups of mulligan stew",
+		"type" : "food",
+		"image" : "stewcup.gif",
+	},
+	{
+		"id" : 3132,
+		"descId" : 556659510,
+		"name" : "flamin' bindle",
+		"type" : "weapon (2-handed polearm)",
+		"image" : "firebindle.gif",
+		"autosell" : 150,
+		"requiredMuscle" : 200,
+		"enchantments" :
+		{
+			"itemDrop" : "+10",
+			"hotDamage" : "+25",
+		},
+	},
+	{
+		"id" : 3133,
+		"descId" : 338028007,
+		"name" : "freezin' bindle",
+		"type" : "weapon (2-handed polearm)",
+		"image" : "coldbindle.gif",
+		"autosell" : 150,
+		"requiredMuscle" : 200,
+		"enchantments" :
+		{
+			"itemDrop" : "+10",
+			"coldDamage" : "+25",
+		},
+	},
+	{
+		"id" : 3134,
+		"descId" : 125255229,
+		"name" : "stinkin' bindle",
+		"type" : "weapon (2-handed polearm)",
+		"image" : "stinkbindle.gif",
+		"autosell" : 150,
+		"requiredMuscle" : 200,
+		"enchantments" :
+		{
+			"itemDrop" : "+10",
+			"stenchDamage" : "+25",
+		},
+	},
+	{
+		"id" : 3135,
+		"descId" : 116664322,
+		"name" : "spooky bindle",
+		"type" : "weapon (2-handed polearm)",
+		"image" : "spookbindle.gif",
+		"autosell" : 150,
+		"requiredMuscle" : 200,
+		"enchantments" :
+		{
+			"itemDrop" : "+10",
+			"spookyDamage" : "+25",
+		},
+	},
+	{
+		"id" : 3136,
+		"descId" : 999673147,
+		"name" : "sleazy bindle",
+		"type" : "weapon (2-handed polearm)",
+		"image" : "sleazebindle.gif",
+		"autosell" : 150,
+		"requiredMuscle" : 200,
+		"enchantments" :
+		{
+			"itemDrop" : "+10",
+			"sleazeDamage" : "+25",
+		},
+	},
+	{
+		"id" : 3137,
+		"descId" : 828428600,
+		"name" : "&quot;WILL WORK FOR BOOZE&quot; sign",
+		"type" : "off-hand item",
+		"image" : "boozesign.gif",
+		"autosell" : 110,
+	},
+	{
+		"id" : 3140,
+		"descId" : 114249239,
+		"name" : "old soft shoes",
+		"type" : "accessory",
+		"image" : "softshoes.gif",
+		"autosell" : 250,
+		"requiredMysticality" : 200,
+		"isMaxEquipOne" : True,
+		"enchantments" :
+		{
+			"itemDrop" : "+30",
+		},
+	},
+	{
+		"id" : 3141,
+		"descId" : 678352310,
+		"name" : "panhandle panhandling hat",
+		"type" : "hat",
+		"image" : "panhat.gif",
+		"autosell" : 125,
+		"requiredMuscle" : 175,
+	},
+	{
+		"id" : 3142,
+		"descId" : 772668061,
+		"name" : "cup of infinite pencils",
+		"type" : "off-hand item",
+		"image" : "pencilcup.gif",
+		"autosell" : 75,
+		"requiredMuscle" : 175,
+		"enchantments" :
+		{
+			"meatDrop" : "+15",
+		},
 	},
 	{
 		"id" : 3145,
@@ -32978,6 +33200,112 @@ items = [
 		"image" : "sanehatrack.gif",
 	},
 	{
+		"id" : 3220,
+		"descId" : 608608209,
+		"name" : "hobo code binder",
+		"type" : "off-hand item",
+		"image" : "book2.gif",
+	},
+	{
+		"id" : 3221,
+		"descId" : 417149275,
+		"name" : "gator skin",
+		"image" : "hskin.gif",
+		"autosell" : 50,
+		"isMeatsmithingComponent" : True,
+	},
+	{
+		"id" : 3222,
+		"descId" : 607654468,
+		"name" : "gatorskin umbrella",
+		"type" : "weapon (1-handed umbrella)",
+		"image" : "goatumb.gif",
+		"autosell" : 145,
+		"requiredMuscle" : 100,
+		"enchantments" :
+		{
+			"meleeDamage" : "+15",
+			"stenchResistance" : "+3",
+		},
+	},
+	{
+		"id" : 3223,
+		"descId" : 748371286,
+		"name" : "sewer nuggets",
+		"plural" : "clusters of sewer nuggets",
+		"image" : "scnuggets.gif",
+		"autosell" : 55,
+	},
+	{
+		"id" : 3224,
+		"descId" : 843818484,
+		"name" : "sewer wad",
+		"type" : "usable",
+		"image" : "scwad.gif",
+		"autosell" : 253,
+		"isUsable" : True,
+	},
+	{
+		"id" : 3225,
+		"descId" : 985553213,
+		"name" : "bottle of sewage schnapps",
+		"plural" : "bottles of sewage schnapps",
+		"type" : "booze",
+		"image" : "bottle.gif",
+		"autosell" : 34,
+		"drunkenness" : 3,
+	},
+	{
+		"id" : 3226,
+		"descId" : 708971479,
+		"name" : "bottle of Ooze-O",
+		"plural" : "bottles of Ooze-O",
+		"type" : "booze",
+		"image" : "bottle.gif",
+		"autosell" : 75,
+		"drunkenness" : 3,
+	},
+	{
+		"id" : 3227,
+		"descId" : 603451254,
+		"name" : "C. H. U. M. chum",
+		"plural" : "handfuls of C. H. U. M. chum",
+		"type" : "food",
+		"image" : "chum.gif",
+		"autosell" : 45,
+		"fullness" : 1,
+		"adventuresGained" : "1",
+	},
+	{
+		"id" : 3228,
+		"descId" : 815060531,
+		"name" : "unfortunate dumplings",
+		"plural" : "bowls of unfortunate dumplings",
+		"type" : "food",
+		"image" : "soupbowl.gif",
+		"autosell" : 15,
+		"fullness" : 3,
+		"adventuresGained" : "1",
+	},
+	{
+		"id" : 3229,
+		"descId" : 194632954,
+		"name" : "decaying goldfish liver",
+		"image" : "liver.gif",
+		"autosell" : 48,
+		"isCookingIngredient" : True,
+	},
+	{
+		"id" : 3230,
+		"descId" : 133463686,
+		"name" : "oil of oiliness",
+		"plural" : "flasks of oil of oiliness",
+		"type" : "usable",
+		"image" : "potion5.gif",
+		"autosell" : 85,
+		"isUsable" : True,
+	},
+	{
 		"id" : 3231,
 		"descId" : 380893218,
 		"name" : "tattered paper crown",
@@ -33023,6 +33351,133 @@ items = [
 		"autosell" : 50,
 	},
 	{
+		"id" : 3236,
+		"descId" : 831722443,
+		"name" : "Kissin' Cousins",
+		"plural" : "copies of Kissin' Cousins",
+		"type" : "usable",
+		"image" : "book4.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3237,
+		"descId" : 186707798,
+		"name" : "Tales from the Fireside",
+		"type" : "usable",
+		"image" : "book4.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3238,
+		"descId" : 374672848,
+		"name" : "Blizzards I Have Died In",
+		"plural" : "copies of Blizzards I Have Died In",
+		"type" : "usable",
+		"image" : "book4.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3239,
+		"descId" : 664515385,
+		"name" : "Maxing, Relaxing",
+		"type" : "usable",
+		"image" : "book4.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3240,
+		"descId" : 136121854,
+		"name" : "Biddy Cracker's Old-Fashioned Cookbook",
+		"type" : "usable",
+		"image" : "book4.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3241,
+		"descId" : 499215664,
+		"name" : "Travels with Jerry",
+		"plural" : "copies of Travels with Jerry",
+		"type" : "usable",
+		"image" : "book4.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3242,
+		"descId" : 183602575,
+		"name" : "Let Me Be!",
+		"plural" : "copies of Let Me Be!",
+		"type" : "usable",
+		"image" : "book4.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3243,
+		"descId" : 801300658,
+		"name" : "Asleep in the Cemetery",
+		"plural" : "copies of Asleep in the Cemetery",
+		"type" : "usable",
+		"image" : "book4.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3244,
+		"descId" : 682348153,
+		"name" : "Summer Nights",
+		"type" : "usable",
+		"image" : "book4.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3245,
+		"descId" : 543030767,
+		"name" : "Sensual Massage for Creeps",
+		"type" : "usable",
+		"image" : "book4.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3246,
+		"descId" : 175959334,
+		"name" : "Ol' Scratch's ol' britches",
+		"type" : "pants",
+		"outfit" : "Pyretic Panhandler Paraphernalia",
+		"image" : "ninjapants.gif",
+		"requiredMysticality" : 200,
+		"enchantments" :
+		{
+			"coldResistance" : "+3",
+			"spookyResistance" : "+3",
+		},
+	},
+	{
+		"id" : 3247,
+		"descId" : 288475507,
+		"name" : "Ol' Scratch's stovepipe hat",
+		"type" : "hat",
+		"outfit" : "Pyretic Panhandler Paraphernalia",
+		"image" : "stovehat.gif",
+		"requiredMysticality" : 200,
+		"enchantments" :
+		{
+			"mysticalityPercent" : "+20",
+			"hotSpellDamage" : "+30",
+		},
+	},
+	{
+		"id" : 3248,
+		"descId" : 878278248,
+		"name" : "Ol' Scratch's ash can",
+		"type" : "off-hand item",
+		"outfit" : "Pyretic Panhandler Paraphernalia",
+		"image" : "handcan.gif",
+		"requiredMysticality" : 200,
+		"enchantments" :
+		{
+			"spellDamagePercent" : "+100",
+			"hotSpellDamage" : "+30",
+		},
+	},
+	{
 		"id" : 3249,
 		"descId" : 865689800,
 		"name" : "pink plastic baby",
@@ -33040,6 +33495,170 @@ items = [
 		"name" : "silver sausage",
 		"type" : "off-hand item",
 		"image" : "sausage.gif",
+	},
+	{
+		"id" : 3251,
+		"descId" : 535393288,
+		"name" : "Frosty's old silk hat",
+		"type" : "hat",
+		"image" : "frostyhat.gif",
+		"requiredMuscle" : 200,
+		"enchantments" :
+		{
+			"musclePercent" : "+20",
+			"coldDamage" : "+30",
+		},
+	},
+	{
+		"id" : 3252,
+		"descId" : 418045597,
+		"name" : "Frosty's carrot",
+		"type" : "accessory",
+		"image" : "frostycarrot.gif",
+		"requiredMuscle" : 200,
+		"isMaxEquipOne" : True,
+		"enchantments" :
+		{
+			"sleazeResistance" : "+3",
+			"stenchResistance" : "+3",
+		},
+	},
+	{
+		"id" : 3253,
+		"descId" : 208890943,
+		"name" : "Frosty's nailbat",
+		"type" : "weapon (2-handed club)",
+		"image" : "frostynailbat.gif",
+		"requiredMuscle" : 200,
+		"enchantments" :
+		{
+			"musclePercent" : "+30",
+			"coldDamage" : "+30",
+		},
+	},
+	{
+		"id" : 3254,
+		"descId" : 586085772,
+		"name" : "Oscus's pelt",
+		"type" : "accessory",
+		"outfit" : "Vile Vagrant Vestments",
+		"image" : "ratskin.gif",
+		"requiredMysticality" : 200,
+		"isMaxEquipOne" : True,
+		"enchantments" :
+		{
+			"mysticalityPercent" : "+20",
+			"stenchSpellDamage" : "+30",
+		},
+	},
+	{
+		"id" : 3255,
+		"descId" : 872696571,
+		"name" : "Wand of Oscus",
+		"type" : "off-hand item",
+		"outfit" : "Vile Vagrant Vestments",
+		"image" : "oscuswand.gif",
+		"requiredMysticality" : 200,
+		"enchantments" :
+		{
+			"spellDamagePercent" : "+100",
+			"stenchSpellDamage" : "+30",
+		},
+	},
+	{
+		"id" : 3256,
+		"descId" : 878350523,
+		"name" : "Oscus's dumpster waders",
+		"type" : "pants",
+		"outfit" : "Vile Vagrant Vestments",
+		"image" : "yakpants.gif",
+		"requiredMysticality" : 200,
+		"enchantments" :
+		{
+			"hotResistance" : "+3",
+			"spookyResistance" : "+3",
+		},
+	},
+	{
+		"id" : 3257,
+		"descId" : 970898531,
+		"name" : "Zombo's skullcap",
+		"type" : "hat",
+		"image" : "skullcap.gif",
+		"requiredMuscle" : 200,
+		"enchantments" :
+		{
+			"musclePercent" : "+20",
+		},
+	},
+	{
+		"id" : 3258,
+		"descId" : 935290105,
+		"name" : "Zombo's shield",
+		"type" : "off-hand item (shield)",
+		"image" : "zomboshield.gif",
+		"requiredMuscle" : 200,
+		"enchantments" :
+		{
+			"musclePercent" : "+20",
+			"damageAbsorption" : "+50",
+			"spookyDamage" : "+30",
+		},
+	},
+	{
+		"id" : 3259,
+		"descId" : 587267531,
+		"name" : "Zombo's grievous greaves",
+		"type" : "pants",
+		"image" : "bonepants.gif",
+		"requiredMuscle" : 200,
+		"enchantments" :
+		{
+			"coldResistance" : "+3",
+			"sleazeResistance" : "+3",
+		},
+	},
+	{
+		"id" : 3260,
+		"descId" : 519707440,
+		"name" : "Chester's moustache",
+		"type" : "accessory",
+		"outfit" : "Tawdry Tramp Togs",
+		"image" : "chestache.gif",
+		"requiredMoxie" : 200,
+		"isMaxEquipOne" : True,
+		"enchantments" :
+		{
+			"sleazeDamage" : "+20",
+		},
+	},
+	{
+		"id" : 3261,
+		"descId" : 628538543,
+		"name" : "Chester's bag of candy",
+		"type" : "ranged weapon (2-handed )",
+		"outfit" : "Tawdry Tramp Togs",
+		"image" : "candybag.gif",
+		"requiredMoxie" : 200,
+		"enchantments" :
+		{
+			"moxiePercent" : "+10",
+			"sleazeDamage" : "+30",
+		},
+	},
+	{
+		"id" : 3262,
+		"descId" : 505652258,
+		"name" : "Chester's cutoffs",
+		"type" : "pants",
+		"outfit" : "Tawdry Tramp Togs",
+		"image" : "cutoffs.gif",
+		"requiredMoxie" : 200,
+		"enchantments" :
+		{
+			"hotResistance" : "+3",
+			"stenchResistance" : "+3",
+		},
 	},
 	{
 		"id" : 3263,
@@ -33079,6 +33698,73 @@ items = [
 		"name" : "bag of Laughing Willow saplings",
 		"type" : "off-hand item",
 		"image" : "knobsack.gif",
+	},
+	{
+		"id" : 3268,
+		"descId" : 575824061,
+		"name" : "handful of Crotchety Pine needles",
+		"plural" : "handfuls of Crotchety Pine needles",
+		"type" : "usable",
+		"image" : "pineneedles.gif",
+		"autosell" : 50,
+		"isUsable" : True,
+	},
+	{
+		"id" : 3269,
+		"descId" : 425798774,
+		"name" : "lump of Saccharine Maple sap",
+		"plural" : "lumps of Saccharine Maple sap",
+		"type" : "usable",
+		"image" : "salsaball.gif",
+		"autosell" : 50,
+		"isUsable" : True,
+	},
+	{
+		"id" : 3270,
+		"descId" : 811790050,
+		"name" : "handful of Laughing Willow bark",
+		"plural" : "handfuls of Laughing Willow bark",
+		"type" : "usable",
+		"image" : "bark2.gif",
+		"autosell" : 50,
+		"isUsable" : True,
+	},
+	{
+		"id" : 3271,
+		"descId" : 577653594,
+		"name" : "crotchety pants",
+		"type" : "pants",
+		"image" : "barkpants.gif",
+		"requiredMoxie" : 22,
+		"enchantments" :
+		{
+			"maximumHP" : "+40",
+		},
+	},
+	{
+		"id" : 3272,
+		"descId" : 533229935,
+		"name" : "Saccharine Maple pendant",
+		"type" : "accessory",
+		"image" : "maplependant.gif",
+		"requiredMysticality" : 22,
+		"enchantments" :
+		{
+			"maximumHP" : "+20",
+			"maximumMP" : "+20",
+		},
+	},
+	{
+		"id" : 3273,
+		"descId" : 604596957,
+		"name" : "willowy bonnet",
+		"type" : "hat",
+		"image" : "bonnet.gif",
+		"requiredMoxie" : 22,
+		"enchantments" :
+		{
+			"maximumMP" : "+40",
+		},
 	},
 	{
 		"id" : 3274,
@@ -33174,6 +33860,46 @@ items = [
 		"adventuresGained" : "3-5",
 	},
 	{
+		"id" : 3284,
+		"descId" : 787484881,
+		"name" : "C. H. U. M. lantern",
+		"type" : "off-hand item",
+		"image" : "chumlamp.gif",
+		"autosell" : 125,
+		"requiredMuscle" : 150,
+		"enchantments" :
+		{
+			"itemDrop" : "+30",
+			"stenchDamage" : "+17",
+		},
+	},
+	{
+		"id" : 3285,
+		"descId" : 253069991,
+		"name" : "C. H. U. M. knife",
+		"plural" : "C. H. U. M. knives",
+		"type" : "weapon (1-handed knife)",
+		"image" : "chumknife.gif",
+		"autosell" : 75,
+		"requiredMuscle" : 175,
+		"enchantments" :
+		{
+			"stenchDamage" : "+30",
+		},
+	},
+	{
+		"id" : 3286,
+		"descId" : 858648754,
+		"name" : "Frosty's snowball sack",
+		"type" : "ranged weapon (1-handed sack)",
+		"image" : "knobsack.gif",
+		"requiredMoxie" : 200,
+		"enchantments" :
+		{
+			"coldDamage" : "+50",
+		},
+	},
+	{
 		"id" : 3287,
 		"descId" : 806903125,
 		"name" : "quasi-ethereal macaroni fragments",
@@ -33211,6 +33937,145 @@ items = [
 		"isMultiUsable" : True,
 	},
 	{
+		"id" : 3310,
+		"descId" : 991608648,
+		"name" : "sealskin drum",
+		"type" : "off-hand item",
+		"image" : "sealdrum.gif",
+		"requiredMuscle" : 150,
+		"enchantments" :
+		{
+			"meleeDamage" : "+20",
+		},
+	},
+	{
+		"id" : 3311,
+		"descId" : 202540664,
+		"name" : "washboard shield",
+		"type" : "off-hand item (shield)",
+		"image" : "washboard.gif",
+		"requiredMuscle" : 150,
+		"enchantments" :
+		{
+			"damageAbsorption" : "+50",
+		},
+	},
+	{
+		"id" : 3312,
+		"descId" : 410330006,
+		"name" : "spaghetti-box banjo",
+		"type" : "off-hand item",
+		"image" : "spagbanjo.gif",
+		"requiredMysticality" : 150,
+		"enchantments" :
+		{
+			"mpRegen" : "5-10",
+		},
+	},
+	{
+		"id" : 3313,
+		"descId" : 402193751,
+		"name" : "marinara jug",
+		"type" : "off-hand item",
+		"image" : "jug.gif",
+		"requiredMysticality" : 150,
+		"enchantments" :
+		{
+			"spellDamage" : "+30",
+		},
+	},
+	{
+		"id" : 3314,
+		"descId" : 527093822,
+		"name" : "makeshift castanets",
+		"type" : "off-hand item",
+		"image" : "castanets.gif",
+		"requiredMoxie" : 150,
+	},
+	{
+		"id" : 3315,
+		"descId" : 193779227,
+		"name" : "left-handed melodica",
+		"type" : "off-hand item",
+		"image" : "melodica.gif",
+		"requiredMoxie" : 150,
+		"enchantments" :
+		{
+			"rangedDamage" : "+25",
+		},
+	},
+	{
+		"id" : 3316,
+		"descId" : 987134809,
+		"name" : "epic wad",
+		"type" : "usable",
+		"image" : "scwad.gif",
+		"isUsable" : True,
+		"spleen" : 1,
+		"adventuresGained" : "5",
+		"muscleGained" : "140-150",
+		"mysticalityGained" : "140-150",
+		"moxieGained" : "140-150",
+	},
+	{
+		"id" : 3317,
+		"descId" : 436834470,
+		"name" : "lucky bottlecap",
+		"type" : "accessory",
+		"image" : "luckycap.gif",
+		"autosell" : 250,
+		"requiredMysticality" : 200,
+		"isMaxEquipOne" : True,
+		"enchantments" :
+		{
+			"musclePercent" : "+5",
+			"mysticalityPercent" : "+5",
+			"moxiePercent" : "+5",
+		},
+	},
+	{
+		"id" : 3318,
+		"descId" : 425482016,
+		"name" : "corncob pipe",
+		"type" : "accessory",
+		"image" : "corncobpipe.gif",
+		"autosell" : 200,
+		"requiredMysticality" : 200,
+		"isMaxEquipOne" : True,
+		"enchantments" :
+		{
+			"musclePercent" : "+10",
+		},
+	},
+	{
+		"id" : 3319,
+		"descId" : 419047697,
+		"name" : "Mr. Joe's bangles",
+		"type" : "accessory",
+		"image" : "bangles.gif",
+		"autosell" : 200,
+		"requiredMysticality" : 200,
+		"isMaxEquipOne" : True,
+		"enchantments" :
+		{
+			"mysticalityPercent" : "+10",
+		},
+	},
+	{
+		"id" : 3320,
+		"descId" : 398731027,
+		"name" : "frayed rope belt",
+		"type" : "accessory",
+		"image" : "rope.gif",
+		"autosell" : 200,
+		"requiredMysticality" : 200,
+		"isMaxEquipOne" : True,
+		"enchantments" :
+		{
+			"moxiePercent" : "+10",
+		},
+	},
+	{
 		"id" : 3321,
 		"descId" : 876664237,
 		"name" : "packet of mayfly bait",
@@ -33225,6 +34090,232 @@ items = [
 		"type" : "accessory",
 		"image" : "mayflynecklace.gif",
 		"isMaxEquipOne" : True,
+	},
+	{
+		"id" : 3323,
+		"descId" : 113028478,
+		"name" : "Ol' Scratch's salad fork",
+		"type" : "usable",
+		"image" : "pitchfork.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3324,
+		"descId" : 636162743,
+		"name" : "Frosty's frosty mug",
+		"type" : "usable",
+		"image" : "frostymug.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3325,
+		"descId" : 779834964,
+		"name" : "jar of fermented pickle juice",
+		"plural" : "jars of fermented pickle juice",
+		"type" : "booze",
+		"image" : "moonshine.gif",
+		"isUsable" : True,
+		"drunkenness" : 5,
+		"adventuresGained" : "31-33",
+		"muscleGained" : "82-83",
+		"mysticalityGained" : "94-100",
+		"moxieGained" : "85-98",
+	},
+	{
+		"id" : 3326,
+		"descId" : 349482650,
+		"name" : "voodoo snuff",
+		"plural" : "cans of voodoo snuff",
+		"type" : "usable",
+		"image" : "balm.gif",
+		"isUsable" : True,
+		"spleen" : 3,
+		"adventuresGained" : "8",
+		"mysticalityGained" : "100-150",
+	},
+	{
+		"id" : 3327,
+		"descId" : 549862155,
+		"name" : "extra-greasy slider",
+		"type" : "food",
+		"image" : "burger.gif",
+		"fullness" : 5,
+		"adventuresGained" : "31-34",
+		"muscleGained" : "80-100",
+		"mysticalityGained" : "80-100",
+		"moxieGained" : "80-100",
+	},
+	{
+		"id" : 3328,
+		"descId" : 732914439,
+		"name" : "crumpled felt fedora",
+		"type" : "hat",
+		"image" : "hobofedora.gif",
+		"autosell" : 250,
+		"requiredMoxie" : 200,
+		"enchantments" :
+		{
+			"musclePercent" : "+5",
+		},
+	},
+	{
+		"id" : 3329,
+		"descId" : 151934208,
+		"name" : "battered old top-hat",
+		"type" : "hat",
+		"image" : "hobotophat.gif",
+		"autosell" : 150,
+		"requiredMoxie" : 200,
+		"enchantments" :
+		{
+			"moxiePercent" : "+5",
+			"maximumHP" : "+500",
+		},
+	},
+	{
+		"id" : 3332,
+		"descId" : 786774617,
+		"name" : "hobo dungarees",
+		"type" : "pants",
+		"image" : "dungarees.gif",
+		"autosell" : 150,
+		"requiredMoxie" : 200,
+		"enchantments" :
+		{
+			"mysticalityPercent" : "+5",
+			"maximumMP" : "+500",
+		},
+	},
+	{
+		"id" : 3334,
+		"descId" : 278044943,
+		"name" : "hobo stogie",
+		"type" : "accessory",
+		"image" : "cigarbutt.gif",
+		"autosell" : 200,
+		"requiredMysticality" : 200,
+		"isMaxEquipOne" : True,
+	},
+	{
+		"id" : 3335,
+		"descId" : 815191941,
+		"name" : "rope with some soap on it",
+		"type" : "accessory",
+		"image" : "ropesoap.gif",
+		"autosell" : 150,
+		"requiredMysticality" : 200,
+		"isMaxEquipOne" : True,
+	},
+	{
+		"id" : 3336,
+		"descId" : 687594503,
+		"name" : "dead guy's piece of double-sided tape",
+		"image" : "whitepix.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3337,
+		"descId" : 226969528,
+		"name" : "dead guy's memento",
+		"type" : "accessory",
+		"image" : "watch.gif",
+		"requiredMysticality" : 200,
+		"isMaxEquipOne" : True,
+		"enchantments" :
+		{
+			"musclePercent" : "+5",
+			"mysticalityPercent" : "+5",
+			"moxiePercent" : "+5",
+			"adventuresAtRollover" : "+5",
+		},
+	},
+	{
+		"id" : 3338,
+		"descId" : 380450499,
+		"name" : "frozen banquet",
+		"type" : "food",
+		"image" : "banquet.gif",
+		"fullness" : 6,
+		"adventuresGained" : "42-48",
+		"muscleGained" : "100-213",
+		"mysticalityGained" : "165-252",
+		"moxieGained" : "136-289",
+	},
+	{
+		"id" : 3339,
+		"descId" : 194177152,
+		"name" : "sharpened hubcap",
+		"type" : "combat item",
+		"image" : "hubcap.gif",
+		"autosell" : 100,
+	},
+	{
+		"id" : 3340,
+		"descId" : 777599179,
+		"name" : "very large caltrop",
+		"type" : "combat item",
+		"image" : "caltrop.gif",
+		"autosell" : 150,
+	},
+	{
+		"id" : 3343,
+		"descId" : 661779077,
+		"name" : "tiny bindle",
+		"type" : "familiar equipment",
+		"image" : "tinybindle.gif",
+		"autosell" : 75,
+	},
+	{
+		"id" : 3344,
+		"descId" : 437736715,
+		"name" : "bed of coals",
+		"type" : "usable",
+		"image" : "coalbed.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3345,
+		"descId" : 527732082,
+		"name" : "frigid air mattress",
+		"type" : "usable",
+		"image" : "airmattress.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3346,
+		"descId" : 776771033,
+		"name" : "filth-encrusted futon",
+		"type" : "usable",
+		"image" : "futon.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3347,
+		"descId" : 324466516,
+		"name" : "comfy coffin",
+		"type" : "usable",
+		"image" : "nicecoffin.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3348,
+		"descId" : 736849781,
+		"name" : "stained mattress",
+		"type" : "usable",
+		"image" : "mattress.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3350,
+		"descId" : 831950641,
+		"name" : "Ralph IX cognac",
+		"type" : "booze",
+		"image" : "wine.gif",
+		"drunkenness" : 6,
+		"adventuresGained" : "55-58",
+		"muscleGained" : "229-247",
+		"mysticalityGained" : "228-300",
+		"moxieGained" : "227-289",
 	},
 	{
 		"id" : 3351,
@@ -33469,5 +34560,402 @@ items = [
 		"image" : "twighouse.gif",
 		"autosell" : 1000,
 		"isUsable" : True,
+	},
+	{
+		"id" : 3375,
+		"descId" : 141228944,
+		"name" : "The Ballad of Richie Thingfinder",
+		"type" : "usable",
+		"image" : "music.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3376,
+		"descId" : 258185206,
+		"name" : "Benetton's Medley of Diversity",
+		"type" : "usable",
+		"image" : "music.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3377,
+		"descId" : 220021939,
+		"name" : "Elron's Explosive Etude",
+		"type" : "usable",
+		"image" : "music.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3378,
+		"descId" : 701686239,
+		"name" : "Chorale of Companionship",
+		"type" : "usable",
+		"image" : "music.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3379,
+		"descId" : 243581726,
+		"name" : "Prelude of Precision",
+		"type" : "usable",
+		"image" : "music.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3380,
+		"descId" : 576715255,
+		"name" : "Ol' Scratch's infernal pitchfork",
+		"type" : "weapon (2-handed polearm)",
+		"image" : "pitchfork2.gif",
+		"requiredMuscle" : 200,
+		"enchantments" :
+		{
+			"hotDamage" : "+40",
+		},
+	},
+	{
+		"id" : 3381,
+		"descId" : 355068482,
+		"name" : "Ol' Scratch's stove door",
+		"type" : "off-hand item (shield)",
+		"image" : "stovedoor.gif",
+		"requiredMuscle" : 200,
+		"enchantments" :
+		{
+			"hotDamage" : "+20",
+		},
+	},
+	{
+		"id" : 3382,
+		"descId" : 877578886,
+		"name" : "Ol' Scratch's manacles",
+		"type" : "accessory",
+		"image" : "cuffs.gif",
+		"requiredMoxie" : 200,
+		"isMaxEquipOne" : True,
+		"enchantments" :
+		{
+			"moxiePercent" : "+15",
+			"hotSpellDamage" : "+30",
+		},
+	},
+	{
+		"id" : 3383,
+		"descId" : 898058153,
+		"name" : "Chester's sunglasses",
+		"type" : "accessory",
+		"image" : "chestershades.gif",
+		"requiredMoxie" : 200,
+		"isMaxEquipOne" : True,
+		"enchantments" :
+		{
+			"moxiePercent" : "+15",
+			"sleazeDamage" : "+20",
+		},
+	},
+	{
+		"id" : 3384,
+		"descId" : 803397279,
+		"name" : "Chester's muscle shirt",
+		"type" : "shirt",
+		"image" : "wifebeater.gif",
+		"requiredMuscle" : 200,
+		"enchantments" :
+		{
+			"musclePercent" : "+10",
+		},
+	},
+	{
+		"id" : 3385,
+		"descId" : 795271370,
+		"name" : "Chester's Aquarius medallion",
+		"type" : "accessory",
+		"image" : "aquamedal.gif",
+		"requiredMysticality" : 200,
+		"isMaxEquipOne" : True,
+		"enchantments" :
+		{
+			"sleazeSpellDamage" : "+30",
+		},
+	},
+	{
+		"id" : 3386,
+		"descId" : 909940484,
+		"name" : "Zombo's shoulder blade",
+		"type" : "weapon (2-handed sword)",
+		"image" : "skullsword.gif",
+		"requiredMuscle" : 200,
+		"enchantments" :
+		{
+			"musclePercent" : "+30",
+		},
+	},
+	{
+		"id" : 3387,
+		"descId" : 202391134,
+		"name" : "Zombo's skull ring",
+		"type" : "accessory",
+		"image" : "skullring.gif",
+		"requiredMysticality" : 200,
+		"enchantments" :
+		{
+			"moxiePercent" : "+15",
+		},
+	},
+	{
+		"id" : 3388,
+		"descId" : 166850527,
+		"name" : "Zombo's empty eye",
+		"type" : "combat item",
+		"image" : "zomboeye.gif",
+		"autosell" : 10000,
+	},
+	{
+		"id" : 3389,
+		"descId" : 968257348,
+		"name" : "Frosty's arm",
+		"type" : "weapon (1-handed staff)",
+		"image" : "frostyarm.gif",
+		"requiredMuscle" : 200,
+		"enchantments" :
+		{
+			"meleeDamage" : "+30",
+			"coldDamage" : "+30",
+		},
+	},
+	{
+		"id" : 3390,
+		"descId" : 233793961,
+		"name" : "Staff of the Deepest Freeze",
+		"plural" : "Staves of the Deepest Freeze",
+		"type" : "weapon (1-handed chefstaff)",
+		"image" : "chefstaff9.gif",
+		"requiredMysticality" : 200,
+		"enchantments" :
+		{
+			"mpRegen" : "20-30",
+			"spellDamagePercent" : "+200",
+			"coldSpellDamage" : "+30",
+		},
+	},
+	{
+		"id" : 3391,
+		"descId" : 380631575,
+		"name" : "Frosty's iceball",
+		"type" : "combat item",
+		"image" : "styore.gif",
+		"autosell" : 10000,
+	},
+	{
+		"id" : 3392,
+		"descId" : 203629025,
+		"name" : "Oscus's garbage can lid",
+		"type" : "off-hand item (shield)",
+		"image" : "trashield.gif",
+		"requiredMuscle" : 200,
+		"enchantments" :
+		{
+			"stenchDamage" : "+20",
+		},
+	},
+	{
+		"id" : 3393,
+		"descId" : 445347637,
+		"name" : "Oscus's neverending soda",
+		"type" : "usable",
+		"image" : "soda.gif",
+		"autosell" : 10000,
+		"isUsable" : True,
+	},
+	{
+		"id" : 3394,
+		"descId" : 138953077,
+		"name" : "Oscus's flypaper pants",
+		"type" : "pants",
+		"image" : "flypants.gif",
+		"requiredMoxie" : 200,
+		"enchantments" :
+		{
+			"moxiePercent" : "+20",
+			"damageAbsorption" : "+50",
+		},
+	},
+	{
+		"id" : 3395,
+		"descId" : 667103288,
+		"name" : "Hodgman's porkpie hat",
+		"type" : "hat",
+		"image" : "porkpiehat.gif",
+		"requiredMoxie" : 200,
+		"enchantments" :
+		{
+			"musclePercent" : "+20",
+			"mysticalityPercent" : "+20",
+			"moxiePercent" : "+20",
+		},
+	},
+	{
+		"id" : 3396,
+		"descId" : 159000068,
+		"name" : "Hodgman's lobsterskin pants",
+		"type" : "pants",
+		"image" : "bpcords.gif",
+		"requiredMoxie" : 200,
+		"enchantments" :
+		{
+			"musclePercent" : "+20",
+			"mysticalityPercent" : "+20",
+			"moxiePercent" : "+20",
+		},
+	},
+	{
+		"id" : 3397,
+		"descId" : 377044137,
+		"name" : "Hodgman's bow tie",
+		"type" : "accessory",
+		"image" : "hobowtie.gif",
+		"requiredMysticality" : 200,
+		"isMaxEquipOne" : True,
+		"enchantments" :
+		{
+			"musclePercent" : "+20",
+			"mysticalityPercent" : "+20",
+			"moxiePercent" : "+20",
+		},
+	},
+	{
+		"id" : 3398,
+		"descId" : 211737724,
+		"name" : "Hodgman's blanket",
+		"plural" : "flasks of Hodgman's blanket",
+		"type" : "booze",
+		"image" : "flask.gif",
+		"drunkenness" : 2,
+		"adventuresGained" : "14-16",
+		"muscleGained" : "300-800",
+		"mysticalityGained" : "300-800",
+		"moxieGained" : "300-800",
+	},
+	{
+		"id" : 3399,
+		"descId" : 462827145,
+		"name" : "jar of squeeze",
+		"plural" : "jars of squeeze",
+		"type" : "booze",
+		"image" : "moonshine.gif",
+		"drunkenness" : 7,
+		"adventuresGained" : "26-30",
+		"muscleGained" : "28-45",
+		"mysticalityGained" : "28-45",
+		"moxieGained" : "25-45",
+	},
+	{
+		"id" : 3400,
+		"descId" : 807905263,
+		"name" : "bowl of fishysoisse",
+		"plural" : "bowls of fishysoisse",
+		"type" : "food",
+		"image" : "soupbowl.gif",
+		"fullness" : 6,
+		"adventuresGained" : "29",
+		"muscleGained" : "54",
+		"mysticalityGained" : "67",
+		"moxieGained" : "52",
+	},
+	{
+		"id" : 3401,
+		"descId" : 663239943,
+		"name" : "deadly lampshade",
+		"type" : "usable",
+		"image" : "lampshade.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3402,
+		"descId" : 637820129,
+		"name" : "concentrated garbage juice",
+		"type" : "usable",
+		"image" : "lightvial.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3403,
+		"descId" : 683821625,
+		"name" : "lewd playing card",
+		"type" : "combat / usable item",
+		"image" : "lewdcard.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3405,
+		"descId" : 494251681,
+		"name" : "Hodgman's lucky sock",
+		"type" : "accessory",
+		"image" : "tubesock.gif",
+		"requiredMysticality" : 200,
+	},
+	{
+		"id" : 3406,
+		"descId" : 307397478,
+		"name" : "Hodgman's varcolac paw",
+		"type" : "off-hand item",
+		"image" : "varcolacpaw.gif",
+		"requiredMuscle" : 200,
+	},
+	{
+		"id" : 3409,
+		"descId" : 874739671,
+		"name" : "Hodgman's garbage sticker",
+		"type" : "off-hand item",
+		"image" : "picker.gif",
+		"requiredMoxie" : 200,
+	},
+	{
+		"id" : 3412,
+		"descId" : 443125100,
+		"name" : "Hodgman's journal #1: The Lean Times",
+		"type" : "usable",
+		"image" : "blacknotebook.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3413,
+		"descId" : 359048124,
+		"name" : "Hodgman's journal #2: Entrepreneurythmics",
+		"type" : "usable",
+		"image" : "blacknotebook.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3414,
+		"descId" : 456659256,
+		"name" : "Hodgman's journal #3: Pumping Tin",
+		"type" : "usable",
+		"image" : "blacknotebook.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3415,
+		"descId" : 435985770,
+		"name" : "Hodgman's journal #4: View From The Big Top",
+		"type" : "usable",
+		"image" : "blacknotebook.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3416,
+		"descId" : 128693993,
+		"name" : "hobo fortress blueprints",
+		"type" : "usable",
+		"image" : "blueprint.gif",
+		"isUsable" : True,
+	},
+	{
+		"id" : 3421,
+		"descId" : 306172112,
+		"name" : "little box of fireworks",
+		"type" : "familiar equipment",
+		"image" : "fireworksbox.gif",
+		"isSoftcoreOnly" : True,
 	},
 ]
