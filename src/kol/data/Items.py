@@ -29203,7 +29203,7 @@ items = [
 		"image" : "pie.gif",
 		"autosell" : 80,
 		"fullness" : 3,
-		"adventuresGained" : "8-12",
+		"adventuresGained" : "8-14",
 		"mysticalityGained" : "25-45",
 	},
 	{
@@ -33501,6 +33501,7 @@ items = [
 		"descId" : 535393288,
 		"name" : "Frosty's old silk hat",
 		"type" : "hat",
+		"outfit" : "Hyperborean Hobo Habiliments",
 		"image" : "frostyhat.gif",
 		"requiredMuscle" : 200,
 		"enchantments" :
@@ -33514,6 +33515,7 @@ items = [
 		"descId" : 418045597,
 		"name" : "Frosty's carrot",
 		"type" : "accessory",
+		"outfit" : "Hyperborean Hobo Habiliments",
 		"image" : "frostycarrot.gif",
 		"requiredMuscle" : 200,
 		"isMaxEquipOne" : True,
@@ -33528,6 +33530,7 @@ items = [
 		"descId" : 208890943,
 		"name" : "Frosty's nailbat",
 		"type" : "weapon (2-handed club)",
+		"outfit" : "Hyperborean Hobo Habiliments",
 		"image" : "frostynailbat.gif",
 		"requiredMuscle" : 200,
 		"enchantments" :
@@ -33584,6 +33587,7 @@ items = [
 		"descId" : 970898531,
 		"name" : "Zombo's skullcap",
 		"type" : "hat",
+		"outfit" : "Dire Drifter Duds",
 		"image" : "skullcap.gif",
 		"requiredMuscle" : 200,
 		"enchantments" :
@@ -33596,6 +33600,7 @@ items = [
 		"descId" : 935290105,
 		"name" : "Zombo's shield",
 		"type" : "off-hand item (shield)",
+		"outfit" : "Dire Drifter Duds",
 		"image" : "zomboshield.gif",
 		"requiredMuscle" : 200,
 		"enchantments" :
@@ -33610,6 +33615,7 @@ items = [
 		"descId" : 587267531,
 		"name" : "Zombo's grievous greaves",
 		"type" : "pants",
+		"outfit" : "Dire Drifter Duds",
 		"image" : "bonepants.gif",
 		"requiredMuscle" : 200,
 		"enchantments" :
@@ -34117,9 +34123,9 @@ items = [
 		"isUsable" : True,
 		"drunkenness" : 5,
 		"adventuresGained" : "31-33",
-		"muscleGained" : "82-83",
-		"mysticalityGained" : "94-100",
-		"moxieGained" : "85-98",
+		"muscleGained" : "80-100",
+		"mysticalityGained" : "80-100",
+		"moxieGained" : "80-100",
 	},
 	{
 		"id" : 3326,
@@ -34173,6 +34179,35 @@ items = [
 		},
 	},
 	{
+		"id" : 3330,
+		"descId" : 393800790,
+		"name" : "shapeless wide-brimmed hat",
+		"type" : "hat",
+		"image" : "hobowidehat.gif",
+		"autosell" : 200,
+		"requiredMoxie" : 200,
+		"enchantments" :
+		{
+			"mysticalityPercent" : "+5",
+			"hpRegen" : "15-20",
+			"mpRegen" : "15-20",
+		},
+	},
+	{
+		"id" : 3331,
+		"descId" : 160309958,
+		"name" : "mostly rat-hide leggings",
+		"type" : "pants",
+		"image" : "yakpants.gif",
+		"autosell" : 200,
+		"requiredMoxie" : 200,
+		"enchantments" :
+		{
+			"moxiePercent" : "+5",
+			"initiative" : "+40",
+		},
+	},
+	{
 		"id" : 3332,
 		"descId" : 786774617,
 		"name" : "hobo dungarees",
@@ -34184,6 +34219,19 @@ items = [
 		{
 			"mysticalityPercent" : "+5",
 			"maximumMP" : "+500",
+		},
+	},
+	{
+		"id" : 3333,
+		"descId" : 457093585,
+		"name" : "old patched suit-pants",
+		"type" : "pants",
+		"image" : "mailpants.gif",
+		"autosell" : 250,
+		"requiredMoxie" : 200,
+		"enchantments" :
+		{
+			"moxiePercent" : "+5",
 		},
 	},
 	{
@@ -34258,6 +34306,21 @@ items = [
 		"autosell" : 150,
 	},
 	{
+		"id" : 3341,
+		"descId" : 212225141,
+		"name" : "The Six-Pack of Pain",
+		"type" : "combat item",
+		"image" : "big6pack.gif",
+		"autosell" : 200,
+	},
+	{
+		"id" : 3342,
+		"descId" : 873673563,
+		"name" : "hobo monkey",
+		"type" : "familiar",
+		"image" : "hobomonkey.gif",
+	},
+	{
 		"id" : 3343,
 		"descId" : 661779077,
 		"name" : "tiny bindle",
@@ -34304,6 +34367,14 @@ items = [
 		"type" : "usable",
 		"image" : "mattress.gif",
 		"isUsable" : True,
+	},
+	{
+		"id" : 3349,
+		"descId" : 787722904,
+		"name" : "dinged-up triangle",
+		"type" : "combat item",
+		"image" : "triangle.gif",
+		"autosell" : 300,
 	},
 	{
 		"id" : 3350,
@@ -34785,6 +34856,7 @@ items = [
 		"descId" : 667103288,
 		"name" : "Hodgman's porkpie hat",
 		"type" : "hat",
+		"outfit" : "Hodgman's Regal Frippery",
 		"image" : "porkpiehat.gif",
 		"requiredMoxie" : 200,
 		"enchantments" :
@@ -34799,6 +34871,7 @@ items = [
 		"descId" : 159000068,
 		"name" : "Hodgman's lobsterskin pants",
 		"type" : "pants",
+		"outfit" : "Hodgman's Regal Frippery",
 		"image" : "bpcords.gif",
 		"requiredMoxie" : 200,
 		"enchantments" :
@@ -34813,6 +34886,7 @@ items = [
 		"descId" : 377044137,
 		"name" : "Hodgman's bow tie",
 		"type" : "accessory",
+		"outfit" : "Hodgman's Regal Frippery",
 		"image" : "hobowtie.gif",
 		"requiredMysticality" : 200,
 		"isMaxEquipOne" : True,
@@ -34903,12 +34977,44 @@ items = [
 		"requiredMuscle" : 200,
 	},
 	{
+		"id" : 3407,
+		"descId" : 326308790,
+		"name" : "Hodgman's almanac",
+		"type" : "off-hand item",
+		"image" : "book3.gif",
+		"requiredMysticality" : 200,
+	},
+	{
+		"id" : 3408,
+		"descId" : 607932819,
+		"name" : "Hodgman's harmonica",
+		"type" : "off-hand item",
+		"image" : "harmonica.gif",
+		"requiredMoxie" : 200,
+	},
+	{
 		"id" : 3409,
 		"descId" : 874739671,
 		"name" : "Hodgman's garbage sticker",
 		"type" : "off-hand item",
 		"image" : "picker.gif",
 		"requiredMoxie" : 200,
+	},
+	{
+		"id" : 3410,
+		"descId" : 986607676,
+		"name" : "Hodgman's metal detector",
+		"type" : "off-hand item",
+		"image" : "mdetector.gif",
+		"requiredMuscle" : 200,
+	},
+	{
+		"id" : 3411,
+		"descId" : 753829066,
+		"name" : "Hodgman's cane",
+		"type" : "off-hand item",
+		"image" : "cane.gif",
+		"requiredMysticality" : 200,
 	},
 	{
 		"id" : 3412,
@@ -34957,5 +35063,13 @@ items = [
 		"type" : "familiar equipment",
 		"image" : "fireworksbox.gif",
 		"isSoftcoreOnly" : True,
+	},
+	{
+		"id" : 3433,
+		"descId" : 569771218,
+		"name" : "spice melange",
+		"type" : "usable",
+		"image" : "melange.gif",
+		"isUsable" : True,
 	},
 ]
