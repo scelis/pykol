@@ -9,6 +9,7 @@ class GenericRequest(object):
 	def __init__(self, session):
 		self.session = session
 		self.requestData = {}
+		self.skipParseResponse = False
 
 	def doRequest(self):
 		"""
@@ -37,9 +38,13 @@ class GenericRequest(object):
 		# Allow for classes that extend GenericRequest to parse all of the data someone
 		# would need from the response and then to place this data in self.responseData.
 		self.responseData = {}
-		if self.parseResponse != None and self.skipParseResponse == None:
+		if self.skipParseResponse == False:
 			self.parseResponse()
 			if len(self.responseData) > 0:
 				Report.debug("request", "Parsed response data: %s" % self.responseData)
 		
 		return self.responseData
+	
+	def parseResponse(self):
+		pass
+
