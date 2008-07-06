@@ -38,13 +38,10 @@ class GenericRequest(object):
 		# Allow for classes that extend GenericRequest to parse all of the data someone
 		# would need from the response and then to place this data in self.responseData.
 		self.responseData = {}
-		if self.skipParseResponse == False:
+		if self.skipParseResponse == False and "parseResponse" in self.__class__.__dict__:
 			self.parseResponse()
 			if len(self.responseData) > 0:
 				Report.debug("request", "Parsed response data: %s" % self.responseData)
 		
 		return self.responseData
-	
-	def parseResponse(self):
-		pass
 
