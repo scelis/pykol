@@ -22,8 +22,8 @@ well as use and smash items.
 	
 	# Get a list of your kmails and print them out.
 	r = GetMessagesRequest(s)
-	r.doRequest()
-	kmails = r.getMessages()
+	responseData = r.doRequest()
+	kmails = responseData["kmails"]
 	for kmail in kmails:
 		print "Received kmail from %s (#%s)" % (kmail["userName"], kmail["userId"])
 		print "Text: %s" % kmail["text"]
@@ -39,8 +39,8 @@ well as use and smash items.
 	# Smash a titanium assault umbrella and print out the results.
 	item = ItemDatabase.getItemFromName("titanium assault umbrella")
 	r = PulverizeRequest(s, item["id"])
-	r.doRequest()
-	smashResults = r.getResults()
+	responseData = r.doRequest()
+	smashResults = responseData["results"]
 	print "After smashing the item you have received the following:"
 	for result in smashResults:
 		print "%s (%s)" % (result["name"], result["quantity"])
