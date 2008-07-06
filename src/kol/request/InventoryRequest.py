@@ -4,9 +4,7 @@ from kol.database import ItemDatabase
 from kol.manager import PatternManager
 
 class InventoryRequest(GenericRequest):
-	"""
-	This class is used to get a list of items in the user's inventory
-	"""
+	"This class is used to get a list of items in the user's inventory."
 	
 	def __init__(self, session, which=None):
 		super(InventoryRequest, self).__init__(session)
@@ -14,7 +12,7 @@ class InventoryRequest(GenericRequest):
 		if which != None:
 			self.url += "?which=%s" % which
 	
-	def getItems(self):
+	def parseResponse(self):
 		items = []
 		
 		singleItemPattern = PatternManager.getOrCompilePattern('inventorySingleItem')
@@ -32,4 +30,4 @@ class InventoryRequest(GenericRequest):
 			item["quantity"] = quantity
 			items.append(item)
 		
-		return items
+		self.responseData["items"] = items

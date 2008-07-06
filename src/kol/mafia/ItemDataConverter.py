@@ -464,8 +464,9 @@ def mergeItems():
 			_items[i] = savedItem
 		except ItemNotFoundError:
 			r = ItemDescriptionRequest(_session, item["descId"])
-			r.doRequest()
-			r.addInformationToItem(item)
+			itemInfo = r.doRequest()
+			for k,v in itemInfo.iteritems():
+				item[k] = v
 
 def writeItems():
 	f = open("Items.py", "w")

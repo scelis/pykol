@@ -14,9 +14,7 @@ class PulverizeRequest(GenericRequest):
 		self.itemId = itemId
 		self.quantity = itemQuantity
 	
-	def doRequest(self):
-		super(PulverizeRequest, self).doRequest()
-		
+	def parseResponse(self):
 		cantPulverizePattern = PatternManager.getOrCompilePattern('cantPulverizeItem')
 		if cantPulverizePattern.search(self.responseText) != None:
 			item = ItemDatabase.getItemFromId(self.itemId, self.session)
@@ -30,8 +28,7 @@ class PulverizeRequest(GenericRequest):
 			else:
 				itemStr = item["plural"]
 			raise NotEnoughItemsError("You do not have %s %s" % (self.quantity % itemStr))
-	
-	def getResults(self):
+			
 		items = []
 		
 		singleItemPattern = PatternManager.getOrCompilePattern('acquireSingleItem')
@@ -49,4 +46,4 @@ class PulverizeRequest(GenericRequest):
 			item["quantity"] = quantity
 			items.append(item)
 		
-		return items
+		self.responseData["results"] = items

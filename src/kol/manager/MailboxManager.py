@@ -41,8 +41,8 @@ class MailboxManager(object):
 		if oldestFirst != None:
 			self.setOldestFirst(oldestFirst)
 		r = GetMessagesRequest(self.session, box=box, pageNumber=pageNumber)
-		r.doRequest()
-		return r.getMessages()
+		responseData = r.doRequest()
+		return responseData["kmails"]
 	
 	def getAllMessages(self, box="Inbox", openGiftPackages=False, removeGiftPackages=False):
 		"""
@@ -111,8 +111,8 @@ class MailboxManager(object):
 		
 		# Get a list of all gift packages in our inventory.
 		r = InventoryRequest(self.session, which=3)
-		r.doRequest()
-		items = r.getItems()
+		responseData = r.doRequest()
+		items = responseData["items"]
 		for item in items:
 			if "type" in item and item["type"] == "gift package":
 				giftPackages[item["id"]] = item["quantity"]

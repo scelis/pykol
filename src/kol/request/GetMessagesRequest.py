@@ -39,9 +39,9 @@ class GetMessagesRequest(GenericRequest):
 		elif oldestFirst == False:
 			self.url += "&order=0"
 	
-	def getMessages(self):
+	def parseResponse(self):
 		"""
-		Parses through the response and returns an array of messages.
+		Parses through the response and constructs an array of messages.
 		Each message is represented as a dictionary with the following
 		keys:
 		
@@ -64,7 +64,6 @@ class GetMessagesRequest(GenericRequest):
 		candyHeartPattern = PatternManager.getOrCompilePattern('candyHeartMessage')
 		
 		messages = []
-		itemsToUse = {}
 		
 		for message in fullMessagePattern.finditer(self.responseText):
 			messageId = int(message.group(1))
@@ -137,4 +136,4 @@ class GetMessagesRequest(GenericRequest):
 			
 			messages.append(m)
 					
-		return messages
+		self.responseData["kmails"] = messages

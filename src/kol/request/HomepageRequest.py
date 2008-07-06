@@ -16,22 +16,19 @@ class HomepageRequest(GenericRequest):
 		else:
 			self.url = "http://www.kingdomofloathing.com/"
 	
-	def getServerURL(self):
-		"Returns the URL of the server that we were told to use."
+	def parseResponse(self):
+		# Get the URL of the server that we were told to use.
 		loginUrlPattern = PatternManager.getOrCompilePattern('loginURL')
 		serverMatch = loginUrlPattern.match(self.response.geturl())
 		if serverMatch:
-			return serverMatch.group(1)
+			self.responseData["serverURL"] = serverMatch.group(1)
 		else:
 			raise LoginError("Unable to determine server URL from: " + self.response.geturl())
-	
-	def getLoginChallenge(self):
-		"""
-		Returns the user's challenge string which is used to provide a more secure login mechanism.
-		"""
+		
+		# Get the user's challenge string which is used to provide a more secure login mechanism.
 		loginChallengePattern = PatternManager.getOrCompilePattern('loginChallenge')
 		challengeMatch = loginChallengePattern.search(self.responseText)
 		if challengeMatch:
-			return challengeMatch.group(1)
+			self.responseData["loginChallenge"] = challengeMatch.group(1)
 		else:
 			raise LoginError("Unable to find login challenge:\n" + self.responseText)

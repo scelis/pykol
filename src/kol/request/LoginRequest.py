@@ -5,6 +5,11 @@ from kol.manager import PatternManager
 import hashlib
 
 class LoginRequest(GenericRequest):
+	"""
+	A request to login to The Kingdom of Loathing. This class will look for various login
+	errors. If any occur, than an appropriate exception is raised.
+	"""
+	
 	def __init__(self, session, loginChallenge):
 		super(LoginRequest, self).__init__(session)
 		self.url = session.serverURL + "login.php"
@@ -15,9 +20,7 @@ class LoginRequest(GenericRequest):
 		self.requestData['response'] = hashlib.md5(hashKey).hexdigest()
 		self.requestData['challenge'] = loginChallenge
 	
-	def doRequest(self):
-		super(LoginRequest, self).doRequest()
-		
+	def parseResponse(self):
 		mainFramesetPattern = PatternManager.getOrCompilePattern('mainFrameset')
 		if mainFramesetPattern.search(self.responseText):
 			self.session.isConnected = True
@@ -33,7 +36,7 @@ class LoginRequest(GenericRequest):
 		
 		waitTwoMinutesPattern = PatternManager.getOrCompilePattern('waitTwoMinutesLoginError')
 		if waitTwoMinutesPattern.search(self.responseText):
-			raise LoginError("Your previous session did not close correctly. Please wait a couple minutes and try again.", 120)
+			raise LoginError("Your previous session did not close correctly. Please wait a couple of minutes and try again.", 120)
 			
 		badPasswordPattern = PatternManager.getOrCompilePattern('badPassword')
 		if badPasswordPattern.search(self.responseText):

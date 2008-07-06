@@ -8,7 +8,7 @@ import hashlib
 import urllib2
 
 class Session(object):
-	"This class represents a session with a Kingdom of Loathing server."
+	"This class represents a user's session with The Kingdom of Loathing."
 	
 	def __init__(self):
 		self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookielib.CookieJar()))
@@ -31,19 +31,19 @@ class Session(object):
 		
 		# Grab the KoL homepage.
 		homepageRequest = HomepageRequest(self, serverNumber=serverNumber)
-		homepageRequest.doRequest()
-		self.serverURL = homepageRequest.getServerURL()
+		homepageResponse = homepageRequest.doRequest()
+		self.serverURL = homepageResponse["serverURL"]
 		
 		# Perform the login.
-		loginRequest = LoginRequest(self, homepageRequest.getLoginChallenge())
+		loginRequest = LoginRequest(self, homepageResponse["loginChallenge"])
 		loginRequest.doRequest()
 		
-		# Get pwd and user ID.
+		# Get pwd, user ID, and the user's name.
 		accountRequest = AccountRequest(self)
-		accountRequest.doRequest()
-		self.pwd = accountRequest.getPwd()
-		self.userName = accountRequest.getUserName()
-		self.userId = accountRequest.getUserId()
+		accountResponse = accountRequest.doRequest()
+		self.pwd = accountResponse['pwd']
+		self.userName = accountResponse['userName']
+		self.userId = accountResponse['userId']
 	
 	def logout(self):
 		"Performs a logut request, closing the session."

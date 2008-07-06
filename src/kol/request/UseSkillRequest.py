@@ -22,13 +22,9 @@ class UseSkillRequest(GenericRequest):
 		else:
 			self.requestData["quantity"] = numTimes
 	
-	def doRequest(self):
-		super(UseSkillRequest, self).doRequest()
-		
+	def parseResponse(self):
 		resultsPattern = PatternManager.getOrCompilePattern('results')
 		match = resultsPattern.search(self.responseText)
 		if match:
 			results = match.group(1)
-			self.results = results
-		else:
-			self.results = None
+			self.responseData["results"] = results

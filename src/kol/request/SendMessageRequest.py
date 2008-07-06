@@ -26,9 +26,7 @@ class SendMessageRequest(GenericRequest):
 		else:
 			self.requestData["sendmeat"] = 0
 	
-	def doRequest(self):
-		super(SendMessageRequest, self).doRequest()
-		
+	def parseResponse(self):
 		hardcoreRoninPattern = PatternManager.getOrCompilePattern('userInHardcoreRonin')
 		ignoringPattern = PatternManager.getOrCompilePattern('userIgnoringUs')
 		if hardcoreRoninPattern.search(self.responseText):

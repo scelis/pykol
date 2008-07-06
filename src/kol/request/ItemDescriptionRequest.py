@@ -2,87 +2,57 @@ from GenericRequest import GenericRequest
 from kol.manager import PatternManager
 
 class ItemDescriptionRequest(GenericRequest):
+	"Gets the description of an item and then parses various information from the response."
+	
 	def __init__(self, session, descId):
 		super(ItemDescriptionRequest, self).__init__(session)
 		self.url = session.serverURL + "desc_item.php?whichitem=%s" % descId
 		
-	def addInformationToItem(self, item):
-		if "name" not in item:
-			item["name"] = self.getItemName()
-		
-		image = self.getImage()
-		if image != None:
-			item["image"] = self.getImage()
-		
-		itemType = self.getItemType()
-		if itemType != None:
-			item["type"] = itemType
-		
-		autosell = self.getAutosellValue()
-		if autosell > 0:
-			item["autosell"] = autosell
-		
-		if self.isCookingIngredient():
-			item["isCookingIngredient"] = True
-		
-		if self.isCocktailcraftingIngredient():
-			item["isCocktailcraftingIngredient"] = True
-		
-		if self.isMeatsmithingComponent():
-			item["isMeatsmithingComponent"] = True
-		
-		if self.isJewelrymakingComponent():
-			item["isJewelrymakingComponent"] = True
-	
-	def getItemName(self):
+	def parseResults(self):
+		# Get the item name.
 		itemNamePattern = PatternManager.getOrCompilePattern("itemName")
 		match = itemNamePattern.search(self.responseText)
-		return match.group(1)
-	
-	def getImage(self):
+		self.responseData["name"] = match.group(1)
+		
+		# Get the item image.
 		imagePattern = PatternManager.getOrCompilePattern("itemImage")
 		match = imagePattern.search(self.responseText)
-		return match.group(1)
+		self.responseData["image"] = match.group(1)
 		
-	def getItemType(self):
+		# Get the item type.
 		typePattern = PatternManager.getOrCompilePattern("itemType")
 		match = typePattern.search(self.responseText)
 		if match:
-			return match.group(1)
-		return None
-
-	def getAutosellValue(self):
+			self.responseData["type"] = match.group(1)
+		
+		# Get the autosell value.
 		autosellPattern = PatternManager.getOrCompilePattern("itemAutosell")
 		match = autosellPattern.search(self.responseText)
 		if match:
-			return int(match.group(1))
+			self.responseData["autosell"] = int(match.group(1))
 		else:
-			return 0
+			self.responseData["autosell"] = 0
 		
-	def isCookingIngredient(self):
+		# See if this is a cooking ingredient.
 		cookingPattern = PatternManager.getOrCompilePattern("isCookingIngredient")
 		match = cookingPattern.search(self.responseText)
 		if match:
-			return True
-		return False
-	
-	def isCocktailcraftingIngredient(self):
+			self.responseData["isCookingIngredient"] = True
+			
+		# See if the item is a cocktailcrafting ingredient.
 		cocktailcraftingPattern = PatternManager.getOrCompilePattern("isCocktailcraftingIngredient")
 		match = cocktailcraftingPattern.search(self.responseText)
 		if match:
-			return True
-		return False
-	
-	def isMeatsmithingComponent(self):
+			self.responseData["isCocktailcraftingIngredient"] = True
+		
+		# See if the item is a meatsmithing component.
 		meatsmithingPattern = PatternManager.getOrCompilePattern("isMeatsmithingComponent")
 		match = meatsmithingPattern.search(self.responseText)
 		if match:
-			return True
-		return False
-	
-	def isJewelrymakingComponent(self):
+			self.responseData["isMeatsmithingComponent"] = True
+		
+		# See if the item is a jewelrymaking component.
 		jewelrymakingPattern = PatternManager.getOrCompilePattern("isJewelrymakingComponent")
 		match = jewelrymakingPattern.search(self.responseText)
 		if match:
-			return True
-		return False
+			self.responseData["isJewelrymakingComponent"] = True

@@ -33,3 +33,13 @@ class GenericRequest(object):
 			if self.session.isConnected:
 				self.session.isConnected = False
 				raise NotLoggedInError("You are no longer connected to the server.")
+		
+		# Allow for classes that extend GenericRequest to parse all of the data someone
+		# would need from the response and then to place this data in self.responseData.
+		self.responseData = {}
+		if self.parseResponse != None and self.skipParseResponse == None:
+			self.parseResponse()
+			if len(self.responseData) > 0:
+				Report.debug("request", "Parsed response data: %s" % self.responseData)
+		
+		return self.responseData
