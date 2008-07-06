@@ -1,3 +1,11 @@
+"""
+This module holds all of the regular expression patterns that pykol uses. It makes sense
+to store them all in the same place since many patterns are used by multiple requests.
+The 'patterns' data object is a dictionary mapping patternId to pattern. If pattern is a tuple,
+then the first element of the tuple should be the pattern while the second element is a flag
+to pass to re.compile (like re.DOTALL).
+"""
+
 import re
 
 patterns = {
@@ -13,8 +21,8 @@ patterns = {
 	"loginURL" : r'^(.*)login\.php\?loginid=([0-9a-f]+)',
 	"mainFrameset" : r'<frameset id="?rootset"?',
 	"tooManyLoginsFailuresFromThisIP" : r'Too many login failures from this IP',
-	"waitOneMinuteLoginError" : r'Too many login attempts in too short a span of time',
-	"waitTwoMinutesLoginError" : r"Whoops -- it looks like you had a recent session open that didn't get logged out of properly\.",
+	"waitOneMinuteLoginError" : r'Please wait a minute',
+	"waitTwoMinutesLoginError" : r"you'll need to wait a couple of minutes before you can log in again\.",
 	"waitFifteenMinutesLoginError" : r'Please wait fifteen minutes and try again\.',
 	
 	# Item-related patterns.
