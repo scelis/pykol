@@ -8,7 +8,7 @@ class ItemDescriptionRequest(GenericRequest):
 		super(ItemDescriptionRequest, self).__init__(session)
 		self.url = session.serverURL + "desc_item.php?whichitem=%s" % descId
 		
-	def parseResults(self):
+	def parseResponse(self):
 		# Get the item name.
 		itemNamePattern = PatternManager.getOrCompilePattern("itemName")
 		match = itemNamePattern.search(self.responseText)
