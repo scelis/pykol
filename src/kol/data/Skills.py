@@ -188,4 +188,100 @@ skills = [
 			"weakensFood" : True,
 		},
 	},
+	{
+		"id" : "0028",
+		"name" : "Awesome Balls of Fire",
+		"type" : "Combat",
+		"mpCost" : 120,
+	},
+	{
+		"id" : "0029",
+		"name" : "Conjure Relaxing Campfire",
+		"type" : "Combat",
+		"mpCost" : 30,
+	},
+	{
+		"id" : "0030",
+		"name" : "Snowclone",
+		"type" : "Combat",
+		"mpCost" : 120,
+	},
+	{
+		"id" : "0031",
+		"name" : "Maximum Chill",
+		"type" : "Combat",
+		"mpCost" : 30,
+	},
+	{
+		"id" : "0032",
+		"name" : "Eggsplosion",
+		"type" : "Combat",
+		"mpCost" : 120,
+	},
+	{
+		"id" : "0033",
+		"name" : "Mudbath",
+		"type" : "Combat",
+		"mpCost" : 30,
+	},
+	{
+		"id" : "0036",
+		"name" : "Grease Lightning",
+		"type" : "Combat",
+		"mpCost" : 120,
+	},
+	{
+		"id" : "0037",
+		"name" : "Inappropriate Backrub",
+		"type" : "Combat",
+		"mpCost" : 30,
+	},
+	{
+		"id" : "0038",
+		"name" : "Natural Born Scrabbler",
+		"type" : "Passive",
+		"effects" :
+		{
+			"itemDrop" : "+5%",
+		},
+	},
+	{
+		"id" : "0039",
+		"name" : "Thrift and Grift",
+		"type" : "Passive",
+		"effects" :
+		{
+			"meatDrop" : "+10%",
+		},
+	},
+	{
+		"id" : "0040",
+		"name" : "Abs of Tin",
+		"type" : "Passive",
+		"effects" :
+		{
+			"maximumHP" : "+10%",
+		},
+	},
+	{
+		"id" : "0041",
+		"name" : "Marginally Insane",
+		"type" : "Passive",
+		"effects" :
+		{
+			"maximumMP" : "+10%",
+		},
+	},
+	{
+		"id" : "0042",
+		"name" : "Raise Backup Dancer",
+		"type" : "Combat",
+		"mpCost" : 120,
+	},
+	{
+		"id" : "0043",
+		"name" : "Creepy Lullaby",
+		"type" : "Combat",
+		"mpCost" : 30,
+	},
 ]
