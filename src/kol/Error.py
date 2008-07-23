@@ -2,6 +2,9 @@ class Error(Exception):
 	"Base class for KoL Exceptions."
 	def __init__(self, message):
 		self.message = message
+	
+	def __str__(self):
+		return self.message
 
 class IncorrectPasswordError(Error):
 	"An exception raised when a user tries to login with a bad password."
