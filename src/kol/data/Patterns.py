@@ -12,6 +12,7 @@ patterns = {
 	# General patterns.
 	"whitespace" : r'([\t ]+)',
 	"results" : r'<b>Results:<\/b><\/td><\/tr><tr><td[^<>]*><center><table><tr><td>(.*?)</td></tr></table></center></td></tr>',
+	"htmlComment" : r'<!--.*?-->',
 	
 	# Login-related patterns.
 	"accountPwd" : r"name=\"?pwd\"? value='([0-9a-f]+)'",
@@ -51,4 +52,13 @@ patterns = {
 	# Error patterns.
 	"cantPulverizeItem" : r"<td>That's not something you can pulverize\.<\/td>",
 	"notEnoughItems" : r"<td>You haven't got that many\.<\/td>",
+	
+	# Chat patterns.
+	"currentChatChannel" : r'<font color="?[a-zA-Z]+"?>Currently in channel: ([^<>]+)<',
+	"chatLastSeen" : r"lastseen:([0-9]+)",
+	"chatChannel" : r'^<font color="?[a-zA-Z]+"?>\[([^<>]+)\]<\/font> ',
+	"chatMessage" : r'<b><a target=mainpane href="showplayer\.php\?who=([0-9]+)"><font color="?[a-zA-Z]+"?>([^<>]+)<\/font><\/b><\/a>: (.*)$',
+	"chatEmote" : r'<b><i><a target=mainpane href="showplayer\.php\?who=([0-9]+)"><font color="?[a-zA-Z]+"?>([^<>]+)<\/b><\/font><\/a> (.*)<\/i>$',
+	"privateChat" : r'<a target=mainpane href="showplayer\.php\?who=([0-9]+)"><font color="?blue"?><b>([^)]+) \(private\):<\/b><\/a> (.*)</font>$',
+	"chatNewKmailNotification" : r'<a target=mainpane href="messages\.php"><font color=green>New message received from <a target=mainpane href=\'showplayer\.php\?who=([0-9]+)\'><font color=green>([^<>]+)<\/font><\/a>\.<\/font><\/a>$',
 }
