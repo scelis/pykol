@@ -2,7 +2,6 @@ from kol.manager import PatternManager
 from kol.request.GetChatMessagesRequest import GetChatMessagesRequest
 from kol.request.OpenChatRequest import OpenChatRequest
 from kol.request.SendChatRequest import SendChatRequest
-from kol.util import Report
 
 import time
 
@@ -82,7 +81,6 @@ class ChatManager(object):
 		# Send the message(s).
 		chats = []
 		for message in messages:
-			Report.trace("chat", "Sending chat message: %s" % message)
 			r = SendChatRequest(self.session, message)
 			data = r.doRequest()
 			tmpChats = data["chatMessages"]

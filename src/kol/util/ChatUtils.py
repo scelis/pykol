@@ -33,7 +33,7 @@ def parseMessages(text):
 			match = chatPattern.search(line)
 			if match:
 				chat["type"] = "normal"
-				chat["userId"] = match.group(1)
+				chat["userId"] = int(match.group(1))
 				chat["userName"] = match.group(2)
 				chat["text"] = StringUtils.htmlEntityDecode(match.group(3)).strip()
 				parsedChat = True
@@ -43,7 +43,7 @@ def parseMessages(text):
 			match = emotePattern.search(line)
 			if match:
 				chat["type"] = "emote"
-				chat["userId"] = match.group(1)
+				chat["userId"] = int(match.group(1))
 				chat["userName"] = match.group(2)
 				chat["text"] = StringUtils.htmlEntityDecode(match.group(3)).strip()
 				parsedChat = True
@@ -53,7 +53,7 @@ def parseMessages(text):
 			match = privateChatPattern.search(line)
 			if match:
 				chat["type"] = "private"
-				chat["userId"] = match.group(1)
+				chat["userId"] = int(match.group(1))
 				chat["userName"] = match.group(2)
 				chat["text"] = StringUtils.htmlEntityDecode(match.group(3)).strip()
 				parsedChat = True
@@ -63,7 +63,7 @@ def parseMessages(text):
 			match = newKmailPattern.search(line)
 			if match:
 				chat["type"] = "notification:kmail"
-				chat["userId"] = match.group(1)
+				chat["userId"] = int(match.group(1))
 				chat["userName"] = match.group(2)
 				parsedChat = True
 		
