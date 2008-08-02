@@ -49,7 +49,7 @@ def handleClanChat(context, **kwargs):
 	if chat["type"] == "normal":
 		msg = "/clan [%s] %s" % (chat["userName"], chat["text"])
 	elif chat["type"] == "emote":
-		msg = "/clan [%s %s]" % (chat["userName"], chat["text"])
+		msg = "/clan <%s %s>" % (chat["userName"], chat["text"])
 	
 	# Send the message to the other bots.
 	if msg != None:
