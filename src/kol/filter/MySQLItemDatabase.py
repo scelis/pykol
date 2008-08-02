@@ -3,10 +3,14 @@ from kol.manager import FilterManager
 from kol.manager import MySQLDatabaseManager
 
 def doFilter(eventName, context, **kwargs):
+	returnCode = FilterManager.CONTINUE
+	
 	if eventName == "preInitializeItemDatabase":
-		preInitializeItemDatabase(context, **kwargs)
+		returnCode = preInitializeItemDatabase(context, **kwargs)
 	elif eventName == "discoveredNewItem":
-		discoveredNewItem(context, **kwargs)
+		returnCode = discoveredNewItem(context, **kwargs)
+	
+	return returnCode
 
 def preInitializeItemDatabase(context, **kwargs):
 	db = MySQLDatabaseManager.getDatabase("system")
@@ -24,7 +28,7 @@ def preInitializeItemDatabase(context, **kwargs):
 		ItemDatabase.addItem(item)
 		row = c.fetchone()
 	c.close()
-	context["returnCode"] = FilterManager.FINISHED
+	return FilterManager.FINISHED
 
 def discoveredNewItem(context, **kwargs):
 	if "item" in kwargs:
@@ -49,3 +53,5 @@ def discoveredNewItem(context, **kwargs):
 			(item["id"], item["descId"], item["name"], image, autosell, itemType))
 		c.close()
 		db.commit()
+	
+	return FilterManager.CONTINUE

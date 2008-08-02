@@ -4,10 +4,12 @@ from kol.manager import FilterManager
 _path = None
 
 def doFilter(eventName, context, **kwargs):
+	returnCode = FilterManager.CONTINUE
+	
 	if eventName == "preInitializeItemDatabase":
-		preInitializeItemDatabase(context, **kwargs)
+		returnCode = preInitializeItemDatabase(context, **kwargs)
 	elif eventName == "discoveredNewItem":
-		discoveredNewItem(context, **kwargs)
+		returnCode = discoveredNewItem(context, **kwargs)
 
 def preInitializeItemDatabase(context, **kwargs):
 	f = None
@@ -31,7 +33,8 @@ def preInitializeItemDatabase(context, **kwargs):
 				ItemDatabase.addItem(item)
 			line = f.readline()
 		f.close()
-	context["returnCode"] = FilterManager.FINISHED
+		
+	return FilterManager.FINISHED
 
 def discoveredNewItem(context, **kwargs):
 	if "item" in kwargs:
@@ -39,3 +42,5 @@ def discoveredNewItem(context, **kwargs):
 		f = open(_path, "a")
 		f.write("%s\t%s\t%s\t%s\t%s\n" % (item["id"], item["descId"], item["name"], item["image"], item["autosell"]))
 		f.close()
+	
+	return FilterManager.CONTINUE

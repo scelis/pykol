@@ -12,12 +12,14 @@ from kol.util import Report
 import re
 
 def doFilter(eventName, context, **kwargs):
+	returnCode = FilterManager.CONTINUE
 	if eventName == "couldNotFindItem":
-		couldNotFindItem(context, **kwargs)
+		returnCode = couldNotFindItem(context, **kwargs)
+	return returnCode
 
 def couldNotFindItem(context, **kwargs):
 	if "session" not in kwargs:
-		return
+		return FilterManager.CONTINUE
 		
 	session = kwargs["session"]
 	item = None
@@ -62,4 +64,4 @@ def couldNotFindItem(context, **kwargs):
 		Report.trace("itemdatabase", "Discovered new item: %s" % item)
 		
 		context["item"] = item
-		FilterManager.executeFiltersForEvent("discoveredNewItem", session=session, item=item)
+		FilterManager.executeFiltersForEvent("discoveredNewItem", context, session=session, item=item)

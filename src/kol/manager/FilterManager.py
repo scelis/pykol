@@ -27,19 +27,37 @@ def registerFilterForEvent(filter, eventName, loadOrder=10):
 	else:
 		__filters[eventName] = [(filter, loadOrder)]
 
-def executeFiltersForEvent(eventName, **kwargs):
+def executeFiltersForEvent(eventName, context=None, **kwargs):
 	"""
 	Iterates through all filters registered for this particular event and executes then in
 	order. A context is passed into each filter and then returned to allow filters to
 	communicate with one another as well as with the original caller. We allow filters
-	to end the execution chain early by setting context["returnCode"] to
-	FilterManager.ABORT or FilterManager.FINISHED.
+	to end the execution chain early by returning FilterManager.ABORT or FilterManager.FINISHED.
 	"""
-	context = {}
-	if eventName in __filters:
-		for filter in __filters[eventName]:
-			filter[0].doFilter(eventName, context, **kwargs)
-			if "returnCode" in context and context["returnCode"] != CONTINUE:
-				break
+	if context == None:
+		context = {}
+	
+	index = eventName.find(':')
+	if index < 0:
+		realEventName = eventName
+	else:
+		realEventName = eventName[:index]
+	
+	returnCode = CONTINUE
+	keepGoing = True
+	while keepGoing:
+		if eventName in __filters:
+			for filter in __filters[eventName]:
+				returnCode = filter[0].doFilter(realEventName, context, **kwargs)
+				if returnCode != CONTINUE:
+					keepGoing = False
+					break
+		
+		if eventName == realEventName:
+			keepGoing = False
+		else:
+			index = eventName.rfind(':')
+			if index >= 0:
+				eventName = eventName[:index]
 			
-	return context
+	return returnCode

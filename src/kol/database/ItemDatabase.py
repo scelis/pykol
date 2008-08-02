@@ -21,8 +21,8 @@ def init():
 		return
 	
 	Report.trace("itemdatabase", "Initializing the item database.")
-	cxt = FilterManager.executeFiltersForEvent("preInitializeItemDatabase")
-	if "returnCode" in cxt and cxt["returnCode"] == FilterManager.FINISHED:
+	returnCode = FilterManager.executeFiltersForEvent("preInitializeItemDatabase")
+	if returnCode == FilterManager.FINISHED:
 		Report.trace("itemdatabase", "Item database initialized.")
 		__isInitialized = True
 		return
@@ -50,7 +50,8 @@ def getItemFromId(itemId, session=None):
 	try:
 		return __itemsById[itemId].copy()
 	except KeyError:
-		cxt = FilterManager.executeFiltersForEvent("couldNotFindItem", session=session, itemId=itemId)
+		cxt = {}
+		FilterManager.executeFiltersForEvent("couldNotFindItem", cxt, session=session, itemId=itemId)
 		if "item" in cxt:
 			item = cxt["item"]
 			addItem(item)
@@ -65,7 +66,8 @@ def getItemFromDescId(descId, session=None):
 	try:
 		return __itemsByDescId[descId].copy()
 	except KeyError:
-		cxt = FilterManager.executeFiltersForEvent("couldNotFindItem", session=session, descId=descId)
+		cxt = {}
+		FilterManager.executeFiltersForEvent("couldNotFindItem", cxt, session=session, descId=descId)
 		if "item" in cxt:
 			item = cxt["item"]
 			addItem(item)
@@ -80,7 +82,8 @@ def getItemFromName(itemName, session=None):
 	try:
 		return __itemsByName[itemName].copy()
 	except KeyError:
-		cxt = FilterManager.executeFiltersForEvent("couldNotFindItem", session=session, itemName=itemName)
+		cxt = {}
+		FilterManager.executeFiltersForEvent("couldNotFindItem", cxt, session=session, itemName=itemName)
 		if "item" in cxt:
 			item = cxt["item"]
 			addItem(item)

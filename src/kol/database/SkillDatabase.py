@@ -20,8 +20,8 @@ def init():
 		return
 	
 	Report.trace("skilldatabase", "Initializing the skill database.")
-	cxt = FilterManager.executeFiltersForEvent("preInitializeSkillDatabase")
-	if "returnCode" in cxt and cxt["returnCode"] == FilterManager.FINISHED:
+	returnCode = FilterManager.executeFiltersForEvent("preInitializeSkillDatabase")
+	if returnCode == FilterManager.FINISHED:
 		Report.trace("skilldatabase", "Skill database initialized.")
 		__isInitialized = True
 		return
@@ -46,7 +46,8 @@ def getSkillFromId(skillId, session=None):
 	try:
 		return __skillsById[skillId].copy()
 	except KeyError:
-		cxt = FilterManager.executeFiltersForEvent("couldNotFindSkill", session=session, skillId=skillId)
+		cxt = {}
+		FilterManager.executeFiltersForEvent("couldNotFindSkill", cxt, session=session, skillId=skillId)
 		if "skill" in cxt:
 			skill = cxt["skill"]
 			addSkill(skill)
@@ -61,7 +62,8 @@ def getSkillFromName(skillName, session=None):
 	try:
 		return __skillsByName[skillName].copy()
 	except KeyError:
-		cxt = FilterManager.executeFiltersForEvent("couldNotFindSkill", session=session, skillName=skillName)
+		cxt = {}
+		FilterManager.executeFiltersForEvent("couldNotFindSkill", cxt, session=session, skillName=skillName)
 		if "skill" in cxt:
 			skill = cxt["skill"]
 			addSkill(skill)
