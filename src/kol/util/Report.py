@@ -1,4 +1,5 @@
 import os
+import threading
 import time
 import traceback
 
@@ -13,6 +14,7 @@ DEBUG = 700
 activeSections = ["*"]
 outputLevel = TRACE
 logLevel = INFO
+includeThreadName = False
 
 __logDirectory = None
 __logFileName = None
@@ -44,8 +46,18 @@ def report(section, level, message, exception=None):
 		if level <= outputLevel or level <= logLevel:
 			dateTimeStr = time.strftime("%Y-%m-%d %H:%M:%S")
 			
+			# Create the full message string.
+			if includeThreadName:
+				threadName = threading.currentThread().getName()
+				if threadName != "MainThread":
+					fullMessage = "%s -- [%s] %s" % (dateTimeStr, threadName, message)
+				else:
+					fullMessage = "%s -- %s" % (dateTimeStr, message)
+			else:
+				fullMessage = "%s -- %s" % (dateTimeStr, message)
+			
 			if level <= outputLevel:
-				print "%s -- %s" % (dateTimeStr, message)
+				print fullMessage
 				if exception != None:
 					print traceback.format_exc()
 			
@@ -59,7 +71,7 @@ def report(section, level, message, exception=None):
 					__logFile = open(filePath, 'a')
 					__logCurrentDate = currentDate
 				
-				__logFile.write("%s -- %s\n" % (dateTimeStr, message))
+				__logFile.write("%s\n" % fullMessage)
 				if exception != None:
 					__logFile.write(traceback.format_exc())
 				__logFile.flush()
