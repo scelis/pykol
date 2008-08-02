@@ -1,6 +1,28 @@
 from kol.manager import PatternManager
 from kol.util import StringUtils
 
+CHAT_CHANNELS = [
+	"clan",
+	"dev",
+	"foodcourt",
+	"games",
+	"haiku",
+	"hardcore",
+	"harem",
+	"hobopolis",
+	"kwe",
+	"lounge",
+	"mod",
+	"newbie",
+	"normal"
+	"pvp",
+	"radio",
+	"trade",
+	"valhalla",
+	"veteran",
+	"villa",
+]
+
 def parseMessages(text):
 	# Prepare the patterns.
 	htmlCommentPattern = PatternManager.getOrCompilePattern("htmlComment")
@@ -9,6 +31,10 @@ def parseMessages(text):
 	emotePattern = PatternManager.getOrCompilePattern("chatEmote")
 	privateChatPattern = PatternManager.getOrCompilePattern("privateChat")
 	newKmailPattern = PatternManager.getOrCompilePattern("chatNewKmailNotification")
+	linkPattern = PatternManager.getOrCompilePattern("chatLink")
+	fontBoldPattern = PatternManager.getOrCompilePattern("fontBoldText")
+	italicPattern = PatternManager.getOrCompilePattern("italicText")
+	chatWhoPattern = PatternManager.getOrCompilePattern("chatWhoResponse")
 	
 	# Get the chat messages.
 	chats = []
@@ -67,6 +93,46 @@ def parseMessages(text):
 				chat["userName"] = match.group(2)
 				parsedChat = True
 		
+		# See if this is a /who response.
+		if parsedChat == False:
+			if chatWhoPattern.search(line):
+				chat["type"] = "who"
+				chat["users"] = []
+				chatWhoPersonPattern = PatternManager.getOrCompilePattern("chatWhoPerson")
+				for match in chatWhoPersonPattern.finditer(line):
+					userId = match.group(1)
+					userName = match.group(2)
+					chat["users"].append({"userId":userId, "userName":userName})
+				parsedChat = True
+		
+		# Parse any links.
+		if parsedChat and "text" in chat:
+			match = linkPattern.search(chat["text"])
+			while match != None:
+				url = match.group(1)
+				urlIndex = 0
+				textStart = match.end()
+				textEnd = textStart
+				found = False
+				while found == False:
+					if chat["text"][textEnd] == url[urlIndex]:
+						textEnd += 1
+						urlIndex += 1
+					elif chat["text"][textEnd] == ' ':
+						textEnd += 1
+						
+					if urlIndex == len(url) - 1:
+						found = True
+				
+				newText = chat["text"][:match.start()] + url + chat["text"][textEnd+1:]
+				chat["text"] = newText
+				match = linkPattern.search(chat["text"])
+		
+		# Clean up the text.
+		if parsedChat and "text" in chat:
+			chat["text"] = fontBoldPattern.sub(r'\1', chat["text"])
+			chat["text"] = italicPattern.sub(r'\1', chat["text"])
+		
 		# Handle unrecognized chat messages.
 		if parsedChat == False:
 			chat["type"] = "unknown"
@@ -75,3 +141,35 @@ def parseMessages(text):
 		chats.append(chat)
 	
 	return chats
+
+def cleanChatMessageToSend(text):
+	"Cleans a chat message by removing extra whitespace."
+	text = text.strip()
+	whitespacePattern = PatternManager.getOrCompilePattern('whitespace')
+	text = whitespacePattern.sub(' ', text)
+	return text
+
+def parseChatMessageToSend(text):
+	"This function assumes that the text has already been cleaned using cleanChatMessageToSend()."
+	
+	# We need to break up the chat message into chunks.
+	arr = text.split(' ')
+	lowerText = text.lower()
+	chatInfo = {}
+	
+	if arr[0].find('/') == 0:
+		if arr[0] in ["/msg", "/whisper", "/w", "/tell"] and len(arr) > 2:
+			chatInfo["type"] = "private"
+			chatInfo["recipient"] = arr[1]
+		elif arr[0][1:] in CHAT_CHANNELS:
+			chatInfo["type"] = "channel"
+			chatInfo["channel"] = arr[0][1:]
+			if len(arr) > 2 and arr[0] in ["/me", "/em"]:
+				chatInfo["isEmote"] = True
+		elif arr[0] in ["/me", "/em"]:
+			chatInfo["type"] = "channel"
+			chatInfo["isEmote"] = True
+	else:
+		chatInfo["type"] = "channel"
+	
+	return chatInfo

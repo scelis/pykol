@@ -14,8 +14,3 @@ class SendChatRequest(GenericRequest):
 	def parseResponse(self):
 		# Parse the chat messages returned.
 		self.responseData["chatMessages"] = ChatUtils.parseMessages(self.responseText)
-		
-		# Sleep otherwise the server might display chat messages out of order if we send
-		# a bunch in a row.
-		time.sleep(2)
-		
