@@ -75,7 +75,9 @@ class ChatManager(object):
 				
 				if len(messages) > 0:
 					msg = "..." + msg
-				messages.append(prefix + msg)
+					messages.append(prefix + msg)
+				else:
+					messages.append(msg)
 				
 			if len(messages) > 0:
 				messages.append(prefix + "..." + text)
