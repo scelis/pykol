@@ -44,6 +44,10 @@ def handleClanChat(context, **kwargs):
 	if lowerText.find("private:") == 0:
 		return FilterManager.CONTINUE
 	
+	# Do nothing for broadcasted messages.
+	if chat["userName"] == "System Message":
+		return FilterManager.CONTINUE
+	
 	# Construct the message to send to the other bots.
 	msg = None
 	if chat["type"] == "normal":
