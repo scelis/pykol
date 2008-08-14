@@ -35,6 +35,7 @@ def parseMessages(text):
 	fontBoldPattern = PatternManager.getOrCompilePattern("fontBoldText")
 	italicPattern = PatternManager.getOrCompilePattern("italicText")
 	chatWhoPattern = PatternManager.getOrCompilePattern("chatWhoResponse")
+	linkedPlayerPattern = PatternManager.getOrCompilePattern("chatLinkedPlayer")
 	
 	# Get the chat messages.
 	chats = []
@@ -61,7 +62,7 @@ def parseMessages(text):
 				chat["type"] = "normal"
 				chat["userId"] = int(match.group(1))
 				chat["userName"] = match.group(2)
-				chat["text"] = StringUtils.htmlEntityDecode(match.group(3)).strip()
+				chat["text"] = match.group(3).strip()
 				parsedChat = True
 		
 		# See if this was an emote.
@@ -71,7 +72,7 @@ def parseMessages(text):
 				chat["type"] = "emote"
 				chat["userId"] = int(match.group(1))
 				chat["userName"] = match.group(2)
-				chat["text"] = StringUtils.htmlEntityDecode(match.group(3)).strip()
+				chat["text"] = match.group(3).strip()
 				parsedChat = True
 				
 		# See if this was a private message.
@@ -81,7 +82,7 @@ def parseMessages(text):
 				chat["type"] = "private"
 				chat["userId"] = int(match.group(1))
 				chat["userName"] = match.group(2)
-				chat["text"] = StringUtils.htmlEntityDecode(match.group(3)).strip()
+				chat["text"] = match.group(3).strip()
 				parsedChat = True
 		
 		# See if this is a new kmail notification.
@@ -105,8 +106,11 @@ def parseMessages(text):
 					chat["users"].append({"userId":userId, "userName":userName})
 				parsedChat = True
 		
-		# Parse any links.
 		if parsedChat and "text" in chat:
+			# Parse user links.
+			chat["text"] = linkedPlayerPattern.sub(r'\2', chat["text"])
+		
+			# Parse misc links.
 			match = linkPattern.search(chat["text"])
 			while match != None:
 				url = match.group(1)
@@ -127,9 +131,11 @@ def parseMessages(text):
 				newText = chat["text"][:match.start()] + url + chat["text"][textEnd+1:]
 				chat["text"] = newText
 				match = linkPattern.search(chat["text"])
+			
+			# Decode HTML entities.
+			chat["text"] = StringUtils.htmlEntityDecode(chat["text"])
 		
-		# Clean up the text.
-		if parsedChat and "text" in chat:
+			# Clean up the text.
 			chat["text"] = fontBoldPattern.sub(r'\1', chat["text"])
 			chat["text"] = italicPattern.sub(r'\1', chat["text"])
 		

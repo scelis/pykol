@@ -66,4 +66,5 @@ patterns = {
 	"italicText" : r'<i>([^<>]*)<\/i>',
 	"chatWhoResponse" : r'<table><tr><td class=tiny><center><b>Players in this channel:',
 	"chatWhoPerson" : r'<a target="?mainpane"? href="showplayer\.php\?who=([0-9]+)"><font color="?[a-zA-Z]+"?>([^<>]+)<\/font><\/a>',
+	"chatLinkedPlayer" : r"<a style='color: [a-zA-Z]+' href='showplayer\.php\?who=([0-9]+)' target=mainpane>([^<]+)<\/a>",
 }
