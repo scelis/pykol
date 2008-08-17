@@ -361,6 +361,9 @@ def readTradeItemsFile():
 def readModifiersFile():
 	text = _opener.open(MODIFIERS_FILE).read()
 	for line in text.splitlines():
+		if line == "# Special case overrides":
+			break
+		
 		if len(line) > 0 and line[0] != '#':
 			parts = line.split('\t')
 			if len(parts) >= 2:
