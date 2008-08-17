@@ -12317,6 +12317,11 @@ items = [
 		"plural" : "tins of Retenez L'Herbe Pat&eacute;",
 		"type" : "food",
 		"image" : "pate.gif",
+		"fullness" : 3,
+		"adventuresGained" : "13-20",
+		"muscleGained" : "40-50",
+		"mysticalityGained" : "40-50",
+		"moxieGained" : "40-50",
 	},
 	{
 		"id" : 1154,
@@ -24366,6 +24371,7 @@ items = [
 		"image" : "confetti.gif",
 		"autosell" : 1000,
 		"isUsable" : True,
+		"isMultiUsable" : True,
 	},
 	{
 		"id" : 2330,
@@ -26201,6 +26207,7 @@ items = [
 		"image" : "junk1.gif",
 		"autosell" : 350,
 		"requiredMysticality" : 75,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"mpRegen" : "3-4",
@@ -26216,6 +26223,7 @@ items = [
 		"image" : "junk2.gif",
 		"autosell" : 400,
 		"requiredMysticality" : 75,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"spellDamage" : "+15",
@@ -26229,6 +26237,7 @@ items = [
 		"image" : "junk3.gif",
 		"autosell" : 450,
 		"requiredMysticality" : 75,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"mysticality" : "+11",
@@ -26243,6 +26252,7 @@ items = [
 		"image" : "junk4.gif",
 		"autosell" : 200,
 		"requiredMysticality" : 75,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"muscle" : "+5",
@@ -26257,6 +26267,7 @@ items = [
 		"image" : "junk5.gif",
 		"autosell" : 250,
 		"requiredMysticality" : 75,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"muscle" : "+9",
@@ -26271,6 +26282,7 @@ items = [
 		"image" : "junk6.gif",
 		"autosell" : 150,
 		"requiredMuscle" : 75,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"meleeDamage" : "+11",
@@ -32636,7 +32648,7 @@ items = [
 	{
 		"id" : 3116,
 		"descId" : 533429176,
-		"name" : "Stuffed Hodgman",
+		"name" : "stuffed Hodgman",
 		"plural" : "stuffed Hodgmen",
 		"type" : "usable",
 		"image" : "stuffhodg.gif",
@@ -32839,6 +32851,36 @@ items = [
 		"autosell" : 110,
 	},
 	{
+		"id" : 3138,
+		"descId" : 118492859,
+		"name" : "Hodgman's whackin' stick",
+		"type" : "weapon (1-handed club)",
+		"image" : "whackstick.gif",
+		"autosell" : 0,
+		"requiredMuscle" : 200,
+		"enchantments" :
+		{
+			"musclePercent" : "+20",
+			"mysticalityPercent" : "+20",
+			"moxiePercent" : "+20",
+		},
+	},
+	{
+		"id" : 3139,
+		"descId" : 648809275,
+		"name" : "Hodgman's imaginary hamster",
+		"type" : "off-hand item",
+		"image" : "blank.gif",
+		"autosell" : 0,
+		"requiredMysticality" : 200,
+		"enchantments" :
+		{
+			"musclePercent" : "+20",
+			"mysticalityPercent" : "+20",
+			"moxiePercent" : "+20",
+		},
+	},
+	{
 		"id" : 3140,
 		"descId" : 114249239,
 		"name" : "old soft shoes",
@@ -32872,6 +32914,28 @@ items = [
 		"enchantments" :
 		{
 			"meatDrop" : "+15",
+		},
+	},
+	{
+		"id" : 3143,
+		"descId" : 727586163,
+		"name" : "Hodgman's disgusting technicolor overcoat",
+		"type" : "shirt",
+		"image" : "hobovercoat.gif",
+		"autosell" : 0,
+		"requiredMuscle" : 200,
+		"enchantments" :
+		{
+			"coldDamage" : "+15",
+			"hotDamage" : "+15",
+			"sleazeDamage" : "+15",
+			"spookyDamage" : "+15",
+			"stenchDamage" : "+15",
+			"coldResistance" : "+5",
+			"hotResistance" : "+5",
+			"sleazeResistance" : "+5",
+			"spookyResistance" : "+5",
+			"stenchResistance" : "+5",
 		},
 	},
 	{
@@ -33443,6 +33507,7 @@ items = [
 		"outfit" : "Pyretic Panhandler Paraphernalia",
 		"image" : "ninjapants.gif",
 		"requiredMysticality" : 200,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"coldResistance" : "+3",
@@ -33457,6 +33522,7 @@ items = [
 		"outfit" : "Pyretic Panhandler Paraphernalia",
 		"image" : "stovehat.gif",
 		"requiredMysticality" : 200,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"mysticalityPercent" : "+20",
@@ -33471,6 +33537,7 @@ items = [
 		"outfit" : "Pyretic Panhandler Paraphernalia",
 		"image" : "handcan.gif",
 		"requiredMysticality" : 200,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"spellDamagePercent" : "+100",
@@ -33504,6 +33571,7 @@ items = [
 		"outfit" : "Hyperborean Hobo Habiliments",
 		"image" : "frostyhat.gif",
 		"requiredMuscle" : 200,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"musclePercent" : "+20",
@@ -33519,6 +33587,7 @@ items = [
 		"image" : "frostycarrot.gif",
 		"requiredMuscle" : 200,
 		"isMaxEquipOne" : True,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"sleazeResistance" : "+3",
@@ -33533,6 +33602,7 @@ items = [
 		"outfit" : "Hyperborean Hobo Habiliments",
 		"image" : "frostynailbat.gif",
 		"requiredMuscle" : 200,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"musclePercent" : "+30",
@@ -33548,6 +33618,7 @@ items = [
 		"image" : "ratskin.gif",
 		"requiredMysticality" : 200,
 		"isMaxEquipOne" : True,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"mysticalityPercent" : "+20",
@@ -33562,6 +33633,7 @@ items = [
 		"outfit" : "Vile Vagrant Vestments",
 		"image" : "oscuswand.gif",
 		"requiredMysticality" : 200,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"spellDamagePercent" : "+100",
@@ -33576,6 +33648,7 @@ items = [
 		"outfit" : "Vile Vagrant Vestments",
 		"image" : "yakpants.gif",
 		"requiredMysticality" : 200,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"hotResistance" : "+3",
@@ -33590,6 +33663,7 @@ items = [
 		"outfit" : "Dire Drifter Duds",
 		"image" : "skullcap.gif",
 		"requiredMuscle" : 200,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"musclePercent" : "+20",
@@ -33603,6 +33677,7 @@ items = [
 		"outfit" : "Dire Drifter Duds",
 		"image" : "zomboshield.gif",
 		"requiredMuscle" : 200,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"musclePercent" : "+20",
@@ -33618,6 +33693,7 @@ items = [
 		"outfit" : "Dire Drifter Duds",
 		"image" : "bonepants.gif",
 		"requiredMuscle" : 200,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"coldResistance" : "+3",
@@ -33633,6 +33709,7 @@ items = [
 		"image" : "chestache.gif",
 		"requiredMoxie" : 200,
 		"isMaxEquipOne" : True,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"sleazeDamage" : "+20",
@@ -33646,6 +33723,7 @@ items = [
 		"outfit" : "Tawdry Tramp Togs",
 		"image" : "candybag.gif",
 		"requiredMoxie" : 200,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"moxiePercent" : "+10",
@@ -33660,6 +33738,7 @@ items = [
 		"outfit" : "Tawdry Tramp Togs",
 		"image" : "cutoffs.gif",
 		"requiredMoxie" : 200,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"hotResistance" : "+3",
@@ -34057,6 +34136,7 @@ items = [
 		"id" : 3319,
 		"descId" : 419047697,
 		"name" : "Mr. Joe's bangles",
+		"plural" : "sets of Mr. Joe's bangles",
 		"type" : "accessory",
 		"image" : "bangles.gif",
 		"autosell" : 200,
@@ -34085,6 +34165,7 @@ items = [
 		"id" : 3321,
 		"descId" : 876664237,
 		"name" : "packet of mayfly bait",
+		"plural" : "packets of mayfly bait",
 		"type" : "usable",
 		"image" : "mayflybait.gif",
 		"isUsable" : True,
@@ -34332,6 +34413,7 @@ items = [
 		"id" : 3344,
 		"descId" : 437736715,
 		"name" : "bed of coals",
+		"plural" : "beds of coals",
 		"type" : "usable",
 		"image" : "coalbed.gif",
 		"isUsable" : True,
@@ -34340,6 +34422,7 @@ items = [
 		"id" : 3345,
 		"descId" : 527732082,
 		"name" : "frigid air mattress",
+		"plural" : "frigid air mattresses",
 		"type" : "usable",
 		"image" : "airmattress.gif",
 		"isUsable" : True,
@@ -34364,6 +34447,7 @@ items = [
 		"id" : 3348,
 		"descId" : 736849781,
 		"name" : "stained mattress",
+		"plural" : "stained mattresses",
 		"type" : "usable",
 		"image" : "mattress.gif",
 		"isUsable" : True,
@@ -34459,6 +34543,7 @@ items = [
 		"image" : "ant1.gif",
 		"autosell" : 3,
 		"isUsable" : True,
+		"isMultiUsable" : True,
 	},
 	{
 		"id" : 3359,
@@ -34468,6 +34553,7 @@ items = [
 		"image" : "ant2.gif",
 		"autosell" : 3,
 		"isUsable" : True,
+		"isMultiUsable" : True,
 	},
 	{
 		"id" : 3360,
@@ -34477,6 +34563,7 @@ items = [
 		"image" : "stinkbug.gif",
 		"autosell" : 3,
 		"isUsable" : True,
+		"isMultiUsable" : True,
 	},
 	{
 		"id" : 3361,
@@ -34486,6 +34573,7 @@ items = [
 		"image" : "beetle.gif",
 		"autosell" : 3,
 		"isUsable" : True,
+		"isMultiUsable" : True,
 	},
 	{
 		"id" : 3362,
@@ -34495,6 +34583,7 @@ items = [
 		"image" : "louse.gif",
 		"autosell" : 3,
 		"isUsable" : True,
+		"isMultiUsable" : True,
 	},
 	{
 		"id" : 3363,
@@ -34636,6 +34725,7 @@ items = [
 		"id" : 3375,
 		"descId" : 141228944,
 		"name" : "The Ballad of Richie Thingfinder",
+		"plural" : "copies of The Ballad of Richie Thingfinder",
 		"type" : "usable",
 		"image" : "music.gif",
 		"isUsable" : True,
@@ -34644,6 +34734,7 @@ items = [
 		"id" : 3376,
 		"descId" : 258185206,
 		"name" : "Benetton's Medley of Diversity",
+		"plural" : "copies of Benetton's Medley of Diversity",
 		"type" : "usable",
 		"image" : "music.gif",
 		"isUsable" : True,
@@ -34652,6 +34743,7 @@ items = [
 		"id" : 3377,
 		"descId" : 220021939,
 		"name" : "Elron's Explosive Etude",
+		"plural" : "copies of Elron's Explosive Etude",
 		"type" : "usable",
 		"image" : "music.gif",
 		"isUsable" : True,
@@ -34660,6 +34752,7 @@ items = [
 		"id" : 3378,
 		"descId" : 701686239,
 		"name" : "Chorale of Companionship",
+		"plural" : "copies of Chorale of Companionship",
 		"type" : "usable",
 		"image" : "music.gif",
 		"isUsable" : True,
@@ -34668,6 +34761,7 @@ items = [
 		"id" : 3379,
 		"descId" : 243581726,
 		"name" : "Prelude of Precision",
+		"plural" : "copies of Prelude of Precision",
 		"type" : "usable",
 		"image" : "music.gif",
 		"isUsable" : True,
@@ -34859,6 +34953,7 @@ items = [
 		"outfit" : "Hodgman's Regal Frippery",
 		"image" : "porkpiehat.gif",
 		"requiredMoxie" : 200,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"musclePercent" : "+20",
@@ -34874,6 +34969,7 @@ items = [
 		"outfit" : "Hodgman's Regal Frippery",
 		"image" : "bpcords.gif",
 		"requiredMoxie" : 200,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"musclePercent" : "+20",
@@ -34890,6 +34986,7 @@ items = [
 		"image" : "hobowtie.gif",
 		"requiredMysticality" : 200,
 		"isMaxEquipOne" : True,
+		"isZappable" : True,
 		"enchantments" :
 		{
 			"musclePercent" : "+20",
@@ -34959,6 +35056,22 @@ items = [
 		"type" : "combat / usable item",
 		"image" : "lewdcard.gif",
 		"isUsable" : True,
+		"isMultiUsable" : True,
+	},
+	{
+		"id" : 3404,
+		"descId" : 861763537,
+		"name" : "deck of lewd playing cards",
+		"type" : "off-hand item",
+		"image" : "lewddeck.gif",
+		"autosell" : 0,
+		"requiredMysticality" : 22,
+		"enchantments" :
+		{
+			"moxiePercent" : "+5",
+			"sleazeDamage" : "+50",
+			"sleazeSpellDamage" : "+50",
+		},
 	},
 	{
 		"id" : 3405,
@@ -35065,11 +35178,307 @@ items = [
 		"isSoftcoreOnly" : True,
 	},
 	{
+		"id" : 3422,
+		"descId" : 800001289,
+		"name" : "sterno-flavored Hob-O",
+		"type" : "usable",
+		"image" : "hob-o.gif",
+		"autosell" : 5,
+		"isUsable" : True,
+		"isMultiUsable" : True,
+	},
+	{
+		"id" : 3423,
+		"descId" : 117092853,
+		"name" : "frostbite-flavored Hob-O",
+		"type" : "usable",
+		"image" : "hob-o.gif",
+		"autosell" : 5,
+		"isUsable" : True,
+		"isMultiUsable" : True,
+	},
+	{
+		"id" : 3424,
+		"descId" : 650853419,
+		"name" : "fry-oil-flavored Hob-O",
+		"type" : "usable",
+		"image" : "hob-o.gif",
+		"autosell" : 5,
+		"isUsable" : True,
+		"isMultiUsable" : True,
+	},
+	{
+		"id" : 3425,
+		"descId" : 586708288,
+		"name" : "garbage-juice-flavored Hob-O",
+		"type" : "usable",
+		"image" : "hob-o.gif",
+		"autosell" : 5,
+		"isUsable" : True,
+		"isMultiUsable" : True,
+	},
+	{
+		"id" : 3426,
+		"descId" : 951203806,
+		"name" : "strawberry-flavored Hob-O",
+		"type" : "usable",
+		"image" : "hob-o.gif",
+		"autosell" : 5,
+		"isUsable" : True,
+		"isMultiUsable" : True,
+	},
+	{
+		"id" : 3427,
+		"descId" : 965215365,
+		"name" : "roll of Hob-Os",
+		"plural" : "rolls of Hob-Os",
+		"type" : "usable",
+		"image" : "hob-oroll.gif",
+		"autosell" : 25,
+		"isUsable" : True,
+		"isMultiUsable" : True,
+	},
+	{
+		"id" : 3430,
+		"descId" : 656438917,
+		"name" : "bindle of joy",
+		"type" : "gift package",
+		"image" : "bindle.gif",
+		"autosell" : 0,
+		"isUsable" : True,
+	},
+	{
+		"id" : 3431,
+		"descId" : 960452345,
+		"name" : "cotton candy cocoon",
+		"type" : "familiar",
+		"image" : "cccoccoon.gif",
+		"autosell" : 0,
+	},
+	{
+		"id" : 3432,
+		"descId" : 723689501,
+		"name" : "cotton candy cordial",
+		"type" : "familiar equipment",
+		"image" : "cccordial.gif",
+		"autosell" : 75,
+	},
+	{
 		"id" : 3433,
 		"descId" : 569771218,
 		"name" : "spice melange",
 		"type" : "usable",
 		"image" : "melange.gif",
 		"isUsable" : True,
+	},
+	{
+		"id" : 3435,
+		"descId" : 768622816,
+		"name" : "big stirring stick",
+		"type" : "weapon (2-handed staff)",
+		"image" : "stirringstick.gif",
+		"autosell" : 105,
+		"requiredMuscle" : 35,
+		"enchantments" :
+		{
+			"mysticality" : "+5",
+			"spellDamage" : "+5",
+		},
+	},
+	{
+		"id" : 3436,
+		"descId" : 812870240,
+		"name" : "Staff of the Teapot Tempest",
+		"type" : "weapon (1-handed chefstaff)",
+		"image" : "chefstaff18.gif",
+		"autosell" : 0,
+		"requiredMysticality" : 25,
+		"enchantments" :
+		{
+			"mysticality" : "+5",
+			"mpRegen" : "3-4",
+			"spellDamagePercent" : "+25",
+		},
+	},
+	{
+		"id" : 3437,
+		"descId" : 707454044,
+		"name" : "Staff of the Black Kettle",
+		"type" : "weapon (1-handed chefstaff)",
+		"image" : "chefstaff19.gif",
+		"autosell" : 0,
+		"requiredMysticality" : 75,
+		"enchantments" :
+		{
+			"mysticality" : "+10",
+			"mpRegen" : "5-6",
+			"spellDamagePercent" : "+75",
+		},
+	},
+	{
+		"id" : 3438,
+		"descId" : 452734240,
+		"name" : "Staff of the Well-Tempered Cauldron",
+		"type" : "weapon (1-handed chefstaff)",
+		"image" : "chefstaff20.gif",
+		"autosell" : 0,
+		"requiredMysticality" : 125,
+		"enchantments" :
+		{
+			"mysticality" : "+15",
+			"mpRegen" : "7-8",
+			"spellDamagePercent" : "+125",
+		},
+	},
+	{
+		"id" : 3439,
+		"descId" : 983657975,
+		"name" : "Rainbow's Gravity",
+		"plural" : "copies of Rainbow's Gravity",
+		"type" : "usable",
+		"image" : "book3.gif",
+		"autosell" : 0,
+		"isUsable" : True,
+	},
+	{
+		"id" : 3440,
+		"descId" : 267408834,
+		"name" : "prismatic wad",
+		"type" : "usable",
+		"image" : "prismwad.gif",
+		"autosell" : 90,
+		"isUsable" : True,
+		"isMultiUsable" : True,
+		"spleen" : 3,
+		"adventuresGained" : "5-7",
+		"muscleGained" : "50-60",
+		"mysticalityGained" : "50-60",
+		"moxieGained" : "50-60",
+		"isMeatsmithingComponent" : True,
+	},
+	{
+		"id" : 3441,
+		"descId" : 219029462,
+		"name" : "club of the five seasons",
+		"plural" : "clubs of the five seasons",
+		"type" : "weapon (1-handed club)",
+		"image" : "rainbowclub.gif",
+		"autosell" : 200,
+		"requiredMuscle" : 60,
+		"enchantments" :
+		{
+			"coldDamage" : "+5",
+			"hotDamage" : "+5",
+			"sleazeDamage" : "+5",
+			"spookyDamage" : "+5",
+			"stenchDamage" : "+5",
+		},
+	},
+	{
+		"id" : 3442,
+		"descId" : 427899618,
+		"name" : "rainbow crossbow",
+		"type" : "ranged weapon (1-handed crossbow)",
+		"image" : "raincrossbow.gif",
+		"autosell" : 200,
+		"requiredMoxie" : 60,
+		"enchantments" :
+		{
+			"coldDamage" : "+5",
+			"hotDamage" : "+5",
+			"sleazeDamage" : "+5",
+			"spookyDamage" : "+5",
+			"stenchDamage" : "+5",
+		},
+	},
+	{
+		"id" : 3443,
+		"descId" : 528692853,
+		"name" : "black kitten",
+		"type" : "familiar",
+		"image" : "bkitten.gif",
+		"autosell" : 0,
+	},
+	{
+		"id" : 3447,
+		"descId" : 535499742,
+		"name" : "six-rainbow shield",
+		"type" : "off-hand item (shield)",
+		"image" : "wonderwall.gif",
+		"autosell" : 150,
+		"requiredMuscle" : 70,
+		"enchantments" :
+		{
+			"maximumHP" : "+50",
+			"coldResistance" : "+3",
+			"hotResistance" : "+3",
+			"sleazeResistance" : "+3",
+			"spookyResistance" : "+3",
+			"stenchResistance" : "+3",
+		},
+	},
+	{
+		"id" : 3448,
+		"descId" : 243986741,
+		"name" : "rainbow bomb",
+		"type" : "combat item",
+		"image" : "prismbomb.gif",
+		"autosell" : 150,
+	},
+	{
+		"id" : 3449,
+		"descId" : 517488450,
+		"name" : "cotton candy cone",
+		"type" : "usable",
+		"image" : "cottoncandy.gif",
+		"autosell" : 35,
+	},
+	{
+		"id" : 3450,
+		"descId" : 927647574,
+		"name" : "cotton candy pinch",
+		"type" : "usable",
+		"image" : "lint.gif",
+		"autosell" : 35,
+	},
+	{
+		"id" : 3451,
+		"descId" : 648613761,
+		"name" : "cotton candy smidgen",
+		"type" : "usable",
+		"image" : "ccsmidge2.gif",
+		"autosell" : 35,
+	},
+	{
+		"id" : 3452,
+		"descId" : 317488982,
+		"name" : "cotton candy skoshe",
+		"type" : "usable",
+		"image" : "ccsmidgen.gif",
+		"autosell" : 35,
+	},
+	{
+		"id" : 3453,
+		"descId" : 677974144,
+		"name" : "cotton candy plug",
+		"type" : "usable",
+		"image" : "ccskoshe.gif",
+		"autosell" : 35,
+	},
+	{
+		"id" : 3454,
+		"descId" : 749266408,
+		"name" : "cotton candy pillow",
+		"type" : "usable",
+		"image" : "ccpillow.gif",
+		"autosell" : 35,
+	},
+	{
+		"id" : 3455,
+		"descId" : 533359462,
+		"name" : "cotton candy bale",
+		"type" : "usable",
+		"image" : "ccbale.gif",
+		"autosell" : 35,
 	},
 ]
