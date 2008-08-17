@@ -352,6 +352,14 @@ class Bot(threading.Thread):
 							response = "/w %s %s" % (chat["userId"], self.params["didNotUnderstandChatResponse"])
 							self.sendChatMessage(response)
 							handledChat = True
+					
+					# Also allow bots to respond to chats with a kmail.
+					if handledChat == False and chat["type"] == "private":
+						if "didNotUnderstandChatResponseAsKmail" in self.params:
+							resp = {"userId":chat["userId"]}
+							resp["text"] = self.params["didNotUnderstandChatResponseAsKmail"]
+							self.sendKmail(resp)
+							handledChat = True
 							
 				except ParseMessageError, inst:
 					Report.info("bot", "Invalid chat request.", inst)
