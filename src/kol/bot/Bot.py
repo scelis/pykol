@@ -339,7 +339,7 @@ class Bot(threading.Thread):
 					# See if we can handle the chat ourselves.
 					if handledChat == False and chat["type"] == "private":
 						text = chat["text"]
-						if text.lower().find("help") == 0:
+						if text.lower().find("help") == 0 or text == '?':
 							if "helpChatResponse" in self.params:
 								response = "/w %s %s" % (chat["userId"], self.params["helpChatResponse"])
 								self.sendChatMessage(response)
