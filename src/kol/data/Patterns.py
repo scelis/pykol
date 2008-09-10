@@ -38,7 +38,7 @@ patterns = {
 	"inventoryMultipleItems" : r'<img [^>]*descitem\(([0-9]+)\)[^>]*></td><td valign=top><b>([^<>]+)</b>  \(([0-9]+)\)',
 	"itemAutosell" : r'<br>Selling Price: <b>(\d*) Meat\.<\/b>',
 	"itemImage" : r'<img src="http:\/\/images\.kingdomofloathing\.com\/itemimages\/(.*?)"',
-	"itemName" : r'<br><b>([^<>]+)<\/b><p>',
+	"itemName" : r'<b>([^<>]+?)<\/b>',
 	"itemType" : r'<br>Type: <b>([^<]*)<\/b><br>',
 	
 	# Message-related patterns.
