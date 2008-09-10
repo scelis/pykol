@@ -23,7 +23,7 @@ def botProcessChat(context, **kwargs):
 	returnCode = FilterManager.CONTINUE
 	chat = kwargs["chat"]
 	
-	if chat["type"] in ["normal", "emote"]:
+	if chat["type"] in ["normal", "emote"] and chat["channel"] == "clan":
 		returnCode = handleClanChat(context, **kwargs)
 	elif chat["type"] in ["private"]:
 		returnCode = handlePrivateChat(context, **kwargs)
