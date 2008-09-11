@@ -1,6 +1,7 @@
 from GenericRequest import GenericRequest
-from kol.Error import Error, NotEnoughItemsError, UserInHardcoreRoninError, UserIsIgnoringError
+from kol.Error import NotEnoughItemsError, RequestError, UserInHardcoreRoninError, UserIsIgnoringError
 from kol.manager import PatternManager
+from kol.util import Report
 
 class SendMessageRequest(GenericRequest):
 	def __init__(self, session, message):
@@ -30,9 +31,16 @@ class SendMessageRequest(GenericRequest):
 		hardcoreRoninPattern = PatternManager.getOrCompilePattern('userInHardcoreRonin')
 		ignoringPattern = PatternManager.getOrCompilePattern('userIgnoringUs')
 		notEnoughItemsPattern = PatternManager.getOrCompilePattern('notEnoughItemsToSend')
+		sentMessagePattern = PatternManager.getOrCompilePattern('messageSent')
+		
 		if hardcoreRoninPattern.search(self.responseText):
 			raise UserInHardcoreRoninError("Unable to send items or meat. User is in hardcore or ronin.")
 		elif ignoringPattern.search(self.responseText):
 			raise UserIsIgnoringError("Unable to send message. User is ignoring us.")
 		elif notEnoughItemsPattern.search(self.responseText):
 			raise NotEnoughItemsError("You don't have enough of one of the items you're trying to send.")
+		elif sentMessagePattern.search(self.responseText) == None:
+			Report.alert("system", "Received unknown response when attempting to send a message.")
+			Report.alert("system", self.responseText)
+			raise RequestError("Unknown error")
+			
