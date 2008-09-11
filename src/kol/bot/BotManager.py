@@ -2,6 +2,7 @@ from kol.database import ItemDatabase
 from kol.database import SkillDatabase
 from kol.util import Report
 
+import random
 import socket
 import threading
 import time
@@ -21,6 +22,9 @@ def init(params=None):
 	
 	# Force HTTP requests to timeout after 5 minutes.
 	socket.setdefaulttimeout(300)
+	
+	# Seed the pseudo-random number generator.
+	random.seed()
 
 def registerBot(bot):
 	_bots.append(bot)
