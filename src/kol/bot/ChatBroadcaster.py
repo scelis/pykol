@@ -86,6 +86,24 @@ def handlePrivateChat(context, **kwargs):
 		else:
 			bot.sendChatMessage("You do not have permission to perform this action.")
 		returnCode = FilterManager.FINISHED
+	elif chat["text"] == "squelchall":
+		if BotUtils.canUserPerformAction(chat["userId"], "squelch", bot):
+			for aBot in BotManager._bots:
+				aBot.states["global"]["isSquelched"] = True
+				aBot.writeState("global")
+				aBot.sendChatMessage("All bots have been squelched.")
+		else:
+			bot.sendChatMessage("You do not have permission to perform this action.")
+		returnCode = FilterManager.FINISHED
+	elif chat["text"] == "unsquelchall":
+		if BotUtils.canUserPerformAction(chat["userId"], "squelch", bot):
+			for aBot in BotManager._bots:
+				aBot.states["global"]["isSquelched"] = False
+				aBot.writeState("global")
+				aBot.sendChatMessage("All bots have been unsquelched.")
+		else:
+			bot.sendChatMessage("You do not have permission to perform this action.")
+		returnCode = FilterManager.FINISHED
 	elif chat["text"] == "who":
 		response = bot.sendChatMessage("/who")
 		whoChat = response[0]
