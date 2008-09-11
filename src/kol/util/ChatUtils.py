@@ -1,4 +1,5 @@
 from kol.manager import PatternManager
+from kol.util import Report
 from kol.util import StringUtils
 
 CHAT_CHANNELS = [
@@ -143,6 +144,8 @@ def parseMessages(text):
 		if parsedChat == False:
 			chat["type"] = "unknown"
 			chat["text"] = StringUtils.htmlEntityDecode(line)
+			Report.trace("chat", "Unable to parse chat message: %s" % chat)
+			
 			
 		chats.append(chat)
 	
