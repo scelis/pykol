@@ -21,4 +21,5 @@ class GetChatMessagesRequest(GenericRequest):
 		
 		# Trace out unknown messages.
 		for chat in self.responseData["chatMessages"]:
-			Report.trace("chat", "Unable to parse chat message: %s" % chat)
+			if chat["type"] == "unknown":
+				Report.trace("chat", "Unable to parse chat message: %s" % chat)
