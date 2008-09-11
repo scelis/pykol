@@ -1,6 +1,7 @@
 from GenericRequest import GenericRequest
 from kol.manager import PatternManager
 from kol.util import ChatUtils
+from kol.util import Report
 from kol.util import StringUtils
 
 class GetChatMessagesRequest(GenericRequest):
