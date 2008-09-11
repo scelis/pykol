@@ -11,8 +11,6 @@ import re
 
 DICE_ROLL_PATTERN = re.compile(r'roll ([0-9]+)d([0-9]+)', re.IGNORECASE)
 
-__randomGeneratorSeeded = False
-
 def doFilter(eventName, context, **kwargs):
 	returnCode = FilterManager.CONTINUE
 	if eventName == "botProcessChat":
@@ -32,11 +30,6 @@ def botProcessChat(context, **kwargs):
 			numSides = int(match.group(2))
 			if numDice > 10:
 				numDice = 10
-			
-			# Seed the RNG.
-			if __randomGeneratorSeeded == False:
-				random.seed()
-				__randomGeneratorSeeded = True
 			
 			# Roll the dice.
 			result = []
