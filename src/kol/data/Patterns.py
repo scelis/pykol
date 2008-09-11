@@ -48,6 +48,7 @@ patterns = {
 	"fullMessage" : ('<tr><td[^>]*><input type=checkbox name="sel([0-9]+)".*?<b>[^<]*<\/b> <a href="showplayer\.php\?who=([0-9]+)">([^<]*)<\/a>.*?<b>Date:<\/b>([^<]*?)</b>.*?<blockquote>(.*?)<\/blockquote>', re.DOTALL),
 	"userInHardcoreRonin" : r'<center><table><tr><td>That player cannot receive Meat or items from other players right now\.',
 	"userIgnoringUs" : r"<center><table><tr><td>This message could not be sent, because you are on that player's ignore list\.<\/td><\/tr><\/table><\/center>",
+	"notEnoughItemsToSend" : r"<center><table><tr><td>You don't have enough of one of the items you're trying to send\.<\/td><\/tr><\/table><\/center>",
 	
 	# Error patterns.
 	"cantPulverizeItem" : r"<td>That's not something you can pulverize\.<\/td>",

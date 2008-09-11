@@ -1,5 +1,5 @@
 from GenericRequest import GenericRequest
-from kol.Error import Error, UserInHardcoreRoninError, UserIsIgnoringError
+from kol.Error import Error, NotEnoughItemsError, UserInHardcoreRoninError, UserIsIgnoringError
 from kol.manager import PatternManager
 
 class SendMessageRequest(GenericRequest):
@@ -29,7 +29,10 @@ class SendMessageRequest(GenericRequest):
 	def parseResponse(self):
 		hardcoreRoninPattern = PatternManager.getOrCompilePattern('userInHardcoreRonin')
 		ignoringPattern = PatternManager.getOrCompilePattern('userIgnoringUs')
+		notEnoughItemsPattern = PatternManager.getOrCompilePattern('notEnoughItemsToSend')
 		if hardcoreRoninPattern.search(self.responseText):
 			raise UserInHardcoreRoninError("Unable to send items or meat. User is in hardcore or ronin.")
 		elif ignoringPattern.search(self.responseText):
 			raise UserIsIgnoringError("Unable to send message. User is ignoring us.")
+		elif notEnoughItemsPattern.search(self.responseText):
+			raise NotEnoughItemsError("You don't have enough of one of the items you're trying to send.")
