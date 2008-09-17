@@ -59,7 +59,7 @@ patterns = {
 	"currentChatChannel" : r'<font color="?#?\w+"?>Currently in channel: ([^<>]+)<',
 	"chatLastSeen" : r"lastseen:([0-9]+)",
 	"chatChannel" : r'^<font color="?#?\w+"?>\[([^<>]+)\]<\/font> ',
-	"chatMessage" : r'<b><a target="?mainpane"? href="showplayer\.php\?who=([0-9]+)"><font color="?#?\w+"?>([^<>]+)<\/font><\/b><\/a>: (.*)$',
+	"chatMessage" : r'<b><a target="?mainpane"? href="showplayer\.php\?who=(-?[0-9]+)"><font color="?#?\w+"?>([^<>]+)<\/font><\/b><\/a>: (.*)$',
 	"chatEmote" : r'<b><i><a target="?mainpane"? href="showplayer\.php\?who=([0-9]+)"><font color="?#?\w+"?>([^<>]+)<\/b><\/font><\/a> (.*)<\/i>$',
 	"privateChat" : r'<a target="?mainpane"? href="showplayer\.php\?who=([0-9]+)"><font color="?blue"?><b>([^)]+) \(private\):<\/b><\/a> (.*)</font>$',
 	"chatNewKmailNotification" : r'<a target="?mainpane"? href="messages\.php"><font color="?green"?>New message received from <a target="?mainpane"? href=\'showplayer\.php\?who=([0-9]+)\'><font color="?green"?>([^<>]+)<\/font><\/a>\.<\/font><\/a>$',
@@ -69,4 +69,10 @@ patterns = {
 	"chatWhoResponse" : r'<table><tr><td class=tiny><center><b>Players in this channel:',
 	"chatWhoPerson" : r'<a target="?mainpane"? href="showplayer\.php\?who=([0-9]+)"><font color="?#?\w+"?>([^<>]+)<\/font><\/a>',
 	"chatLinkedPlayer" : r"<a style='color: #?\w+' href='showplayer\.php\?who=([0-9]+)' target=mainpane>([^<]+)<\/a>",
+	
+	# Clan dungeon patterns.
+	"dungeonActivity" : r'(^|>)([^<>]+) \(#([0-9,]+)\) ([^<>]+) \(([0-9,]+) turns?\)<',
+	"dungeonLootDistribution" : r'(<blockquote>|<br>)([^<>]+) \(#([0-9,]+)\) distributed <b>([^<>]+)</b> to ([^<>]+) \(#([0-9,]+)\)<br>',
+	"dungeonPreviousRun" : r'<tr><td class=small>([^<>]+)&nbsp;&nbsp;<\/td><td class="?small"?>([^<>]+)&nbsp;&nbsp;<\/td><td class=small>([^<>]+)&nbsp;&nbsp;<\/td><td class=small>([0-9,]+)<\/td><td class=tiny>\[<a href="clan_raidlogs\.php\?viewlog=([0-9]+)">view logs<\/a>\]<\/td><\/tr>',
+	"dungeonLogCategory" : r'<b>([^<>]+):<\/b><blockquote>(.*?)<\/blockquote>',
 }
