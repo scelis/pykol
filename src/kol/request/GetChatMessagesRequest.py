@@ -17,7 +17,7 @@ class GetChatMessagesRequest(GenericRequest):
 		
 		# Parse the chat messages.
 		text = self.responseText[:self.responseText.find('<!--lastseen')]
-		self.responseData["chatMessages"] = ChatUtils.parseMessages(self.responseText)
+		self.responseData["chatMessages"] = ChatUtils.parseMessages(self.responseText, True)
 		
 		# Trace out unknown messages.
 		for chat in self.responseData["chatMessages"]:

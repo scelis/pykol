@@ -24,23 +24,23 @@ CHAT_CHANNELS = [
 	"villa",
 ]
 
-def parseMessages(text):
+def parseMessages(text, isGet):
 	# Prepare the patterns.
 	htmlCommentPattern = PatternManager.getOrCompilePattern("htmlComment")
+	htmlTagPattern = PatternManager.getOrCompilePattern("htmlTag")
 	channelPattern = PatternManager.getOrCompilePattern("chatChannel")
 	chatPattern = PatternManager.getOrCompilePattern("chatMessage")
 	emotePattern = PatternManager.getOrCompilePattern("chatEmote")
 	privateChatPattern = PatternManager.getOrCompilePattern("privateChat")
 	newKmailPattern = PatternManager.getOrCompilePattern("chatNewKmailNotification")
 	linkPattern = PatternManager.getOrCompilePattern("chatLink")
-	fontBoldPattern = PatternManager.getOrCompilePattern("fontBoldText")
-	italicPattern = PatternManager.getOrCompilePattern("italicText")
 	chatWhoPattern = PatternManager.getOrCompilePattern("chatWhoResponse")
 	linkedPlayerPattern = PatternManager.getOrCompilePattern("chatLinkedPlayer")
 	
 	# Get the chat messages.
 	chats = []
 	lines = text.split("<br>")
+		
 	for line in lines:
 		line = htmlCommentPattern.sub('', line)
 		line = line.strip()
@@ -75,37 +75,39 @@ def parseMessages(text):
 				chat["userName"] = match.group(2)
 				chat["text"] = match.group(3).strip()
 				parsedChat = True
-				
-		# See if this was a private message.
-		if parsedChat == False:
-			match = privateChatPattern.search(line)
-			if match:
-				chat["type"] = "private"
-				chat["userId"] = int(match.group(1))
-				chat["userName"] = match.group(2)
-				chat["text"] = match.group(3).strip()
-				parsedChat = True
 		
-		# See if this is a new kmail notification.
-		if parsedChat == False:
-			match = newKmailPattern.search(line)
-			if match:
-				chat["type"] = "notification:kmail"
-				chat["userId"] = int(match.group(1))
-				chat["userName"] = match.group(2)
-				parsedChat = True
-		
-		# See if this is a /who response.
-		if parsedChat == False:
-			if chatWhoPattern.search(line):
-				chat["type"] = "who"
-				chat["users"] = []
-				chatWhoPersonPattern = PatternManager.getOrCompilePattern("chatWhoPerson")
-				for match in chatWhoPersonPattern.finditer(line):
-					userId = match.group(1)
-					userName = match.group(2)
-					chat["users"].append({"userId":userId, "userName":userName})
-				parsedChat = True
+		if isGet:
+			# See if this was a private message.
+			if parsedChat == False:
+				match = privateChatPattern.search(line)
+				if match:
+					chat["type"] = "private"
+					chat["userId"] = int(match.group(1))
+					chat["userName"] = match.group(2)
+					chat["text"] = match.group(3).strip()
+					parsedChat = True
+			
+			# See if this is a new kmail notification.
+			if parsedChat == False:
+				match = newKmailPattern.search(line)
+				if match:
+					chat["type"] = "notification:kmail"
+					chat["userId"] = int(match.group(1))
+					chat["userName"] = match.group(2)
+					parsedChat = True
+			
+		else:
+			# See if this is a /who response.
+			if parsedChat == False:
+				if chatWhoPattern.search(line):
+					chat["type"] = "who"
+					chat["users"] = []
+					chatWhoPersonPattern = PatternManager.getOrCompilePattern("chatWhoPerson")
+					for match in chatWhoPersonPattern.finditer(line):
+						userId = match.group(1)
+						userName = match.group(2)
+						chat["users"].append({"userId":userId, "userName":userName})
+					parsedChat = True
 		
 		if parsedChat and "text" in chat:
 			# Parse user links.
@@ -137,8 +139,7 @@ def parseMessages(text):
 			chat["text"] = StringUtils.htmlEntityDecode(chat["text"])
 		
 			# Clean up the text.
-			chat["text"] = fontBoldPattern.sub(r'\1', chat["text"])
-			chat["text"] = italicPattern.sub(r'\1', chat["text"])
+			chat["text"] = htmlTagPattern.sub('', chat["text"])
 		
 		# Handle unrecognized chat messages.
 		if parsedChat == False:

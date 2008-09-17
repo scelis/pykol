@@ -13,6 +13,7 @@ patterns = {
 	"whitespace" : r'([\t ]+)',
 	"results" : r'<b>Results:<\/b><\/td><\/tr><tr><td[^<>]*><center><table><tr><td>(.*?)</td></tr></table></center></td></tr>',
 	"htmlComment" : r'<!--.*?-->',
+	"htmlTag" : r'<[^>]*?>',
 	
 	# Login-related patterns.
 	"accountPwd" : r"name=\"?pwd\"? value='([0-9a-f]+)'",
@@ -64,8 +65,6 @@ patterns = {
 	"privateChat" : r'<a target="?mainpane"? href="showplayer\.php\?who=([0-9]+)"><font color="?blue"?><b>([^)]+) \(private\):<\/b><\/a> (.*)</font>$',
 	"chatNewKmailNotification" : r'<a target="?mainpane"? href="messages\.php"><font color="?green"?>New message received from <a target="?mainpane"? href=\'showplayer\.php\?who=([0-9]+)\'><font color="?green"?>([^<>]+)<\/font><\/a>\.<\/font><\/a>$',
 	"chatLink" : r'<a target="?_blank"? href="([^"]+)"><font color="?blue"?>\[link\]<\/font><\/a> ',
-	"fontBoldText" : r'<font color="?#?\w+"?><b>([^<>]+)</b></font>',
-	"italicText" : r'<i>([^<>]*)<\/i>',
 	"chatWhoResponse" : r'<table><tr><td class=tiny><center><b>Players in this channel:',
 	"chatWhoPerson" : r'<a target="?mainpane"? href="showplayer\.php\?who=([0-9]+)"><font color="?#?\w+"?>([^<>]+)<\/font><\/a>',
 	"chatLinkedPlayer" : r"<a style='color: #?\w+' href='showplayer\.php\?who=([0-9]+)' target=mainpane>([^<]+)<\/a>",
