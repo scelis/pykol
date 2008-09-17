@@ -75,4 +75,10 @@ patterns = {
 	"dungeonLootDistribution" : r'(<blockquote>|<br>)([^<>]+) \(#([0-9,]+)\) distributed <b>([^<>]+)</b> to ([^<>]+) \(#([0-9,]+)\)<br>',
 	"dungeonPreviousRun" : r'<tr><td class=small>([^<>]+)&nbsp;&nbsp;<\/td><td class="?small"?>([^<>]+)&nbsp;&nbsp;<\/td><td class=small>([^<>]+)&nbsp;&nbsp;<\/td><td class=small>([0-9,]+)<\/td><td class=tiny>\[<a href="clan_raidlogs\.php\?viewlog=([0-9]+)">view logs<\/a>\]<\/td><\/tr>',
 	"dungeonLogCategory" : r'<b>([^<>]+):<\/b><blockquote>(.*?)<\/blockquote>',
+	
+	# Cocktailcrafting patterns.
+	"itemsDontMakeCocktail" : r"<td>Those two items don't combine to make a refreshing cocktail\.</td>",
+	"dontHaveSkillToMixCocktail" : r"<td>You don't have the skill necessary to make that cocktail\.</td>",
+	"dontHaveItemsForThatCocktail" : r"<td>You don't have enough of one of the necessary items to make a cocktail that tasty\.</td>",
+	"dontHaveAdventuresToMixCocktail" : r"<td>You don't have that many adventures left\. +It takes <i>time<\/i> to make a good cocktail, man\.</td>",
 }
