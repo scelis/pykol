@@ -35,14 +35,14 @@ class CocktailcraftingRequest(GenericRequest):
 
 		# Find the items attached to the message.
 		singleItemPattern = PatternManager.getOrCompilePattern('acquireSingleItem')
-		match = singleItemPattern.search(self.responseText):
+		match = singleItemPattern.search(self.responseText)
 		if match:
 			descId = int(match.group(1))
 			item = ItemDatabase.getItemFromDescId(descId, self.session)
 			item["quantity"] = 1
 		else:
 			multiItemPattern = PatternManager.getOrCompilePattern('acquireMultipleItems')
-			match = multiItemPattern.finditer(self.responseText):
+			match = multiItemPattern.finditer(self.responseText)
 			if match:
 				descId = int(match.group(1))
 				item = ItemDatabase.getItemFromDescId(descId, self.session)
