@@ -70,10 +70,12 @@ patterns = {
 	"chatLinkedPlayer" : r"<a style='color: #?\w+' href='showplayer\.php\?who=([0-9]+)' target=mainpane>([^<]+)<\/a>",
 	
 	# Clan dungeon patterns.
-	"dungeonActivity" : r'(^|>)([^<>]+) \(#([0-9,]+)\) ([^<>]+) \(([0-9,]+) turns?\)<',
-	"dungeonLootDistribution" : r'(<blockquote>|<br>)([^<>]+) \(#([0-9,]+)\) distributed <b>([^<>]+)</b> to ([^<>]+) \(#([0-9,]+)\)<br>',
-	"dungeonPreviousRun" : r'<tr><td class=small>([^<>]+)&nbsp;&nbsp;<\/td><td class="?small"?>([^<>]+)&nbsp;&nbsp;<\/td><td class=small>([^<>]+)&nbsp;&nbsp;<\/td><td class=small>([0-9,]+)<\/td><td class=tiny>\[<a href="clan_raidlogs\.php\?viewlog=([0-9]+)">view logs<\/a>\]<\/td><\/tr>',
+	"dungeonActivity" : r'(?:^|<br>|<br><b>)([^<>]+) \(#([0-9,]+)\) ([^<>]+) \(([0-9,]+) turns?\)',
+	"dungeonLootDistribution" : r'(?:<blockquote>|<br>)([^<>]+) \(#([0-9,]+)\) distributed <b>([^<>]+)</b> to ([^<>]+) \(#([0-9,]+)\)<br>',
+	"dungeonPreviousRun" : r'<tr><td class="?small"?>([^<>]+)&nbsp;&nbsp;<\/td><td class="?small"?>([^<>]+)&nbsp;&nbsp;<\/td><td class="?small"?>([^<>]+)&nbsp;&nbsp;<\/td><td class="?small"?>([0-9,]+)<\/td><td class="?tiny"?>\[<a href="clan_raidlogs\.php\?viewlog=([0-9]+)">view logs<\/a>\]<\/td><\/tr>',
 	"dungeonLogCategory" : r'<b>([^<>]+):<\/b><blockquote>(.*?)<\/blockquote>',
+	"imprisonedByChums" : r'^(.*) has been imprisoned by the C\. H\. U\. M\.s!$',
+	"freedFromChums" : r'^(.*) has rescued (.*) from the C\. H\. U\. M\.s\.$',
 	
 	# Cocktailcrafting patterns.
 	"itemsDontMakeCocktail" : r"<td>Those two items don't combine to make a refreshing cocktail\.</td>",

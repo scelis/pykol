@@ -35,10 +35,10 @@ class ClanRaidLogRequest(GenericRequest):
 			for match in dungeonActivityPattern.finditer(categoryMatch.group(2)):
 				action = {}
 				action["category"] = category
-				action["userName"] = match.group(2)
-				action["userId"] = int(match.group(3))
-				action["event"] = match.group(4)
-				action["turns"] = int(match.group(5).replace(',', ''))
+				action["userName"] = match.group(1)
+				action["userId"] = int(match.group(2))
+				action["event"] = match.group(3)
+				action["turns"] = int(match.group(4).replace(',', ''))
 				actions.append(action)
 		self.responseData["events"] = actions
 		
@@ -47,11 +47,11 @@ class ClanRaidLogRequest(GenericRequest):
 		dungeonLootDistributionPattern = PatternManager.getOrCompilePattern('dungeonLootDistribution')
 		for match in dungeonLootDistributionPattern.finditer(txt):
 			m = {}
-			m["distributorName"] = match.group(2)
-			m["distributorId"] = int(match.group(3))
-			m["itemName"] = match.group(4)
-			m["receiverName"] = match.group(5)
-			m["receiverId"] = match.group(6)
+			m["distributorName"] = match.group(1)
+			m["distributorId"] = int(match.group(2))
+			m["itemName"] = match.group(3)
+			m["receiverName"] = match.group(4)
+			m["receiverId"] = match.group(5)
 			lootDistributed.append(m)
 		self.responseData["lootDistributed"] = lootDistributed
 		
