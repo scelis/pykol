@@ -94,4 +94,14 @@ patterns = {
 	'characterAdventures' : r'onclick=\'doc\("adventures"\);\'><br><span class=black>([0-9]+)</span>',
 	'currentFamiliar' : r'href="familiar.php">(?:<b>)?<font size=[0-9]+>(.*?)</a>(?:</b>)?, the  ([0-9]+)-pound (.*?)<table',
 	'characterEffect' : r'eff\("[a-fA-F0-9]+"\);\'.*?></td><td valign=center><font size=[0-9]+>(.*?) ?\(([0-9]+)\)</font><br></td>',
+	
+	# Stat related Patterns.
+	# RE's for HP/MP may be overly complicated if in-game case use is consistently one of the options.
+	# Also, these patterns should work in normal combat, but will fail miserably in the Haiku Dungeon.
+	'statGain' : r'You gain.*?([0-9]+).*?((?:Beefiness)|(?:Fortitude)|(?:Muscleboundness)|(?:Strengthliness)|(?:Strongness)|(?:Enchantedness)|(?:Magicalness)|(?:Mysteriousness)|(?:Wizardliness)|(?:Cheek)|(?:Chutzpah)|(?:Roguishness)|(?:Sarcasm)|(?:Smarm))',
+	'statLoss' : r'You lose.*?([0-9]+).*?((?:Beefiness)|(?:Fortitude)|(?:Muscleboundness)|(?:Strengthliness)|(?:Strongness)|(?:Enchantedness)|(?:Magicalness)|(?:Mysteriousness)|(?:Wizardliness)|(?:Cheek)|(?:Chutzpah)|(?:Roguishness)|(?:Sarcasm)|(?:Smarm))',
+	'hpGain' : r'You gain.*?([0-9]+).*?(?:H|hit P|points?)',
+	'hpLoss' : r'You lose.*?([0-9]+).*?(?:H|hit P|points?)',
+	'mpGain' : r'You gain.*?([0-9]+).*?(?:(?:M|muscularity)|(?:M|mana)|(?:M|mojo) P|points?)',
+	'mpLoss' : r'You lose.*?([0-9]+).*?(?:(?:M|muscularity)|(?:M|mana)|(?:M|mojo) P|points?)',
 }
