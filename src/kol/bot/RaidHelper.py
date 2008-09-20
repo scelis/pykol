@@ -76,12 +76,15 @@ def reportHobopolisStatus(context, **kwargs):
 	r = ClanRaidLogRequest(bot.session)
 	data = r.doRequest()
 	
+	whitespacePattern = PatternManager.getOrCompilePattern('whitespace')
+	
 	numGrates = 0
 	numValves = 0
 	areas = {}
 	for area in HOBOPOLIS_AREAS:
 		areas[area] = {"turns" : 0}
 	for event in data["events"]:
+		event["event"] = whitespacePattern.sub(' ', event["event"])
 		if event["category"] == "Sewers":
 			if event["event"].find("lowered the water level") >= 0:
 				numValves += event["turns"]
@@ -91,11 +94,11 @@ def reportHobopolisStatus(context, **kwargs):
 			areaName = event["category"]
 			areas[areaName]["turns"] += event["turns"]
 			bossName = HOBOPOLIS_BOSSES[areaName]
-			if event["event"].find("defeated %s (1 turn)" % bossName) >= 0:
+			if event["event"].find("defeated %s" % bossName) >= 0:
 				areas[areaName]["completed"] = True
 		elif event["category"] == "Miscellaneous":
 			bossName = HOBOPOLIS_BOSSES["Town Square"]
-			if event["event"].find("defeated %s (1 turn)" % bossName) >= 0:
+			if event["event"].find("defeated %s" % bossName) >= 0:
 				areas["Town Square"]["completed"] = True
 				areas["Town Square"]["turns"] += event["turns"]
 			
@@ -132,6 +135,7 @@ def reportHobopolisStatus(context, **kwargs):
 def parseDungeonChatMessage(context, **kwargs):
 	chat = kwargs["chat"]
 	bot = kwargs["bot"]
+	state = bot.states["global"]
 	
 	trappedPattern = PatternManager.getOrCompilePattern('imprisonedByChums')
 	rescuedPattern = PatternManager.getOrCompilePattern('freedFromChums')
@@ -153,5 +157,5 @@ def parseDungeonChatMessage(context, **kwargs):
 	else:
 		match = trappedPattern.match(chat["text"])
 		if match:
-			bot["hobo:sewerTrapped"] = match.group(1)
+			state["hobo:sewerTrapped"] = match.group(1)
 			bot.writeState("global")
