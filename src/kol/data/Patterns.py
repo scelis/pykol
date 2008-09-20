@@ -82,4 +82,16 @@ patterns = {
 	"dontHaveSkillToMixCocktail" : r"<td>You don't have the skill necessary to make that cocktail\.</td>",
 	"dontHaveItemsForThatCocktail" : r"<td>You don't have enough of one of the necessary items to make a cocktail that tasty\.</td>",
 	"dontHaveAdventuresToMixCocktail" : r"<td>You don't have that many adventures left\. +It takes <i>time<\/i> to make a good cocktail, man\.</td>",
+	
+	# Character Pane patterns.
+	'characterLevel' : r'<br>Level ([0-9]+)<br>(.*?)<table',
+	'characterMuscle' : r'Muscle:</td><td align=left><b>(?:<font color=blue>([0-9]+)</font>)?(?:&nbsp;)?\(?([0-9]+)\)?</b>',
+	'characterMoxie' : r'Moxie:</td><td align=left><b>(?:<font color=blue>([0-9]+)</font>)?(?:&nbsp;)?\(?([0-9]+)\)?</b>',
+	'characterMysticality' : r'Mysticality:</td><td align=left><b>(?:<font color=blue>([0-9]+)</font>)?(?:&nbsp;)?\(?([0-9]+)\)?</b>',
+	'characterHP' : r'onclick=\'doc\("hp"\);\'><br><span class=black>([0-9]+)&nbsp;/&nbsp;([0-9]+)</span>',
+	'characterMP' : r'onclick=\'doc\("mp"\);\'><br><span class=black>([0-9]+)&nbsp;/&nbsp;([0-9]+)</span>',
+	'characterMeat' : r'onclick=\'doc\("meat"\);\'><br><span class=black>([0-9,]+)</span>',
+	'characterAdventures' : r'onclick=\'doc\("adventures"\);\'><br><span class=black>([0-9]+)</span>',
+	'currentFamiliar' : r'href="familiar.php">(?:<b>)?<font size=[0-9]+>(.*?)</a>(?:</b>)?, the  ([0-9]+)-pound (.*?)<table',
+	'characterEffect' : r'eff\("[a-fA-F0-9]+"\);\'.*?></td><td valign=center><font size=[0-9]+>(.*?) ?\(([0-9]+)\)</font><br></td>',
 }
