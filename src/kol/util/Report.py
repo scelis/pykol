@@ -11,70 +11,92 @@ INFO = 500
 TRACE = 600
 DEBUG = 700
 
-activeSections = ["*"]
-outputLevel = TRACE
-logLevel = INFO
-includeThreadName = False
-
-__logDirectory = None
-__logFileName = None
-__logFile = None
+__outputSections = ["*"]
+__outputLevel = TRACE
+__logs = []
 __logCurrentDate = None
+__includeThreadName = False
 
-def setLogDirectory(directory):
-	global __logDirectory, __logFile
-	__logDirectory = directory
-	if __logFile != None:
-		__logFile.close()
-		__logFile = None
-		
+def addOutputSection(sectionName):
+	__outputSections.append(sectionName)
+
+def removeOutputSection(sectionName):
+	if sectionName in __outputSections:
+		__outputSections.remove(sectionName)
+
+def setOutputSections(arr):
+	global __outputSections
+	__outputSections = arr
+
+def setOutputLevel(level):
+	global __outputLevel
+	__outputLevel = level
+
+def setIncludeThreadName(includeThreadName):
+	global __includeThreadName
+	__includeThreadName = includeThreadName
+
+def registerLog(directory, fileName, sections=["*"], level=INFO):
+	log = {"fileName" : fileName, "sections" : sections, "level" : level}
+	
 	# If the directory doesn't exist, let's create it.
-	if not os.path.exists(__logDirectory):
-		os.mkdir(__logDirectory)
-
-def setLogFileName(fileName):
-	global __logFileName, __logFile
-	__logFileName = fileName
-	if __logFile != None:
-		__logFile.close()
-		__logFile = None
+	if directory != None and not os.path.exists(directory):
+		os.mkdir(directory)
+		log["directory"] = directory
+		
+	__logs.append(log)
 
 def report(section, level, message, exception=None):
-	global __logFile, __logCurrentDate
+	global __logCurrentDate
 	
-	if section in activeSections or '*' in activeSections:
-		if level <= outputLevel or level <= logLevel:
-			dateTimeStr = time.strftime("%Y-%m-%d %H:%M:%S")
+	# Should this message be printed?
+	doPrint = False
+	if ("*" in __outputSections or section in __outputSections) and level <= __outputLevel:
+		doPrint = True
+	
+	# Should this message be logged?
+	logs = []
+	for log in __logs:
+		s = log["sections"]
+		if ("*" in s or section in s) and level <= log["level"]:
+			logs.append(log)
 			
-			# Create the full message string.
-			if includeThreadName:
-				threadName = threading.currentThread().getName()
-				if threadName != "MainThread":
-					fullMessage = "%s -- [%s] %s" % (dateTimeStr, threadName, message)
-				else:
-					fullMessage = "%s -- %s" % (dateTimeStr, message)
-			else:
-				fullMessage = "%s -- %s" % (dateTimeStr, message)
-			
-			if level <= outputLevel:
-				print fullMessage
-				if exception != None:
-					print traceback.format_exc()
-			
-			if level <= logLevel and __logDirectory != None and __logFileName != None:
-				currentDate = time.strftime("%Y-%m-%d")
-				if __logFile == None or currentDate != __logCurrentDate:
-					if __logFile != None:
-						__logFile.close()
+	if doPrint or len(logs) > 0:
+		# Create the full message string.
+		fullMessage = None
+		dateTimeStr = time.strftime("%Y-%m-%d %H:%M:%S")
+		if __includeThreadName:
+			threadName = threading.currentThread().getName()
+			if threadName != "MainThread":
+				fullMessage = "%s -- [%s] %s" % (dateTimeStr, threadName, message)
+		if fullMessage == None:
+			fullMessage = "%s -- %s" % (dateTimeStr, message)
+		
+		# Print the message.
+		if doPrint:
+			print fullMessage
+			if exception != None:
+				print traceback.format_exc()
+		
+		# Log the message.
+		if len(logs) > 0:
+			currentDate = time.strftime("%Y-%m-%d")
+			for log in logs:
+				if "file" not in log or currentDate != __logCurrentDate:
+					if "file" in log:
+						log["file"].close()
 					
-					filePath = os.path.join(__logDirectory, __logFileName + '.' + currentDate)
-					__logFile = open(filePath, 'a')
+					if "directory" in log:
+						filePath = os.path.join(log["directory"], log["fileName"] + '.' + currentDate)
+					else:
+						filePath = log["fileName"] + '.' + currentDate
+					log["file"] = open(filePath, 'a')
 					__logCurrentDate = currentDate
 				
-				__logFile.write("%s\n" % fullMessage)
+				log["file"].write("%s\n" % fullMessage)
 				if exception != None:
-					__logFile.write(traceback.format_exc())
-				__logFile.flush()
+					log["file"].write(traceback.format_exc())
+				log["file"].flush()
 
 def fatal(section, message, exception=None):
 	report(section, FATAL, message, exception)

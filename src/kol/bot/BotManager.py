@@ -1,5 +1,6 @@
 from kol.database import ItemDatabase
 from kol.database import SkillDatabase
+from kol.manager import FilterManager
 from kol.util import Report
 
 import random
@@ -31,7 +32,9 @@ def registerBot(bot):
 
 def runBots():
 	if len(_bots) > 1:
-		Report.includeThreadName = True
+		Report.setIncludeThreadName(True)
+	
+	FilterManager.executeFiltersForEvent("runBots")
 	
 	for bot in _bots:
 		bot.start()
