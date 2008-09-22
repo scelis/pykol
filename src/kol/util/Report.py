@@ -40,9 +40,10 @@ def registerLog(directory, fileName, sections=["*"], level=INFO):
 	log = {"fileName" : fileName, "sections" : sections, "level" : level}
 	
 	# If the directory doesn't exist, let's create it.
-	if directory != None and not os.path.exists(directory):
-		os.mkdir(directory)
+	if directory != None:
 		log["directory"] = directory
+		if not os.path.exists(directory):
+			os.mkdir(directory)
 		
 	__logs.append(log)
 
