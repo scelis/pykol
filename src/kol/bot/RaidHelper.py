@@ -1,3 +1,4 @@
+from kol.bot import BotUtils
 from kol.manager import FilterManager
 from kol.manager import PatternManager
 from kol.request.ClanRaidLogRequest import ClanRaidLogRequest
@@ -88,7 +89,7 @@ def reportHobopolisStatus(context, **kwargs):
 		if event["category"] == "Sewers":
 			if event["event"].find("lowered the water level") >= 0:
 				numValves += event["turns"]
-			elif event["event"].find("sewer grates") >= 0:
+			elif event["event"].find("sewer grate") >= 0:
 				numGrates += event["turns"]
 		elif event["category"] in HOBOPOLIS_AREAS:
 			areaName = event["category"]
