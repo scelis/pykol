@@ -1,4 +1,4 @@
-from kol.Error import InvalidRecipeError, NotEnoughItemsError, NotEnoughAdventuresLeftError, SkillMissingError
+from kol.Error import InvalidRecipeError, NotEnoughItemsError, NotEnoughAdventuresLeftError, SkillMissingError, RequestError
 from kol.database import ItemDatabase
 from kol.manager import PatternManager
 from kol.request.GenericRequest import GenericRequest
