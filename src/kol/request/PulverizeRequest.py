@@ -6,11 +6,12 @@ from kol.manager import PatternManager
 class PulverizeRequest(GenericRequest):
 	def __init__(self, session, itemId, itemQuantity=1):
 		super(PulverizeRequest, self).__init__(session)
-		self.url = session.serverURL + "smith.php"
+		self.url = session.serverURL + "craft.php"
 		self.requestData["pwd"] = session.pwd
 		self.requestData["action"] = "pulverize"
+		self.requestData["mode"] = "smith"
 		self.requestData["smashitem"] = itemId
-		self.requestData["quantity"] = itemQuantity
+		self.requestData["qty"] = itemQuantity
 		self.itemId = itemId
 		self.quantity = itemQuantity
 	
