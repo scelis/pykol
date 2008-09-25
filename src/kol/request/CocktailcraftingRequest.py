@@ -7,15 +7,16 @@ class CocktailcraftingRequest(GenericRequest):
 
 	def __init__(self, session, itemid1, itemid2, numDrinks=1, makeMax=False):
 		super(CocktailcraftingRequest, self).__init__(session)
-		self.url = session.serverURL + "cocktail.php"
+		self.url = session.serverURL + "craft.php"
+		self.requestData['mode'] = 'cocktail'
 		self.requestData['pwd'] = session.pwd
-		self.requestData['action'] = "combine"
-		self.requestData['quantity'] = numDrinks
-		self.requestData['item1'] = itemid1
-		self.requestData['item2'] = itemid2
+		self.requestData['action'] = 'craft'
+		self.requestData['qty'] = numDrinks
+		self.requestData['a'] = itemid1
+		self.requestData['b'] = itemid2
 		
 		if makeMax:
-			self.requestData['makemax'] = "on"
+			self.requestData['max'] = "on"
 	
 	def parseResponse(self):
 		itemsDontMakeCocktailPattern = PatternManager.getOrCompilePattern('itemsDontMakeCocktail')
