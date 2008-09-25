@@ -106,3 +106,11 @@ class NotEnoughAdventuresLeftError(Error):
 	"""
 	def __init__(self, message):
 		self.message = message
+
+class NotEnoughMeatError(Error):
+	"""
+	An exception raised then the user tries to do something without enought meat
+	on hand to successfully perform the action.
+	"""
+	def __init__(self, message):
+		self.message = message

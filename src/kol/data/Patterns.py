@@ -104,4 +104,10 @@ patterns = {
 	'hpLoss' : r'You lose.*?([0-9]+).*?(?:H|hit P|points?)',
 	'mpGain' : r'You gain.*?([0-9]+).*?(?:(?:M|muscularity)|(?:M|mana)|(?:M|mojo) P|points?)',
 	'mpLoss' : r'You lose.*?([0-9]+).*?(?:(?:M|muscularity)|(?:M|mana)|(?:M|mojo) P|points?)',
+	
+	# Meatpasting Patterns.
+	'noMeatpaste' : (r"<b>Results:</b>.*You don't have any meat paste.*<b>Combine Items:</b>", re.DOTALL),
+	'itemsDontMeatpaste' : r"<td>Those two items don't combine to make anything interesting\.</td>",
+	'dontHaveItemsMeatpaste' : r"<td>You don't have enough of one the necessary items to make that combination\.</td>",
+	'noMeatForMeatpasting' : r"<td>You don't have enough Meat to make that many\.</td>",
 }
