@@ -98,16 +98,20 @@ patterns = {
 	# Stat related Patterns.
 	# RE's for HP/MP may be overly complicated if in-game case use is consistently one of the options.
 	# Also, these patterns should work in normal combat, but will fail miserably in the Haiku Dungeon.
-	'statGain' : r'You gain.*?([0-9]+).*?((?:Beefiness)|(?:Fortitude)|(?:Muscleboundness)|(?:Strengthliness)|(?:Strongness)|(?:Enchantedness)|(?:Magicalness)|(?:Mysteriousness)|(?:Wizardliness)|(?:Cheek)|(?:Chutzpah)|(?:Roguishness)|(?:Sarcasm)|(?:Smarm))',
-	'statLoss' : r'You lose.*?([0-9]+).*?((?:Beefiness)|(?:Fortitude)|(?:Muscleboundness)|(?:Strengthliness)|(?:Strongness)|(?:Enchantedness)|(?:Magicalness)|(?:Mysteriousness)|(?:Wizardliness)|(?:Cheek)|(?:Chutzpah)|(?:Roguishness)|(?:Sarcasm)|(?:Smarm))',
-	'hpGain' : r'You gain.*?([0-9]+).*?(?:H|hit P|points?)',
-	'hpLoss' : r'You lose.*?([0-9]+).*?(?:H|hit P|points?)',
-	'mpGain' : r'You gain.*?([0-9]+).*?(?:(?:M|muscularity)|(?:M|mana)|(?:M|mojo) P|points?)',
-	'mpLoss' : r'You lose.*?([0-9]+).*?(?:(?:M|muscularity)|(?:M|mana)|(?:M|mojo) P|points?)',
+	'statGain' : r'You gain.*?([0-9,]+).*?((?:Beefiness)|(?:Fortitude)|(?:Muscleboundness)|(?:Strengthliness)|(?:Strongness)|(?:Enchantedness)|(?:Magicalness)|(?:Mysteriousness)|(?:Wizardliness)|(?:Cheek)|(?:Chutzpah)|(?:Roguishness)|(?:Sarcasm)|(?:Smarm))',
+	'statLoss' : r'You lose.*?([0-9,]+).*?((?:Beefiness)|(?:Fortitude)|(?:Muscleboundness)|(?:Strengthliness)|(?:Strongness)|(?:Enchantedness)|(?:Magicalness)|(?:Mysteriousness)|(?:Wizardliness)|(?:Cheek)|(?:Chutzpah)|(?:Roguishness)|(?:Sarcasm)|(?:Smarm))',
+	'hpGain' : r'You gain.*?([0-9,]+).*?(?:H|hit P|points?)',
+	'hpLoss' : r'You lose.*?([0-9,]+).*?(?:H|hit P|points?)',
+	'mpGain' : r'You gain.*?([0-9,]+).*?(?:(?:M|muscularity)|(?:M|mana)|(?:M|mojo) P|points?)',
+	'mpLoss' : r'You lose.*?([0-9,]+).*?(?:(?:M|muscularity)|(?:M|mana)|(?:M|mojo) P|points?)',
 	
 	# Meatpasting Patterns.
 	'noMeatpaste' : (r"<b>Results:</b>.*You don't have any meat paste.*<b>Combine Items:</b>", re.DOTALL),
 	'itemsDontMeatpaste' : r"<td>Those two items don't combine to make anything interesting\.</td>",
 	'dontHaveItemsMeatpaste' : r"<td>You don't have enough of one the necessary items to make that combination\.</td>",
 	'noMeatForMeatpasting' : r"<td>You don't have enough Meat to make that many\.</td>",
+	
+	# Store Patterns
+	'meatSpent' : r'You spent ([0-9,]+) Meat',
+	'noMeatForStore' : r"(?:You can't afford that many of that item)|(?:You can't afford that item)",
 }
