@@ -177,7 +177,6 @@ def checkMoxie(text):
 	
 	match = moxieGainPattern.search(text)
 	if match:
-		print match.group(0)
 		moxieChange["moxiePoint"] = '+'
 	match = moxieLossPattern.search(text)
 	if match:
@@ -211,7 +210,6 @@ def checkMP(text):
 	mp = 0
 	
 	for match in mpGainPattern.finditer(text):
-		print match.group(0)
 		mp = mp + int(match.group(1).replace(',',''))
 	for match in mpLossPattern.finditer(text):
 		mp = mp - int(match.group(1).replace(',',''))
