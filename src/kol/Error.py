@@ -109,8 +109,15 @@ class NotEnoughAdventuresLeftError(Error):
 
 class NotEnoughMeatError(Error):
 	"""
-	An exception raised then the user tries to do something without enought meat
+	An exception raised when the user tries to do something without enought meat
 	on hand to successfully perform the action.
+	"""
+	def __init__(self, message):
+		self.message = message
+
+class NotAStoreError(Error):
+	"""
+	An exception raised when the user tries to visit a store that doesn't exist
 	"""
 	def __init__(self, message):
 		self.message = message

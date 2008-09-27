@@ -96,14 +96,25 @@ patterns = {
 	'characterEffect' : r'eff\("[a-fA-F0-9]+"\);\'.*?></td><td valign=center><font size=[0-9]+>(.*?) ?\(([0-9]+)\)</font><br></td>',
 	
 	# Stat related Patterns.
-	# RE's for HP/MP may be overly complicated if in-game case use is consistently one of the options.
 	# Also, these patterns should work in normal combat, but will fail miserably in the Haiku Dungeon.
-	'statGain' : r'You gain.*?([0-9,]+).*?((?:Beefiness)|(?:Fortitude)|(?:Muscleboundness)|(?:Strengthliness)|(?:Strongness)|(?:Enchantedness)|(?:Magicalness)|(?:Mysteriousness)|(?:Wizardliness)|(?:Cheek)|(?:Chutzpah)|(?:Roguishness)|(?:Sarcasm)|(?:Smarm))',
-	'statLoss' : r'You lose.*?([0-9,]+).*?((?:Beefiness)|(?:Fortitude)|(?:Muscleboundness)|(?:Strengthliness)|(?:Strongness)|(?:Enchantedness)|(?:Magicalness)|(?:Mysteriousness)|(?:Wizardliness)|(?:Cheek)|(?:Chutzpah)|(?:Roguishness)|(?:Sarcasm)|(?:Smarm))',
-	'hpGain' : r'You gain.*?([0-9,]+).*?(?:H|hit P|points?)',
-	'hpLoss' : r'You lose.*?([0-9,]+).*?(?:H|hit P|points?)',
-	'mpGain' : r'You gain.*?([0-9,]+).*?(?:(?:M|muscularity)|(?:M|mana)|(?:M|mojo) P|points?)',
-	'mpLoss' : r'You lose.*?([0-9,]+).*?(?:(?:M|muscularity)|(?:M|mana)|(?:M|mojo) P|points?)',
+	'muscleSubstatGain' : r'You gain ([0-9,]+) ((?:Beefiness)|(?:Fortitude)|(?:Muscleboundness)|(?:Strengthliness)|(?:Strongness))',
+	'muscleSubstatLoss' : r'You lose ([0-9,]+) ((?:Beefiness)|(?:Fortitude)|(?:Muscleboundness)|(?:Strengthliness)|(?:Strongness))',
+	'musclePointGain' : r'You gain (?:a)|(?:some) Muscle points?',
+	'musclePointLoss' : r'You lose (?:a)|(?:some) Muscle points?',
+	'mystSubstatGain' : r'You gain ([0-9,]+) ((?:Enchantedness)|(?:Magicalness)|(?:Mysteriousness)|(?:Wizardliness))',
+	'mystSubstatLoss' : r'You lose ([0-9,]+) ((?:Enchantedness)|(?:Magicalness)|(?:Mysteriousness)|(?:Wizardliness))',
+	'mystPointGain' : r'You gain (?:a)|(?:some) Mysticality points?',
+	'mystPointLoss' : r'You lose (?:a)|(?:some) Mysticality points?',
+	'moxieSubstatGain' : r'You gain ([0-9,]+) ((?:Cheek)|(?:Chutzpah)|(?:Roguishness)|(?:Sarcasm)|(?:Smarm))',
+	'moxieSubstatLoss' : r'You gain ([0-9,]+) ((?:Cheek)|(?:Chutzpah)|(?:Roguishness)|(?:Sarcasm)|(?:Smarm))',
+	'moxiePointGain' : r'You gain (?:a)|(?:some) Moxie points?',
+	'moxiePointLoss' : r'You lose (?:a)|(?:some) Moxie points?',
+	'levelGain' : r'You gain (?:a)|(?:some) L|levels?',
+	'hpGain' : r'You gain ([0-9,]+) (?:hit points?)',
+	'hpLoss' : r'You lose ([0-9,]+) (?:hit points?)',
+	'mpGain' : r'You gain ([0-9,]+) (?:(?:M|muscularity)|(?:M|mana)|(?:M|mojo) P|points?)',
+	'mpLoss' : r'You lose ([0-9,]+) (?:(?:M|muscularity)|(?:M|mana)|(?:M|mojo) P|points?)',
+	'gainDrunk' : r'You gain ([0-9]+) Drunkenness',
 	
 	# Meatpasting Patterns.
 	'noMeatpaste' : (r"<b>Results:</b>.*You don't have any meat paste.*<b>Combine Items:</b>", re.DOTALL),
@@ -111,7 +122,12 @@ patterns = {
 	'dontHaveItemsMeatpaste' : r"<td>You don't have enough of one the necessary items to make that combination\.</td>",
 	'noMeatForMeatpasting' : r"<td>You don't have enough Meat to make that many\.</td>",
 	
-	# Store Patterns
+	# Hermit/Store Patterns
 	'meatSpent' : r'You spent ([0-9,]+) Meat',
 	'noMeatForStore' : r"(?:You can't afford that many of that item)|(?:You can't afford that item)",
+	'noTrinkets' : r"You don't have enough stuff",
+	#'noHermitPermits' : r'',
+	'notEnoughClovers' : r"you are able to infer that he doesn't have enough clovers to make that trade",
+	'invalidStore' : r"You've been sent back here by some kind of bug",
+	'notSoldHere' : r"This store doesn't sell that item",
 }
