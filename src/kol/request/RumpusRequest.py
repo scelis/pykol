@@ -1,6 +1,7 @@
 from kol.request.GenericRequest import GenericRequest
 from kol.database import ItemDatabase
 from kol.manager import PatternManager
+from kol.util import CommonPatternUtils
 
 """
 Needed:  Someone who has access to the various stat-boosting clan equipment
@@ -57,74 +58,6 @@ class RumpusRequest(GenericRequest):
 
 	
 	def parseResponse(self):
-		singleItemPattern = PatternManager.getOrCompilePattern('acquireSingleItem')
-		multiItemPattern = PatternManager.getOrCompilePattern('acquireMultipleItems')
-		meatPattern = PatternManager.getOrCompilePattern('gainMeat')
-		statGainPattern = PatternManager.getOrCompilePattern('statGain')
-		statLossPattern = PatternManager.getOrCompilePattern('statLoss')
-		hpGainPattern = PatternManager.getOrCompilePattern('hpGain')
-		hpLossPattern = PatternManager.getOrCompilePattern('hpLoss')
-		mpGainPattern = PatternManager.getOrCompilePattern('mpGain')
-		mpLossPattern = PatternManager.getOrCompilePattern('mpLoss')
+		response = CommonPatternUtils.checkText(self.responseText, check=[CommonPatternUtils.STATS, CommonPatternUtils.HEALTH, CommonPatternUtils.MEAT, CommonPatternUtils.ITEM])
 		
-		response = {}
-		
-		# Find items recieved, if any.
-		items = []
-		for match in singleItemPattern.finditer(self.responseText):
-			descId = int(match.group(1))
-			item = ItemDatabase.getItemFromDescId(descId, self.session)
-			item["quantity"] = 1
-			items.append(item)
-		for match in multiItemPattern.finditer(self.responseText):
-			descId = int(match.group(1))
-			quantity = int(match.group(2).replace(',', ''))
-			item = ItemDatabase.getItemFromDescId(descId, self.session)
-			item["quantity"] = quantity
-			items.append(item)
-		if len(items) > 0:
-			response["item"] = items
-
-		# Find how much meat was attached to the message.
-		meat = 0
-		meatMatch = meatPattern.search(self.responseText)
-		if meatMatch:
-			meat = int(meatMatch.group(1).replace(',', ''))
-		if meat > 0:
-			response["meat"] = meat
-			
-		# Check for stat gain/loss
-		stats = {}
-		for match in statGainPattern.finditer(self.responseText):
-			substat = str(match.group(2))
-			points = int(match.group(1))
-			stats[substat] = points
-		if len(stats) > 0:
-			response["statGain"] = stats
-		stats = {}
-		for match in statLossPattern.finditer(self.responseText):
-			substat = str(match.group(2))
-			points = int(match.group(1))
-			stats[substat] = points
-		if len(stats) > 0:
-			response["statLoss"] = stats
-			
-		# Check for HP and MP gain/loss
-		match = hpGainPattern.search(self.responseText)
-		if match:
-			hp = int(match.group(1))
-			response["hpGain"] = hp
-		match = hpLossPattern.search(self.responseText)
-		if match:
-			hp = int(match.group(1))
-			response["hpLoss"] = hp
-		match = mpGainPattern.search(self.responseText)
-		if match:
-			mp = int(match.group(1))
-			response["mpGain"] = mp
-		match = mpLossPattern.search(self.responseText)
-		if match:
-			mp = int(match.group(1))
-			response["mpLoss"] = mp
-
 		self.responseData = response
