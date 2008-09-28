@@ -1,5 +1,5 @@
 from kol.request.GenericRequest import GenericRequest
-from kol.util import CommonPatternUtils
+from kol.request import ParseResponseUtils
 
 class ComfySofaRequest(GenericRequest):
 	"Uses the comfy sofa in the rumpus room"
@@ -10,6 +10,8 @@ class ComfySofaRequest(GenericRequest):
 		self.requestData['numturns'] = numturns
 
 	def parseResponse(self):
-		response = CommonPatternUtils.checkText(self.responseText, check=[ CommonPatternUtils.HEALTH])
+		response = {}
+		response["mp"] = ParseResponseUtils.parseMPGained(self.responseText)
+		response["hp"] = ParseResponseUtils.parseHPGained(self.responseText)
 		
 		self.responseData = response

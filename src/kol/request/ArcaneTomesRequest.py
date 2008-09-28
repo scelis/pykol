@@ -1,5 +1,5 @@
 from kol.request.GenericRequest import GenericRequest
-from kol.util import CommonPatternUtils
+from kol.request import ParseResponseUtils
 
 """
 Currently this requests acts only as a click on the tomes.
@@ -14,6 +14,9 @@ class ArcaneTomesRequest(GenericRequest):
 		self.url = session.serverURL + 'clan_rumpus.php?action=click&spot=2&furni=1'
 
 	def parseResponse(self):
-		response = CommonPatternUtils.checkText(self.responseText, check=[ CommonPatternUtils.MYST])
+		response = {}
+		respose["substats"] = ParseResponseUtils.parseSubstatsGained(self.responseText, checkMuscle=False, checkMoxie=False)
+		respose["statPoints"] = ParseResponseUtils.ParseResponseUtils.parseStatPointsGained(self.responseText, checkMuscle=False, checkMoxie=False)
+		response["level"] = ParseResponseUtils.parseLevelGained(self.responseText)
 		
 		self.responseData = response

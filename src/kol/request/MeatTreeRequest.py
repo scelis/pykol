@@ -1,5 +1,5 @@
 from kol.request.GenericRequest import GenericRequest
-from kol.util import CommonPatternUtils
+from kol.request import ParseResponseUtils
 
 class MeatTreeRequest(GenericRequest):
 	"Uses the meat bush in the rumpus room"
@@ -8,6 +8,7 @@ class MeatTreeRequest(GenericRequest):
 		self.url = session.serverURL + 'clan_rumpus.php?action=click&spot=9&furni=3'
 
 	def parseResponse(self):
-		response = CommonPatternUtils.checkText(self.responseText, check=[ CommonPatternUtils.MEAT])
+		response = {}
+		response["meat"] = ParseResponseUtils.parseMeatReceived(self.responseText)
 		
 		self.responseData = response

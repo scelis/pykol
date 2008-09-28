@@ -1,5 +1,5 @@
 from kol.request.GenericRequest import GenericRequest
-from kol.util import CommonPatternUtils
+from kol.request import ParseResponseUtils
 
 """
 Note that we do not parse for messages indicating you've already used the orchid.  If no meat is retrieved, it will return just an empty dictionary.
@@ -12,6 +12,7 @@ class MeatOrchidRequest(GenericRequest):
 		self.url = session.serverURL + 'clan_rumpus.php?action=click&spot=1&furni=4'
 
 	def parseResponse(self):
-		response = CommonPatternUtils.checkText(self.responseText, check=[ CommonPatternUtils.MEAT])
+		response = {}
+		response["meat"] = ParseResponseUtils.parseMeatReceived(self.responseText)
 		
 		self.responseData = response

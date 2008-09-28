@@ -1,5 +1,5 @@
 from kol.request.GenericRequest import GenericRequest
-from kol.util import CommonPatternUtils
+from kol.request import ParseResponseUtils
 
 """
 At the moment, I have no access to a jukebox, so this request only simulates clicking on the jukebox, not selecting a song.
@@ -11,6 +11,12 @@ class JukeboxRequest(GenericRequest):
 		self.url = session.serverURL + 'clan_rumpus.php?action=click&spot=3&furni=2'
 
 	def parseResponse(self):
-		response = CommonPatternUtils.checkText(self.responseText, check=[ CommonPatternUtils.EFFECT, CommonPatternUtils.HP])
+		response = {}
+		effectResponse = ParseResponseUtils.parseEffectsGained(self.responseText)
+		if len(effectResponse) > 0:
+			response["effects"] = effectResponse
+		hpResponse = ParseResponseUtils.parseHPGained(self.responseText)
+		if hpResponse != 0:
+			reponse["hp"] = hpResponse
 		
 		self.responseData = response

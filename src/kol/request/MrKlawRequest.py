@@ -1,5 +1,5 @@
 from kol.request.GenericRequest import GenericRequest
-from kol.util import CommonPatternUtils
+from kol.request import ParseResponseUtils
 
 class MrKlawRequest(GenericRequest):
 	"Uses Mr. Klaw in the rumpus room"
@@ -8,6 +8,6 @@ class MrKlawRequest(GenericRequest):
 		self.url = session.serverURL + 'clan_rumpus.php?action=click&spot=3&furni=3'
 
 	def parseResponse(self):
-		response = CommonPatternUtils.checkText(self.responseText, check=[ CommonPatternUtils.ITEM])
+		response = ParseResponseUtils.parseItemsReceived(self.responseText)
 		
 		self.responseData = response

@@ -1,5 +1,5 @@
 from kol.request.GenericRequest import GenericRequest
-from kol.util import CommonPatternUtils
+from kol.request import ParseResponseUtils
 
 """
 At the moment, I have no access to a snack machine, so this request only simulates clicking on it, not selecting a snack.
@@ -12,6 +12,6 @@ class SnackMachineRequest(GenericRequest):
 		self.url = session.serverURL + 'clan_rumpus.php?action=click&spot=9&furni=2'
 
 	def parseResponse(self):
-		response = CommonPatternUtils.checkText(self.responseText, check=[ CommonPatternUtils.ITEM])
+		response = ParseResponseUtils.parseItemsReceived(self.responseText)
 		
 		self.responseData = response
