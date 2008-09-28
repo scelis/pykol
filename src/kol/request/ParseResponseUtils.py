@@ -114,7 +114,7 @@ def parseHPGained(text):
 	# Need to do an iteration because it may happen multiple times in combat
 	# e.g. Items use to gain, then monster attack for loss
 	hp = 0
-	for hpMatch in hpPattern.finditer(text)
+	for hpMatch in hpPattern.finditer(text):
 		hpChange = int(hpMatch.group(2).replace(',', ''))
 		if hpMatch.group(1) == "gain":
 			hp = hp + hpChange
@@ -127,7 +127,7 @@ def parseMPGained(text):
 	mpPattern = PatternManager.getOrCompilePattern('mpGainLoss')
 	# Need to do an iteration because it may happen multiple times in combat
 	mp = 0
-	for mpMatch in mpPattern.finditer(text)
+	for mpMatch in mpPattern.finditer(text):
 		mpChange = int(mpMatch.group(2).replace(',', ''))
 		if mpMatch.group(1) == "gain":
 			mp = mp + mpChange
