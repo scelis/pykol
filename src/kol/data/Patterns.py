@@ -96,18 +96,18 @@ patterns = {
 	'currentFamiliar' : r'href="familiar.php">(?:<b>)?<font size=[0-9]+>(.*?)</a>(?:</b>)?, the  ([0-9]+)-pound (.*?)<table',
 	'characterEffect' : r'eff\("[a-fA-F0-9]+"\);\'.*?></td><td valign=center><font size=[0-9]+>(.*?) ?\(([0-9]+)\)</font><br></td>',
 	
-	# Stat, Substat, Leveling, HP, and MP patterns.
+	# Stat, Substat, Leveling, HP, and MP patterns. Will fail in Haiku Dungeon.
 	'muscleGainLoss' : r'You (gain|lose) ([0-9,]+) (?:Beefiness|Fortitude|Muscleboundness|Strengthliness|Strongness)',
 	'mysticalityGainLoss' : r'You (gain|lose) ([0-9,]+) (?:Enchantedness|Magicalness|Mysteriousness|Wizardliness)',
 	'moxieGainLoss' : r'You (gain|lose) ([0-9,]+) (?:Cheek|Chutzpah|Roguishness|Sarcasm|Smarm)',
-	'hpGain' : r'You gain.*?([0-9,]+).*?(?:H|hit P|points?)',
-	'hpLoss' : r'You lose.*?([0-9,]+).*?(?:H|hit P|points?)',
-	'mpGain' : r'You gain.*?([0-9,]+).*?(?:(?:M|muscularity)|(?:M|mana)|(?:M|mojo) P|points?)',
-	'mpLoss' : r'You lose.*?([0-9,]+).*?(?:(?:M|muscularity)|(?:M|mana)|(?:M|mojo) P|points?)',
 	'musclePointGainLoss' : r'You (gain|lose) (?:a|some) Muscle points?',
 	'mystPointGainLoss' : r'You (gain|lose) (?:a|some) Mysticality points?',
 	'moxiePointGainLoss' : r'You (gain|lose) (?:a|some) Moxie points?',
 	'levelGain' : r'You gain (?:(?:a)|(?:some)) (?:L|l)evels?',
+	'hpGainLoss' : r'You (gain|lose) ([0-9,]+) hit points?',
+	'mpGainLoss' : r'You (gain|lose) ([0-9,]+) (?:Muscularity|Mana|Mojo) (?:P|p)oints?',
+	
+	# Drunkenness, Adventures, and Effect patterns.
 	'gainDrunk' : r'You gain ([0-9]+) Drunkenness',
 	'gainAdventures' : r'You gain ([0-9,]+) Adventures',
 	'gainEffect' : r'<td valign=center class=effect>You acquire an effect: <b>(.*?)</b><br>\(duration: ([0-9,]+) Adventures\)</td>',
@@ -121,6 +121,13 @@ patterns = {
 	# Store patterns.
 	'meatSpent' : r'You spent ([0-9,]+) Meat',
 	'noMeatForStore' : r"(?:You can't afford that many of that item)|(?:You can't afford that item)",
+	'invalidStore' : r"You've been sent back here by some kind of bug",
+	'notSoldHere' : r"This store doesn't sell that item",
+
+	# Hermit patterns.
+	'noTrinkets' : r"You don't have enough stuff",
+	#'noHermitPermits' : r'',
+	'notEnoughClovers' : r"you are able to infer that he doesn't have enough clovers to make that trade",
 	
 	# Adventure patterns.
 	"twiddlingThumbs" : r"You twiddle your thumbs\.",
@@ -131,4 +138,26 @@ patterns = {
 	"noncombatName" : r"<center><table><tr><td><center><b>([^<>]+)<\/b><br><img",
 	"fightWon" : r"<center>You win the fight!<!--WINWINWIN--><p>",
 	"fightLost" : r"<p>You lose\. +You slink away, dejected and defeated\.<p>",
+	
+		# Rumpus Room Patterns
+	'girlsCalendar' : r'rump1_1\.gif',
+	'boysCalendar' : r'rump1_2\.gif',
+	'infuriatingPainting' : r'rump1_3\.gif',
+	'meatOrchid' : r'rump1_4\.gif',
+	'arcaneTomes' : r'rump2_1\.gif',
+	'sportsMem' : r'rump2_2\.gif',
+	'selfHelp' : r'rump2_3\.gif',
+	'sodaMachine' : r'rump3_1\.gif',
+	'jukebox' : r'rump3_2\.gif',
+	'mrKlaw' : r'rump3_3\.gif',
+	'oldRadio' : r'rump4_1\.gif',
+	'meatBush' : r'rump4_2\.gif',
+	'deskCal' : r'rump4_3\.gif',
+	'wrestling' : r'rump5_1\.gif',
+	'tanULots' : r'rump5_2\.gif',
+	'comfySofa' : r'rump5_3\.gif',
+	'hoboFlex' : r'rump9_1\.gif',
+	'snackMachine' : r'rump9_2\.gif',
+	'meatTree' : r'rump9_3\.gif',
+
 }
