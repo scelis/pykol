@@ -139,25 +139,6 @@ patterns = {
 	"fightWon" : r"<center>You win the fight!<!--WINWINWIN--><p>",
 	"fightLost" : r"<p>You lose\. +You slink away, dejected and defeated\.<p>",
 	
-		# Rumpus Room Patterns
-	'girlsCalendar' : r'rump1_1\.gif',
-	'boysCalendar' : r'rump1_2\.gif',
-	'infuriatingPainting' : r'rump1_3\.gif',
-	'meatOrchid' : r'rump1_4\.gif',
-	'arcaneTomes' : r'rump2_1\.gif',
-	'sportsMem' : r'rump2_2\.gif',
-	'selfHelp' : r'rump2_3\.gif',
-	'sodaMachine' : r'rump3_1\.gif',
-	'jukebox' : r'rump3_2\.gif',
-	'mrKlaw' : r'rump3_3\.gif',
-	'oldRadio' : r'rump4_1\.gif',
-	'meatBush' : r'rump4_2\.gif',
-	'deskCal' : r'rump4_3\.gif',
-	'wrestling' : r'rump5_1\.gif',
-	'tanULots' : r'rump5_2\.gif',
-	'comfySofa' : r'rump5_3\.gif',
-	'hoboFlex' : r'rump9_1\.gif',
-	'snackMachine' : r'rump9_2\.gif',
-	'meatTree' : r'rump9_3\.gif',
-
+	# Rumpus Room Patterns
+	'rumpusRoom' : r'rump([0-9])_([0-9])\.gif',
 }

@@ -1,6 +1,55 @@
 from kol.request.GenericRequest import GenericRequest
 from kol.manager import PatternManager
 
+furniture = {
+	'1':{
+		'0':'A Nail in the Wall',
+		'1':'Girls of Loathing Calendar',
+		'2':'Boys of Loathing Calendar',
+		'3':'An Infuriating Painting',
+		'4':'An Exotic Hanging Meat Orchid'
+	},
+	'2':{
+		'0':'An Empty Bookshelf',
+		'1':'A Collection of Arcane Tomes and Whatnot',
+		'2':'A Collection of Sports Memorabilia',
+		'3':'A Collection of Self-Help Books',
+	},
+	'3':{
+		'0':'An Unused Outlet',
+		'1':'A Soda Machine',
+		'2':'A Jukebox',
+		'3':'A Mr. Klaw "Skill" Crane Game',
+	},
+	'4':{
+		'0':'An Empty Endtable',
+		'1':'An Old-Timey Radio',
+		'2':'A Potted Meat Bush',
+		'3':'An Inspirational Desk Calendar',
+	},
+	'5':{
+		'0':'A Threadbare Rug',
+		'1':'A Wrestling Mat',
+		'2':'A Tan-U-Lots Tanning Bed',
+		'3':'A Comfy Sofa',
+	},
+	'6':{
+		'0':'Some Empty Space',
+	},
+	'7':{
+		'0':'A Bare Corner',
+	},
+	'8':{
+		'0':'Doorway',
+	},
+	'9':{
+		'0':'A Dusty Corner',
+		'1':'A Hobo-Flex Workout System',
+		'2':'A Snack Machine',
+		'3':'A Potted Meat Tree',
+	},
+}
+
 class RumpusRoomRequest(GenericRequest):
 	"Determines what furniture is present in the rumpus room"
 	def __init__(self, session):
@@ -8,107 +57,15 @@ class RumpusRoomRequest(GenericRequest):
 		self.url = session.serverURL + 'clan_rumpus.php'
 		
 	def parseResponse(self):
-		clanFurniture = []
+		furnPresent = []
 		
-		# Load Patterns
-		girlsCalendarPattern = PatternManager.getOrCompilePattern('girlsCalendar')
-		match = girlsCalendarPattern.search(self.responseText)
-		if match:
-			clanFurniture.append("Girls of Loathing Calendar")
-			
-		boysCalendarPattern = PatternManager.getOrCompilePattern('boysCalendar')
-		match = boysCalendarPattern.search(self.responseText)
-		if match:
-			clanFurniture.append("Boys of Loathing Calendar")
-			
-		paintingPattern = PatternManager.getOrCompilePattern('infuriatingPainting')
-		match = paintingPattern.search(self.responseText)
-		if match:
-			clanFurniture.append("An Infuriating Painting")
-			
-		orchidPattern = PatternManager.getOrCompilePattern('meatOrchid')
-		match = orchidPattern.search(self.responseText)
-		if match:
-			clanFurniture.append("An Exotic Hanging Meat Orchid")
-			
-		tomesPattern = PatternManager.getOrCompilePattern('arcaneTomes')
-		match = tomesPattern.search(self.responseText)
-		if match:
-			clanFurniture.append("A Collection of Arcane Tomes and Whatnot")
-			
-		sportsPattern = PatternManager.getOrCompilePattern('sportsMem')
-		match = sportsPattern.search(self.responseText)
-		if match:
-			clanFurniture.append("A Collection of Sports Memorabilia")
-			
-		helpBooksPattern = PatternManager.getOrCompilePattern('selfHelp')
-		match = helpBooksPattern.search(self.responseText)
-		if match:
-			clanFurniture.append("A Collection of Self-Help Books")
-			
-		sodaMachinePattern = PatternManager.getOrCompilePattern('sodaMachine')
-		match = sodaMachinePattern.search(self.responseText)
-		if match:
-			clanFurniture.append("A Soda Machine")
-			
-		jukeboxPattern = PatternManager.getOrCompilePattern('jukebox')
-		match = jukeboxPattern.search(self.responseText)
-		if match:
-			clanFurniture.append("A Jukebox")
-			
-		mrKlawPattern = PatternManager.getOrCompilePattern('mrKlaw')
-		match = mrKlawPattern.search(self.responseText)
-		if match:
-			clanFurniture.append('A Mr. Klaw "Skill" Crane Game')
-			
-		radioPattern = PatternManager.getOrCompilePattern('oldRadio')
-		match = radioPattern.search(self.responseText)
-		if match:
-			clanFurniture.append("An Old-Timey Radio")
-			
-		bushPattern = PatternManager.getOrCompilePattern('meatBush')
-		match = bushPattern.search(self.responseText)
-		if match:
-			clanFurniture.append("A Potted Meat Bush")
-			
-		deskCalendarPattern = PatternManager.getOrCompilePattern('deskCal')
-		match = deskCalendarPattern.search(self.responseText)
-		if match:
-			clanFurniture.append("An Inspirational Desk Calendar")
-			
-		wrestlingPattern = PatternManager.getOrCompilePattern('wrestling')
-		match = wrestlingPattern.search(self.responseText)
-		if match:
-			clanFurniture.append("A Wrestling Mat")
-			
-		tanULotsPattern = PatternManager.getOrCompilePattern('tanULots')
-		match = tanULotsPattern.search(self.responseText)
-		if match:
-			clanFurniture.append("A Tan-U-Lots Tanning Bed")
-			
-		comfySofaPattern = PatternManager.getOrCompilePattern('comfySofa')
-		match = comfySofaPattern.search(self.responseText)
-		if match:
-			clanFurniture.append("A Comfy Sofa")
-			
-		hoboFlexPattern = PatternManager.getOrCompilePattern('hoboFlex')
-		match = hoboFlexPattern.search(self.responseText)
-		if match:
-			clanFurniture.append("A Hobo-Flex Workout System")
-			
-		snackMachinePattern = PatternManager.getOrCompilePattern('snackMachine')
-		match = snackMachinePattern.search(self.responseText)
-		if match:
-			clanFurniture.append("A Snack Machine")
-			
-		treePattern = PatternManager.getOrCompilePattern('meatTree')
-		match = treePattern.search(self.responseText)
-		if match:
-			clanFurniture.append("A Potted Meat Tree")
-			
+		# Get the furniture
+		rumpusRoomPattern = PatternManager.getOrCompilePattern('rumpusRoom')
+		for match in rumpusRoomPattern.finditer(self.responseText):
+			spot = match.group(1)
+			furn = match.group(2)
+			if furn != '0':
+				furnPresent.append(furniture[spot][furn])
 		
 		# Return the list of furniture
-		if len(clanFurniture) > 0:
-			self.responseData = clanFurniture
-		else:
-			self.responseData = None
+		self.responseData = furnPresent
