@@ -18,6 +18,7 @@ DRUNK = 7
 MEAT = 8
 ITEM = 9
 ADVEN = 10
+EFFECT = 11
 HEALTH = 98
 STATS = 99
 
@@ -76,6 +77,11 @@ def checkText(text, check=[ALL]):
 		adv = checkAdven(text)
 		if adv > 0:
 			parsedData["advGain"] = adv
+			
+	if ALL in check or EFFECT in check:
+		effect = checkEffect(text)
+		if len(effect) > 0:
+			parsedData["effect"] = effect
 		
 	return parsedData
 
@@ -278,3 +284,19 @@ def checkAdven(text):
 		adventures = int(match.group(1).replace(',',''))
 	
 	return adventures
+
+
+def checkEffect(text):
+	# Parse for effects acquired
+	effectPattern = PatternManager.getOrCompilePattern('gainEffect')
+	
+	effects = []
+	
+	for match in effectPattern.finditer(text):
+		eff = {}
+		eff["name"] = match.group(1)
+		eff["turns"] = int(match.group(2).replace(',',''))
+		effects.append(eff)
+	
+	return effects
+

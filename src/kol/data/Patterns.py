@@ -117,6 +117,7 @@ patterns = {
 	'mpLoss' : r'You lose ([0-9,]+) (?:(?:Muscularity)|(?:Mana)|(?:Mojo)) (?:P|p)oints?',
 	'gainDrunk' : r'You gain ([0-9]+) Drunkenness',
 	'gainAdventures' : r'You gain ([0-9,]+) Adventures',
+	'gainEffect' : r'<td valign=center class=effect>You acquire an effect: <b>(.*?)</b><br>\(duration: ([0-9,]+) Adventures\)</td>',
 	
 	# Meatpasting Patterns.
 	'noMeatpaste' : (r"<b>Results:</b>.*You don't have any meat paste.*<b>Combine Items:</b>", re.DOTALL),
