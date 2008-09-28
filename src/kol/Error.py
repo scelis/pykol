@@ -86,9 +86,20 @@ class UserIsIgnoringError(Error):
 	def __init__(self, message):
 		self.message = message
 
+######################
+# Adventuring Errors #
+######################
+class UserShouldNotBeHereError(Error):
+	"An exception raised when a user tries to adventure in a location where they should not be, yet."
+	
 ###############
 # Misc Errors #
 ###############
+class InvalidActionError(Error):
+	"An exception raised when the user tries to perform an invalid action."
+	def __init__(self, message):
+		self.message = message
+
 class InvalidRecipeError(Error):
 	"An exception raised when the user tries to construct something using an invalid recipe."
 	def __init__(self, message):
