@@ -8,7 +8,6 @@ class GenericAdventuringRequest(GenericRequest):
 	A base class used for common adventuring functionality. Other request classes related to
 	adventuring should probably extend this one.
 	"""
-	
 	def parseResponse(self):
 		shouldNotBeHerePattern = PatternManager.getOrCompilePattern('userShouldNotBeHere')
 		if shouldNotBeHerePattern.search(self.responseText)
@@ -38,7 +37,7 @@ class GenericAdventuringRequest(GenericRequest):
 			
 			# Get items, meat, and substats gained. We always need to check these since they can
 			# happen at any point during the fight.
-			self.responseData["items"] = ParseResponseUtils.parseItemsReceived(self.responseText)
+			self.responseData["items"] = ParseResponseUtils.parseItemsReceived(self.session, self.responseText)
 			self.responseData["meat"] = ParseResponseUtils.parseMeatReceived(self.responseText)
 			self.responseData["substats"] = ParseResponseUtils.parseSubstatsGained(self.responseText)
 			
@@ -51,7 +50,7 @@ class GenericAdventuringRequest(GenericRequest):
 				self.responseData["choiceId"] = choiceIdentifierMatch.group(1)
 				self.responseData["choiceName"] = choiceNamePattern.search(self.responseText).group(1)
 			else:
-				self.responseData["items"] = ParseResponseUtils.parseItemsReceived(self.responseText)
+				self.responseData["items"] = ParseResponseUtils.parseItemsReceived(self.session, self.responseText)
 				self.responseData["meat"] = ParseResponseUtils.parseMeatReceived(self.responseText)
 				self.responseData["substats"] = ParseResponseUtils.parseSubstatsGained(self.responseText)
 				
@@ -61,7 +60,7 @@ class GenericAdventuringRequest(GenericRequest):
 			noncombatNameMatch = noncombatNamePattern.search(self.responseText)
 			if noncombatNameMatch:
 				self.responseData["noncombatName"] = noncombatNameMatch.group(1)
-			self.responseData["items"] = ParseResponseUtils.parseItemsReceived(self.responseText)
+			self.responseData["items"] = ParseResponseUtils.parseItemsReceived(self.session, self.responseText)
 			self.responseData["meat"] = ParseResponseUtils.parseMeatReceived(self.responseText)
 			self.responseData["substats"] = ParseResponseUtils.parseSubstatsGained(self.responseText)
 		else:

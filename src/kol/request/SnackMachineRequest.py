@@ -12,6 +12,6 @@ class SnackMachineRequest(GenericRequest):
 		self.url = session.serverURL + 'clan_rumpus.php?action=click&spot=9&furni=2'
 
 	def parseResponse(self):
-		response = ParseResponseUtils.parseItemsReceived(self.responseText)
+		response = ParseResponseUtils.parseItemsReceived(self.session, self.responseText)
 		
 		self.responseData = response

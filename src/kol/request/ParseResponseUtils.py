@@ -1,13 +1,13 @@
 from kol.database import ItemDatabase
 from kol.manager import PatternManager
 
-def parseItemsReceived(text):
+def parseItemsReceived(session, text):
 	items = []
 	
 	singleItemPattern = PatternManager.getOrCompilePattern('acquireSingleItem')
 	for match in singleItemPattern.finditer(text):
 		descId = int(match.group(1))
-		item = ItemDatabase.getItemFromDescId(descId, self.session)
+		item = ItemDatabase.getItemFromDescId(descId, session)
 		item["quantity"] = 1
 		items.append(item)
 	
@@ -15,7 +15,7 @@ def parseItemsReceived(text):
 	for match in multiItemPattern.finditer(text):
 		descId = int(match.group(1))
 		quantity = int(match.group(2).replace(',', ''))
-		item = ItemDatabase.getItemFromDescId(descId, self.session)
+		item = ItemDatabase.getItemFromDescId(descId, session)
 		item["quantity"] = quantity
 		items.append(item)	
 	
@@ -23,11 +23,11 @@ def parseItemsReceived(text):
 
 def parseMeatReceived(text):
 	meatPattern = PatternManager.getOrCompilePattern('gainMeat')
-	match = meatPattern.search(self.responseText)
+	match = meatPattern.search(text)
 	if match:
 		return int(match.group(1).replace(',', ''))
 	meatPattern = PatternManager.getOrCompilePattern('loseMeat')
-	match = meatPattern.search(self.responseText)
+	match = meatPattern.search(text)
 	if match:
 		return -1 * int(match.group(1).replace(',', ''))	
 	return 0
