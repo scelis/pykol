@@ -11,6 +11,7 @@ class CombatRequest(GenericAdventuringRequest):
 	USE_ITEM = 1
 	USE_SKILL = 2
 	RUN_AWAY = 3
+	PICK_POCKET = 4
 	
 	def __init__(self, session, action, param=None):
 		"""
@@ -32,3 +33,5 @@ class CombatRequest(GenericAdventuringRequest):
 			self.requestData["whichskill"] = param
 		elif action == RUN_AWAY:
 			self.requestData["action"] = "runaway"
+		elif action == PICK_POCKET:
+			self.requestData["action"] = "steal"
