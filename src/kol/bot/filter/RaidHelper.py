@@ -43,31 +43,13 @@ def botProcessChat(context, **kwargs):
 	bot = kwargs["bot"]
 	
 	if chat["type"] == "private":
-		if chat["text"] == "hobo reset":
-			resetHobopolisInstance(context, **kwargs)
-			returnCode = FilterManager.FINISHED
-		elif chat["text"] == "hobo status":
+		if chat["text"] == "hobo status":
 			reportHobopolisStatus(context, **kwargs)
 			returnCode = FilterManager.FINISHED
 	elif chat["type"] == "normal" and chat["userId"] == -2:
 		parseDungeonChatMessage(context, **kwargs)
 						
 	return returnCode
-
-def resetHobopolisInstance(context, **kwargs):
-	chat = kwargs["chat"]
-	bot = kwargs["bot"]
-	state = bot.states["global"]
-	
-	if BotUtils.canUserPerformAction(chat["userId"], "resetdungeon", bot):
-		keysToClear = ["hobo:sewerTrapped", "hobo:tiresStacked"]
-		for key in keysToClear:
-			if key in state:
-				del state[key]
-		bot.writeState("global")
-		bot.sendChatMessage("/w %s Hobopolis Data Cleared." % chat["userId"])
-	else:
-		bot.sendChatMessage("You do not have permission to perform this action.")
 
 def reportHobopolisStatus(context, **kwargs):
 	bot = kwargs["bot"]
@@ -151,10 +133,16 @@ def parseDungeonChatMessage(context, **kwargs):
 	elif chat["text"].find("has started a tirevalanche") > 0:
 		state["hobo:tiresStacked"] = 0
 		bot.writeState("global")
-	elif rescuedPattern.match(chat["text"]):
+	elif chat["text"].find("escaped from the C. H. U. M.s by gnawing through their cage") > 0 or rescuedPattern.match(chat["text"]):
 		if "hobo:sewerTrapped" in state:
 			del state["hobo:sewerTrapped"]
 			bot.writeState("global")
+	elif chat["text"].find("flooded the sewers leading to Hobopolis") > 0:
+		keysToClear = ["hobo:sewerTrapped", "hobo:tiresStacked"]
+		for key in keysToClear:
+			if key in state:
+				del state[key]
+		bot.writeState("global")
 	else:
 		match = trappedPattern.match(chat["text"])
 		if match:
