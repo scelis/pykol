@@ -18,14 +18,6 @@ class RelayServer(threading.Thread):
 		server.relayServer = self
 		Report.trace('relay', 'RelayServer started.')
 		
-		# Launch the relay server URL in a browser window.
-		url = 'http://localhost:%s/main.html' % self.port
-		sysname = os.uname()[0]
-		if sysname == "darwin":
-			os.spawnlp(os.P_NOWAIT, "open", "open", url)
-		else:
-			os.startfile(url)
-		
 		# Handle requests for as long as we can.
 		while (not self.haltEvent.isSet()):
 			server.handle_request()
@@ -33,3 +25,12 @@ class RelayServer(threading.Thread):
 		# Shut down the RelayServer.
 		Report.trace('relay', 'Shutting down RelayServer.')
 		server.socket.close()
+		
+	def launchRelayBrowser(self):
+		"Launch the relay server URL in a browser window."
+		url = 'http://localhost:%s/main.html' % self.port
+		
+		if os.name == 'nt':
+			os.startfile(url)
+		else:
+			os.spawnlp(os.P_NOWAIT, "open", "open", url)
