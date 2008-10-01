@@ -29,7 +29,7 @@ class CombatRequest(GenericAdventuringRequest):
 			self.requestData["action"] = "useitem"
 			self.requestData["whichitem"] = param
 			if param2 != None:
-				self.requestData["whichitem"] = param2
+				self.requestData["whichitem2"] = param2
 		elif action == USE_SKILL:
 			self.requestData["action"] = "skill"
 			self.requestData["whichskill"] = param
