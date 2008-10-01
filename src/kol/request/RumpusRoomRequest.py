@@ -1,7 +1,7 @@
 from kol.request.GenericRequest import GenericRequest
 from kol.manager import PatternManager
 
-furniture = {
+FURNITURE = {
 	'1':{
 		'0':'A Nail in the Wall',
 		'1':'Girls of Loathing Calendar',
@@ -51,21 +51,18 @@ furniture = {
 }
 
 class RumpusRoomRequest(GenericRequest):
-	"Determines what furniture is present in the rumpus room"
+	"Determines what furniture is present in the rumpus room."
 	def __init__(self, session):
 		super(RumpusRoomRequest, self).__init__(session)
 		self.url = session.serverURL + 'clan_rumpus.php'
 		
 	def parseResponse(self):
 		furnPresent = []
-		
-		# Get the furniture
-		rumpusRoomPattern = PatternManager.getOrCompilePattern('rumpusRoom')
+		rumpusRoomPattern = PatternManager.getOrCompilePattern('rumpusRoomFurniture')
 		for match in rumpusRoomPattern.finditer(self.responseText):
 			spot = match.group(1)
 			furn = match.group(2)
 			if furn != '0':
-				furnPresent.append(furniture[spot][furn])
-		
-		# Return the list of furniture
-		self.responseData = furnPresent
+				furnPresent.append(FURNITURE[spot][furn])
+				
+		self.responseData["furniture"] = furnPresent

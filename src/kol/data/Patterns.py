@@ -140,5 +140,5 @@ patterns = {
 	"fightLost" : r"<p>You lose\. +You slink away, dejected and defeated\.<p>",
 	
 	# Rumpus Room Patterns
-	'rumpusRoom' : r'rump([0-9])_([0-9])\.gif',
+	'rumpusRoomFurniture' : r'rump([0-9])_([0-9])\.gif',
 }
