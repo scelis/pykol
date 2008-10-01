@@ -3,9 +3,22 @@ from kol.util import Report
 
 from BaseHTTPServer import HTTPServer
 import os
+import socket
 import threading
 
 class RelayServer(threading.Thread):
+	"""
+	This class acts as a relay server, allowing users to use a browser to communicate with the KoL
+	servers even if they are already logged in via a script or bot. It works much like the KoLmafia
+	relay browser system by listening to a port on the local machine. Any traffic sent to that port
+	will be relayed to the KoL servers. Eventually, the response will be sent back on the same
+	socket.
+	
+	Note that if the port is already in use, this class will try again with the next highest port
+	number. It will do this a total of 10 times before finally giving up and raising a socket.error
+	exception.
+	"""
+	
 	def __init__(self, session, port=8557):
 		super(RelayServer, self).__init__()
 		self.session = session
@@ -14,7 +27,20 @@ class RelayServer(threading.Thread):
 	
 	def run(self):
 		Report.trace('relay', 'Starting RelayServer on port %s...' % self.port)
-		server = HTTPServer(('', 8557), RelayRequestHandler)
+		
+		started = False
+		numTries = 0
+		while not started:
+			try:
+				server = HTTPServer(('', self.port), RelayRequestHandler)
+				started = True
+			except socket.error, inst:
+				numTries += 1
+				if numTries == 10:
+					raise inst
+				Report.trace('relay', 'Could not listen on port %s. Trying %s instead.' % (self.port, self.port + 1))
+				self.port += 1
+		
 		server.relayServer = self
 		Report.trace('relay', 'RelayServer started.')
 		
