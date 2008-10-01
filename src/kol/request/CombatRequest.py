@@ -16,9 +16,9 @@ class CombatRequest(GenericAdventuringRequest):
 	def __init__(self, session, action, param=None, param2=None):
 		"""
 		In this constructor, action should be set to CombatRequest.ATTACK, CombatRequest.USE_ITEM,
-		CombatRequest.USE_SKILL, or CombatRequest.RUN_AWAY. If a skill or item is to be used, the
-		caller should also specify param to be the number of the item or skill the user wishes
-		to use.
+		CombatRequest.USE_SKILL, CombatRequest.RUN_AWAY, or CombatRequest.PICK_POCKET. If a skill
+		or item is to be used, the caller should also specify param to be the number of the item or
+		skill the user wishes to use.
 		"""
 		super(CombatRequest, self).__init__(session)
 		self.url = session.serverURL + "fight.php"
