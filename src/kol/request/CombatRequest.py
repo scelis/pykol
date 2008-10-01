@@ -13,7 +13,7 @@ class CombatRequest(GenericAdventuringRequest):
 	RUN_AWAY = 3
 	PICK_POCKET = 4
 	
-	def __init__(self, session, action, param=None):
+	def __init__(self, session, action, param=None, param2=None):
 		"""
 		In this constructor, action should be set to CombatRequest.ATTACK, CombatRequest.USE_ITEM,
 		CombatRequest.USE_SKILL, or CombatRequest.RUN_AWAY. If a skill or item is to be used, the
@@ -28,6 +28,8 @@ class CombatRequest(GenericAdventuringRequest):
 		elif action == USE_ITEM:
 			self.requestData["action"] = "useitem"
 			self.requestData["whichitem"] = param
+			if param2 != None:
+				self.requestData["whichitem"] = param2
 		elif action == USE_SKILL:
 			self.requestData["action"] = "skill"
 			self.requestData["whichskill"] = param
