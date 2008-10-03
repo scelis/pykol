@@ -1,7 +1,7 @@
 from GenericRequest import GenericRequest
 from kol.Error import InvalidActionError, UserShouldNotBeHereError
 from kol.manager import PatternManager
-from kol.request import ParseResponseUtils
+from kol.util import ParseResponseUtils
 
 class GenericAdventuringRequest(GenericRequest):
 	"""

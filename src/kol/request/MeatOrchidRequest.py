@@ -1,5 +1,5 @@
 from kol.request.GenericRequest import GenericRequest
-from kol.request import ParseResponseUtils
+from kol.util import ParseResponseUtils
 
 """
 Note that we do not parse for messages indicating you've already used the orchid.  If no meat is retrieved, it will return just an empty dictionary.

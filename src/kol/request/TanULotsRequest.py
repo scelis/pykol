@@ -1,5 +1,5 @@
 from kol.request.GenericRequest import GenericRequest
-from kol.request import ParseResponseUtils
+from kol.util import ParseResponseUtils
 
 """
 Currently this requests acts only as a click on the tanning bed.

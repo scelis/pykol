@@ -1,5 +1,5 @@
 from kol.request.GenericRequest import GenericRequest
-from kol.request import ParseResponseUtils
+from kol.util import ParseResponseUtils
 
 class OldTimeyRadioRequest(GenericRequest):
 	"Uses the Old-Timey Radio in the rumpus room"

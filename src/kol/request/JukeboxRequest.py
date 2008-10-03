@@ -1,5 +1,5 @@
 from kol.request.GenericRequest import GenericRequest
-from kol.request import ParseResponseUtils
+from kol.util import ParseResponseUtils
 
 """
 At the moment, I have no access to a jukebox, so this request only simulates clicking on the jukebox, not selecting a song.

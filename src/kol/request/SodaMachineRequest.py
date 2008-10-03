@@ -1,5 +1,5 @@
 from kol.request.GenericRequest import GenericRequest
-from kol.request import ParseResponseUtils
+from kol.util import ParseResponseUtils
 
 class SodaMachineRequest(GenericRequest):
 	"Uses the soda machine in the rumpus room"
