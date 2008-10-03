@@ -1,7 +1,7 @@
+from GenericRequest import GenericRequest
 from kol.Error import InvalidRecipeError, NotEnoughItemsError, NotEnoughAdventuresLeftError, RequestError
-from kol.database import ItemDatabase
 from kol.manager import PatternManager
-from kol.request.GenericRequest import GenericRequest
+from kol.util import ParseResponseUtils
 
 class MeatpastingRequest(GenericRequest):
 
@@ -14,16 +14,14 @@ class MeatpastingRequest(GenericRequest):
 		self.requestData['qty'] = numPasted
 		self.requestData['a'] = itemid1
 		self.requestData['b'] = itemid2
-		
 		if makeMax:
 			self.requestData['max'] = "on"
 	
 	def parseResponse(self):
+		# Check for errors.
 		dontHaveMeatpastePattern = PatternManager.getOrCompilePattern('noMeatpaste')
 		itemsDontMeatpastePattern = PatternManager.getOrCompilePattern('itemsDontMeatpaste')
 		dontHaveItemsPattern = PatternManager.getOrCompilePattern('dontHaveItemsMeatpaste')
-		
-		# Check for errors.
 		if dontHaveMeatpastePattern.search(self.responseText):
 			raise NotEnoughItemsError("Unable to combine items. You don't have any meatpaste.")
 		elif itemsDontMeatpastePattern.search(self.responseText):
@@ -32,21 +30,8 @@ class MeatpastingRequest(GenericRequest):
 			raise NotEnoughItemsError("Unable to combine items. You don't have all of the items you are trying to meatpaste.")
 			
 		# Find the items attached to the message.
-		singleItemPattern = PatternManager.getOrCompilePattern('acquireSingleItem')
-		match = singleItemPattern.search(self.responseText)
-		if match:
-			descId = int(match.group(1))
-			item = ItemDatabase.getItemFromDescId(descId, self.session)
-			item["quantity"] = 1
+		items = ParseResponseUtils.parseItemsReceived(self.responseText)
+		if len(items) > 0:
+			self.responseData["items"] = item
 		else:
-			multiItemPattern = PatternManager.getOrCompilePattern('acquireMultipleItems')
-			match = multiItemPattern.search(self.responseText)
-			if match:
-				descId = int(match.group(1))
-				item = ItemDatabase.getItemFromDescId(descId, self.session)
-				quantity = int(match.group(2).replace(',', ''))
-				item["quantity"] = quantity
-			else:
-				raise RequestError("Unknown error.")
-		
-		self.responseData["items"] = item
+			raise RequestError("Unknown error.")
