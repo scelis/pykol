@@ -38,8 +38,8 @@ class GenericAdventuringRequest(GenericRequest):
 			# Get items, meat, and substats gained. We always need to check these since they can
 			# happen at any point during the fight.
 			self.responseData["items"] = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
-			self.responseData["meat"] = ParseResponseUtils.parseMeatReceived(self.responseText)
-			self.responseData["substats"] = ParseResponseUtils.parseSubstatsGained(self.responseText)
+			self.responseData["meat"] = ParseResponseUtils.parseMeatGainedLost(self.responseText)
+			self.responseData["substats"] = ParseResponseUtils.parseSubstatsGainedLost(self.responseText)
 			
 		elif url.find("/choice.php") >= 0:
 			self.responseData["adventureType"] = "choice"
@@ -51,8 +51,8 @@ class GenericAdventuringRequest(GenericRequest):
 				self.responseData["choiceName"] = choiceNamePattern.search(self.responseText).group(1)
 			else:
 				self.responseData["items"] = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
-				self.responseData["meat"] = ParseResponseUtils.parseMeatReceived(self.responseText)
-				self.responseData["substats"] = ParseResponseUtils.parseSubstatsGained(self.responseText)
+				self.responseData["meat"] = ParseResponseUtils.parseMeatGainedLost(self.responseText)
+				self.responseData["substats"] = ParseResponseUtils.parseSubstatsGainedLost(self.responseText)
 				
 		elif url.find("/adventure.php") >= 0:
 			self.responseData["adventureType"] = "noncombat"
@@ -61,7 +61,7 @@ class GenericAdventuringRequest(GenericRequest):
 			if noncombatNameMatch:
 				self.responseData["noncombatName"] = noncombatNameMatch.group(1)
 			self.responseData["items"] = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
-			self.responseData["meat"] = ParseResponseUtils.parseMeatReceived(self.responseText)
-			self.responseData["substats"] = ParseResponseUtils.parseSubstatsGained(self.responseText)
+			self.responseData["meat"] = ParseResponseUtils.parseMeatGainedLost(self.responseText)
+			self.responseData["substats"] = ParseResponseUtils.parseSubstatsGainedLost(self.responseText)
 		else:
 			raise RequestError("Adventure URL not recognized: %s" % url)

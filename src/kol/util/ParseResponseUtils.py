@@ -21,7 +21,7 @@ def parseItemsReceived(text, session):
 	
 	return items
 
-def parseMeatReceived(text):
+def parseMeatGainedLost(text):
 	meatPattern = PatternManager.getOrCompilePattern('gainMeat')
 	match = meatPattern.search(text)
 	if match:
@@ -32,7 +32,7 @@ def parseMeatReceived(text):
 		return -1 * int(match.group(1).replace(',', ''))	
 	return 0
 
-def parseSubstatsGained(text, checkMuscle=True, checkMysticality=True, checkMoxie=True):
+def parseSubstatsGainedLost(text, checkMuscle=True, checkMysticality=True, checkMoxie=True):
 	substats = {}
 	
 	if checkMuscle:
@@ -67,73 +67,93 @@ def parseSubstatsGained(text, checkMuscle=True, checkMysticality=True, checkMoxi
 				
 	return substats
 
-def parseStatPointsGained(text, checkMuscle=True, checkMysticality=True, checkMoxie=True):
+def parseStatsGainedLost(text, checkMuscle=True, checkMysticality=True, checkMoxie=True):
+	"""
+	Returns a dictionary describing how many stat points the user gained or lost. Please note that
+	the user interface does not say how many points were gained or lost if the number is greater
+	than 1. This method will return '2' or '-2' in these situations. If your program needs a more
+	exact number then you should request the user's character pane.
+	"""
 	statPoints = {}
 	
 	if checkMuscle:
 		muscPattern = PatternManager.getOrCompilePattern('musclePointGainLoss')
 		muscMatch = muscPattern.search(text)
 		if muscMatch:
-			if muscMatch.group(1) == "gain":
-				statPoints["muscle"] = '+'
+			modifier = 1
+			if muscMatch.group(1) == "lose":
+				modifier = -1
+			if muscMatch.group(2) == 'a':
+				statPoints["muscle"] = 1 * modifier
 			else:
-				statPoints["muscle"] = '-'
+				statPoints["muscle"] = 2 * modifier
 				
 	if checkMysticality:
 		mystPattern = PatternManager.getOrCompilePattern('mystPointGainLoss')
 		mystMatch = mystPattern.search(text)
 		if mystMatch:
-			if mystMatch.group(1) == "gain":
-				statPoints["mysticality"] = '+'
+			modifier = 1
+			if mystMatch.group(1) == "lose":
+				modifier = -1
+			if mystMatch.group(2) == 'a':
+				statPoints["mysticality"] = 1 * modifier
 			else:
-				statPoints["mysticality"] = '-'
+				statPoints["mysticality"] = 2 * modifier
 				
 	if checkMoxie:
 		moxPattern = PatternManager.getOrCompilePattern('moxiePointGainLoss')
 		moxMatch = moxPattern.search(text)
 		if moxMatch:
-			if moxMatch.group(1) == "gain":
-				statPoints["moxie"] = '+'
+			modifier = 1
+			if moxMatch.group(1) == "lose":
+				modifier = -1
+			if moxMatch.group(2) == 'a':
+				statPoints["moxie"] = 1 * modifier
 			else:
-				statPoints["moxie"] = '-'
+				statPoints["moxie"] = 2 * modifier
 				
 	return statPoints
 
-def parseLevelGained(text):
-	level = {}
-	
-	levelPattern = PatternManager.getOrCompilePattern('')
+def parseLevelsGained(text):
+	"""
+	Returns the number of levels gained by the user during the request. Please note that the user
+	interface does not say how many levels were gained if the user gained more than 1. This method
+	will return 2 if more than 1 level was gained. If your application needs a more fine-grained
+	response, you should check the user's character pane.
+	"""
+	levelPattern = PatternManager.getOrCompilePattern('levelGain')
 	levelMatch = levelPattern.search(text)
 	if levelMatch:
-		level["level"] = '+'
-	
-	return level
+		if levelMatch.group(1) == "a":
+			return 1
+		else:
+			return 2
+	return 0
 
-def parseHPGained(text):
-	hpPattern = PatternManager.getOrCompilePattern('hpGainLoss')
-	# Need to do an iteration because it may happen multiple times in combat
-	# e.g. Items use to gain, then monster attack for loss
+def parseHPGainedLost(text):
 	hp = 0
+	
+	# Need to do an iteration because it may happen multiple times in combat.
+	hpPattern = PatternManager.getOrCompilePattern('hpGainLoss')
 	for hpMatch in hpPattern.finditer(text):
 		hpChange = int(hpMatch.group(2).replace(',', ''))
 		if hpMatch.group(1) == "gain":
-			hp = hp + hpChange
+			hp += hpChange
 		else:
-			hp = hp - hpChange
-	
+			hp -= hpChange
 	return hp
 
-def parseMPGained(text):
-	mpPattern = PatternManager.getOrCompilePattern('mpGainLoss')
-	# Need to do an iteration because it may happen multiple times in combat
+def parseMPGainedLost(text):
 	mp = 0
+	
+	# Need to do an iteration because it may happen multiple times in combat
+	mpPattern = PatternManager.getOrCompilePattern('mpGainLoss')
 	for mpMatch in mpPattern.finditer(text):
 		mpChange = int(mpMatch.group(2).replace(',', ''))
 		if mpMatch.group(1) == "gain":
-			mp = mp + mpChange
+			mp += mpChange
 		else:
-			mp = mp - mpChange
-	
+			mp -= mpChange
 	return mp
 
 def parseDrunkGained(text):
@@ -142,16 +162,14 @@ def parseDrunkGained(text):
 	match = drunkPattern.search(text)
 	if match:
 		drunk = int(match.group(1).replace(',',''))
-	
 	return drunk
 
-def parseAdventureGained(text):
+def parseAdventuresGained(text):
 	adventures = 0
 	adventurePattern = PatternManager.getOrCompilePattern('gainAdventures')
 	match = adventurePattern.search(text)
 	if match:
 		adventures = int(match.group(1).replace(',',''))
-	
 	return adventures
 
 def parseEffectsGained(text):
@@ -162,5 +180,4 @@ def parseEffectsGained(text):
 		eff["name"] = match.group(1)
 		eff["turns"] = int(match.group(2).replace(',',''))
 		effects.append(eff)
-	
 	return effects

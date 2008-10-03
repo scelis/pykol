@@ -10,5 +10,5 @@ class ComfySofaRequest(GenericRequest):
 		self.requestData['numturns'] = numturns
 
 	def parseResponse(self):
-		self.responseData["mp"] = ParseResponseUtils.parseMPGained(self.responseText)
-		self.responseData["hp"] = ParseResponseUtils.parseHPGained(self.responseText)
+		self.responseData["mp"] = ParseResponseUtils.parseMPGainedLost(self.responseText)
+		self.responseData["hp"] = ParseResponseUtils.parseHPGainedLost(self.responseText)

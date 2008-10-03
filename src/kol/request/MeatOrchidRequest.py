@@ -8,4 +8,4 @@ class MeatOrchidRequest(GenericRequest):
 		self.url = session.serverURL + 'clan_rumpus.php?action=click&spot=1&furni=4'
 	
 	def parseResponse(self):
-		self.responseData = ParseResponseUtils.parseMeatReceived(self.responseText)
+		self.responseData = ParseResponseUtils.parseMeatGainedLost(self.responseText)

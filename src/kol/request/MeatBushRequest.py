@@ -8,4 +8,4 @@ class MeatBushRequest(GenericRequest):
 		self.url = session.serverURL + 'clan_rumpus.php?action=click&spot=4&furni=2'
 
 	def parseResponse(self):
-		self.responseData["meat"] = ParseResponseUtils.parseMeatReceived(self.responseText)
+		self.responseData["meat"] = ParseResponseUtils.parseMeatGainedLost(self.responseText)

@@ -9,6 +9,6 @@ class MeatTreeRequest(GenericRequest):
 
 	def parseResponse(self):
 		response = {}
-		response["meat"] = ParseResponseUtils.parseMeatReceived(self.responseText)
+		response["meat"] = ParseResponseUtils.parseMeatGainedLost(self.responseText)
 		
 		self.responseData = response
