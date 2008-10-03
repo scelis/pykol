@@ -1,7 +1,7 @@
 from kol.database import ItemDatabase
 from kol.manager import PatternManager
 
-def parseItemsReceived(session, text):
+def parseItemsReceived(text, session):
 	items = []
 	
 	singleItemPattern = PatternManager.getOrCompilePattern('acquireSingleItem')

@@ -21,7 +21,7 @@ class MakePasteRequest(GenericRequest):
 			raise NotEnoughMeatError("Unable to make the requested item. You don't have enough meat")
 		
 		# Get the item(s) we received.
-		items = ParseResponseUtils.parseItemsReceived(self.responseText)
+		items = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
 		if len(items) > 0:
 			self.responseData["items"] = item
 		else:

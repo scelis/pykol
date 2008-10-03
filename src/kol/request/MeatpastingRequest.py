@@ -30,7 +30,7 @@ class MeatpastingRequest(GenericRequest):
 			raise NotEnoughItemsError("Unable to combine items. You don't have all of the items you are trying to meatpaste.")
 			
 		# Find the items attached to the message.
-		items = ParseResponseUtils.parseItemsReceived(self.responseText)
+		items = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
 		if len(items) > 0:
 			self.responseData["items"] = item
 		else:
