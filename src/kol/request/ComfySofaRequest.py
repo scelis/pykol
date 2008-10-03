@@ -1,17 +1,14 @@
-from kol.request.GenericRequest import GenericRequest
+from GenericRequest import GenericRequest
 from kol.util import ParseResponseUtils
 
 class ComfySofaRequest(GenericRequest):
-	"Uses the comfy sofa in the rumpus room"
-	def __init__(self, session, numturns=1):
+	"Uses the comfy sofa in the clan rumpus room."
+	def __init__(self, session, numturns):
 		super(ComfySofaRequest, self).__init__(session)
 		self.url = session.serverURL + "clan_rumpus.php"
 		self.requestData['preaction'] = "nap"
 		self.requestData['numturns'] = numturns
 
 	def parseResponse(self):
-		response = {}
-		response["mp"] = ParseResponseUtils.parseMPGained(self.responseText)
-		response["hp"] = ParseResponseUtils.parseHPGained(self.responseText)
-		
-		self.responseData = response
+		self.responseData["mp"] = ParseResponseUtils.parseMPGained(self.responseText)
+		self.responseData["hp"] = ParseResponseUtils.parseHPGained(self.responseText)
