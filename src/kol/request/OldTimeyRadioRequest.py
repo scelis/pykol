@@ -1,13 +1,11 @@
-from kol.request.GenericRequest import GenericRequest
+from GenericRequest import GenericRequest
 from kol.util import ParseResponseUtils
 
 class OldTimeyRadioRequest(GenericRequest):
-	"Uses the Old-Timey Radio in the rumpus room"
+	"Uses the Old-Timey Radio in the clan rumpus room."
 	def __init__(self, session):
 		super(OldTimeyRadioRequest, self).__init__(session)
 		self.url = session.serverURL + 'clan_rumpus.php?action=click&spot=4&furni=1'
 
 	def parseResponse(self):
-		response = ParseResponseUtils.parseEffectsGained(self.responseText)
-		
-		self.responseData = response
+		self.responseData["effects"] = ParseResponseUtils.parseEffectsGained(self.responseText)
