@@ -123,10 +123,9 @@ patterns = {
 	'noMeatForStore' : r"(?:You can't afford that many of that item)|(?:You can't afford that item)",
 	'invalidStore' : r"You've been sent back here by some kind of bug",
 	'notSoldHere' : r"This store doesn't sell that item",
-
+	
 	# Hermit patterns.
 	'noTrinkets' : r"You don't have enough stuff",
-	#'noHermitPermits' : r'',
 	'notEnoughClovers' : r"you are able to infer that he doesn't have enough clovers to make that trade",
 	
 	# Adventure patterns.
@@ -139,6 +138,10 @@ patterns = {
 	"fightWon" : r"<center>You win the fight!<!--WINWINWIN--><p>",
 	"fightLost" : r"<p>You lose\. +You slink away, dejected and defeated\.<p>",
 	
-	# Rumpus Room Patterns
+	# Rumpus Room patterns.
 	'rumpusRoomFurniture' : r'rump([0-9])_([0-9])\.gif',
+	
+	# Mall patterns.
+	"mallItemSearchNoLimit" : r'<tr><td class=small><b>[^<>]+<\/b> \(([0-9]+)\)<\/td><td class=small><a  href="mallstore\.php\?whichstore=([0-9]+)&searchitem=([0-9]+)&searchprice=([0-9]+)">(.*?)<\/a><\/td>',
+	"mallItemSearchLimit" : r'<tr><td class=small><b>[^<>]+<\/b> \(([0-9]+)\) \(([0-9]+)&nbsp;\/&nbsp;day\)<\/td><td class=small><a  href="mallstore\.php\?whichstore=([0-9]+)&searchitem=([0-9]+)&searchprice=([0-9]+)">(.*?)</a></td>',
 }
