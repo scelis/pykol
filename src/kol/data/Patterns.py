@@ -126,7 +126,9 @@ patterns = {
 	
 	# Hermit patterns.
 	'noTrinkets' : r"You don't have enough stuff",
+	'noHermitPermits' : r"You don't have enough Hermit Permits to trade for that many",
 	'notEnoughClovers' : r"you are able to infer that he doesn't have enough clovers to make that trade",
+	'notHermitItem' : r"The Hermit doesn't have that item",
 	
 	# Adventure patterns.
 	"twiddlingThumbs" : r"You twiddle your thumbs\.",

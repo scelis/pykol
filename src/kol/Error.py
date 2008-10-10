@@ -70,6 +70,16 @@ class UnableToPulverizeItemError(Error):
 	def __init__(self, message):
 		self.message = message
 
+class NotEnoughHermitPermitsError(Error):
+	"An exception raised when a user tries to barter without enough Hermit Permits"
+	def __init__(self, message):
+		self.message = message
+
+class NotSoldHereError(Error):
+	"An exception raised when a user tries to buy/barter something that isn't available there"
+	def __init__(self, message):
+		self.message = message
+
 #######################
 # User-Related Errors #
 #######################
