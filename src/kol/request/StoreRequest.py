@@ -1,5 +1,5 @@
 from GenericRequest import GenericRequest
-from kol.Error import RequestError, NotEnoughMeatError, NotSoldHereError, NotAStoreError
+from kol.Error import RequestError, NotEnoughMeatError, NotSoldHereError, NotAStoreError, UserShouldNotBeHereError
 from kol.database import ItemDatabase
 from kol.manager import PatternManager
 from kol.util import ParseResponseUtils
@@ -40,6 +40,8 @@ class StoreRequest(GenericRequest):
 		notEnoughMeatPattern = PatternManager.getOrCompilePattern('noMeatForStore')
 		invalidStorePattern = PatternManager.getOrCompilePattern('invalidStore')
 		notSoldPattern = PatternManager.getOrCompilePattern('notSoldHere')
+		if len(self.responseText) == 0:
+			raise UserShouldNotBeHereError("You cannot visit that store yet.")
 		if invalidStorePattern.search(self.responseText):
 			raise NotAStoreError("The store you tried to visit doesn't exist.")
 		if notSoldPattern.search(self.responseText):

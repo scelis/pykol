@@ -1,4 +1,61 @@
 items = [
+# Cafe Booze
+	{
+		"id" : -1,
+		"descId" : "-1_booze",
+		"name" : "Petite Porter",
+		"type" : "booze",
+		"image" : "juice.gif",
+		"drunkenness" : 3,
+		"adventuresGained" : "3-5",
+	},
+	{
+		"id" : -2,
+		"descId" : "-2_booze",
+		"name" : "Scrawny Stout",
+		"type" : "booze",
+		"image" : "juice.gif",
+		"drunkenness" : 3,
+		"adventuresGained" : "3-6",
+	},
+	{
+		"id" : -3,
+		"descId" : "-3_booze",
+		"name" : "Infinitesimal IPA",
+		"type" : "booze",
+		"image" : "juice.gif",
+		"drunkenness" : 3,
+		"adventuresGained" : "3-8",
+	},
+# Cafe Food
+	{
+		"id" : -1,
+		"descId" : "-1_food",
+		"name" : "Peche a la Frog",
+		"type" : "food",
+		"image" : "casserole.gif",
+		"fullness" : 3,
+		"adventuresGained" : "3-4",
+	},
+	{
+		"id" : -2,
+		"descId" : "-2_food",
+		"name" : "As Jus Gezund Heit",
+		"type" : "food",
+		"image" : "casserole.gif",
+		"fullness" : 4,
+		"adventuresGained" : "4-6",
+	},
+	{
+		"id" : -3,
+		"descId" : "-3_food",
+		"name" : "Bouillabaise Coucher Avec Moi",
+		"type" : "food",
+		"image" : "casserole.gif",
+		"fullness" : 5,
+		"adventuresGained" : "5-9",
+	},
+# Normal Items
 	{
 		"id" : 1,
 		"descId" : 868780591,

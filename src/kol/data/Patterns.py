@@ -28,6 +28,7 @@ patterns = {
 	"waitFifteenMinutesLoginError" : r'Please wait fifteen minutes and try again\.',
 	
 	# Item-related patterns.
+	"menuItem" : r'<input type=radio name=whichitem value="?(-?[0-9]+)"?></td><td><img .*? onclick=\'descitem\("?([^"]+)"?\);\'>',
 	"acquireSingleItem" : r"<td[^>]*><img [^>]*onClick='descitem\(([0-9]+)\)'[^>]*><\/td><td[^>]*>You acquire an item",
 	"acquireMultipleItems" : r"<td[^>]*><img [^>]*onClick='descitem\(([0-9]+)\)'[^>]*><\/td><td[^>]*>You acquire <b>([0-9,]*) ",
 	"gainMeat" : r'<td><img src="[^"]*meat\.gif"[^>]*><\/td><td[^>]*>You gain ([0-9,]*?) Meat\.<\/td>',
@@ -120,9 +121,9 @@ patterns = {
 	
 	# Store patterns.
 	'meatSpent' : r'You spent ([0-9,]+) Meat',
-	'noMeatForStore' : r"(?:You can't afford that many of that item)|(?:You can't afford that item)",
+	'noMeatForStore' : r"(?:You can't afford that many of that item)|(?:You can't afford that item)|(?:You can't afford to purchase that)",
 	'invalidStore' : r"You've been sent back here by some kind of bug",
-	'notSoldHere' : r"This store doesn't sell that item",
+	'notSoldHere' : r"(?:This store doesn't sell that item)|(?:Invalid item selected)",
 	
 	# Hermit patterns.
 	'noTrinkets' : r"You don't have enough stuff",
@@ -132,7 +133,7 @@ patterns = {
 	
 	# Adventure patterns.
 	"twiddlingThumbs" : r"You twiddle your thumbs\.",
-	"userShouldNotBeHere" : r">You shouldn't be here\.<",
+	"userShouldNotBeHere" : r"(?:>You shouldn't be here\.<)|(?:)>This is not currently available to you\.<",
 	"monsterName" : r"<span id='monname'>(.*?)<\/span>",
 	"choiceIdentifier" : r'<input type="?hidden"? name="?whichchoice"? value="?([0-9]+)"?>',
 	"choiceName" : r"<b>([^<>]+?)<\/b><\/td><\/tr>",
