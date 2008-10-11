@@ -96,6 +96,8 @@ patterns = {
 	'characterAdventures' : r'onclick=\'doc\("adventures"\);\'><br><span class=black>([0-9]+)</span>',
 	'currentFamiliar' : r'href="familiar.php">(?:<b>)?<font size=[0-9]+>(.*?)</a>(?:</b>)?, the  ([0-9]+)-pound (.*?)<table',
 	'characterEffect' : r'eff\("[a-fA-F0-9]+"\);\'.*?></td><td valign=center><font size=[0-9]+>(.*?) ?\(([0-9]+)\)</font><br></td>',
+	'characterRonin' : r'>Ronin</a>: <b>([0-9]+)</b>',
+	'characterMindControl' : r'>Mind Control</a>: <b>([0-9]{1,2})</b>',
 	
 	# Stat, Substat, Leveling, HP, and MP patterns. Will fail in Haiku Dungeon.
 	'muscleGainLoss' : r'You (gain|lose) ([0-9,]+) (?:Beefiness|Fortitude|Muscleboundness|Strengthliness|Strongness)',

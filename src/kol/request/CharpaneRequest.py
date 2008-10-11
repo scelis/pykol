@@ -72,3 +72,13 @@ class CharpaneRequest(GenericRequest):
 			if match.group(1) and len(str(match.group(1))) > 0:
 				self.responseData["buffedMysticality"] = int(match.group(1))
 			self.responseData["baseMysticality"] = int(match.group(2))
+
+		characterRoninPattern = PatternManager.getOrCompilePattern('characterRonin')
+		match = characterRoninPattern.search(self.responseText)
+		if match:
+			self.responseData["roninLeft"] = int(match.group(1))
+
+		characterMindControlPattern = PatternManager.getOrCompilePattern('characterMindControl')
+		match = characterMindControlPattern.search(self.responseText)
+		if match:
+			self.responseData["mindControl"] = int(match.group(1))
