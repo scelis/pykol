@@ -120,5 +120,9 @@ class ChatManager(object):
 		
 		if key != None:
 			self.lastChatTimestamps[key] = time.time()
-			
+		
+		for chat in chats:
+			if 'listen' in chat['type'] or 'channel' in chat['type']:
+				self.currentChannel = chat['current']					
+		
 		return chats

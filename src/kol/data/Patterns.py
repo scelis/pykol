@@ -70,6 +70,10 @@ patterns = {
 	"chatWhoResponse" : r'<table><tr><td class=tiny><center><b>Players in this channel:',
 	"chatWhoPerson" : r'<a target="?mainpane"? href="showplayer\.php\?who=([0-9]+)"><font color="?#?\w+"?>([^<>]+)<\/font><\/a>',
 	"chatLinkedPlayer" : r"<a style='color: #?\w+' href='showplayer\.php\?who=([0-9]+)' target=mainpane>([^<]+)<\/a>",
+	"newChatChannel" : r"<font color=[^>]+>You are now talking in channel: ([^\,]+?)\.<p><p>(.*?)</font>",
+	"chatListenResponse" : r"<font color=[^>]+>Currently listening to channels:(.*?<b>.*?</b>.*?)</font>",
+	"chatListenCurrent" : r"<br>&nbsp;&nbsp;<b>(.*?)</b>",
+	"chatListenOthers" : r"&nbsp;&nbsp;([^<>]*?)<br>",
 	
 	# Clan dungeon patterns.
 	"dungeonActivity" : r'(?:^|<br>|<br><b>|<b>)([^<>]+) \(#([0-9,]+)\) ([^<>]+) \(([0-9,]+) turns?\)',

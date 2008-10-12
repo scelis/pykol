@@ -36,9 +36,43 @@ def parseMessages(text, isGet):
 	linkPattern = PatternManager.getOrCompilePattern("chatLink")
 	chatWhoPattern = PatternManager.getOrCompilePattern("chatWhoResponse")
 	linkedPlayerPattern = PatternManager.getOrCompilePattern("chatLinkedPlayer")
+	chatNewChannelPattern = PatternManager.getOrCompilePattern("newChatChannel")
+	chatListenPattern = PatternManager.getOrCompilePattern("chatListenResponse")
 	
 	# Get the chat messages.
 	chats = []
+	
+	# Check for /c, /s, and /l responses
+	if not isGet:
+		# See if the user changed chat channels through /c or /s
+		chat = {}
+		match = chatNewChannelPattern.search(text)
+		if match:
+			chat["type"] = "channel"
+			chat["current"] = match.group(1)
+			chat["description"] = match.group(2).replace('<br>','')
+			
+			text = text[:match.start()] + text[match.end():]
+			chats.append(chat)
+		
+		# See if it is a /l response
+		chat = {}
+		match = chatListenPattern.search(text)
+		if match:
+			listen = match.group()
+			currentPattern = PatternManager.getOrCompilePattern("chatListenCurrent")
+			otherPattern = PatternManager.getOrCompilePattern("chatListenOthers")
+			chat["type"] = "listen"
+			chat["current"] = currentPattern.search(listen).group(1)
+			
+			other = []
+			for channel in otherPattern.finditer(listen):
+				other.append(channel.group(1))
+			chat["other"] = other
+			
+			text = text[:match.start()] + text[match.end():]
+			chats.append(chat)		
+
 	lines = text.split("<br>")
 		
 	for line in lines:
@@ -108,7 +142,7 @@ def parseMessages(text, isGet):
 						userName = match.group(2)
 						chat["users"].append({"userId":userId, "userName":userName})
 					parsedChat = True
-		
+					
 		if parsedChat and "text" in chat:
 			# Parse user links.
 			chat["text"] = linkedPlayerPattern.sub(r'\2', chat["text"])
