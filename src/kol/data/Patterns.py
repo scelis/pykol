@@ -102,6 +102,7 @@ patterns = {
 	'characterEffect' : r'eff\("[a-fA-F0-9]+"\);\'.*?></td><td valign=center><font size=[0-9]+>(.*?) ?\(([0-9]+)\)</font><br></td>',
 	'characterRonin' : r'>Ronin</a>: <b>([0-9]+)</b>',
 	'characterMindControl' : r'>Mind Control</a>: <b>([0-9]{1,2})</b>',
+	'characterDrunk' : r'>(?:Inebriety|Temulency|Tipsiness|Drunkenness):</td><td><b>([0-9]{1,2})</b>',
 	
 	# Stat, Substat, Leveling, HP, and MP patterns. Will fail in Haiku Dungeon.
 	'muscleGainLoss' : r'You (gain|lose) ([0-9,]+) (?:Beefiness|Fortitude|Muscleboundness|Strengthliness|Strongness)',
@@ -158,4 +159,10 @@ patterns = {
 	"noAdvInstitue" : r">You don't have that many Adventures\.  Take off, eh\?<",
 	"invalidAdvInstitute" : r">That doesn't make any sense, you hoser\.<",
 	
+	# Guild patterns.
+	'skillNotTrainable' : r'>Invalid skill selected\.<',
+	'skillTooWeak' : r">You're not powerful enough to train that skill\.<",
+	'skillTooPoor' : r">You can't afford to train that skill\.<",
+	'skillLearned' : r">You learn a new skill: <b>(.*?)</b>",
+	'skillHaveAlready' : r">You've already got that skill\.<",
 }

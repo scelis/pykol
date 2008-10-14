@@ -13,7 +13,22 @@ class CharpaneRequest(GenericRequest):
 		match = characterLevelPattern.search(self.responseText)
 		if match:
 			self.responseData["level"] = int(match.group(1))
-			self.responseData["levelTitle"] = str(match.group(2))
+			title = str(match.group(2))
+			self.responseData["levelTitle"] = title
+			if title == "Astral Spirit":
+				self.responseData["class"] = "Astral Spirit"
+			elif title in ["Lemming Trampler,Tern Slapper,Puffin Intimidator,Ermine Thumper,Penguin Frightener,Malamute Basher,Narwhal Pummeler,Otter Crusher,Caribou Smacker,Moose Harasser,Reindeer Threatener,Ox Wrestler,Walrus Bludgeoner,Whale Boxer,Seal Clubber"]:
+				self.responseData["class"] = "Seal Clubber"
+			elif title in ["Toad Coach","Skink Trainer","Frog Director","Gecko Supervisor","Newt Herder","Frog Boss","Iguana Driver","Salamander Subduer","Bullfrog Overseer","Rattlesnake Chief","Crocodile Lord","Cobra Commander","Alligator Subjugator","Asp Master","Turtle Tamer"]:
+				self.responseData["class"] = "Turtle Tamer"
+			elif title in ["Dough Acolyte","Yeast Scholar","Noodle Neophyte","Starch Savant","Carbohydrate Cognoscenti","Spaghetti Sage","Macaroni Magician","Vermicelli Enchanter","Linguini Thaumaturge","Ravioli Sorcerer","Manicotti Magus","Spaghetti Spellbinder","Cannelloni Conjurer","Angel-Hair Archmage","Pastamancer"]:
+				self.responseData["class"] = "Pastamancer"
+			elif title in ["Allspice Acolyte","Cilantro Seer","Parsley Enchanter","Sage Sage","Rosemary Diviner","Thyme Wizard","Tarragon Thaumaturge","Oreganoccultist","Basillusionist","Coriander Conjurer","Bay Leaf Brujo","Sesame Soothsayer","Marinara Mage","Alfredo Archmage","Sauceror"]:
+				self.responseData["class"] = "Sauceror"
+			elif title in ["Funk Footpad","Rhythm Rogue","Chill Crook","Jiggy Grifter","Beat Snatcher","Sample Swindler","Move Buster","Jam Horker","Groove Filcher","Vibe Robber","Boogie Brigand","Flow Purloiner","Jive Pillager","Rhymer And Stealer","Disco Bandit"]:
+				self.responseData["class"] = "Disco Bandit"
+			elif title in ["Polka Criminal","Mariachi Larcenist","Zydeco Rogue","Chord Horker","Chromatic Crook","Squeezebox Scoundrel","Concertina Con Artist","Button Box Burglar","Hurdy-Gurdy Hooligan","Sub-Sub-Apprentice Accordion Thief","Sub-Apprentice Accordion Thief","Pseudo-Apprentice Accordion Thief","Hemi-Apprentice Accordion Thief","Apprentice Accordion Thief","Accordion Thief"]:
+				self.responseData["class"] = "Accordion Thief"
 		
 		characterHPPattern = PatternManager.getOrCompilePattern('characterHP')
 		match = characterHPPattern.search(self.responseText)
@@ -37,6 +52,11 @@ class CharpaneRequest(GenericRequest):
 		if match:
 			self.responseData["adventures"] = int(match.group(1))
 		
+		characterDrunkPattern = PatternManager.getOrCompilePattern('characterDrunk')
+		match = characterDrunkPattern.search(self.responseText)
+		if match:
+			self.responseData["drunkenness"] = int(match.group(1))
+
 		currentFamiliarPattern = PatternManager.getOrCompilePattern('currentFamiliar')
 		match = currentFamiliarPattern.search(self.responseText)
 		if match:
