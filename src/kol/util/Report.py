@@ -50,6 +50,15 @@ def registerLog(directory, fileName, sections=["*"], level=INFO):
 def report(section, level, message, exception=None):
 	global __logCurrentDate
 	
+	# Do we need to roll the logs over?
+	currentDate = time.strftime("%Y-%m-%d")
+	if currentDate != __logCurrentDate:
+		for log in __logs:
+			if "file" in log:
+				log["file"].close()
+				del log["file"]
+		__logCurrentDate = currentDate
+
 	# Should this message be printed?
 	doPrint = False
 	if ("*" in __outputSections or section in __outputSections) and level <= __outputLevel:
@@ -83,16 +92,12 @@ def report(section, level, message, exception=None):
 		if len(logs) > 0:
 			currentDate = time.strftime("%Y-%m-%d")
 			for log in logs:
-				if "file" not in log or currentDate != __logCurrentDate:
-					if "file" in log:
-						log["file"].close()
-					
+				if "file" not in log:
 					if "directory" in log:
 						filePath = os.path.join(log["directory"], log["fileName"] + '.' + currentDate)
 					else:
 						filePath = log["fileName"] + '.' + currentDate
 					log["file"] = open(filePath, 'a')
-					__logCurrentDate = currentDate
 				
 				log["file"].write("%s\n" % fullMessage)
 				if exception != None:
