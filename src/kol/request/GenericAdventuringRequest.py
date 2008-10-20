@@ -10,14 +10,14 @@ class GenericAdventuringRequest(GenericRequest):
 	"""
 	def parseResponse(self):
 		shouldNotBeHerePattern = PatternManager.getOrCompilePattern('userShouldNotBeHere')
-		if shouldNotBeHerePattern.search(self.responseText)
+		if shouldNotBeHerePattern.search(self.responseText):
 			raise UserShouldNotBeHereError("Unable to adventure. You should not be here.")
 		
 		url = self.response.geturl()
 		if url.find("/fight.php") >= 0:
 			# See if the user tried to perform an invalid action.
 			twiddlingThumbsPattern = PatternManager.getOrCompilePattern('twiddlingThumbs')
-			if twiddlingThumbs.search(self.responseText)
+			if twiddlingThumbs.search(self.responseText):
 				raise InvalidActionError("Could not perform action. Thumbs were twiddled.")
 			
 			# Get the monster's name.
