@@ -22,7 +22,7 @@ class MallItemSearchRequest(GenericRequest):
 		itemNoLimitPattern = PatternManager.getOrCompilePattern('mallItemSearchNoLimit')
 		for match in itemNoLimitPattern.finditer(self.responseText):
 			itemId = int(match.group(3))
-			item = ItemDatabase.getItemFromId(descId, self.session)
+			item = ItemDatabase.getItemFromId(itemId, self.session)
 			item["quantity"] = int(match.group(1))
 			item["storeId"] = int(match.group(2))
 			item["price"] = int(match.group(4))
@@ -32,7 +32,7 @@ class MallItemSearchRequest(GenericRequest):
 		itemLimitPattern = PatternManager.getOrCompilePattern('mallItemSearchLimit')
 		for match in itemLimitPattern.finditer(self.responseText):
 			itemId = int(match.group(4))
-			item = ItemDatabase.getItemFromId(descId, self.session)
+			item = ItemDatabase.getItemFromId(itemId, self.session)
 			item["quantity"] = int(match.group(1))
 			item["limit"] = int(match.group(2))
 			item["storeId"] = int(match.group(3))
