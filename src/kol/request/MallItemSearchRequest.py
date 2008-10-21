@@ -15,9 +15,8 @@ class MallItemSearchRequest(GenericRequest):
 
 	def parseResponse(self):
 		items = []
+		
 		itemNoLimitPattern = PatternManager.getOrCompilePattern('mallItemSearchNoLimit')
-		itemLimitPattern = PatternManager.getOrCompilePattern('mallItemSearchLimit')
-
 		for match in itemNoLimitPattern.finditer(self.responseText):
 			itemId = int(match.group(3))
 			item = ItemDatabase.getItemFromId(descId, self.session)
@@ -26,7 +25,8 @@ class MallItemSearchRequest(GenericRequest):
 			item["price"] = int(match.group(4))
 			item["storeName"] = match.group(5).replace('<br>', ' ')
 			items.append(item)
-
+		
+		itemLimitPattern = PatternManager.getOrCompilePattern('mallItemSearchLimit')
 		for match in itemLimitPattern.finditer(self.responseText):
 			itemId = int(match.group(4))
 			item = ItemDatabase.getItemFromId(descId, self.session)
@@ -36,5 +36,6 @@ class MallItemSearchRequest(GenericRequest):
 			item["price"] = int(match.group(5))
 			item["storeName"] = match.group(6).replace('<br>', ' ')
 			items.append(item)
-
-		self.responseData = items
+		
+		items.sort(lambda x, y: cmp(x["price"], y["price"]))
+		self.responseData["results"] = items
