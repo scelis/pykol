@@ -33,6 +33,7 @@ ENCHANTMENT_MAPPINGS = {
 	'Critical' : 'critical',
 	'Damage Absorption' : 'damageAbsorption',
 	'Fumble' : 'fumble',
+	'Hobo Power' : 'hoboPower',
 	'Hot Damage' : 'hotDamage',
 	'Hot Resistance' : 'hotResistance',
 	'Hot Spell Damage' : 'hotSpellDamage',
@@ -410,6 +411,8 @@ def readModifiersFile():
 						item["isMaxEquipOne"] = True
 					elif modifier == "Softcore Only":
 						item["isSoftcoreOnly"] = True
+					elif modifier == "Hobo Powered":
+						item["isHoboPowered"] = True
 					else:
 						if "enchantments" not in item:
 							item["enchantments"] = {}
