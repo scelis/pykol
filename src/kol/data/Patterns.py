@@ -154,6 +154,8 @@ patterns = {
 	# Mall patterns.
 	"mallItemSearchNoLimit" : r'<tr><td class=small><b>[^<>]+<\/b> \(([0-9]+)\)<\/td><td class=small><a  href="mallstore\.php\?whichstore=([0-9]+)&searchitem=([0-9]+)&searchprice=([0-9]+)">(.*?)<\/a><\/td>',
 	"mallItemSearchLimit" : r'<tr><td class=small><b>[^<>]+<\/b> \(([0-9]+)\) \(([0-9]+)&nbsp;\/&nbsp;day\)<\/td><td class=small><a  href="mallstore\.php\?whichstore=([0-9]+)&searchitem=([0-9]+)&searchprice=([0-9]+)">(.*?)</a></td>',
+	"cantAffordItem" : r"<td>You can't afford that item\.<\/td>",
+	"mallNoItemAtThatPrice" : r"<td>This store doesn't have that item at that price\.",
 	
 	# Canadia patterns.
 	"noAdvInstitue" : r">You don't have that many Adventures\.  Take off, eh\?<",

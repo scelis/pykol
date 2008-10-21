@@ -1,5 +1,5 @@
 from GenericRequest import GenericRequest
-from kol.Error import RequestError
+from kol.Error import RequestError, NotEnoughMeatError, NotSoldHereError
 from kol.manager import PatternManager
 from kol.util import ParseResponseUtils
 
@@ -20,9 +20,17 @@ class MallItemPurchaseRequest(GenericRequest):
 		self.requestData['quantity'] = quantity
 
 	def parseResponse(self):
+		cantAffordItemPattern = PatternManager.getOrCompilePattern('cantAffordItem')
+		if cantAffordItemPattern.search(self.responseText):
+			raise NotEnoughMeatError("You can not afford to buy this item.")
+		
+		noItemAtThatPricePattern = PatternManager.getOrCompilePattern('mallNoItemAtThatPrice')
+		if noItemAtThatPricePattern.search(self.responseText):
+			raise NotSoldHereError("That item is not sold here at that price.")
+		
 		items = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
 		if len(items) == 0:
-			raise RequestError("Unknown error.")
+			raise RequestError("Unknown error: %s" % self.responseText)
 		self.responseData["items"] = items
 		
 		spentMeatPattern = PatternManager.getOrCompilePattern('meatSpent')
