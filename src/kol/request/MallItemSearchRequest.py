@@ -8,11 +8,14 @@ class MallItemSearchRequest(GenericRequest):
 	the max that day will not appear.
 	"""
 	
-	def __init__(self, session, itemName):
+	def __init__(self, session, itemName, limit=-1):
 		super(MallItemSearchRequest, self).__init__(session)
 		self.url = session.serverURL + 'searchmall.php'
 		self.requestData['whichitem'] = itemName
-
+		if limit > 0:
+			self.requestData['cheaponly'] = 'on'
+			self.requestData['shownum'] = limit
+		
 	def parseResponse(self):
 		items = []
 		
