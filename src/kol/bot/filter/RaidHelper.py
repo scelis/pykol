@@ -63,11 +63,14 @@ def reportHobopolisStatus(context, **kwargs):
 	
 	numGrates = 0
 	numValves = 0
+	totalTurns = 0
 	areas = {}
 	for area in HOBOPOLIS_AREAS:
 		areas[area] = {"turns" : 0}
 	for event in data["events"]:
 		event["event"] = whitespacePattern.sub(' ', event["event"])
+		if "turns" in event:
+			totalTurns += event["turns"]
 		if event["category"] == "Sewers":
 			if event["event"].find("lowered the water level") >= 0:
 				numValves += event["turns"]
@@ -113,6 +116,8 @@ def reportHobopolisStatus(context, **kwargs):
 					
 			resp += ']'
 	
+	resp += ' [TOTAL: %s turns]' % totalTurns
+		
 	bot.sendChatMessage("/w %s %s" % (chat["userId"], resp))
 
 def parseDungeonChatMessage(context, **kwargs):
