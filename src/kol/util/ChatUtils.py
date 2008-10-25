@@ -25,6 +25,22 @@ CHAT_CHANNELS = [
 ]
 
 def parseMessages(text, isGet):
+	"""
+	This function parses chats passed to it.
+	The flag isGet should be set to true when accessed through GetChatMessagesRequest().  It should be false when parsing the response of sent messages (for /c, /l, /s, and /who responses).
+	Returns a list of chats, each of which is a dictionary possibly containing the following keys:
+		"type" : What kind of chat this is.  Current possible values are
+			"channel", "listen", "listen:start", "listen:stop", "normal", "emote", "private", "system message", "mod warning", "mod announcement", "notification:kmail", "unknown"
+		"current" : The current channel as indicated when sending a /c, /s, or /l request
+		"description" : The description of the current channel as indicated when sending a /c or /s request
+		"other" : The channels being listened to as indicated by a /l request
+		"channel" : The channel this chat message was posted from
+		"userId" : The user id number of the user sending this chat message
+		"userName" : The user name of the user sending this chat message
+		"text" : The text of the current chat message
+		"multiline" : A flag indicating whether this is a multiline message such as a haiku or a message from the Gothy Effect
+	"""
+	
 	# Prepare the patterns.
 	htmlCommentPattern = PatternManager.getOrCompilePattern("htmlComment")
 	htmlTagPattern = PatternManager.getOrCompilePattern("htmlTag")
@@ -36,14 +52,18 @@ def parseMessages(text, isGet):
 	linkPattern = PatternManager.getOrCompilePattern("chatLink")
 	chatWhoPattern = PatternManager.getOrCompilePattern("chatWhoResponse")
 	linkedPlayerPattern = PatternManager.getOrCompilePattern("chatLinkedPlayer")
-	chatNewChannelPattern = PatternManager.getOrCompilePattern("newChatChannel")
-	chatListenPattern = PatternManager.getOrCompilePattern("chatListenResponse")
+	multiLinePattern = PatternManager.getOrCompilePattern("chatMultiLineStart")
 	
 	# Get the chat messages.
 	chats = []
 	
 	# Check for /c, /s, and /l responses
 	if not isGet:
+		chatNewChannelPattern = PatternManager.getOrCompilePattern("newChatChannel")
+		chatListenPattern = PatternManager.getOrCompilePattern("chatListenResponse")
+		chatListenStartPattern = PatternManager.getOrCompilePattern("chatStartListen")
+		chatListenStopPattern = PatternManager.getOrCompilePattern("chatStopListen")
+		
 		# See if the user changed chat channels through /c or /s
 		chat = {}
 		match = chatNewChannelPattern.search(text)
@@ -73,6 +93,25 @@ def parseMessages(text, isGet):
 			text = text[:match.start()] + text[match.end():]
 			chats.append(chat)		
 
+		# See if it is a /l <channel> response
+		chat = {}
+		match = chatListenStartPattern.search(text)
+		if match:
+			chat["type"] = ""
+			chat["channel"] = match.group(1)
+			chat["text"] = ""
+			
+			text = text[:match.start()] + text[match.end():]
+			chats.append(chat)
+		match = chatListenStopPattern.search(text)
+		if match:
+			chat["type"] = ""
+			chat["channel"] = match.group(1)
+			chat["text"] = ""
+			
+			text = text[:match.start()] + text[match.end():]
+			chats.append(chat)
+	
 	lines = text.split("<br>")
 		
 	for line in lines:
@@ -97,6 +136,15 @@ def parseMessages(text, isGet):
 				chat["type"] = "normal"
 				chat["userId"] = int(match.group(1))
 				chat["userName"] = match.group(2)
+				
+				# Check for special announcements
+				if chat["userId"] == -1 or chat["userName"] == "System Message":
+					chat["type"] = "system message"
+				elif chat["userName"] == "Mod Warning":
+					chat["type"] = "mod warning"
+				elif chat["userName"] == "Mod Announcement":
+					chat["type"] = "mod announcement"
+				
 				chat["text"] = match.group(3).strip()
 				parsedChat = True
 		
@@ -130,6 +178,17 @@ def parseMessages(text, isGet):
 					chat["userName"] = match.group(2)
 					parsedChat = True
 			
+			# See if this is the start of a multi-line message (Gothy or Haiku)
+			if parsedChat == False:
+				match = multiLinePattern.search(line)
+				if match:
+					chat["type"] = "normal"
+					chat["userId"] = int(match.group(1))
+					chat["userName"] = match.group(2)
+					chat["text"] = ""
+					chat["multiline"] = True
+					parsedChat = True
+					
 		else:
 			# See if this is a /who response.
 			if parsedChat == False:
@@ -144,39 +203,31 @@ def parseMessages(text, isGet):
 					parsedChat = True
 					
 		if parsedChat and "text" in chat:
-			# Parse user links.
-			chat["text"] = linkedPlayerPattern.sub(r'\2', chat["text"])
-		
-			# Parse misc links.
-			match = linkPattern.search(chat["text"])
-			while match != None:
-				url = match.group(1)
-				urlIndex = 0
-				textStart = match.end()
-				textEnd = textStart
-				found = False
-				while found == False:
-					if chat["text"][textEnd] == url[urlIndex]:
-						textEnd += 1
-						urlIndex += 1
-					elif chat["text"][textEnd] == ' ':
-						textEnd += 1
-						
-					if urlIndex == len(url) - 1:
-						found = True
-				
-				newText = chat["text"][:match.start()] + url + chat["text"][textEnd+1:]
-				chat["text"] = newText
-				match = linkPattern.search(chat["text"])
-			
-			# Decode HTML entities.
-			chat["text"] = StringUtils.htmlEntityDecode(chat["text"])
-		
-			# Clean up the text.
-			chat["text"] = htmlTagPattern.sub('', chat["text"])
+			chat["text"] = cleanChatText(chat["text"])
 		
 		# Handle unrecognized chat messages.
 		if parsedChat == False:
+			# If the last chat was flagged as starting a multiline
+			if len(chats) > 0 and "multiline" in chats[-1]:
+				if chats[-1]["multiline"] == True:
+					if len(chats[-1]["text"]) > 0:
+						chats[-1]["text"] += "\n"
+					line = line.replace('<Br>','\n')
+					cleanLine = cleanChatText(line)
+					cleanLine = cleanLine.replace('&nbsp;','').strip()
+					
+					chats[-1]["text"] += cleanLine
+					
+					continue
+			
+			# If the last chat was flagged as a System or Mod Announcement, skip past the trailing tags
+			elif len(chats) > 0:
+				if "type" in chats[-1] and chats[-1]["type"] in ["system message", "mod warning", "mod announcement"]:
+					if line == "</b></font>":
+						continue
+			
+			# Any other case we aren't prepared to handle
+			Report.error("bot", "Unknown message.  ResponseText = %s" % text)
 			chat["type"] = "unknown"
 			chat["text"] = StringUtils.htmlEntityDecode(line)
 			
@@ -215,3 +266,45 @@ def parseChatMessageToSend(text):
 		chatInfo["type"] = "channel"
 	
 	return chatInfo
+
+def cleanChatText(dirtyText):
+	"This functions parses player links and external links in the body of the chat text, and cleans any html tags"
+	
+	linkPattern = PatternManager.getOrCompilePattern("chatLink")
+	linkedPlayerPattern = PatternManager.getOrCompilePattern("chatLinkedPlayer")
+	htmlTagPattern = PatternManager.getOrCompilePattern("htmlTag")
+	
+	text = dirtyText
+	
+	# Parse user links.
+	text = linkedPlayerPattern.sub(r'\2', text)
+
+	# Parse misc links.
+	match = linkPattern.search(text)
+	while match != None:
+		url = match.group(1)
+		urlIndex = 0
+		textStart = match.end()
+		textEnd = textStart
+		found = False
+		while found == False:
+			if text[textEnd] == url[urlIndex]:
+				textEnd += 1
+				urlIndex += 1
+			elif text[textEnd] == ' ':
+				textEnd += 1
+				
+			if urlIndex == len(url) - 1:
+				found = True
+		
+		newText = text[:match.start()] + url + text[textEnd+1:]
+		text = newText
+		match = linkPattern.search(text)
+	
+	# Decode HTML entities.
+	text = StringUtils.htmlEntityDecode(text)
+
+	# Clean up the text.
+	text = htmlTagPattern.sub('', text)
+	
+	return text
