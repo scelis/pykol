@@ -101,7 +101,12 @@ class UserIsIgnoringError(Error):
 ######################
 class UserShouldNotBeHereError(Error):
 	"An exception raised when a user tries to adventure in a location where they should not be, yet."
-	
+
+class TooDrunkError(Error):
+	"An exception raised when a user attempts to do something they are too drunk to do."
+
+class TooFullError(Error):
+	"An exception raised when a user attempts to eat food they do not have room for."
 ###############
 # Misc Errors #
 ###############

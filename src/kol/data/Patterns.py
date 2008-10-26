@@ -43,6 +43,10 @@ patterns = {
 	"itemImage" : r'<img src="http:\/\/images\.kingdomofloathing\.com\/itemimages\/(.*?)"',
 	"itemName" : r'<b>([^<>]+?)<\/b>',
 	"itemType" : r'<br>Type: <b>([^<]*)<\/b><br>',
+	"tooFull" : r"You're too full to eat that\.",
+	"tooDrunk" : r"You're way too drunk already\.",
+	"notBooze" : r"That's not booze\.",
+	"notFood" : r"That's not something you can eat\.",
 	
 	# Message-related patterns.
 	"brickMessage" : r"http:\/\/images\.kingdomofloathing\.com\/adventureimages\/(brokewin|bigbrick)\.gif",
@@ -56,7 +60,7 @@ patterns = {
 	
 	# Error patterns.
 	"cantPulverizeItem" : r"<td>That's not something you can pulverize\.<\/td>",
-	"notEnoughItems" : r"<td>You haven't got that many\.<\/td>",
+	"notEnoughItems" : r"(?:<td>You haven't got that many\.<\/td>)|(?:You don't have the item you're trying to use\.)",
 	
 	# Chat patterns.
 	"currentChatChannel" : r'<font color="?#?\w+"?>Currently in channel: ([^<>]+)<',
@@ -150,6 +154,8 @@ patterns = {
 	"noncombatName" : r"<center><table><tr><td><center><b>([^<>]+)<\/b><br><img",
 	"fightWon" : r"<center>You win the fight!<!--WINWINWIN--><p>",
 	"fightLost" : r"<p>You lose\. +You slink away, dejected and defeated\.<p>",
+	"usedBarrel" : r"KOMPRESSOR does not smash",
+	"noAdventures" : r"You're out of adventures",
 	
 	# Rumpus Room patterns.
 	'rumpusRoomFurniture' : r'rump([0-9])_([0-9])\.gif',
