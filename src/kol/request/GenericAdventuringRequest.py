@@ -8,7 +8,12 @@ class GenericAdventuringRequest(GenericRequest):
 	A base class used for common adventuring functionality. Other request classes related to
 	adventuring should probably extend this one.
 	"""
+	
 	def parseResponse(self):
+		"""
+		Default response method for adventuring.
+		"""
+		
 		shouldNotBeHerePattern = PatternManager.getOrCompilePattern('userShouldNotBeHere')
 		if shouldNotBeHerePattern.search(self.responseText):
 			raise UserShouldNotBeHereError("Unable to adventure. You should not be here.")
@@ -17,7 +22,7 @@ class GenericAdventuringRequest(GenericRequest):
 		if url.find("/fight.php") >= 0:
 			# See if the user tried to perform an invalid action.
 			twiddlingThumbsPattern = PatternManager.getOrCompilePattern('twiddlingThumbs')
-			if twiddlingThumbs.search(self.responseText):
+			if twiddlingThumbsPattern.search(self.responseText):
 				raise InvalidActionError("Could not perform action. Thumbs were twiddled.")
 			
 			# Get the monster's name.

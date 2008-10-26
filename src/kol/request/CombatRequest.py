@@ -23,17 +23,17 @@ class CombatRequest(GenericAdventuringRequest):
 		super(CombatRequest, self).__init__(session)
 		self.url = session.serverURL + "fight.php"
 		
-		if action == ATTACK:
+		if action == self.ATTACK:
 			self.requestData["action"] = "attack"
-		elif action == USE_ITEM:
+		elif action == self.USE_ITEM:
 			self.requestData["action"] = "useitem"
 			self.requestData["whichitem"] = param
 			if param2 != None:
 				self.requestData["whichitem2"] = param2
-		elif action == USE_SKILL:
+		elif action == self.USE_SKILL:
 			self.requestData["action"] = "skill"
 			self.requestData["whichskill"] = param
-		elif action == RUN_AWAY:
+		elif action == self.RUN_AWAY:
 			self.requestData["action"] = "runaway"
-		elif action == PICK_POCKET:
+		elif action == self.PICK_POCKET:
 			self.requestData["action"] = "steal"
