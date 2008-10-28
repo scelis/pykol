@@ -47,6 +47,7 @@ patterns = {
 	"tooDrunk" : r"You're way too drunk already\.",
 	"notBooze" : r"That's not booze\.",
 	"notFood" : r"That's not something you can eat\.",
+	"notEquip" : r"That's not something you can equip\.  And stop screwing with the URLs\.",
 	
 	# Message-related patterns.
 	"brickMessage" : r"http:\/\/images\.kingdomofloathing\.com\/adventureimages\/(brokewin|bigbrick)\.gif",
@@ -60,7 +61,7 @@ patterns = {
 	
 	# Error patterns.
 	"cantPulverizeItem" : r"<td>That's not something you can pulverize\.<\/td>",
-	"notEnoughItems" : r"(?:<td>You haven't got that many\.<\/td>)|(?:You don't have the item you're trying to use\.)",
+	"notEnoughItems" : r"(?:<td>You haven't got that many\.<\/td>)|(?:You don't have the item you're trying to use\.)|(?:You don't have the item you're trying to equip\.)",
 	
 	# Chat patterns.
 	"currentChatChannel" : r'<font color="?#?\w+"?>Currently in channel: ([^<>]+)<',
@@ -176,4 +177,17 @@ patterns = {
 	'skillTooPoor' : r">You can't afford to train that skill\.<",
 	'skillLearned' : r">You learn a new skill: <b>(.*?)</b>",
 	'skillHaveAlready' : r">You've already got that skill\.<",
+	
+	# Equipment patterns
+	"currentHat" : r"Hat</a>:</td><td><img src=\"[^\"]+\" class=hand onClick='descitem\(([0-9]+)\)'",
+	"currentWeapon" : r"Weapon</a>:</td><td><img src=\"[^\"]+\" class=hand onClick='descitem\(([0-9]+)\)'",
+	"currentOffhand" : r"Offhand</a>:</td><td><img src=\"[^\"]+\" class=hand onClick='descitem\(([0-9]+)\)'",
+	"currentShirt" : r"Shirt</a>:</td><td><img src=\"[^\"]+\" class=hand onClick='descitem\(([0-9]+)\)'",
+	"currentPants" : r"Pants</a>:</td><td><img src=\"[^\"]+\" class=hand onClick='descitem\(([0-9]+)\)'",
+	"currentAcc" : r"Accessory</a>:</td><td><img src=\"[^\"]+\" class=hand onClick='descitem\(([0-9]+)\)'",
+	"currentAcc1" : r"Accessory</a>&nbsp;1:</td><td><img src=\"[^\"]+\" class=hand onClick='descitem\(([0-9]+)\)'",
+	"currentAcc2" : r"Accessory</a>&nbsp;2:</td><td><img src=\"[^\"]+\" class=hand onClick='descitem\(([0-9]+)\)'",
+	"currentAcc3" : r"Accessory</a>&nbsp;3:</td><td><img src=\"[^\"]+\" class=hand onClick='descitem\(([0-9]+)\)'",
+	"currentFam" : r"Familiar</a>:</td><td><img src=\"[^\"]+\" class=hand onClick='descitem\(([0-9]+)\)'",
+
 }
