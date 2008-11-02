@@ -53,16 +53,30 @@ def parseMessages(text, isGet):
 	chatWhoPattern = PatternManager.getOrCompilePattern("chatWhoResponse")
 	linkedPlayerPattern = PatternManager.getOrCompilePattern("chatLinkedPlayer")
 	multiLinePattern = PatternManager.getOrCompilePattern("chatMultiLineStart")
+	multiEmotePattern = PatternManager.getOrCompilePattern("chatMultiLineEmote")
 	
 	# Get the chat messages.
 	chats = []
 	
-	# Check for /c, /s, and /l responses
+	# Check for /c, /s, and /l responses, as well as outgoing private messages
 	if not isGet:
 		chatNewChannelPattern = PatternManager.getOrCompilePattern("newChatChannel")
 		chatListenPattern = PatternManager.getOrCompilePattern("chatListenResponse")
 		chatListenStartPattern = PatternManager.getOrCompilePattern("chatStartListen")
 		chatListenStopPattern = PatternManager.getOrCompilePattern("chatStopListen")
+		outPrivatePattern = PatternManager.getOrCompilePattern("outgoingPrivate")
+		
+		# See if it is an outgoing private message
+		chat = {}
+		match = outPrivatePattern.search(text)
+		if match:
+			chat["type"] = "private"
+			chat["userName"] = match.group(2)
+			chat["userId"] = int(match.group(1))
+			chat["text"] = match.group(3).strip()
+			
+			text = text[:match.start()] + text[match.end():]
+			chats.append(chat)
 		
 		# See if the user changed chat channels through /c or /s
 		chat = {}
@@ -119,6 +133,22 @@ def parseMessages(text, isGet):
 		line = line.strip()
 		if len(line) == 0:
 			continue
+		
+		# Mod Announcements and Mod Warnings leave leading </font> tags at the beginning of the next message
+		# This method will remove them and also skip the line if that is all there is
+		if line[:7] == "</font>":
+			if len(line) == 7:
+				continue
+			else:
+				line = line[7:].strip()
+		
+		# System Announcements leave leading </b></font> tags at the beginning of the next message
+		# This method will remove them and also skip the line if that is all there is
+		if line[:11] == "</b></font>":
+			if len(line) == 11:
+				continue
+			else:
+				line = line[11:].strip()
 		
 		chat = {}
 		parsedChat = False
@@ -188,7 +218,18 @@ def parseMessages(text, isGet):
 					chat["text"] = ""
 					chat["multiline"] = True
 					parsedChat = True
-					
+			
+			# See if this is the start of a multi-line emote (Gothy or Haiku)
+			# I've seen a Haiku emote, don't know if Gothy will trigger for it
+			if parsedChat == False:
+				match = multiEmotePattern.search(line)
+				if match:
+					chat["type"] = "emote"
+					chat["userName"] = match.group(2)
+					chat["text"] = ""
+					chat["multiline"] = True
+					parsedChat = True
+
 		else:
 			# See if this is a /who response.
 			if parsedChat == False:

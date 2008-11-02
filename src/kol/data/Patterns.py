@@ -82,6 +82,8 @@ patterns = {
 	"chatStartListen" : r'<font color=[^>]+>Now listening to channel: ([^>]+)</font>',
 	"chatStopListen" : r'<font color=[^>]+>No longer listening to channel: ([^>]+)</font>',
 	"chatMultiLineStart" : r'<b><a target="?mainpane"? href="showplayer\.php\?who=(-?[0-9]+)"><font color="?#?\w+"?>([^<>]+)<\/font><\/b><\/a>:$',
+	"chatMultiLineEmote" : r'<b><i><a target="?mainpane"? href="showplayer\.php\?who=(-?[0-9]+)"><font color="?#?\w+"?>([^<>]+)<\/b><\/font><\/a>$',
+	"outgoingPrivate" : r'<font color="?blue"?><b>private to <a class=nounder target="?mainpane"? href="?showplayer.php\?who=([0-9]+)"?><font color="?blue"?>(.*?)</font></a></b>:(.*?)</font></br>',
 	
 	# Clan dungeon patterns.
 	"dungeonActivity" : r'(?:^|<br>|<br><b>|<b>)([^<>]+) \(#([0-9,]+)\) ([^<>]+) \(([0-9,]+) turns?\)',
