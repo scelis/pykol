@@ -225,6 +225,7 @@ def parseMessages(text, isGet):
 				match = multiEmotePattern.search(line)
 				if match:
 					chat["type"] = "emote"
+					chat["userId"] = int(match.group(1))
 					chat["userName"] = match.group(2)
 					chat["text"] = ""
 					chat["multiline"] = True
