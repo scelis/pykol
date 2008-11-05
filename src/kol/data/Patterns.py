@@ -108,7 +108,7 @@ patterns = {
 	'characterMP' : r'onclick=\'doc\("mp"\);\'><br><span class=[^>]+>([0-9]+)&nbsp;/&nbsp;([0-9]+)</span>',
 	'characterMeat' : r'onclick=\'doc\("meat"\);\'><br><span class=black>([0-9,]+)</span>',
 	'characterAdventures' : r'onclick=\'doc\("adventures"\);\'><br><span class=black>([0-9]+)</span>',
-	'currentFamiliar' : r'href="familiar.php">(?:<b>)?<font size=[0-9]+>(.*?)</a>(?:</b>)?, the  ([0-9]+)-pound (.*?)<table',
+	'currentFamiliar' : r'href="familiar.php">(?:<b>)?<font size=[0-9]+>(.*?)</a>(?:</b>)?, the  ([0-9]+)-pound (.*?)</font></td></tr></table>',
 	'characterEffect' : r'eff\("[a-fA-F0-9]+"\);\'.*?></td><td valign=center><font size=[0-9]+>(.*?) ?\(([0-9]+)\)</font><br></td>',
 	'characterRonin' : r'>Ronin</a>: <b>([0-9]+)</b>',
 	'characterMindControl' : r'>Mind Control</a>: <b>([0-9]{1,2})</b>',
