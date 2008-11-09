@@ -46,6 +46,10 @@ class GenericAdventuringRequest(GenericRequest):
 			self.responseData["meat"] = ParseResponseUtils.parseMeatGainedLost(self.responseText)
 			self.responseData["substats"] = ParseResponseUtils.parseSubstatsGainedLost(self.responseText)
 			
+			# The same goes for HP and MP
+			self.responseData["hp"] = ParseResponseUtils.parseHPGainedLost(self.responseText)
+			self.responseData["mp"] = ParseResponseUtils.parseMPGainedLost(self.responseText)
+			
 		elif url.find("/choice.php") >= 0:
 			self.responseData["adventureType"] = "choice"
 			choiceIdentifierPattern = PatternManager.getOrCompilePattern('choiceIdentifier')

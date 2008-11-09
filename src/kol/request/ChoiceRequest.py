@@ -1,6 +1,6 @@
 from kol.request.GenericAdventuringRequest import GenericAdventuringRequest
 
-class GenericAdventuringRequest(GenericAdventuringRequest):
+class ChoiceRequest(GenericAdventuringRequest):
 	"A request to choose an option for a choice adventure."
 	
 	def __init__(self, session, choiceId, choiceNumber):
