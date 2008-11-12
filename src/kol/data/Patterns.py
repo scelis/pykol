@@ -164,10 +164,13 @@ patterns = {
 	'rumpusRoomFurniture' : r'rump([0-9])_([0-9])\.gif',
 	
 	# Mall patterns.
-	"mallItemSearchNoLimit" : r'<tr><td class=small><b>[^<>]+<\/b> \(([0-9]+)\)<\/td><td class=small><a  href="mallstore\.php\?whichstore=([0-9]+)&searchitem=([0-9]+)&searchprice=([0-9]+)">(.*?)<\/a><\/td>',
-	"mallItemSearchLimit" : r'<tr><td class=small><b>[^<>]+<\/b> \(([0-9]+)\) \(([0-9]+)&nbsp;\/&nbsp;day\)<\/td><td class=small><a  href="mallstore\.php\?whichstore=([0-9]+)&searchitem=([0-9]+)&searchprice=([0-9]+)">(.*?)</a></td>',
+	"mallItemSearchNoLimit" : r'<tr><td class=small><b>([^<>]+)<\/b> \(([0-9]+)\)<\/td><td class=small><a  href="mallstore\.php\?whichstore=([0-9]+)&searchitem=([0-9]+)&searchprice=([0-9]+)">(.*?)<\/a><\/td>',
+	"mallItemSearchLimit" : r'<tr><td class=small><b>([^<>]+)<\/b> \(([0-9]+)\) \(([0-9]+)&nbsp;\/&nbsp;day\)<\/td><td class=small><a  href="mallstore\.php\?whichstore=([0-9]+)&searchitem=([0-9]+)&searchprice=([0-9]+)">(.*?)</a></td>',
+	"mallItemSearchHitLimit" : r'<tr><td style=\'color: gray;\' class=small><b>([^<>]+)</b> \(([0-9]+)\) \(([0-9]+)&nbsp;\/&nbsp;day\)<\/td><td style=\'color: gray;\' class=small><a style=\'color: gray;\' href="mallstore\.php\?whichstore=([0-9]+)&searchitem=([0-9]+)&searchprice=([0-9]+)">(.*?)</a></td>',
+	
 	"cantAffordItem" : r"<td>You can't afford that item\.<\/td>",
 	"mallNoItemAtThatPrice" : r"<td>This store doesn't have that item at that price\.",
+	"cantBuyItemIgnoreList" : r"<td>That player will not sell to you, because you are on his or her ignore list\.<\/td>",
 	
 	# Canadia patterns.
 	"noAdvInstitue" : r">You don't have that many Adventures\.  Take off, eh\?<",

@@ -1,5 +1,5 @@
 from GenericRequest import GenericRequest
-from kol.Error import RequestError, NotEnoughMeatError, NotSoldHereError
+from kol.Error import RequestError, NotEnoughMeatError, NotSoldHereError, UserIsIgnoringError
 from kol.manager import PatternManager
 from kol.util import ParseResponseUtils
 
@@ -27,6 +27,10 @@ class MallItemPurchaseRequest(GenericRequest):
 		noItemAtThatPricePattern = PatternManager.getOrCompilePattern('mallNoItemAtThatPrice')
 		if noItemAtThatPricePattern.search(self.responseText):
 			raise NotSoldHereError("That item is not sold here at that price.")
+		
+		ignoreListPattern = PatternManager.getOrCompilePattern('cantBuyItemIgnoreList')
+		if ignoreListPattern.search(self.responseText):
+			raise UserIsIgnoringError("The owner of that store has balleeted you.")
 		
 		items = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
 		if len(items) == 0:
