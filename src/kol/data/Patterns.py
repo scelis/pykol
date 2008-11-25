@@ -48,6 +48,8 @@ patterns = {
 	"notBooze" : r"That's not booze\.",
 	"notFood" : r"That's not something you can eat\.",
 	"notEquip" : r"That's not something you can equip\.  And stop screwing with the URLs\.",
+	"notEnoughToUse" : r"<table><tr><td>You don't have that many of that item.</td></tr></table>",
+	"notMultiUse" : r"<table><tr><td>That item isn't usable in quantity.</td></tr></table>",
 	
 	# Message-related patterns.
 	"brickMessage" : r"http:\/\/images\.kingdomofloathing\.com\/adventureimages\/(brokewin|bigbrick)\.gif",

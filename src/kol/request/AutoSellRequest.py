@@ -1,5 +1,4 @@
 from GenericRequest import GenericRequest
-from kol.database import SkillDatabase
 from kol.manager import PatternManager
 from kol.Error import RequestError
 
@@ -81,6 +80,9 @@ class AutoSellRequest(GenericRequest):
 				else:
 					quantity = int(singleItem.group(1).replace(',',''))
 				soldItems.append({"quantity":quantity, "name":name})
+		else:
+			salesTotal = 0
+			soldItems = []
 		
 		self.responseData["meatGained"] = salesTotal
 		self.responseData["itemsSold"] = soldItems

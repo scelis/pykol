@@ -10,9 +10,9 @@ class EatFoodRequest(GenericRequest):
 	It returns the results, including and stat gain, adventure gain, or effect gain.
 	"""
 	
-	def __init__(self, session, boozeId):
+	def __init__(self, session, foodId):
 		super(EatFoodRequest, self).__init__(session)
-		self.url = session.serverURL + "inv_eat.php?pwd=" + session.pwd + "&which=1&whichitem=" + str(boozeId)
+		self.url = session.serverURL + "inv_eat.php?pwd=" + session.pwd + "&which=1&whichitem=" + str(foodId)
 		
 	def parseResponse(self):
 		# Check for errors
