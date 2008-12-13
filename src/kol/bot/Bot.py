@@ -162,6 +162,10 @@ class Bot(threading.Thread):
 					Report.error("bot", "URLError! Let's try logging in again and maybe get a new server in the process.", inst)
 					self.session = None
 					timeToSleep = 120
+				except BadStatusLine, inst:
+					Report.error("bot", "Bad HTTP Status! Let's try logging in again and maybe get a new server in the process.", inst)
+					self.session = None
+					timeToSleep = 120
 				except Exception, inst:
 					Report.error("bot", "Unknown error.", inst)
 					cxt = {}
