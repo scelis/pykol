@@ -60,7 +60,11 @@ def handleClanChat(context, **kwargs):
 		thisBot = kwargs["bot"]
 		for bot in BotManager._bots:
 			if bot.id != thisBot.id:
-				bot.sendChatMessage(msg)
+				if bot.session != None and bot.session.isConnected and hasattr(bot.session, "chatManager"):
+					try:
+						bot.sendChatMessage(msg)
+					except AttributeError, inst:
+						Report.error("chat", "Could not broadcast message.", inst)
 	
 	return FilterManager.CONTINUE
 
