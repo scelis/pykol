@@ -19,6 +19,7 @@ import pickle
 import threading
 import time
 import urllib2
+from httplib import BadStatusLine
 
 COMMANDS_COMMANDS = ["command", "commands"]
 HELP_COMMANDS = ["help"]
