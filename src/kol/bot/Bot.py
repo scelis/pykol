@@ -14,12 +14,12 @@ from kol.request.SendMessageRequest import SendMessageRequest
 from kol.util import DataUtils
 from kol.util import Report
 
+import httplib
 import os
 import pickle
 import threading
 import time
 import urllib2
-from httplib import BadStatusLine
 
 COMMANDS_COMMANDS = ["command", "commands"]
 HELP_COMMANDS = ["help"]
@@ -163,7 +163,7 @@ class Bot(threading.Thread):
 					Report.error("bot", "URLError! Let's try logging in again and maybe get a new server in the process.", inst)
 					self.session = None
 					timeToSleep = 120
-				except BadStatusLine, inst:
+				except httplib.BadStatusLine, inst:
 					Report.error("bot", "Bad HTTP Status! Let's try logging in again and maybe get a new server in the process.", inst)
 					self.session = None
 					timeToSleep = 120
