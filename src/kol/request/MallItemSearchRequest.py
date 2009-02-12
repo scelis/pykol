@@ -26,7 +26,7 @@ class MallItemSearchRequest(GenericRequest):
 			try:
 				item = ItemDatabase.getItemFromId(itemId, self.session)
 			except ItemNotFoundError, inst:
-				item = {"id" : item, "name" : itemName}
+				item = {"id" : itemId, "name" : itemName}
 			item["quantity"] = int(match.group(2))
 			item["storeId"] = int(match.group(3))
 			item["price"] = int(match.group(5))
