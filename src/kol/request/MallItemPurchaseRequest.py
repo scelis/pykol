@@ -1,5 +1,5 @@
 from GenericRequest import GenericRequest
-from kol.Error import RequestError, NotEnoughMeatError, NotSoldHereError, UserIsIgnoringError
+from kol.Error import RequestError, NotEnoughMeatError, NotSoldHereError, UserIsIgnoringError, MallLimitError
 from kol.manager import PatternManager
 from kol.util import ParseResponseUtils
 
@@ -14,9 +14,10 @@ class MallItemPurchaseRequest(GenericRequest):
 		super(MallItemPurchaseRequest, self).__init__(session)
 		self.url = session.serverURL + 'mallstore.php'
 		self.requestData['pwd'] = session.pwd
-		self.requestData['whichstore'] = storeId
-		self.requestData['buying'] = "Yep."
+		self.requestData['buying'] = '1'
+		self.requestData['ajax'] = '1'
 		self.requestData['whichitem'] = str(itemId) + str(price).zfill(9)
+		self.requestData['whichstore'] = storeId
 		self.requestData['quantity'] = quantity
 
 	def parseResponse(self):
@@ -31,6 +32,10 @@ class MallItemPurchaseRequest(GenericRequest):
 		ignoreListPattern = PatternManager.getOrCompilePattern('cantBuyItemIgnoreList')
 		if ignoreListPattern.search(self.responseText):
 			raise UserIsIgnoringError("The owner of that store has balleeted you.")
+		
+		mallHitLimitPattern = PatternManager.getOrCompilePattern('mallHitLimit')
+		if mallHitLimitPattern.search(self.responseText):
+			raise MallLimitError("You have hit the limit for this item at this store.")
 		
 		items = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
 		if len(items) == 0:

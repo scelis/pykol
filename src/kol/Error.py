@@ -107,6 +107,7 @@ class TooDrunkError(Error):
 
 class TooFullError(Error):
 	"An exception raised when a user attempts to eat food they do not have room for."
+	
 ###############
 # Misc Errors #
 ###############
@@ -144,6 +145,13 @@ class NotEnoughMeatError(Error):
 class NotAStoreError(Error):
 	"""
 	An exception raised when the user tries to visit a store that doesn't exist
+	"""
+	def __init__(self, message):
+		self.message = message
+		
+class MallLimitError(Error):
+	"""
+	An exception raised when the user tries to purchase an item in a mall store and hits the limit.
 	"""
 	def __init__(self, message):
 		self.message = message

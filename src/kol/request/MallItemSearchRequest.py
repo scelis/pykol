@@ -2,68 +2,63 @@ from GenericRequest import GenericRequest
 from kol.Error import ItemNotFoundError
 from kol.database import ItemDatabase
 from kol.manager import PatternManager
+from kol.util import Report
 
 class MallItemSearchRequest(GenericRequest):
 	"""
 	Searches for an item at the mall.
 	"""
 	
-	def __init__(self, session, itemName, limit=-1):
+	CATEGORY_ALL = 'allitems'
+	CATEGORY_FOOD = 'food'
+	CATEGORY_BOOZE = 'booze'
+	CATEGORY_OTHER_CONSUMABLES = 'othercon'
+	CATEGORY_WEAPONS = 'weapons'
+	CATEGORY_HATS = 'hats'
+	CATEGORY_SHIRTS = 'shirts'
+	CATEGORY_PANTS = 'pants'
+	CATEGORY_ACCESSORIES = 'acc'
+	CATEGORY_OFF_HAND = 'offhand'
+	CATEGORY_FAMILIAR_EQUIPMENT = 'famequip'
+	CATEGORY_COMBAT_ITEMS = 'combat'
+	CATEGORY_POTIONS = 'potions'
+	CATEGORY_HP_RESTORERS = 'hprestore'
+	CATEGORY_MP_RESTORERS = 'mprestore'
+	CATEGORY_FAMILIARS = 'familiars'
+	
+	def __init__(self, session, searchQuery, category=CATEGORY_ALL, noLimits=False, maxPrice=0):
 		super(MallItemSearchRequest, self).__init__(session)
 		self.url = session.serverURL + 'searchmall.php'
-		self.requestData['whichitem'] = itemName
-		if limit > 0:
-			self.requestData['cheaponly'] = 'on'
-			self.requestData['shownum'] = limit
+		self.requestData['didadv'] = 1
+		self.requestData['pudnuggler'] = searchQuery
+		self.requestData['category'] = category
+		self.requestData['justitems'] = '0'
+		self.requestData['sortresultsby'] = 'price'
+		self.requestData['max_price'] = maxPrice
+		if noLimits:
+			self.requestData['nolimits'] = '1'
+		else:
+			self.requestData['nolimits'] = '0'
 		
 	def parseResponse(self):
 		items = []
-		
-		itemNoLimitPattern = PatternManager.getOrCompilePattern('mallItemSearchNoLimit')
-		for match in itemNoLimitPattern.finditer(self.responseText):
-			itemName = match.group(1)
-			itemId = int(match.group(4))
+		itemMatchPattern = PatternManager.getOrCompilePattern('mallItemSearchResult')
+		for match in itemMatchPattern.finditer(self.responseText):
+			itemId = int(match.group('itemId'))
 			try:
 				item = ItemDatabase.getItemFromId(itemId, self.session)
+				item["price"] = int(match.group('price').replace(',', ''))
+				item["storeId"] = int(match.group('storeId'))
+				item["storeName"] = match.group('storeName').replace('<br>', ' ')
+				item["quantity"] = int(match.group('quantity').replace(',', ''))
+				limit = match.group('limit').replace(',', '')
+				if limit == "":
+					limit = 0
+				else:
+					limit = int(limit)
+				item["limit"] = limit
+				items.append(item)
 			except ItemNotFoundError, inst:
-				item = {"id" : itemId, "name" : itemName}
-			item["quantity"] = int(match.group(2))
-			item["storeId"] = int(match.group(3))
-			item["price"] = int(match.group(5))
-			item["storeName"] = match.group(6).replace('<br>', ' ')
-			items.append(item)
-		
-		itemLimitPattern = PatternManager.getOrCompilePattern('mallItemSearchLimit')
-		for match in itemLimitPattern.finditer(self.responseText):
-			itemName = match.group(1)
-			itemId = int(match.group(5))
-			try:
-				item = ItemDatabase.getItemFromId(itemId, self.session)
-			except ItemNotFoundError, inst:
-				item = {"id" : item, "name" : itemName}
-			item["quantity"] = int(match.group(2))
-			item["limit"] = int(match.group(3))
-			item["storeId"] = int(match.group(4))
-			item["price"] = int(match.group(6))
-			item["storeName"] = match.group(7).replace('<br>', ' ')
-			item["hitLimit"] = False
-			items.append(item)
-			
-		hitLimitPattern = PatternManager.getOrCompilePattern('mallItemSearchHitLimit')
-		for match in itemLimitPattern.finditer(self.responseText):
-			itemName = match.group(1)
-			itemId = int(match.group(5))
-			try:
-				item = ItemDatabase.getItemFromId(itemId, self.session)
-			except ItemNotFoundError, inst:
-				item = {"id" : item, "name" : itemName}
-			item["quantity"] = int(match.group(2))
-			item["limit"] = int(match.group(3))
-			item["storeId"] = int(match.group(4))
-			item["price"] = int(match.group(6))
-			item["storeName"] = match.group(7).replace('<br>', ' ')
-			item["hitLimit"] = True
-			items.append(item)
-		
-		items.sort(lambda x, y: cmp(x["price"], y["price"]))
+				Report.info("itemdatabase", "Unrecognized item found in mall search: %s" % itemId, inst)
+				
 		self.responseData["results"] = items
