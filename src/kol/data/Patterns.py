@@ -170,6 +170,7 @@ patterns = {
 	"cantAffordItem" : r"<td>You can't afford that item\.<\/td>",
 	"mallNoItemAtThatPrice" : r"<td>This store doesn't have that item at that price\.",
 	"cantBuyItemIgnoreList" : r"<td>That player will not sell to you, because you are on his or her ignore list\.<\/td>",
+	"mallHitLimit" : r"You may only buy ([0-9,]+) of this item per day from this store\. You have already purchased ([0-9,]+) in the last 24 hours\.",
 	
 	# Canadia patterns.
 	"noAdvInstitue" : r">You don't have that many Adventures\.  Take off, eh\?<",

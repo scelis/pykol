@@ -52,9 +52,7 @@ class MallItemSearchRequest(GenericRequest):
 				item["storeName"] = match.group('storeName').replace('<br>', ' ')
 				item["quantity"] = int(match.group('quantity').replace(',', ''))
 				limit = match.group('limit').replace(',', '')
-				if limit == "":
-					limit = 0
-				else:
+				if len(limit) > 0:
 					limit = int(limit)
 				item["limit"] = limit
 				items.append(item)
