@@ -214,7 +214,8 @@ class Bot(threading.Thread):
 		m.setOldestFirst(True)
 		
 		# Create a ChatManager.
-		c = ChatManager(self.session)
+		if "doWork:chat" in self.params:
+			c = ChatManager(self.session)
 		
 		self.executeFilter("botPostLogin")
 	
