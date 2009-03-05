@@ -165,8 +165,11 @@ patterns = {
 	# Rumpus Room patterns.
 	'rumpusRoomFurniture' : r'rump([0-9])_([0-9])\.gif',
 	
-	# Mall patterns.
-	'mallItemSearchResult' : r'<a[^<>]*href="mallstore\.php\?whichstore=(?P<storeId>[0-9]+)&searchitem=(?P<itemId>[0-9]+)&searchprice=(?P<price>[0-9]+)"><b>(?P<storeName>[^<>]+)<\/b><\/a>[^<>]*<\/td><td[^<>]*>(?P<quantity>[0-9,]+)<\/td><td[^<>]*>[^<>]*(?P<limit>[0-9,]*)[^<>]*<\/td>',	
+	# Mall search patterns.
+	"mallItemSearchResult" : r'<tr class="graybelow(.*?)<\/tr>',
+	"mallItemSearchDetails" : r'<a[^<>]*href="mallstore\.php\?whichstore=(?P<storeId>[0-9]+)&searchitem=(?P<itemId>[0-9]+)&searchprice=(?P<price>[0-9]+)"><b>(?P<storeName>[^<>]+)<\/b><\/a>[^<>]*<\/td><td[^<>]*>(?P<quantity>[0-9,]+)<\/td><td[^<>]*>(?:&nbsp;)*(?P<limit>[0-9,]*)[^<>]*<\/td>',
+	
+	# Mall purchase patterns.
 	"cantAffordItem" : r"<td>You can't afford that item\.<\/td>",
 	"mallNoItemAtThatPrice" : r"<td>This store doesn't have that item at that price\.",
 	"cantBuyItemIgnoreList" : r"<td>That player will not sell to you, because you are on his or her ignore list\.<\/td>",

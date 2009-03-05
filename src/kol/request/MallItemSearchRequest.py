@@ -43,7 +43,10 @@ class MallItemSearchRequest(GenericRequest):
 	def parseResponse(self):
 		items = []
 		itemMatchPattern = PatternManager.getOrCompilePattern('mallItemSearchResult')
-		for match in itemMatchPattern.finditer(self.responseText):
+		itemDetailsPattern = PatternManager.getOrCompilePattern('mallItemSearchDetails')
+		for itemMatch in itemMatchPattern.finditer(self.responseText):
+			matchText = itemMatch.group(1)
+			match = itemDetailsPattern.search(matchText)
 			itemId = int(match.group('itemId'))
 			try:
 				item = ItemDatabase.getItemFromId(itemId, self.session)
@@ -55,6 +58,8 @@ class MallItemSearchRequest(GenericRequest):
 				if len(limit) > 0:
 					limit = int(limit)
 				item["limit"] = limit
+				if matchText.find('limited"') >= 0:
+					item["hitLimit"] = True
 				items.append(item)
 			except ItemNotFoundError, inst:
 				Report.info("itemdatabase", "Unrecognized item found in mall search: %s" % itemId, inst)
