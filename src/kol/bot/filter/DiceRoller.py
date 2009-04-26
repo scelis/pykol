@@ -30,6 +30,8 @@ def botProcessChat(context, **kwargs):
 			numSides = int(match.group(2))
 			if numDice > 10:
 				numDice = 10
+			elif numDice <= 0:
+				numDice = 1
 			
 			# Roll the dice.
 			result = []
