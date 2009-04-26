@@ -32,6 +32,8 @@ def botProcessChat(context, **kwargs):
 				numDice = 10
 			elif numDice <= 0:
 				numDice = 1
+			if numSides <= 0:
+				numSides = 1
 			
 			# Roll the dice.
 			result = []
