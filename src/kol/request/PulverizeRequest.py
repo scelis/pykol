@@ -28,7 +28,7 @@ class PulverizeRequest(GenericRequest):
 				itemStr = item["name"]
 			else:
 				itemStr = item["plural"]
-			raise NotEnoughItemsError("You do not have %s %s" % (self.quantity % itemStr))
+			raise NotEnoughItemsError("You do not have %s %s" % (self.quantity, itemStr))
 			
 		items = []
 		
