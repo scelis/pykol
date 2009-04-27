@@ -18,7 +18,6 @@ def doFilter(eventName, context, **kwargs):
 	return returnCode
 
 def botProcessChat(context, **kwargs):
-	global __randomGeneratorSeeded
 	returnCode = FilterManager.CONTINUE
 	bot = kwargs["bot"]
 	chat = kwargs["chat"]
