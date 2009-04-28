@@ -167,7 +167,7 @@ patterns = {
 	
 	# Mall search patterns.
 	"mallItemSearchResult" : r'<tr class="graybelow(.*?)<\/tr>',
-	"mallItemSearchDetails" : r'<a[^<>]*href="mallstore\.php\?whichstore=(?P<storeId>[0-9]+)&searchitem=(?P<itemId>[0-9]+)&searchprice=(?P<price>[0-9]+)"><b>(?P<storeName>[^<>]+)<\/b><\/a>[^<>]*<\/td><td[^<>]*>(?P<quantity>[0-9,]+)<\/td><td[^<>]*>(?:&nbsp;)*(?P<limit>[0-9,]*)[^<>]*<\/td>',
+	"mallItemSearchDetails" : r'<a[^<>]*href="mallstore\.php\?whichstore=(?P<storeId>[0-9]+)&searchitem=(?P<itemId>[0-9]+)&searchprice=(?P<price>[0-9]+)"><b>(?P<storeName>.*?)<\/b><\/a>[^<>]*<\/td><td[^<>]*>(?P<quantity>[0-9,]+)<\/td><td[^<>]*>(?:&nbsp;)*(?P<limit>[0-9,]*)[^<>]*<\/td>',
 	
 	# Mall purchase patterns.
 	"cantAffordItem" : r"<td>You can't afford that item\.<\/td>",
