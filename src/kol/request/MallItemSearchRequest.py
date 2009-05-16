@@ -26,7 +26,7 @@ class MallItemSearchRequest(GenericRequest):
 	CATEGORY_MP_RESTORERS = 'mprestore'
 	CATEGORY_FAMILIARS = 'familiars'
 	
-	def __init__(self, session, searchQuery, category=CATEGORY_ALL, noLimits=False, maxPrice=0):
+	def __init__(self, session, searchQuery, category=CATEGORY_ALL, noLimits=False, maxPrice=0, numResults=0):
 		super(MallItemSearchRequest, self).__init__(session)
 		self.url = session.serverURL + 'searchmall.php'
 		self.requestData['didadv'] = 1
@@ -35,6 +35,7 @@ class MallItemSearchRequest(GenericRequest):
 		self.requestData['justitems'] = '0'
 		self.requestData['sortresultsby'] = 'price'
 		self.requestData['max_price'] = maxPrice
+		self.requestData['x_cheapest'] = numResults
 		if noLimits:
 			self.requestData['nolimits'] = '1'
 		else:
