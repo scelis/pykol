@@ -1,6 +1,7 @@
 from kol.request.GetMessagesRequest import GetMessagesRequest
 from kol.request.InventoryRequest import InventoryRequest
 from kol.request.UseItemRequest import UseItemRequest
+from kol.util import Report
 
 class MailboxManager(object):
 	"""
@@ -107,6 +108,7 @@ class MailboxManager(object):
 		return messages
 	
 	def openAllGiftPackages(self):
+		Report.trace("kmail", "Opening gift package(s).")
 		giftPackages = {}
 		
 		# Get a list of all gift packages in our inventory.
