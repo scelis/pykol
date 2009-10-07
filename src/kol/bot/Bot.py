@@ -209,9 +209,10 @@ class Bot(threading.Thread):
 		r.doRequest()
 		
 		# Create a MailboxManager.
-		m = MailboxManager(self.session)
-		m.setMessagesPerPage(100)
-		m.setOldestFirst(True)
+		if "doWork:kmail" in self.params:
+			m = MailboxManager(self.session)
+			m.setMessagesPerPage(100)
+			m.setOldestFirst(True)
 		
 		# Create a ChatManager.
 		if "doWork:chat" in self.params:
