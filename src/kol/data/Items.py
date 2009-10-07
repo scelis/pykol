@@ -35961,4 +35961,12 @@ items = [
 		"adventuresGained" : "3",
 		"moxieGained" : "8",
 	},
+	{
+		"id" : 4146,
+		"descId" : 859278206,
+		"name" : "floaty sand",
+		"plural" : "handfuls of floaty sand",
+		"type" : "potion",
+		"autosell" : 10,
+	},
 ]
