@@ -50,10 +50,17 @@ def handleClanChat(context, **kwargs):
 	
 	# Construct the message to send to the other bots.
 	msg = None
-	if chat["type"] == "normal":
-		msg = "/clan [%s] %s" % (chat["userName"], chat["text"])
-	elif chat["type"] == "emote":
-		msg = "/clan <%s %s>" % (chat["userName"], chat["text"])
+	if "chatBroadcastDelimiters" in bot.params:
+		chars = bot.params["chatBroadcastDelimiters"]
+		if chat["type"] == "normal":
+			msg = "/clan %s%s%s %s" % (chars[0], chat["userName"], chars[1], chat["text"])
+		elif chat["type"] == "emote":
+			msg = "/clan %s%s %s%s" % (chars[0], chat["userName"], chat["text"], chars[1])
+	else:
+		if chat["type"] == "normal":
+			msg = "/clan [%s] %s" % (chat["userName"], chat["text"])
+		elif chat["type"] == "emote":
+			msg = "/clan <%s %s>" % (chat["userName"], chat["text"])
 	
 	# Send the message to the other bots.
 	if msg != None:
