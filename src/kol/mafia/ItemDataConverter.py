@@ -334,7 +334,7 @@ def readTradeItemsFile():
 			if len(parts) >= 5:
 				itemId = int(parts[0])
 				itemName = parts[1]
-				itemTypeId = int(parts[2])
+				itemTypeId = parts[2]
 				itemTradeStr = parts[3]
 				autosell = int(parts[4])
 				
@@ -346,16 +346,16 @@ def readTradeItemsFile():
 				if autosell > 0:
 					item["autosell"] = autosell
 				
-				if itemTypeId == 3:
+				if itemTypeId == "usable":
 					item["isUsable"] = True
-				elif itemTypeId == 4:
+				elif itemTypeId == "multiple":
 					item["isUsable"] = True
 					item["isMultiUsable"] = True
-				elif itemTypeId == 5:
+				elif itemTypeId == "grow":
 					item["type"] = "familiar"
-				elif itemTypeId == 7:
+				elif itemTypeId == "familiar":
 					item["type"] = "familiar equipment"
-				elif itemTypeId == 18:
+				elif itemTypeId == "reusable":
 					item["isUsable"] = True
 					item["notConsumedWhenUsed"] = True
 
@@ -423,7 +423,8 @@ def readModifiersFile():
 							item["enchantments"]["weakensMonster"] = True
 						else:
 							modifier = modifier.split(':')
-							item["enchantments"][modifier[0].strip()] = modifier[1].strip()
+							if len(modifier) >= 2:
+								item["enchantments"][modifier[0].strip()] = modifier[1].strip()
 				
 				if "enchantments" in item and len(item["enchantments"]) == 0:
 					del item["enchantments"]
@@ -480,4 +481,4 @@ def writeItems():
 
 if __name__ == "__main__":
     main()
-			
+
