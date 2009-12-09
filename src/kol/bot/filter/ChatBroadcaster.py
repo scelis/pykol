@@ -55,7 +55,7 @@ def handleClanChat(context, **kwargs):
 		if chat["type"] == "normal":
 			msg = "/clan %s%s%s %s" % (chars[0], chat["userName"], chars[1], chat["text"])
 		elif chat["type"] == "emote":
-			msg = "/clan %s%s %s%s" % (chars[0], chat["userName"], chat["text"], chars[1])
+			msg = "/clan %s*%s %s*%s" % (chars[0], chat["userName"], chat["text"], chars[1])
 	else:
 		if chat["type"] == "normal":
 			msg = "/clan [%s] %s" % (chat["userName"], chat["text"])
