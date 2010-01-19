@@ -1,3 +1,5 @@
+# $Id: ChatBroadcaster.py 116 2009-12-09 14:43:26Z scelis $
+
 """
 This module implements a FilterManager filter to allow bots to broadcast their /clan chat
 to other bots being run in this process. Users may prefix their chats with 'PRIVATE:' to
@@ -55,12 +57,12 @@ def handleClanChat(context, **kwargs):
 		if chat["type"] == "normal":
 			msg = "/clan %s%s%s %s" % (chars[0], chat["userName"], chars[1], chat["text"])
 		elif chat["type"] == "emote":
-			msg = "/clan %s*%s %s*%s" % (chars[0], chat["userName"], chat["text"], chars[1])
+			msg = "/clan /me %s%s%s %s" % (chars[0], chat["userName"], chars[1], chat["text"])
 	else:
 		if chat["type"] == "normal":
 			msg = "/clan [%s] %s" % (chat["userName"], chat["text"])
 		elif chat["type"] == "emote":
-			msg = "/clan <%s %s>" % (chat["userName"], chat["text"])
+			msg = "/clan /me [%s] %s" % (chat["userName"], chat["text"])
 	
 	# Send the message to the other bots.
 	if msg != None:
