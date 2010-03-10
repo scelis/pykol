@@ -25,6 +25,7 @@ patterns = {
 	"tooManyLoginsFailuresFromThisIP" : r'Too many login failures from this IP',
 	"waitOneMinuteLoginError" : r'Please wait a minute',
 	"waitTwoMinutesLoginError" : r"you'll need to wait a couple of minutes before you can log in again\.",
+	"waitFiveMinutesLoginError" : r"Please wait five minutes and try again\.",
 	"waitFifteenMinutesLoginError" : r'Please wait fifteen minutes and try again\.',
 	
 	# Item-related patterns.

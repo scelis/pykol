@@ -30,6 +30,10 @@ class LoginRequest(GenericRequest):
 		if waitFifteenMinutesPattern.search(self.responseText):
 			raise LoginError("Too many login attempts in too short a span of time. Please wait fifteen minutes and try again.", 900)
 		
+		waitFiveMinutesPattern = PatternManager.getOrCompilePattern('waitFiveMinutesLoginError')
+		if waitFiveMinutesPattern.search(self.responseText):
+			raise LoginError("Too many login attempts in too short a span of time. Please wait five minutes and try again.", 300)
+		
 		waitOneMinutePattern = PatternManager.getOrCompilePattern('waitOneMinuteLoginError')
 		if waitOneMinutePattern.search(self.responseText):
 			raise LoginError("Too many login attempts in too short a span of time. Please wait a minute and try again.", 60)
