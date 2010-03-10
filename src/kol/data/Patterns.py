@@ -30,8 +30,8 @@ patterns = {
 	
 	# Item-related patterns.
 	"menuItem" : r'<input type=radio name=whichitem value="?(-?[0-9]+)"?></td><td><img .*? onclick=\'descitem\("?([^"]+)"?\);\'>',
-	"acquireSingleItem" : r"<td[^>]*><img [^>]*onClick='descitem\(([0-9]+)\)'[^>]*><\/td><td[^>]*>You acquire an item",
-	"acquireMultipleItems" : r"<td[^>]*><img [^>]*onClick='descitem\(([0-9]+)\)'[^>]*><\/td><td[^>]*>You acquire <b>([0-9,]*) ",
+	"acquireSingleItem" : r'<td[^>]*><img src="[^"]*" alt="[^"]*" title="[^"]*"[^>]*descitem\(([0-9]+)\)[^>]*><\/td><td[^>]*>You acquire an item',
+	"acquireMultipleItems" : r'<td[^>]*><img src="[^"]*" alt="[^"]*" title="[^"]*"[^>]*descitem\(([0-9]+)\)[^>]*><\/td><td[^>]*>You acquire <b>([0-9,]*) ',
 	"gainMeat" : r'<td><img src="[^"]*meat\.gif"[^>]*><\/td><td[^>]*>You gain ([0-9,]*?) Meat\.<\/td>',
 	"loseMeat" : r'You lose ([0-9,]*?) Meat',
 	"isCocktailcraftingIngredient" : (r'<br>\(Cocktailcrafting ingredient\)<br>'),
@@ -42,7 +42,7 @@ patterns = {
 	"inventoryMultipleItems" : r'<img [^>]*descitem\(([0-9]+)[^>]*></td><td[^>]*><b[^>]*>([^<>]+)</b>&nbsp;<span>\(([0-9]+)\)<\/span>',
 	"itemAutosell" : r'<br>Selling Price: <b>(\d*) Meat\.<\/b>',
 	"itemImage" : r'<img src="http:\/\/images\.kingdomofloathing\.com\/itemimages\/(.*?)"',
-	"itemName" : r'<b>([^<>]+?)<\/b>',
+	"itemName" : r'<b>(.+?)<\/b>',
 	"itemType" : r'<br>Type: <b>([^<]*)<\/b><br>',
 	"tooFull" : r"You're too full to eat that\.",
 	"tooDrunk" : r"You're way too drunk already\.",

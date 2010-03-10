@@ -30,7 +30,7 @@ def couldNotFindItem(context, **kwargs):
 	
 	if "descId" in kwargs:
 		descId = kwargs["descId"]
-		pattern = re.compile("<option value='([0-9]+)' descid='%s'>([^<>]*) \([0-9]+\)<\/option>" % descId)
+		pattern = re.compile("<option value='([0-9]+)' descid='%s'>(.*?) \([0-9]+\)<\/option>" % descId)
 		match = pattern.search(r.responseText)
 		if match:
 			item = {"id":int(match.group(1)), "descId":descId, "name":match.group(2)}
@@ -39,7 +39,7 @@ def couldNotFindItem(context, **kwargs):
 			
 	elif "itemId" in kwargs:
 		itemId = kwargs["itemId"]
-		pattern = re.compile("<option value='%s' descid='([0-9]+)'>([^<>]*) \([0-9]+\)<\/option>" % itemId)
+		pattern = re.compile("<option value='%s' descid='([0-9]+)'>(.*?) \([0-9]+\)<\/option>" % itemId)
 		match = pattern.search(r.responseText)
 		if match:
 			item = {"id":itemId, "descId":int(match.group(1)), "name":match.group(2)}
