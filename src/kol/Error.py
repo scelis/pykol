@@ -107,7 +107,15 @@ class TooDrunkError(Error):
 
 class TooFullError(Error):
 	"An exception raised when a user attempts to eat food they do not have room for."
-	
+
+#################
+# Effect Errors #
+#################
+class DontHaveEffectError(Error):
+	"An exception raised when the user doesn't have a particular effect."
+	def __init__(self, message):
+		self.message = message
+
 ###############
 # Misc Errors #
 ###############

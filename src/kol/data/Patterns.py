@@ -199,10 +199,14 @@ patterns = {
 	"currentAcc3" : r"Accessory</a>&nbsp;3:</td><td><img src=\"[^\"]+\" class=hand onClick='descitem\(([0-9]+)\)'",
 	"currentFam" : r"Familiar</a>:</td><td><img src=\"[^\"]+\" class=hand onClick='descitem\(([0-9]+)\)'",
 	
-	# Autosell patterns
+	# Autosell patterns.
 	"autosellResponse" : r"You sell your (.*?) to (?:.*?) for ([0-9,]+) Meat.",
 	"autosellItems" : r" ([0-9,]*) ?(.*?),",
 	"autosellLastTwo" : r" ([0-9,]*) ?(.*?) and your ([0-9,]*) ?(.*?)$",
 	"autosellOne" : r"([0-9,]*) ?(.*?)$",
-
+	
+	# Uneffect patterns.
+	"effectRemoved" : r"<td>Effect removed\.<\/td>",
+	"youDontHaveThatEffect" : r"<td>You don't have that effect\.",
+	"youDontHaveSGEEA" : r"<td>You don't have a green soft eyedrop echo antidote\.",
 }
