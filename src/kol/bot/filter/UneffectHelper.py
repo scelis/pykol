@@ -9,10 +9,16 @@ from kol.manager import FilterManager
 from kol.request.UneffectRequest import UneffectRequest
 from kol.util import Report
 
+import re
+
+UNEFFECT_PATTERN = re.compile(r'uneffect ([0-9]+)', re.IGNORECASE)
+
 def doFilter(eventName, context, **kwargs):
 	returnCode = FilterManager.CONTINUE
 	if eventName == "botProcessKmail":
 		returnCode = botProcessKmail(context, **kwargs)
+	elif eventName == "botProcessChat":
+		returnCode = botProcessChat(context, **kwargs)
 	return returnCode
 
 def botProcessKmail(context, **kwargs):
@@ -58,4 +64,28 @@ def botProcessKmail(context, **kwargs):
 		bot.sendKmail(m)
 		returnCode = FilterManager.FINISHED
 			
+	return returnCode
+
+def botProcessChat(context, **kwargs):
+	returnCode = FilterManager.CONTINUE
+	bot = kwargs["bot"]
+	chat = kwargs["chat"]
+	if chat["type"] == "private":
+		match = UNEFFECT_PATTERN.search(chat["text"])
+		if match:
+			effectId = int(match.group(1))
+			r = UneffectRequest(bot.session, effectId)
+			try:
+				r.doRequest()
+				resp = "Effect successfully removed!"
+			except DontHaveEffectError, inst:
+				resp = "I do not currently have that effect."
+			except NotEnoughItemsError, inst:
+				resp = "I do not have any SGEEAs. Would you be kind enough to send me some?"
+			except Error, inst:
+				resp = "Unable to remove effect for unknown reason."
+			
+			bot.sendChatMessage("/w %s %s" % (chat["userId"], resp))
+			returnCode = FilterManager.FINISHED
+	
 	return returnCode
