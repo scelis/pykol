@@ -7,6 +7,7 @@ from kol.bot import BotUtils
 from kol.database import ItemDatabase
 from kol.manager import FilterManager
 from kol.request.UneffectRequest import UneffectRequest
+from kol.util import Report
 
 def doFilter(eventName, context, **kwargs):
 	returnCode = FilterManager.CONTINUE
@@ -42,6 +43,7 @@ def botProcessKmail(context, **kwargs):
 		# Perform the request.
 		m = {}
 		m["userId"] = message["userId"]
+		Report.info("bot", "Attempting to remove effect %s..." % effectId)
 		r = UneffectRequest(bot.session, effectId)
 		try:
 			r.doRequest()
