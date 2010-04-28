@@ -19,6 +19,8 @@ def doFilter(eventName, context, **kwargs):
 	returnCode = FilterManager.CONTINUE
 	if eventName == "botProcessChat":
 		returnCode = botProcessChat(context, **kwargs)
+	elif eventName == "botPostLogin":
+		returnCode = botPostLogin(context, **kwargs)
 	return returnCode
 
 def botProcessChat(context, **kwargs):
@@ -55,14 +57,14 @@ def handleClanChat(context, **kwargs):
 	if "chatBroadcastDelimiters" in bot.params:
 		chars = bot.params["chatBroadcastDelimiters"]
 		if chat["type"] == "normal":
-			msg = "/clan %s%s%s %s" % (chars[0], chat["userName"], chars[1], chat["text"])
+			msg = "%s%s%s %s" % (chars[0], chat["userName"], chars[1], chat["text"])
 		elif chat["type"] == "emote":
-			msg = "/clan /me %s%s%s %s" % (chars[0], chat["userName"], chars[1], chat["text"])
+			msg = "/me %s%s%s %s" % (chars[0], chat["userName"], chars[1], chat["text"])
 	else:
 		if chat["type"] == "normal":
-			msg = "/clan [%s] %s" % (chat["userName"], chat["text"])
+			msg = "[%s] %s" % (chat["userName"], chat["text"])
 		elif chat["type"] == "emote":
-			msg = "/clan /me [%s] %s" % (chat["userName"], chat["text"])
+			msg = "/me [%s] %s" % (chat["userName"], chat["text"])
 	
 	# Send the message to the other bots.
 	if msg != None:
@@ -133,3 +135,8 @@ def handlePrivateChat(context, **kwargs):
 		returnCode = FilterManager.FINISHED
 	
 	return returnCode
+
+def botPostLogin(context, **kwargs):
+	bot = kwargs["bot"]
+	bot.sendChatMessage("/channel clan")
+	return FilterManager.CONTINUE
