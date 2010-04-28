@@ -209,4 +209,8 @@ patterns = {
 	"effectRemoved" : r"<td>Effect removed\.<\/td>",
 	"youDontHaveThatEffect" : r"<td>You don't have that effect\.",
 	"youDontHaveSGEEA" : r"<td>You don't have a green soft eyedrop echo antidote\.",
+	
+	# Ascension History patterns.
+	"fullAscension" : r'</tr><td[^>]*>([0-9]+).*?</td><td[^>]*>([0-9/]+).*?</td><td[^>]*><span[^>]*>([0-9,]+).*?</span>.*?</td><td[^>]*><img [^>]*title="(.*?)"[^>]*></td><td[^>]*>(.*?)</td><td[^>]*><span[^>]*>([0-9,]+)</span></td><td[^>]*><span[^>]*>([0-9,]+)</span></td><td[^>]*><img [^>]*title="(.*?)"[^>]*></td><td[^>]*>(<img [^>]*title="(.*?)"[^>]*>|<img src="http://images.kingdomofloathing.com/otherimages/spacer.gif" width=30 height=30>)(<img [^>]*title="(.*?)"[^>]*>|</td>)',
+	"familiarAscension" : r'(.*?) \(([0-9.]+)%\) -',
 }
