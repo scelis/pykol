@@ -27,6 +27,7 @@ well as use and smash items.
 	from kol.database import ItemDatabase
 	from kol.request.GetMessagesRequest import GetMessagesRequest
 	from kol.request.PulverizeRequest import PulverizeRequest
+	from kol.request.UseItemRequest import UseItemRequest
 	
 	# Login to the KoL servers.
 	s = Session()
