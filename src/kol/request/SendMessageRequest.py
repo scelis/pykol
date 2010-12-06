@@ -11,7 +11,6 @@ class SendMessageRequest(GenericRequest):
 		self.requestData['pwd'] = session.pwd
 		self.requestData['towho'] = message["userId"]
 		self.requestData['message'] = message["text"]
-		self.requestData['savecopy'] = "on"
 		
 		# Add the items to the message.
 		if "items" in message and len(message["items"]) > 0:
@@ -43,4 +42,3 @@ class SendMessageRequest(GenericRequest):
 			Report.alert("system", "Received unknown response when attempting to send a message.")
 			Report.alert("system", self.responseText)
 			raise RequestError("Unknown error")
-			
