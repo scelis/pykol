@@ -219,4 +219,6 @@ patterns = {
 	"clanCredo" : r'<textarea name=newcredo[^<>]*>([^<>]*)</textarea>',
 	"clanWebsite" : r'<input type=text class=text name=website value="([^"]*)" size=60 maxlength=255>',
 	"clanAcceptingApps" : r'<p>Your clan is currently accepting applications\.<br>',
+	"clanRankContainer" : r'<select name=level[0-9]+>(.*?)<\/select>',
+	"clanRank" : r'<option value=([0-9]+)(?: selected)?>(.*?) \(&deg;([0-9]+)\)<\/option>',
 }
