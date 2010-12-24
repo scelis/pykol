@@ -213,4 +213,10 @@ patterns = {
 	# Ascension History patterns.
 	"fullAscension" : r'</tr><td[^>]*>([0-9]+).*?</td><td[^>]*>([0-9/]+).*?</td><td[^>]*><span[^>]*>([0-9,]+).*?</span>.*?</td><td[^>]*><img [^>]*title="(.*?)"[^>]*></td><td[^>]*>(.*?)</td><td[^>]*><span[^>]*>([0-9,]+)</span></td><td[^>]*><span[^>]*>([0-9,]+)</span></td><td[^>]*><img [^>]*title="(.*?)"[^>]*></td><td[^>]*>(<img [^>]*title="(.*?)"[^>]*>|<img src="http://images.kingdomofloathing.com/otherimages/spacer.gif" width=30 height=30>)(<img [^>]*title="(.*?)"[^>]*>|</td>)',
 	"familiarAscension" : r'(.*?) \(([0-9.]+)%\) -',
+	
+	# Clan patterns.
+	"clanName" : r'<a href="clan_hall\.php">([^<>]*)<\/a>',
+	"clanCredo" : r'<textarea name=newcredo[^<>]*>([^<>]*)</textarea>',
+	"clanWebsite" : r'<input type=text class=text name=website value="([^"]*)" size=60 maxlength=255>',
+	"clanAcceptingApps" : r'<p>Your clan is currently accepting applications\.<br>',
 }
