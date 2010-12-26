@@ -1,5 +1,3 @@
-# $Id: ChatBroadcaster.py 116 2009-12-09 14:43:26Z scelis $
-
 """
 This module implements a FilterManager filter to allow bots to broadcast their /clan chat
 to other bots being run in this process. Users may prefix their chats with 'PRIVATE:' to
