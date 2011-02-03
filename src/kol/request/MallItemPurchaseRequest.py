@@ -24,24 +24,24 @@ class MallItemPurchaseRequest(GenericRequest):
         cantAffordItemPattern = PatternManager.getOrCompilePattern('cantAffordItem')
         if cantAffordItemPattern.search(self.responseText):
             raise NotEnoughMeatError("You can not afford to buy this item.")
-        
+
         noItemAtThatPricePattern = PatternManager.getOrCompilePattern('mallNoItemAtThatPrice')
         if noItemAtThatPricePattern.search(self.responseText):
             raise NotSoldHereError("That item is not sold here at that price.")
-        
+
         ignoreListPattern = PatternManager.getOrCompilePattern('cantBuyItemIgnoreList')
         if ignoreListPattern.search(self.responseText):
             raise UserIsIgnoringError("The owner of that store has balleeted you.")
-        
+
         mallHitLimitPattern = PatternManager.getOrCompilePattern('mallHitLimit')
         if mallHitLimitPattern.search(self.responseText):
             raise MallLimitError("You have hit the limit for this item at this store.")
-        
+
         items = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
         if len(items) == 0:
             raise RequestError("Unknown error: %s" % self.responseText)
         self.responseData["items"] = items
-        
+
         spentMeatPattern = PatternManager.getOrCompilePattern('meatSpent')
         match = spentMeatPattern.search(self.responseText)
         self.responseData['meatSpent'] = int(match.group(1).replace(',', ''))

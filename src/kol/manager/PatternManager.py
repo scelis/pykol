@@ -8,7 +8,7 @@ copies in each class.
 from kol.data import Patterns
 
 import re
-    
+
 __compiledPatterns = {}
 
 def getOrCompilePattern(patternId):
@@ -19,15 +19,15 @@ def getOrCompilePattern(patternId):
     """
     if patternId in __compiledPatterns:
         return __compiledPatterns[patternId]
-    
+
     if patternId in Patterns.patterns:
         pattern = Patterns.patterns[patternId]
         if type(pattern) == str:
             __compiledPatterns[patternId] = re.compile(pattern)
-        elif type(pattern) == tuple:    
+        elif type(pattern) == tuple:
             __compiledPatterns[patternId] = re.compile(pattern[0], pattern[1])
         else:
             raise TypeError("Unexpected type found for pattern '%s'" % patternId)
         return __compiledPatterns[patternId]
-    
+
     raise KeyError("Pattern '%s' not found." % patternId)

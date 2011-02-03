@@ -5,14 +5,14 @@ class CombatRequest(GenericAdventuringRequest):
     A request used for a single round of combat. The user may attack, use an item or skill, or
     attempt to run away.
     """
-    
+
     # What follows are a list of available actions.
     ATTACK = 0
     USE_ITEM = 1
     USE_SKILL = 2
     RUN_AWAY = 3
     PICK_POCKET = 4
-    
+
     def __init__(self, session, action, param=None, param2=None):
         """
         In this constructor, action should be set to CombatRequest.ATTACK, CombatRequest.USE_ITEM,
@@ -22,7 +22,7 @@ class CombatRequest(GenericAdventuringRequest):
         """
         super(CombatRequest, self).__init__(session)
         self.url = session.serverURL + "fight.php"
-        
+
         if action == self.ATTACK:
             self.requestData["action"] = "attack"
         elif action == self.USE_ITEM:

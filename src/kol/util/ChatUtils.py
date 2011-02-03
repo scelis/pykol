@@ -40,7 +40,7 @@ def parseMessages(text, isGet):
         "text" : The text of the current chat message
         "multiline" : A flag indicating whether this is a multiline message such as a haiku or a message from the Gothy Effect
     """
-    
+
     # Prepare the patterns.
     htmlCommentPattern = PatternManager.getOrCompilePattern("htmlComment")
     htmlTagPattern = PatternManager.getOrCompilePattern("htmlTag")
@@ -54,10 +54,10 @@ def parseMessages(text, isGet):
     linkedPlayerPattern = PatternManager.getOrCompilePattern("chatLinkedPlayer")
     multiLinePattern = PatternManager.getOrCompilePattern("chatMultiLineStart")
     multiEmotePattern = PatternManager.getOrCompilePattern("chatMultiLineEmote")
-    
+
     # Get the chat messages.
     chats = []
-    
+
     # Check for /c, /s, and /l responses, as well as outgoing private messages
     if not isGet:
         chatNewChannelPattern = PatternManager.getOrCompilePattern("newChatChannel")
@@ -65,7 +65,7 @@ def parseMessages(text, isGet):
         chatListenStartPattern = PatternManager.getOrCompilePattern("chatStartListen")
         chatListenStopPattern = PatternManager.getOrCompilePattern("chatStopListen")
         outPrivatePattern = PatternManager.getOrCompilePattern("outgoingPrivate")
-        
+
         # See if it is an outgoing private message
         chat = {}
         match = outPrivatePattern.search(text)
@@ -74,10 +74,10 @@ def parseMessages(text, isGet):
             chat["userName"] = match.group(2)
             chat["userId"] = int(match.group(1))
             chat["text"] = match.group(3).strip()
-            
+
             text = text[:match.start()] + text[match.end():]
             chats.append(chat)
-        
+
         # See if the user changed chat channels through /c or /s
         chat = {}
         match = chatNewChannelPattern.search(text)
@@ -85,10 +85,10 @@ def parseMessages(text, isGet):
             chat["type"] = "channel"
             chat["current"] = match.group(1)
             chat["description"] = match.group(2).replace('<br>','')
-            
+
             text = text[:match.start()] + text[match.end():]
             chats.append(chat)
-        
+
         # See if it is a /l response
         chat = {}
         match = chatListenPattern.search(text)
@@ -98,14 +98,14 @@ def parseMessages(text, isGet):
             otherPattern = PatternManager.getOrCompilePattern("chatListenOthers")
             chat["type"] = "listen"
             chat["current"] = currentPattern.search(listen).group(1)
-            
+
             other = []
             for channel in otherPattern.finditer(listen):
                 other.append(channel.group(1))
             chat["other"] = other
-            
+
             text = text[:match.start()] + text[match.end():]
-            chats.append(chat)      
+            chats.append(chat)
 
         # See if it is a /l <channel> response
         chat = {}
@@ -114,7 +114,7 @@ def parseMessages(text, isGet):
             chat["type"] = ""
             chat["channel"] = match.group(1)
             chat["text"] = ""
-            
+
             text = text[:match.start()] + text[match.end():]
             chats.append(chat)
         match = chatListenStopPattern.search(text)
@@ -122,18 +122,18 @@ def parseMessages(text, isGet):
             chat["type"] = ""
             chat["channel"] = match.group(1)
             chat["text"] = ""
-            
+
             text = text[:match.start()] + text[match.end():]
             chats.append(chat)
-    
+
     lines = text.split("<br>")
-        
+
     for line in lines:
         line = htmlCommentPattern.sub('', line)
         line = line.strip()
         if len(line) == 0:
             continue
-        
+
         # Mod Announcements and Mod Warnings leave leading </font> tags at the beginning of the next message
         # This method will remove them and also skip the line if that is all there is
         if line[:7] == "</font>":
@@ -141,7 +141,7 @@ def parseMessages(text, isGet):
                 continue
             else:
                 line = line[7:].strip()
-        
+
         # System Announcements leave leading </b></font> tags at the beginning of the next message
         # This method will remove them and also skip the line if that is all there is
         if line[:11] == "</b></font>":
@@ -149,16 +149,16 @@ def parseMessages(text, isGet):
                 continue
             else:
                 line = line[11:].strip()
-        
+
         chat = {}
         parsedChat = False
-        
+
         # See if this message was posted to a different channel.
         match = channelPattern.search(line)
         if match:
             chat["channel"] = match.group(1)
             line = line[len(match.group(0)):]
-        
+
         # See if this was a normal chat message.
         if parsedChat == False:
             match = chatPattern.search(line)
@@ -166,7 +166,7 @@ def parseMessages(text, isGet):
                 chat["type"] = "normal"
                 chat["userId"] = int(match.group(1))
                 chat["userName"] = match.group(2)
-                
+
                 # Check for special announcements
                 if chat["userId"] == -1 or chat["userName"] == "System Message":
                     chat["type"] = "system message"
@@ -174,10 +174,10 @@ def parseMessages(text, isGet):
                     chat["type"] = "mod warning"
                 elif chat["userName"] == "Mod Announcement":
                     chat["type"] = "mod announcement"
-                
+
                 chat["text"] = match.group(3).strip()
                 parsedChat = True
-        
+
         # See if this was an emote.
         if parsedChat == False:
             match = emotePattern.search(line)
@@ -187,7 +187,7 @@ def parseMessages(text, isGet):
                 chat["userName"] = match.group(2)
                 chat["text"] = match.group(3).strip()
                 parsedChat = True
-        
+
         if isGet:
             # See if this was a private message.
             if parsedChat == False:
@@ -198,7 +198,7 @@ def parseMessages(text, isGet):
                     chat["userName"] = match.group(2)
                     chat["text"] = match.group(3).strip()
                     parsedChat = True
-            
+
             # See if this is a new kmail notification.
             if parsedChat == False:
                 match = newKmailPattern.search(line)
@@ -207,7 +207,7 @@ def parseMessages(text, isGet):
                     chat["userId"] = int(match.group(1))
                     chat["userName"] = match.group(2)
                     parsedChat = True
-            
+
             # See if this is the start of a multi-line message (Gothy or Haiku)
             if parsedChat == False:
                 match = multiLinePattern.search(line)
@@ -218,7 +218,7 @@ def parseMessages(text, isGet):
                     chat["text"] = ""
                     chat["multiline"] = True
                     parsedChat = True
-            
+
             # See if this is the start of a multi-line emote (Gothy or Haiku)
             # I've seen a Haiku emote, don't know if Gothy will trigger for it
             if parsedChat == False:
@@ -243,10 +243,10 @@ def parseMessages(text, isGet):
                         userName = match.group(2)
                         chat["users"].append({"userId":userId, "userName":userName})
                     parsedChat = True
-                    
+
         if parsedChat and "text" in chat:
             chat["text"] = cleanChatText(chat["text"])
-        
+
         # Handle unrecognized chat messages.
         if parsedChat == False:
             # If the last chat was flagged as starting a multiline
@@ -257,24 +257,24 @@ def parseMessages(text, isGet):
                     line = line.replace('<Br>','\n')
                     cleanLine = cleanChatText(line)
                     cleanLine = cleanLine.replace('&nbsp;','').strip()
-                    
+
                     chats[-1]["text"] += cleanLine
-                    
+
                     continue
-            
+
             # If the last chat was flagged as a System or Mod Announcement, skip past the trailing tags
             elif len(chats) > 0:
                 if "type" in chats[-1] and chats[-1]["type"] in ["system message", "mod warning", "mod announcement"]:
                     if line == "</b></font>":
                         continue
-            
+
             # Any other case we aren't prepared to handle
             Report.error("bot", "Unknown message.  ResponseText = %s" % text)
             chat["type"] = "unknown"
             chat["text"] = StringUtils.htmlEntityDecode(line)
-            
+
         chats.append(chat)
-    
+
     return chats
 
 def cleanChatMessageToSend(text):
@@ -286,12 +286,12 @@ def cleanChatMessageToSend(text):
 
 def parseChatMessageToSend(text):
     "This function assumes that the text has already been cleaned using cleanChatMessageToSend()."
-    
+
     # We need to break up the chat message into chunks.
     arr = text.split(' ')
     lowerText = text.lower()
     chatInfo = {}
-    
+
     if arr[0].find('/') == 0:
         if arr[0] in ["/msg", "/whisper", "/w", "/tell"] and len(arr) > 2:
             chatInfo["type"] = "private"
@@ -306,18 +306,18 @@ def parseChatMessageToSend(text):
             chatInfo["isEmote"] = True
     else:
         chatInfo["type"] = "channel"
-    
+
     return chatInfo
 
 def cleanChatText(dirtyText):
     "This functions parses player links and external links in the body of the chat text, and cleans any html tags"
-    
+
     linkPattern = PatternManager.getOrCompilePattern("chatLink")
     linkedPlayerPattern = PatternManager.getOrCompilePattern("chatLinkedPlayer")
     htmlTagPattern = PatternManager.getOrCompilePattern("htmlTag")
-    
+
     text = dirtyText
-    
+
     # Parse user links.
     text = linkedPlayerPattern.sub(r'\2', text)
 
@@ -335,18 +335,18 @@ def cleanChatText(dirtyText):
                 urlIndex += 1
             elif text[textEnd] == ' ':
                 textEnd += 1
-                
+
             if urlIndex == len(url) - 1:
                 found = True
-        
+
         newText = text[:match.start()] + url + text[textEnd+1:]
         text = newText
         match = linkPattern.search(text)
-    
+
     # Decode HTML entities.
     text = StringUtils.htmlEntityDecode(text)
 
     # Clean up the text.
     text = htmlTagPattern.sub('', text)
-    
+
     return text

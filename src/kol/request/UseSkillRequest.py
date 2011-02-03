@@ -9,7 +9,7 @@ class UseSkillRequest(GenericRequest):
         self.requestData["pwd"] = session.pwd
         self.requestData["action"] = "Skillz"
         self.requestData["whichskill"] = skillId
-        
+
         skill = SkillDatabase.getSkillFromId(skillId)
         if skill["type"] == "Buff":
             self.requestData["bufftimes"] = numTimes
@@ -21,7 +21,7 @@ class UseSkillRequest(GenericRequest):
                 self.requestData["targetplayer"] = session.userId
         else:
             self.requestData["quantity"] = numTimes
-    
+
     def parseResponse(self):
         resultsPattern = PatternManager.getOrCompilePattern('results')
         match = resultsPattern.search(self.responseText)

@@ -3,22 +3,22 @@ from kol.manager import PatternManager
 
 def parseItemsReceived(text, session):
     items = []
-    
+
     singleItemPattern = PatternManager.getOrCompilePattern('acquireSingleItem')
     for match in singleItemPattern.finditer(text):
         descId = int(match.group(1))
         item = ItemDatabase.getItemFromDescId(descId, session)
         item["quantity"] = 1
         items.append(item)
-    
+
     multiItemPattern = PatternManager.getOrCompilePattern('acquireMultipleItems')
     for match in multiItemPattern.finditer(text):
         descId = int(match.group(1))
         quantity = int(match.group(2).replace(',', ''))
         item = ItemDatabase.getItemFromDescId(descId, session)
         item["quantity"] = quantity
-        items.append(item)  
-    
+        items.append(item)
+
     return items
 
 def parseMeatGainedLost(text):
@@ -29,12 +29,12 @@ def parseMeatGainedLost(text):
     meatPattern = PatternManager.getOrCompilePattern('loseMeat')
     match = meatPattern.search(text)
     if match:
-        return -1 * int(match.group(1).replace(',', ''))    
+        return -1 * int(match.group(1).replace(',', ''))
     return 0
 
 def parseSubstatsGainedLost(text, checkMuscle=True, checkMysticality=True, checkMoxie=True):
     substats = {}
-    
+
     if checkMuscle:
         muscPattern = PatternManager.getOrCompilePattern('muscleGainLoss')
         muscMatch = muscPattern.search(text)
@@ -44,7 +44,7 @@ def parseSubstatsGainedLost(text, checkMuscle=True, checkMysticality=True, check
                 substats["muscle"] = muscle
             else:
                 substats["muscle"] = -1 * muscle
-                
+
     if checkMysticality:
         mystPattern = PatternManager.getOrCompilePattern('mysticalityGainLoss')
         mystMatch = mystPattern.search(text)
@@ -54,7 +54,7 @@ def parseSubstatsGainedLost(text, checkMuscle=True, checkMysticality=True, check
                 substats["mysticality"] = myst
             else:
                 substats["mysticality"] = -1 * myst
-                
+
     if checkMoxie:
         moxPattern = PatternManager.getOrCompilePattern('moxieGainLoss')
         moxMatch = moxPattern.search(text)
@@ -64,7 +64,7 @@ def parseSubstatsGainedLost(text, checkMuscle=True, checkMysticality=True, check
                 substats["moxie"] = moxie
             else:
                 substats["moxie"] = -1 * moxie
-                
+
     return substats
 
 def parseStatsGainedLost(text, checkMuscle=True, checkMysticality=True, checkMoxie=True):
@@ -75,7 +75,7 @@ def parseStatsGainedLost(text, checkMuscle=True, checkMysticality=True, checkMox
     exact number then you should request the user's character pane.
     """
     statPoints = {}
-    
+
     if checkMuscle:
         muscPattern = PatternManager.getOrCompilePattern('musclePointGainLoss')
         muscMatch = muscPattern.search(text)
@@ -87,7 +87,7 @@ def parseStatsGainedLost(text, checkMuscle=True, checkMysticality=True, checkMox
                 statPoints["muscle"] = 1 * modifier
             else:
                 statPoints["muscle"] = 2 * modifier
-                
+
     if checkMysticality:
         mystPattern = PatternManager.getOrCompilePattern('mystPointGainLoss')
         mystMatch = mystPattern.search(text)
@@ -99,7 +99,7 @@ def parseStatsGainedLost(text, checkMuscle=True, checkMysticality=True, checkMox
                 statPoints["mysticality"] = 1 * modifier
             else:
                 statPoints["mysticality"] = 2 * modifier
-                
+
     if checkMoxie:
         moxPattern = PatternManager.getOrCompilePattern('moxiePointGainLoss')
         moxMatch = moxPattern.search(text)
@@ -111,7 +111,7 @@ def parseStatsGainedLost(text, checkMuscle=True, checkMysticality=True, checkMox
                 statPoints["moxie"] = 1 * modifier
             else:
                 statPoints["moxie"] = 2 * modifier
-                
+
     return statPoints
 
 def parseLevelsGained(text):
@@ -132,7 +132,7 @@ def parseLevelsGained(text):
 
 def parseHPGainedLost(text):
     hp = 0
-    
+
     # Need to do an iteration because it may happen multiple times in combat.
     hpPattern = PatternManager.getOrCompilePattern('hpGainLoss')
     for hpMatch in hpPattern.finditer(text):
@@ -145,7 +145,7 @@ def parseHPGainedLost(text):
 
 def parseMPGainedLost(text):
     mp = 0
-    
+
     # Need to do an iteration because it may happen multiple times in combat
     mpPattern = PatternManager.getOrCompilePattern('mpGainLoss')
     for mpMatch in mpPattern.finditer(text):

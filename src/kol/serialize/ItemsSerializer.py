@@ -40,22 +40,22 @@ ITEM_ENCHANTMENTS = [
     'musclePercent',
     'mysticalityPercent',
     'moxiePercent',
-    
+
     'adventuresAtRollover',
     'familiarWeight',
     'itemDrop',
     'meatDrop',
-    
+
     'initiative',
     'critical',
     'fumble',
     'damageAbsorption',
-    
+
     'hpRegen',
     'mpRegen',
     'maximumHP',
     'maximumMP',
-    
+
     'meleeDamage',
     'rangedDamage',
     'coldDamage',
@@ -65,13 +65,13 @@ ITEM_ENCHANTMENTS = [
     'stenchDamage',
     'spellDamage',
     'spellDamagePercent',
-    
+
     'coldSpellDamage',
     'hotSpellDamage',
     'sleazeSpellDamage',
     'spookySpellDamage',
     'stenchSpellDamage',
-    
+
     'coldResistance',
     'hotResistance',
     'sleazeResistance',
@@ -81,17 +81,17 @@ ITEM_ENCHANTMENTS = [
 
 def writeItems(items, out):
     out.write("items = [\n")
-    
+
     for item in items:
         out.write("    {\n")
         for attribute in ITEM_ATTRIBUTES:
             if attribute in item:
-                
+
                 # Skip trivial plurals.
                 if attribute == "plural":
                     if item["plural"] == item["name"] + 's':
                         continue
-                
+
                 val = item[attribute]
                 if type(val) == int or type(val) == bool:
                     out.write('        "%s" : %s,\n' % (attribute, val))
@@ -104,7 +104,7 @@ def writeItems(items, out):
                     for enchantment in ITEM_ENCHANTMENTS:
                         if enchantment in val:
                             count = count + 1
-                    
+
                     if count > 0:
                         out.write('        "%s" :\n' % attribute)
                         out.write('        {\n')

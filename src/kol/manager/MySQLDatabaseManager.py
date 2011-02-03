@@ -18,7 +18,7 @@ def connect(dbIdentifier, **kwargs):
     __arguments[dbIdentifier] = kwargs
     __databases[dbIdentifier] = MySQLdb.connect(**__arguments[dbIdentifier])
     return __databases[dbIdentifier]
-    
+
 def reconnect(dbIdentifier):
     __databases[dbIdentifier] = MySQLdb.connect(**__arguments[dbIdentifier])
     return __databases[dbIdentifier]

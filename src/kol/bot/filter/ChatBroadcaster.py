@@ -24,32 +24,32 @@ def doFilter(eventName, context, **kwargs):
 def botProcessChat(context, **kwargs):
 	returnCode = FilterManager.CONTINUE
 	chat = kwargs["chat"]
-	
+
 	if chat["type"] in ["normal", "emote"] and chat["channel"] == "clan":
 		returnCode = handleClanChat(context, **kwargs)
 	elif chat["type"] in ["private"]:
 		returnCode = handlePrivateChat(context, **kwargs)
-		
+
 	return returnCode
 
 def handleClanChat(context, **kwargs):
 	chat = kwargs["chat"]
 	bot = kwargs["bot"]
 	globalState = bot.states["global"]
-	
+
 	# Do nothing if the bot is squelched.
 	if DataUtils.getBoolean(globalState, "isSquelched", False):
 		return FilterManager.CONTINUE
-	
+
 	# Do nothing if the text is prefixed by PRIVATE:
 	lowerText = chat["text"].lower()
 	if lowerText.find("private:") == 0:
 		return FilterManager.CONTINUE
-	
+
 	# Do nothing for broadcasted messages.
 	if chat["userName"] == "System Message":
 		return FilterManager.CONTINUE
-	
+
 	# Construct the message to send to the other bots.
 	msg = None
 	if "chatBroadcastDelimiters" in bot.params:
@@ -63,7 +63,7 @@ def handleClanChat(context, **kwargs):
 			msg = "[%s] %s" % (chat["userName"], chat["text"])
 		elif chat["type"] == "emote":
 			msg = "/me [%s] %s" % (chat["userName"], chat["text"])
-	
+
 	# Send the message to the other bots.
 	if msg != None:
 		thisBot = kwargs["bot"]
@@ -74,7 +74,7 @@ def handleClanChat(context, **kwargs):
 						bot.sendChatMessage(msg)
 					except AttributeError, inst:
 						Report.error("chat", "Could not broadcast message.", inst)
-	
+
 	return FilterManager.CONTINUE
 
 def handlePrivateChat(context, **kwargs):
@@ -82,7 +82,7 @@ def handlePrivateChat(context, **kwargs):
 	chat = kwargs["chat"]
 	bot = kwargs["bot"]
 	globalState = bot.states["global"]
-	
+
 	if chat["text"] == "squelch":
 		if BotUtils.canUserPerformAction(chat["userId"], "squelch", bot):
 			globalState["isSquelched"] = True
@@ -131,7 +131,7 @@ def handlePrivateChat(context, **kwargs):
 		else:
 			bot.sendChatMessage("/w %s There is no one else in my clan channel." % chat["userId"])
 		returnCode = FilterManager.FINISHED
-	
+
 	return returnCode
 
 def botPostLogin(context, **kwargs):

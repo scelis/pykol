@@ -49,26 +49,26 @@ def botProcessChat(context, **kwargs):
     returnCode = FilterManager.CONTINUE
     chat = kwargs["chat"]
     bot = kwargs["bot"]
-    
+
     if chat["type"] == "private":
         if chat["text"] == "hobo status":
             reportHobopolisStatus(context, **kwargs)
             returnCode = FilterManager.FINISHED
     elif chat["type"] == "normal" and chat["userId"] == -2:
         parseDungeonChatMessage(context, **kwargs)
-                        
+
     return returnCode
 
 def reportHobopolisStatus(context, **kwargs):
     bot = kwargs["bot"]
     chat = kwargs["chat"]
     state = bot.states["global"]
-    
+
     r = ClanRaidLogRequest(bot.session)
     data = r.doRequest()
-    
+
     whitespacePattern = PatternManager.getOrCompilePattern('whitespace')
-    
+
     numGrates = 0
     numValves = 0
     totalTurns = 0
@@ -95,17 +95,17 @@ def reportHobopolisStatus(context, **kwargs):
             if event["event"].find("defeated %s" % bossName) >= 0:
                 areas["Town Square"]["completed"] = True
                 areas["Town Square"]["turns"] += event["turns"]
-            
+
     resp = "[Sewer: valves=%s/20, grates=%s/20" % (numValves, numGrates)
     if "hobo:sewerTrapped" in state:
         resp += ", trapped=%s" % state["hobo:sewerTrapped"]
     resp += ']'
-    
+
     for areaName in HOBOPOLIS_AREAS:
         areaData = areas[areaName]
         completed = ("completed" in areaData)
         turns = areaData["turns"]
-        
+
         if completed:
             resp += " [%s: DONE]" % HOBOPOLIS_AREA_SHORT_NAMES[areaName]
         else:
@@ -114,28 +114,28 @@ def reportHobopolisStatus(context, **kwargs):
             else:
                 turnsStr = NumberUtils.formatNumberWithCommas(turns)
                 resp += " [%s: %s turns" % (HOBOPOLIS_AREA_SHORT_NAMES[areaName], turnsStr)
-            
+
             if turns > 0:
                 if areaName == "Burnbarrel Blvd.":
                     numTires = 0
                     if "hobo:tiresStacked" in state:
                         numTires = state["hobo:tiresStacked"]
                     resp += ", %s tires" % numTires
-                    
+
             resp += ']'
-    
+
     resp += ' [TOTAL: %s turns]' % totalTurns
-        
+
     bot.sendChatMessage("/w %s %s" % (chat["userId"], resp))
 
 def parseDungeonChatMessage(context, **kwargs):
     chat = kwargs["chat"]
     bot = kwargs["bot"]
     state = bot.states["global"]
-    
+
     trappedPattern = PatternManager.getOrCompilePattern('imprisonedByChums')
     rescuedPattern = PatternManager.getOrCompilePattern('freedFromChums')
-    
+
     if chat["text"].find("has put a tire on the fire") > 0:
         numTires = 0
         if "hobo:tiresStacked" in state:

@@ -12,7 +12,7 @@ _path = None
 
 def doFilter(eventName, context, **kwargs):
     returnCode = FilterManager.CONTINUE
-    
+
     if eventName == "preInitializeItemDatabase":
         returnCode = preInitializeItemDatabase(context, **kwargs)
     elif eventName == "discoveredNewItem":
@@ -24,7 +24,7 @@ def preInitializeItemDatabase(context, **kwargs):
         f = open(_path, "r")
     except IOError:
         pass
-    
+
     if f != None:
         line = f.readline()
         while len(line) > 0:
@@ -40,7 +40,7 @@ def preInitializeItemDatabase(context, **kwargs):
                 ItemDatabase.addItem(item)
             line = f.readline()
         f.close()
-        
+
     return FilterManager.FINISHED
 
 def discoveredNewItem(context, **kwargs):
@@ -49,5 +49,5 @@ def discoveredNewItem(context, **kwargs):
         f = open(_path, "a")
         f.write("%s\t%s\t%s\t%s\t%s\n" % (item["id"], item["descId"], item["name"], item["image"], item["autosell"]))
         f.close()
-    
+
     return FilterManager.CONTINUE

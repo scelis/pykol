@@ -10,7 +10,7 @@ class SendChatRequest(GenericRequest):
         self.text = text.strip()
         self.url = session.serverURL + "submitnewchat.php?playerid=%s&pwd=%s" % (session.userId, session.pwd)
         self.url += "&%s" % urllib.urlencode({"graf":text})
-    
+
     def parseResponse(self):
         # Parse the chat messages returned.
         self.responseData["chatMessages"] = ChatUtils.parseMessages(self.responseText, False)

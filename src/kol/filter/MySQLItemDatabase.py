@@ -11,12 +11,12 @@ from kol.manager import MySQLDatabaseManager
 
 def doFilter(eventName, context, **kwargs):
     returnCode = FilterManager.CONTINUE
-    
+
     if eventName == "preInitializeItemDatabase":
         returnCode = preInitializeItemDatabase(context, **kwargs)
     elif eventName == "discoveredNewItem":
         returnCode = discoveredNewItem(context, **kwargs)
-    
+
     return returnCode
 
 def preInitializeItemDatabase(context, **kwargs):
@@ -40,7 +40,7 @@ def preInitializeItemDatabase(context, **kwargs):
 def discoveredNewItem(context, **kwargs):
     if "item" in kwargs:
         item = kwargs["item"]
-        
+
         if "type" in item:
             itemType = item["type"]
         else:
@@ -53,12 +53,12 @@ def discoveredNewItem(context, **kwargs):
             autosell = item["autosell"]
         else:
             autosell = 0
-        
+
         db = MySQLDatabaseManager.getDatabase("system")
         c = db.cursor()
         c.execute("INSERT INTO item (item_id, desc_id, name, image, autosell, type) values (%s, %s, %s, %s, %s, %s)", \
             (item["id"], item["descId"], item["name"], image, autosell, itemType))
         c.close()
         db.commit()
-    
+
     return FilterManager.CONTINUE

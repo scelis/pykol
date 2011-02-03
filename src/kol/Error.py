@@ -2,7 +2,7 @@ class Error(Exception):
     "Base class for KoL Exceptions."
     def __init__(self, message):
         self.message = message
-    
+
     def __str__(self):
         return self.message
 
@@ -156,7 +156,7 @@ class NotAStoreError(Error):
     """
     def __init__(self, message):
         self.message = message
-        
+
 class MallLimitError(Error):
     """
     An exception raised when the user tries to purchase an item in a mall store and hits the limit.

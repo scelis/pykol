@@ -28,11 +28,11 @@ well as use and smash items.
 	from kol.request.GetMessagesRequest import GetMessagesRequest
 	from kol.request.PulverizeRequest import PulverizeRequest
 	from kol.request.UseItemRequest import UseItemRequest
-	
+
 	# Login to the KoL servers.
 	s = Session()
 	s.login("myUserName", "myPassword")
-	
+
 	# Get a list of your kmails and print them out.
 	r = GetMessagesRequest(s)
 	responseData = r.doRequest()
@@ -43,12 +43,12 @@ well as use and smash items.
 		print "Meat: %s" % kmail["meat"]
 		for item in kmail["items"]:
 			print "Item: %s (%s)" % (item["name"], item["quantity"])
-	
+
 	# Use an old coin purse.
 	item = ItemDatabase.getItemFromName("old coin purse")
 	r = UseItemRequest(s, item["id"])
 	r.doRequest()
-	
+
 	# Smash a titanium assault umbrella and print out the results.
 	item = ItemDatabase.getItemFromName("titanium assault umbrella")
 	r = PulverizeRequest(s, item["id"])
@@ -57,7 +57,7 @@ well as use and smash items.
 	print "After smashing the item you have received the following:"
 	for result in smashResults:
 		print "%s (%s)" % (result["name"], result["quantity"])
-	
+
 	# Now we logout.
 	s.logout()
 

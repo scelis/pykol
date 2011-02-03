@@ -10,17 +10,17 @@ class MalusRequest(GenericRequest):
         self.requestData["action"] = "malussmash"
         self.requestData["whichitem"] = itemId
         self.requestData["quantity"] = numTimes
-    
+
     def parseResponse(self):
         items = []
-        
+
         singleItemPattern = PatternManager.getOrCompilePattern('acquireSingleItem')
         for match in singleItemPattern.finditer(self.responseText):
             descId = int(match.group(1))
             item = ItemDatabase.getItemFromDescId(descId, self.session)
             item["quantity"] = 1
             items.append(item)
-        
+
         multiItemPattern = PatternManager.getOrCompilePattern('acquireMultipleItems')
         for match in multiItemPattern.finditer(self.responseText):
             descId = int(match.group(1))
@@ -28,5 +28,5 @@ class MalusRequest(GenericRequest):
             item = ItemDatabase.getItemFromDescId(descId, self.session)
             item["quantity"] = quantity
             items.append(item)
-        
+
         self.responseData["results"] = items

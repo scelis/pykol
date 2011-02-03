@@ -8,7 +8,7 @@ class PutItemInStoreRequest(GenericRequest):
         self.url = session.serverURL + 'managestore.php'
         self.requestData['action'] = "additem"
         self.requestData['pwd'] = session.pwd
-        
+
         ctr = 1
         for item in items:
             self.requestData['item%s' % ctr] = item["id"]

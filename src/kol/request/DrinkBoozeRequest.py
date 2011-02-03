@@ -10,11 +10,11 @@ class DrinkBoozeRequest(GenericRequest):
     It returns the results, including and stat gain, adventure gain,
     effect gain, or drunkenness gain.
     """
-    
+
     def __init__(self, session, boozeId):
         super(DrinkBoozeRequest, self).__init__(session)
         self.url = session.serverURL + "inv_booze.php?pwd=" + session.pwd + "&which=1&whichitem=" + str(boozeId)
-        
+
     def parseResponse(self):
         # Check for errors
         tooDrunkPattern = PatternManager.getOrCompilePattern('tooDrunk')
@@ -29,10 +29,10 @@ class DrinkBoozeRequest(GenericRequest):
 
         # Check the results
         results = {}
-        
+
         results["drunkenness"] = ParseResponseUtils.parseDrunkGained(self.responseText)
         results["adventures"] = ParseResponseUtils.parseAdventuresGained(self.responseText)
-        
+
         substats = ParseResponseUtils.parseSubstatsGainedLost(self.responseText)
         if len(substats) > 0:
             results["substats"] = substats
@@ -51,6 +51,6 @@ class DrinkBoozeRequest(GenericRequest):
         effects = ParseResponseUtils.parseEffectsGained(self.responseText)
         if len(effects) > 0:
             results["effects"] = effects
-        
+
         self.responseData = results
-        
+

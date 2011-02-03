@@ -5,11 +5,11 @@ from kol.util import ParseResponseUtils
 
 class CafeRequest(GenericRequest):
     "Purchases items from a cafe."
-    
+
     CHEZ_SNOOTEE ='1'
     MICROBREWERY = '2'
     HELLS_KITCHEN = '3'
-    
+
     def __init__(self, session, cafe, item):
         super(CafeRequest, self).__init__(session)
         self.session = session
@@ -18,7 +18,7 @@ class CafeRequest(GenericRequest):
         self.requestData['cafeid'] = cafe
         self.requestData['action'] = "CONSUME!"
         self.requestData['whichitem'] = item
-                
+
     def parseResponse(self):
         # Check for errors.
         notEnoughMeatPattern = PatternManager.getOrCompilePattern('noMeatForStore')
@@ -31,7 +31,7 @@ class CafeRequest(GenericRequest):
             raise NotSoldHereError("This cafe doesn't carry that item.")
         if notEnoughMeatPattern.search(self.responseText):
             raise NotEnoughMeatError("You do not have enough meat to purchase the item(s).")
-                
+
         response = {}
 
         advResponse = ParseResponseUtils.parseAdventuresGained(self.responseText)
@@ -61,7 +61,7 @@ class CafeRequest(GenericRequest):
         hpResponse = ParseResponseUtils.parseHPGainedLost(self.responseText)
         if hpResponse != 0:
             reponse["hp"] = hpResponse
-        
+
         mpResponse = ParseResponseUtils.parseMPGainedLost(self.responseText)
         if mpResponse != 0:
             reponse["mp"] = mpResponse

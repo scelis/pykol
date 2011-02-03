@@ -6,7 +6,7 @@ from kol.util import ParseResponseUtils
 
 class StoreRequest(GenericRequest):
     "Purchases items from a store."
-    
+
     SMACKETERIA = '3'
     GOUDAS_GRIMOIRE_AND_GROCERY = '2'
     SHADOWY_STORE = '1'
@@ -34,7 +34,7 @@ class StoreRequest(GenericRequest):
         self.requestData['buying'] = "Yep."
         self.requestData['howmany'] = quantity
         self.requestData['whichitem'] = item
-                
+
     def parseResponse(self):
         # Check for errors.
         notEnoughMeatPattern = PatternManager.getOrCompilePattern('noMeatForStore')
@@ -48,12 +48,12 @@ class StoreRequest(GenericRequest):
             raise NotSoldHereError("This store doesn't carry that item.")
         if notEnoughMeatPattern.search(self.responseText):
             raise NotEnoughMeatError("You do not have enough meat to purchase the item(s).")
-        
+
         items = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
         if len(items) == 0:
             raise RequestError("Unknown error. No items received.")
         self.responseData["items"] = items
-        
+
         meatSpentPattern = PatternManager.getOrCompilePattern('meatSpent')
         match = spentMeatPattern.search(self.responseText)
         self.responseData['meatSpent'] = int(match.group(1).replace(',', ''))

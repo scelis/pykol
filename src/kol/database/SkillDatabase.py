@@ -11,24 +11,24 @@ __skillsByName = {}
 
 def init():
     """
-    Initializes the SkillDatabase. This method should be called before the 
+    Initializes the SkillDatabase. This method should be called before the
     database is ever accessed as it ensures that the database is populated
     with all of the data it needs.
     """
     global __isInitialized
     if __isInitialized == True:
         return
-    
+
     Report.trace("skilldatabase", "Initializing the skill database.")
     returnCode = FilterManager.executeFiltersForEvent("preInitializeSkillDatabase")
     if returnCode == FilterManager.FINISHED:
         Report.trace("skilldatabase", "Skill database initialized.")
         __isInitialized = True
         return
-        
+
     for skill in Skills.skills:
         addSkill(skill)
-    
+
     FilterManager.executeFiltersForEvent("postInitializeSkillDatabase")
     __isInitialized = True
     Report.trace("skilldatabase", "Skill database initialized.")
@@ -42,7 +42,7 @@ def getSkillFromId(skillId, session=None):
     "Returns information about a skill given its ID."
     if not __isInitialized:
         init()
-    
+
     try:
         return __skillsById[skillId].copy()
     except KeyError:
@@ -58,7 +58,7 @@ def getSkillFromName(skillName, session=None):
     "Returns information about a skill given its name."
     if not __isInitialized:
         init()
-    
+
     try:
         return __skillsByName[skillName].copy()
     except KeyError:

@@ -31,7 +31,7 @@ class Bot(threading.Thread):
     filter hooks so that a real bot can be created just by implementing a few of them. The Bot
     class extends threading.Thread so that many bots can be created and managed by a module such
     as kol.bot.BotManager.
-    
+
     One important aspect of this Bot to understand is state management. There are a number of
     "state files" which are created and used by the bot. These state files are used to hold
     information about what the bot is currently doing. They are designed so that if the bot
@@ -40,23 +40,23 @@ class Bot(threading.Thread):
     """
     def __init__(self, params):
         super(Bot, self).__init__()
-        
+
         self.params = params
         self.id = params["userName"]
         self.stateIds = ["global", "cycle", "job", "kmail"]
         self.states = {}
         self.session = None
         self.runBot = True
-        
+
         # Allow for people to hook in before the bot is initialized.
         self.executeFilter("botPreInitialization")
-        
+
         # Load the current state of the bot.
         self.loadState()
-        
+
         # Allow for people to hook in after the bot is initialized.
         self.executeFilter("botPostInitialization")
-    
+
     def executeFilter(self, filterName, context=None, **kwargs):
         """
         This method will execute the specified filter after appending ':$botId' to the filterName.
@@ -68,10 +68,10 @@ class Bot(threading.Thread):
         """
         if context == None:
             context = {}
-        
+
         kwargs["bot"] = self
         return FilterManager.executeFiltersForEvent("%s:%s" % (filterName, self.id), context, **kwargs)
-    
+
     def loadState(self):
         """
         Loads the state of the bot from files created through the pickle module. If any files
@@ -87,36 +87,36 @@ class Bot(threading.Thread):
                 f.close()
             else:
                 self.states[stateId] = {}
-    
+
     def clearState(self, stateId):
         "Clears one of the bot's state files and objects."
         self.states[stateId] = {}
         path = "state_%s_%s.pkl" % (self.id, stateId)
         if os.path.exists(path):
             os.remove(path)
-    
+
     def writeState(self, stateId):
         "Writes one of the bot's state files to disk."
         path = "state_%s_%s.pkl" % (self.id, stateId)
         f = open(path, 'wb')
         pickle.dump(self.states[stateId], f)
         f.close()
-    
+
     def run(self):
         # Create a thread lock and set the thread name. This allows other bots to interact with
         # this bot and ensure that they are not doing work while this bot is in the middle of
         # a work cycle.
         self.lock = threading.Lock()
         threading.currentThread().setName(self.id)
-        
+
         self.executeFilter("botStartup")
-        
+
         while self.runBot:
             self.lock.acquire()
             try:
                 state = self.states["cycle"]
                 timeToSleep = DataUtils.getInteger(self.params, "timeToSleep", 30)
-                
+
                 try:
                     # Check to see how close we are to rollover. If we are within 5 minutes we should
                     # logout and then sleep for 10 minutes.
@@ -129,27 +129,27 @@ class Bot(threading.Thread):
                         # If necessary, login to the server.
                         if self.session == None or self.session.isConnected == False:
                             self.login()
-                
+
                         # Set the current time as the beginTime for this cycle. We don't write the
                         # state immediately. We only write it once we get our work.
                         if "beginTime" not in state:
                             state["beginTime"] = int(time.time())
                         state["cycleBegun"] = True
-            
+
                         # Allow for people to hook in at the beginning of a cycle.
                         self.executeFilter("botBeginCycle")
-        
+
                         self.getWork()
                         self.doWork()
                         self.clearWork()
-        
+
                         # Allow for people to hook in at the end of a cycle.
                         self.executeFilter("botEndCycle")
-        
+
                         # If we have gotten this far, we have finished the processing cycle
                         # successfully. Reset our current state.
                         self.clearState("cycle")
-                
+
                 except LoginError, inst:
                     Report.error("bot", inst.message, inst)
                     timeToSleep = inst.timeToWait
@@ -175,51 +175,51 @@ class Bot(threading.Thread):
                         timeToSleep = cxt["timeToSleep"]
                     else:
                         self.prepareShutdown()
-                        
+
             finally:
                 # The cycle is over. Release the lock.
                 self.lock.release()
-            
+
             # Sleep until our next cycle.
             if self.runBot:
                 Report.trace("bot", "Sleeping for %s seconds." % timeToSleep)
                 BotManager._haltEvent.wait(timeToSleep)
                 if BotManager._haltEvent.isSet():
                     self.runBot = False
-        
+
         # Time to shutdown the bot.
         self.logout()
         self.executeFilter("botShutdown")
-    
+
     def prepareShutdown(self):
         self.runBot = False
         BotManager._haltEvent.set()
-    
+
     def login(self):
         "Logs in to the Kingdom of Loathing."
         self.executeFilter("botPreLogin")
-        
+
         # Create the KoL Session.
         self.session = Session()
         Report.info("bot", "Logging in.")
         self.session.login(self.params["userName"], self.params["userPassword"])
-        
+
         # Open the main map to clear the bot's alerts.
         r = MainMapRequest(self.session)
         r.doRequest()
-        
+
         # Create a MailboxManager.
         if "doWork:kmail" in self.params:
             m = MailboxManager(self.session)
             m.setMessagesPerPage(100)
             m.setOldestFirst(True)
-        
+
         # Create a ChatManager.
         if "doWork:chat" in self.params:
             c = ChatManager(self.session)
-        
+
         self.executeFilter("botPostLogin")
-    
+
     def logout(self):
         "Logs out from the Kingdom of Loathing."
         if self.session != None and self.session.isConnected:
@@ -227,7 +227,7 @@ class Bot(threading.Thread):
             Report.info("bot", "Logging out.")
             self.session.logout()
             self.executeFilter("botPostLogout")
-    
+
     def getWork(self):
         """
         Retrieves all of the work the bot needs to do during this cycle. Currently both chat
@@ -236,7 +236,7 @@ class Bot(threading.Thread):
         of your bot.
         """
         state = self.states["cycle"]
-        
+
         if "retrievedWork" not in state:
             if DataUtils.getBoolean(self.params, "doWork:kmail", False) and "kmails" not in state:
                 Report.trace("bot", "Getting kmails.")
@@ -244,49 +244,49 @@ class Bot(threading.Thread):
                 Report.trace("bot", "Retrieved %s kmails." % len(messages))
                 state["kmails"] = messages
                 self.writeState("cycle")
-        
+
             if DataUtils.getBoolean(self.params, "doWork:chat", False) and "chatMessages" not in state:
                 Report.trace("bot", "Getting chat messages.")
                 chats = self.session.chatManager.getNewChatMessages()
                 Report.trace("bot", "Retrieved %s chat messages." % len(chats))
                 state["chats"] = chats
                 self.writeState("cycle")
-        
+
             state["retrievedWork"] = 1
             self.writeState("cycle")
-    
+
     def doWork(self):
         """
         This is the method that actually does all of work for the bot. It can iterate through
         kmails or chat messages and then act on each one.
         """
         state = self.states["cycle"]
-        
+
         if DataUtils.getBoolean(self.params, "doWork:kmail", False) and "kmails" in state:
             kmails = state["kmails"]
             if len(kmails) > 0:
                 Report.info("bot", "Processing %s kmails." % len(kmails))
             while len(kmails) > 0:
                 m = kmails[0]
-                
+
                 # Log the kmail.
                 Report.info("bot", "Received kmail %s from %s (#%s)" % (m["id"], m["userName"], m["userId"]))
                 Report.info("bot", "Text: %s" % m["text"])
                 Report.info("bot", "Meat: %s" % m["meat"])
                 for item in m["items"]:
                     Report.info("bot", "Item: %s (%s)" % (item["name"], item["quantity"]))
-                
+
                 # Allow for a filter to preprocess the kmail.
                 self.executeFilter("botPreProcessKmail", None, kmail=m)
-                
+
                 try:
                     handledKmail = False
-                    
+
                     # Allow a filter to process the kmail.
                     returnCode = self.executeFilter("botProcessKmail", None, kmail=m)
                     if returnCode == FilterManager.FINISHED:
                         handledKmail = True
-                    
+
                     # See if we can handle the kmail ourselves.
                     if handledKmail == False:
                         cmd = BotUtils.getKmailCommand(m)
@@ -301,17 +301,17 @@ class Bot(threading.Thread):
                         elif cmd in IGNORE_COMMANDS or m["messageType"] != "normal":
                             Report.info("bot", "Ignoring kmail.")
                             handledKmail = True
-                    
+
                     # If we could not handle the kmail, tell the user that we did not understand
                     # their request.
                     if handledKmail == False and "didNotUnderstandKmailResponse" in self.params:
                         self.returnKmail(m, self.params["didNotUnderstandKmailResponse"])
                         handledKmail = True
-                        
+
                 except ParseMessageError, inst:
                     Report.info("bot", "Invalid kmail request.", inst)
                     self.returnKmail(m, inst.message)
-                
+
                 # We are done with this kmail. Clean up the state and write it out.
                 if "processedKmails" in state:
                     state["processedKmails"].append(kmails[0])
@@ -320,29 +320,29 @@ class Bot(threading.Thread):
                 del kmails[0]
                 self.writeState("cycle")
                 self.clearState("job")
-                
+
         if DataUtils.getBoolean(self.params, "doWork:chat", False) and "chats" in state:
             chats = state["chats"]
             if len(chats) > 0:
                 Report.trace("bot", "Processing %s chat messages." % len(chats))
             while len(chats) > 0:
                 chat = chats[0]
-                
+
                 # If this was a private chat message, log it.
                 if chat["type"] == "private":
                     Report.info("bot", "Received private chat: %s" % chat)
-                    
+
                 # Allow for a filter to preprocess the chat.
                 self.executeFilter("botPreProcessChat", None, chat=chat)
-                
+
                 try:
                     handledChat = False
-                    
+
                     # Allow for a filter to process the chat command.
                     returnCode = self.executeFilter("botProcessChat", None, chat=chat)
                     if returnCode == FilterManager.FINISHED:
                         handledChat = True
-                        
+
                     # See if we can handle the chat ourselves.
                     if handledChat == False and chat["type"] == "private":
                         text = chat["text"]
@@ -351,7 +351,7 @@ class Bot(threading.Thread):
                                 response = "/w %s %s" % (chat["userId"], self.params["helpChatResponse"])
                                 self.sendChatMessage(response)
                                 handledChat = True
-                    
+
                     # If we could not handle the chat, tell the user that we did not understand
                     # their request.
                     if handledChat == False and chat["type"] == "private":
@@ -359,7 +359,7 @@ class Bot(threading.Thread):
                             response = "/w %s %s" % (chat["userId"], self.params["didNotUnderstandChatResponse"])
                             self.sendChatMessage(response)
                             handledChat = True
-                    
+
                     # Also allow bots to respond to chats with a kmail.
                     if handledChat == False and chat["type"] == "private":
                         if "didNotUnderstandChatResponseAsKmail" in self.params:
@@ -367,16 +367,16 @@ class Bot(threading.Thread):
                             resp["text"] = self.params["didNotUnderstandChatResponseAsKmail"]
                             self.sendKmail(resp)
                             handledChat = True
-                            
+
                 except ParseMessageError, inst:
                     Report.info("bot", "Invalid chat request.", inst)
                     self.sendChatMessage(inst.message)
-                    
+
                 # We are done with this chat. Clean up the state and write it out.
                 del chats[0]
                 self.writeState("cycle")
                 self.clearState("job")
-    
+
     def clearWork(self):
         """
         Once the bot has processed all of its work for this cycle, this method will perform
@@ -385,7 +385,7 @@ class Bot(threading.Thread):
         state = self.states["cycle"]
         if "doWork:kmail" in self.params and "processedKmails" in state:
             messages = state["processedKmails"]
-            
+
             # If we have more than 100 kmails to delete, break them up into chunks.
             while len(messages) > 100:
                 msgIds = []
@@ -398,7 +398,7 @@ class Bot(threading.Thread):
                 messages = messages[100:]
                 state["processedKmails"] = messages
                 self.writeState("cycle")
-                
+
             # Delete the remaining kmails.
             msgIds = []
             for m in messages:
@@ -407,10 +407,10 @@ class Bot(threading.Thread):
             r = DeleteMessagesRequest(self.session, msgIds)
             r.doRequest()
             Report.info("bot", "Kmails deleted.")
-        
+
             del state["processedKmails"]
             self.writeState("cycle")
-    
+
     def returnKmail(self, message, introText):
         m = {"userId":message["userId"], "meat":message["meat"], "items":message["items"]}
         m["text"] = introText + "\n\nOriginalMessage:\n--------------------\n" + message["text"]
@@ -420,7 +420,7 @@ class Bot(threading.Thread):
         m = {"userId":message["userId"]}
         m["text"] = newText + "\n\nOriginalMessage:\n--------------------\n" + message["text"]
         self.sendKmail(m)
-    
+
     def sendKmail(self, m):
         """
         Sends a kmail to a user. This method is complicated because many bots need to be
@@ -429,9 +429,9 @@ class Bot(threading.Thread):
         for filters to modify and refine its behavior.
         """
         state = self.states["kmail"]
-        
+
         # If we were interrupted, see if the message was actually sent.
-        if "attemptingToSendMessage" in state and "sentMessageId" not in state: 
+        if "attemptingToSendMessage" in state and "sentMessageId" not in state:
             Report.warning("bot", "We were interrupted while attempting to send a kmail. Check to see if the message was sent.")
             r = GetMessagesRequest(self.session, box="Outbox")
             responseData = r.doRequest()
@@ -444,10 +444,10 @@ class Bot(threading.Thread):
         else:
             state["attemptingToSendMessage"] = 1
             self.writeState("kmail")
-            
+
         # Here we try to actually send the message.
         if "sentMessage" not in state:
-            
+
             # Log the message we are sending
             Report.info("bot", "Sending message to %s." % m["userId"])
             Report.info("bot", "Text: %s" % m["text"])
@@ -457,7 +457,7 @@ class Bot(threading.Thread):
                 for item in m["items"]:
                     fullItem = ItemDatabase.getItemFromId(item["id"])
                     Report.info("bot", "Item: %s (%s)" % (fullItem["name"], item["quantity"]))
-                    
+
             # Send the message
             r = SendMessageRequest(self.session, m)
             try:
@@ -471,18 +471,18 @@ class Bot(threading.Thread):
                 Report.info("bot", "The user is ignorning us.", inst)
                 state["userIsIgnoringUs"] = 1
             self.writeState("kmail")
-        
-        cxt = {}    
+
+        cxt = {}
         self.executeFilter("botPostAttemptSendKmail", cxt, kmail=m)
-        
+
         if "userInHardcoreOrRonin" in state and "ignoreErrors" not in cxt:
             self.clearState("kmail")
             raise UserInHardcoreRoninError("User is unable to receive items or meat.")
-            
+
         if "userIsIgnoringUs" in state and "ignoreErrors" not in cxt:
             self.clearState("kmail")
             raise UserIsIgnoringError("User is ignoring us.")
-            
+
         # Grab the sent message to delete.
         if "sentMessage" in state and "sentMessageId" not in state:
             Report.trace("bot", "Looking for sent message.")
@@ -498,18 +498,18 @@ class Bot(threading.Thread):
                 self.writeState("kmail")
                 Report.fatal("bot", "Crap! Message was not sent. Bailing out.")
                 raise RequestError("We thought we sent a message but didn't. Uh oh!")
-                
+
         # Delete the sent message
         if "sentMessageId" in state:
             Report.trace("bot", "Deleting message in outbox.")
             r = DeleteMessagesRequest(self.session, [state["sentMessageId"]], box="Outbox")
             r.doRequest()
             Report.trace("bot", "Message deleted.")
-            
+
         # Update our state. We are done sending the message, so we can remove all of the
         # message-specific keys.
         self.clearState("kmail")
-    
+
     def sendChatMessage(self, chat):
         "Sends a chat message to the KoL server."
         Report.info("bot", "Sending chat: %s" % chat)

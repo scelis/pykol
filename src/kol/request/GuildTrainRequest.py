@@ -11,13 +11,13 @@ class GuildTrainRequest(GenericRequest):
         self.requestData["pwd"] = session.pwd
         self.requestData["action"] = "train"
         self.requestData["whichskill"] = skillId%1000
-    
+
     def parseResponse(self):
         weakSkillPattern = PatternManager.getOrCompilePattern('skillTooWeak')
         badSkillPattern = PatternManager.getOrCompilePattern('skillNotTrainable')
         poorSkillPattern = PatternManager.getOrCompilePattern('skillTooPoor')
         haveSkillPattern = PatternManager.getOrCompilePattern('skillHaveAlready')
-        
+
         if weakSkillPattern.search(self.responseText):
             raise InvalidActionError("You aren't a high enough level to train that skill")
         if badSkillPattern.search(self.responseText):
@@ -26,7 +26,7 @@ class GuildTrainRequest(GenericRequest):
             raise NotEnoughMeatError("You cannot afford to train that skill")
         if haveSkillPattern.search(self.responseText):
             raise RequestError("You already know that skill")
-        
+
         skillLearnedPattern = PatternManager.getOrCompilePattern('skillLearned')
         match = skillLearnedPattern.search(self.responseText)
         if match:

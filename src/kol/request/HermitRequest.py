@@ -16,13 +16,13 @@ class HermitRequest(GenericRequest):
         self.requestData['action'] = "trade"
         self.requestData['quantity'] = quantity
         self.requestData['whichitem'] = item
-                
+
     def parseResponse(self):
         notEnoughCloversPattern = PatternManager.getOrCompilePattern('notEnoughClovers')
         noTrinketsPattern = PatternManager.getOrCompilePattern('noTrinkets')
         noHermitPermitPattern = PatternManager.getOrCompilePattern('noHermitPermits')
         notHermitItemPattern = PatternManager.getOrCompilePattern('notHermitItem')
-        
+
         # Check for errors.
         if notEnoughCloversPattern.search(self.responseText):
             raise RequestError("The Hermit doesn't have enough clovers for that")
@@ -32,11 +32,11 @@ class HermitRequest(GenericRequest):
             raise NotEnoughHermitPermitsError("You don't have enough hermit permits for that")
         if notHermitItemPattern.search(self.responseText):
             raise NotSoldHereError("The Hermit doesn't have any of those")
-        
+
         response = {}
-        
+
         items = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
         if len(items) > 0:
             response["items"] = items
-        
+
         self.responseData = response

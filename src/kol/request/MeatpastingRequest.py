@@ -16,7 +16,7 @@ class MeatpastingRequest(GenericRequest):
         self.requestData['b'] = itemid2
         if makeMax:
             self.requestData['max'] = "on"
-    
+
     def parseResponse(self):
         # Check for errors.
         dontHaveMeatpastePattern = PatternManager.getOrCompilePattern('noMeatpaste')
@@ -28,7 +28,7 @@ class MeatpastingRequest(GenericRequest):
             raise InvalidRecipeError("Unable to combine items. The submitted ingredients do not meatpaste together.")
         elif dontHaveItemsPattern.search(self.responseText):
             raise NotEnoughItemsError("Unable to combine items. You don't have all of the items you are trying to meatpaste.")
-            
+
         # Find the items attached to the message.
         items = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
         if len(items) > 0:

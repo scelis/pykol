@@ -14,5 +14,5 @@ class SnackMachineRequest(GenericRequest):
 
     def parseResponse(self):
         response = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
-        
+
         self.responseData = response

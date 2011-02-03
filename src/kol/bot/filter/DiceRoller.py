@@ -34,12 +34,12 @@ def botProcessChat(context, **kwargs):
                 numDice = 1
             if numSides <= 0:
                 numSides = 1
-            
+
             # Roll the dice.
             result = []
             for i in range(numDice):
                 result.append(random.randint(1, numSides))
-            
+
             # Print out the information.
             msg = "Rolling %sd%s for %s gives: " % (numDice, numSides, chat["userName"])
             i = 0
@@ -49,7 +49,7 @@ def botProcessChat(context, **kwargs):
                 msg += str(r)
                 i += 1
             bot.sendChatMessage(msg)
-            
+
             returnCode = FilterManager.FINISHED
-            
+
     return returnCode

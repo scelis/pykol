@@ -5,7 +5,7 @@ class DynamicRequest(GenericRequest):
     def __init__(self, session, url, arguments=None):
         super(DynamicRequest, self).__init__(session)
         self.url = session.serverURL + url
-        
+
         if arguments != None:
             k = args.split('&')
             for x in k:

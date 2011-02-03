@@ -55,7 +55,7 @@ class RumpusRoomRequest(GenericRequest):
     def __init__(self, session):
         super(RumpusRoomRequest, self).__init__(session)
         self.url = session.serverURL + 'clan_rumpus.php'
-        
+
     def parseResponse(self):
         furnPresent = []
         rumpusRoomPattern = PatternManager.getOrCompilePattern('rumpusRoomFurniture')
@@ -64,5 +64,5 @@ class RumpusRoomRequest(GenericRequest):
             furn = match.group(2)
             if furn != '0':
                 furnPresent.append(FURNITURE[spot][furn])
-                
+
         self.responseData["furniture"] = furnPresent

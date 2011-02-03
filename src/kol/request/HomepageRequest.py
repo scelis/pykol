@@ -8,14 +8,14 @@ class HomepageRequest(GenericRequest):
     particular server number to the user. In addition, it gives us the user's login challenge
     so that we might login to the server in a more secure fashion.
     """
-    
+
     def __init__(self, session, serverNumber=0):
         super(HomepageRequest, self).__init__(session)
         if serverNumber > 0:
             self.url = "http://www%s.kingdomofloathing.com/main.php" % serverNumber
         else:
             self.url = "http://www.kingdomofloathing.com/"
-    
+
     def parseResponse(self):
         # Get the URL of the server that we were told to use.
         loginUrlPattern = PatternManager.getOrCompilePattern('loginURL')
@@ -24,7 +24,7 @@ class HomepageRequest(GenericRequest):
             self.responseData["serverURL"] = serverMatch.group(1)
         else:
             raise LoginError("Unable to determine server URL from: " + self.response.geturl())
-        
+
         # Get the user's challenge string which is used to provide a more secure login mechanism.
         loginChallengePattern = PatternManager.getOrCompilePattern('loginChallenge')
         challengeMatch = loginChallengePattern.search(self.responseText)

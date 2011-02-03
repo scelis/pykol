@@ -3,11 +3,11 @@ from kol.manager import PatternManager
 
 class GetClanWhitelistRequest(GenericRequest):
     "Adds meat to the player's closet."
-    
+
     def __init__(self, session, meat=""):
         super(GetClanWhitelistRequest, self).__init__(session)
         self.url = session.serverURL + "clan_whitelist.php"
-    
+
     def parseResponse(self):
         # Get the set of clan ranks.
         ranks = []

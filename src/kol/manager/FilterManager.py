@@ -24,7 +24,7 @@ def registerFilterForEvent(filter, eventName, loadOrder=10):
                 i += 1
             else:
                 break
-                
+
         filtersForEvent.insert(i, (filter, loadOrder))
     else:
         __filters[eventName] = [(filter, loadOrder)]
@@ -38,13 +38,13 @@ def executeFiltersForEvent(eventName, context=None, **kwargs):
     """
     if context == None:
         context = {}
-    
+
     index = eventName.find(':')
     if index < 0:
         realEventName = eventName
     else:
         realEventName = eventName[:index]
-    
+
     returnCode = CONTINUE
     keepGoing = True
     while keepGoing:
@@ -54,12 +54,12 @@ def executeFiltersForEvent(eventName, context=None, **kwargs):
                 if returnCode != CONTINUE:
                     keepGoing = False
                     break
-        
+
         if eventName == realEventName:
             keepGoing = False
         else:
             index = eventName.rfind(':')
             if index >= 0:
                 eventName = eventName[:index]
-            
+
     return returnCode

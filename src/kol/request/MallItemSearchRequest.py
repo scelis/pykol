@@ -8,7 +8,7 @@ class MallItemSearchRequest(GenericRequest):
     """
     Searches for an item at the mall.
     """
-    
+
     CATEGORY_ALL = 'allitems'
     CATEGORY_FOOD = 'food'
     CATEGORY_BOOZE = 'booze'
@@ -25,7 +25,7 @@ class MallItemSearchRequest(GenericRequest):
     CATEGORY_HP_RESTORERS = 'hprestore'
     CATEGORY_MP_RESTORERS = 'mprestore'
     CATEGORY_FAMILIARS = 'familiars'
-    
+
     def __init__(self, session, searchQuery, category=CATEGORY_ALL, noLimits=False, maxPrice=0, numResults=0):
         super(MallItemSearchRequest, self).__init__(session)
         self.url = session.serverURL + 'searchmall.php'
@@ -40,7 +40,7 @@ class MallItemSearchRequest(GenericRequest):
             self.requestData['nolimits'] = '1'
         else:
             self.requestData['nolimits'] = '0'
-        
+
     def parseResponse(self):
         items = []
         itemMatchPattern = PatternManager.getOrCompilePattern('mallItemSearchResult')
@@ -64,5 +64,5 @@ class MallItemSearchRequest(GenericRequest):
                 items.append(item)
             except ItemNotFoundError, inst:
                 Report.info("itemdatabase", "Unrecognized item found in mall search: %s" % itemId, inst)
-                
+
         self.responseData["results"] = items

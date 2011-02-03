@@ -14,16 +14,16 @@ class CocktailcraftingRequest(GenericRequest):
         self.requestData['qty'] = numDrinks
         self.requestData['a'] = itemid1
         self.requestData['b'] = itemid2
-        
+
         if makeMax:
             self.requestData['max'] = "on"
-    
+
     def parseResponse(self):
         itemsDontMakeCocktailPattern = PatternManager.getOrCompilePattern('itemsDontMakeCocktail')
         dontHaveSkillPattern = PatternManager.getOrCompilePattern('dontHaveSkillToMixCocktail')
         dontHaveItemsPattern = PatternManager.getOrCompilePattern('dontHaveItemsForThatCocktail')
         dontHaveAdventuresPattern = PatternManager.getOrCompilePattern('dontHaveAdventuresToMixCocktail')
-        
+
         # Check for errors.
         if itemsDontMakeCocktailPattern.search(self.responseText):
             raise InvalidRecipeError("Unable to make cocktail. The submitted ingredients do not mix together.")
@@ -51,5 +51,5 @@ class CocktailcraftingRequest(GenericRequest):
                 item["quantity"] = quantity
             else:
                 raise RequestError("Unknown error.")
-        
+
         self.responseData["booze"] = item

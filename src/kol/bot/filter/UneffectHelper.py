@@ -28,11 +28,11 @@ def botProcessKmail(context, **kwargs):
     message = kwargs["kmail"]
     bot = kwargs["bot"]
     cmd = BotUtils.getKmailCommand(message)
-    
+
     if cmd == "uneffect":
         arr = message["text"].split()
         items = message["items"]
-        
+
         # Get the effect ID.
         if len(arr) < 2:
             raise ParseMessageError("You must specify the ID of the effect to remove.")
@@ -40,14 +40,14 @@ def botProcessKmail(context, **kwargs):
             effectId = int(arr[1])
         except ValueError:
             raise ParseMessageError("Unable to remove effect. Invalid effect ID.")
-        
+
         # Ensure the user sent a SGEEA.
         if len(items) != 1:
             raise ParseMessageError("Please include just a SGEEA in your kmail.")
         sgeea = ItemDatabase.getItemFromName("soft green echo eyedrop antidote")
         if items[0]["id"] != sgeea["id"] or items[0]["quantity"] != 1:
             raise ParseMessageError("Please include just a single SGEEA in your kmail.")
-        
+
         # Perform the request.
         m = {}
         m["userId"] = message["userId"]
@@ -62,10 +62,10 @@ def botProcessKmail(context, **kwargs):
         except Error, inst:
             m["text"] = "Unable to remove effect for unknown reason."
             m["items"] = items
-        
+
         bot.sendKmail(m)
         returnCode = FilterManager.FINISHED
-            
+
     return returnCode
 
 def botProcessChat(context, **kwargs):
@@ -86,8 +86,8 @@ def botProcessChat(context, **kwargs):
                 resp = "I do not have any SGEEAs. Would you be kind enough to send me some?"
             except Error, inst:
                 resp = "Unable to remove effect for unknown reason."
-            
+
             bot.sendChatMessage("/w %s %s" % (chat["userId"], resp))
             returnCode = FilterManager.FINISHED
-    
+
     return returnCode

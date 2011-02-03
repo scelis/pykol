@@ -12,24 +12,24 @@ __itemsByName = {}
 
 def init():
     """
-    Initializes the ItemDatabase. This method should be called before the 
+    Initializes the ItemDatabase. This method should be called before the
     database is ever accessed as it ensures that the database is populated
     with all of the data it needs.
     """
     global __isInitialized
     if __isInitialized == True:
         return
-    
+
     Report.trace("itemdatabase", "Initializing the item database.")
     returnCode = FilterManager.executeFiltersForEvent("preInitializeItemDatabase")
     if returnCode == FilterManager.FINISHED:
         Report.trace("itemdatabase", "Item database initialized.")
         __isInitialized = True
         return
-        
+
     for item in Items.items:
         addItem(item)
-    
+
     FilterManager.executeFiltersForEvent("postInitializeItemDatabase")
     __isInitialized = True
     Report.trace("itemdatabase", "Item database initialized.")
@@ -46,7 +46,7 @@ def getItemFromId(itemId, session=None):
     "Returns information about an item given its ID."
     if not __isInitialized:
         init()
-    
+
     try:
         return __itemsById[itemId].copy()
     except KeyError:
@@ -62,7 +62,7 @@ def getItemFromDescId(descId, session=None):
     "Returns information about an item given its description ID."
     if not __isInitialized:
         init()
-    
+
     try:
         return __itemsByDescId[descId].copy()
     except KeyError:
@@ -78,7 +78,7 @@ def getItemFromName(itemName, session=None):
     "Returns information about an item given its name."
     if not __isInitialized:
         init()
-    
+
     try:
         return __itemsByName[itemName].copy()
     except KeyError:

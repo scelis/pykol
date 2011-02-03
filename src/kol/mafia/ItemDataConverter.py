@@ -101,12 +101,12 @@ def readItemDescsFile():
                 descId = int(parts[1])
                 name = parts[2]
                 item = {"id" : int(parts[0]), "descId" : int(parts[1]), "name" : parts[2]}
-                
+
                 if len(parts) > 3:
                     plural = parts[3]
                     if plural != name + 's':
                         item["plural"] = parts[3]
-                
+
                 _items.append(item)
                 _itemsById[itemId] = item
                 _itemsByName[name] = item
@@ -144,17 +144,17 @@ def readEquipmentFile():
                             offHandType = parts[3]
                         else:
                             offHandType = ""
-                    
+
                     try:
                         item = _itemsByName[name]
                     except KeyError:
                         continue
-                    
+
                     # Set the power
                     if power > 0 or currentType == "weapon" or \
                         (currentType == "off-hand" and offHandType == "shield"):
                         item["power"] = power
-                    
+
                     # Set the requirements
                     if len(requirements) > 0 and requirements != "none":
                         muscleMatch = REQUIRED_MUSCLE_PATTERN.search(requirements)
@@ -172,7 +172,7 @@ def readEquipmentFile():
                             moxie = int(moxieMatch.group(1))
                             if moxie > 0:
                                 item["requiredMoxie"] = moxie
-                    
+
                     # Set the type
                     if currentType == "weapon":
                         item["type"] = "weapon (%s)" % weaponType
@@ -197,12 +197,12 @@ def readFullnessFile():
                 musc = parts[4]
                 myst = parts[5]
                 mox = parts[6]
-                
+
                 try:
                     item = _itemsByName[name]
                 except KeyError:
                     continue
-                
+
                 if fullness > 0:
                     item["fullness"] = fullness
                 if level > 0:
@@ -229,12 +229,12 @@ def readInebrietyFile():
                 musc = parts[4]
                 myst = parts[5]
                 mox = parts[6]
-                
+
                 try:
                     item = _itemsByName[name]
                 except KeyError:
                     continue
-                
+
                 if drunkenness > 0:
                     item["drunkenness"] = drunkenness
                 if level > 0:
@@ -261,12 +261,12 @@ def readSpleenFile():
                 musc = parts[4]
                 myst = parts[5]
                 mox = parts[6]
-                
+
                 try:
                     item = _itemsByName[name]
                 except KeyError:
                     continue
-                
+
                 if spleen > 0:
                     item["spleen"] = spleen
                 if level > 0:
@@ -288,12 +288,12 @@ def readPackagesFile():
             if len(parts) >= 4:
                 name = parts[0]
                 numItems = int(parts[1])
-                
+
                 try:
                     item = _itemsByName[name]
                 except KeyError:
                     continue
-                
+
                 item["numPackageItems"] = numItems
 
 def readOutfitsFile():
@@ -337,15 +337,15 @@ def readTradeItemsFile():
                 itemTypeId = parts[2]
                 itemTradeStr = parts[3]
                 autosell = int(parts[4])
-                
+
                 try:
                     item = _itemsById[itemId]
                 except KeyError:
                     continue
-                
+
                 if autosell > 0:
                     item["autosell"] = autosell
-                
+
                 if itemTypeId == "usable":
                     item["isUsable"] = True
                 elif itemTypeId == "multiple":
@@ -364,19 +364,19 @@ def readModifiersFile():
     for line in text.splitlines():
         if line == "# Special case overrides":
             break
-        
+
         if len(line) > 0 and line[0] != '#':
             parts = line.split('\t')
             if len(parts) >= 2:
                 itemName = parts[0]
                 modifiers = parts[1].strip()
-                
+
                 try:
                     item = _itemsByName[itemName]
                     item["enchantments"] = {}
                 except KeyError:
                     continue
-                
+
                 classMatch = CLASS_PATTERN.search(modifiers)
                 if classMatch:
                     item["classes"] = []
@@ -386,22 +386,22 @@ def readModifiersFile():
                         item["classes"].append(aClass.strip())
                     modifiers = CLASS_PATTERN.sub('', modifiers)
                     modifiers = modifiers.strip(' ,')
-                
+
                 intrinsicMatch = INTRINSIC_PATTERN.search(modifiers)
                 if intrinsicMatch:
                     item["enchantments"] = {}
                     item["enchantments"]["intrinsicEffects"] = []
-                    
+
                     intrinsics = intrinsicMatch.group(1)
                     intrinsics = intrinsics.split(',')
                     for intrinsic in intrinsics:
                         item["enchantments"]["intrinsicEffects"].append(intrinsic.strip())
                     modifiers = INTRINSIC_PATTERN.sub('', modifiers)
                     modifiers = modifiers.strip(' ,')
-                
+
                 if len(modifiers) == 0:
                     continue
-                    
+
                 modifiers = modifiers.split(',')
                 for modifier in modifiers:
                     modifier = modifier.strip()
@@ -416,7 +416,7 @@ def readModifiersFile():
                     else:
                         if "enchantments" not in item:
                             item["enchantments"] = {}
-                        
+
                         if modifier == "Never Fumble":
                             item["enchantments"]["neverFumble"] = True
                         elif modifier == "Weakens Monster":
@@ -425,7 +425,7 @@ def readModifiersFile():
                             modifier = modifier.split(':')
                             if len(modifier) >= 2:
                                 item["enchantments"][modifier[0].strip()] = modifier[1].strip()
-                
+
                 if "enchantments" in item and len(item["enchantments"]) == 0:
                     del item["enchantments"]
 
@@ -459,7 +459,7 @@ def mergeItems():
         item = _items[i]
         try:
             savedItem = ItemDatabase.getItemFromId(item["id"])
-            
+
             for k,v in item.iteritems():
                 if k != "enchantments" and k != "type":
                     savedItem[k] = v

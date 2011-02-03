@@ -9,7 +9,7 @@ MAX_CHAT_LENGTH = 200
 
 class ChatManager(object):
     "This class can be used as an interface for KoL chat."
-    
+
     def __init__(self, session):
         "Initializes the ChatManager with a particular KoL session and then connects to chat."
         self.session = session
@@ -19,38 +19,38 @@ class ChatManager(object):
         r = OpenChatRequest(self.session)
         data = r.doRequest()
         self.currentChannel = data["currentChannel"]
-        
+
     def getNewChatMessages(self):
         "Gets a list of new chat messages and returns them."
         r = GetChatMessagesRequest(self.session, self.lastRequestTimestamp)
         data = r.doRequest()
         self.lastRequestTimestamp = data["lastSeen"]
         chats = data["chatMessages"]
-        
+
         # Set the channel in each channel-less chat to be the current channel.
         for chat in chats:
             t = chat["type"]
             if t == "normal" or t == "emote":
                 if "channel" not in chat:
                     chat["channel"] = self.currentChannel
-        
+
         return chats
-    
+
     def sendChatMessage(self, text):
         """
         Sends a chat message. This method will throttle chats sent to the same channel or person.
         Otherwise the KoL server could display them out-of-order to other users.
         """
         messages = []
-        
+
         # Clean the text.
         text = ChatUtils.cleanChatMessageToSend(text)
-        
+
         # Get information about the chat.
         chatInfo = ChatUtils.parseChatMessageToSend(text)
-        
+
         if len(text) > MAX_CHAT_LENGTH:
-            
+
             # Figure out the prefix that should be appended to every message.
             prefix = ''
             if "type" in chatInfo:
@@ -61,7 +61,7 @@ class ChatManager(object):
                         prefix = "/%s " % chatInfo["channel"]
                     if "isEmote" in chatInfo:
                         prefix += "/me "
-            
+
             # Construct the array of messages to send.
             while len(text) > (MAX_CHAT_LENGTH - len(prefix)):
                 index = text.rfind(" ", 0, MAX_CHAT_LENGTH - len(prefix) - 6)
@@ -72,20 +72,20 @@ class ChatManager(object):
                 else:
                     msg = text[:index] + "..."
                     text = text[index+1:]
-                
+
                 if len(messages) > 0:
                     msg = "..." + msg
                     messages.append(prefix + msg)
                 else:
                     messages.append(msg)
-                
+
             if len(messages) > 0:
                 messages.append(prefix + "..." + text)
             else:
                 messages.append(prefix + text)
         else:
             messages.append(text)
-        
+
         # Determine if we need to throttle the message as we don't want to send two messages
         # to the same person or channel without a little time for the server to figure out
         # which message is first.
@@ -105,7 +105,7 @@ class ChatManager(object):
             if lastTime != None:
                 if lastTime >= time.time() - 2:
                     doThrottle = True
-        
+
         # Send the message(s).
         chats = []
         for message in messages:
@@ -117,12 +117,12 @@ class ChatManager(object):
             for chat in tmpChats:
                 chats.append(chat)
             doThrottle = True
-        
+
         if key != None:
             self.lastChatTimestamps[key] = time.time()
-        
+
         for chat in chats:
             if 'listen' in chat['type'] or 'channel' in chat['type']:
-                self.currentChannel = chat['current']                   
-        
+                self.currentChannel = chat['current']
+
         return chats

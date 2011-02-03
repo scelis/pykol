@@ -15,7 +15,7 @@ def parseIntegerFromHumanReadableString(intStr):
     elif intStr[-1].lower() == 'k':
         isThousand = True
         intStr = intStr[:-1]
-        
+
     # Break the string up into parts.
     dotIndex = intStr.find('.')
     if dotIndex >= 0:
@@ -24,7 +24,7 @@ def parseIntegerFromHumanReadableString(intStr):
     else:
         integerPart = intStr
         decimalPart = None
-        
+
     # See if we can remove commas.
     commaIndex = integerPart.find(',')
     if commaIndex > 0:
@@ -42,7 +42,7 @@ def parseIntegerFromHumanReadableString(intStr):
             i += 1
         if isCommaStr:
             integerPart = integerPart.replace(",", "")
-            
+
     # Determine the number.
     if decimalPart != None:
         num = float(integerPart + '.' + decimalPart)
@@ -61,7 +61,7 @@ def getDurationFromString(durationStr):
     hasDays = False
     hasHours = False
     hasMinutes = False
-    
+
     while i < len(durationStr):
         if durationStr[i].isdigit():
             tmpNum += str(durationStr[i])
@@ -81,11 +81,11 @@ def getDurationFromString(durationStr):
                 raise ValueError("Invalid duration specified.")
             tmpNum = ""
         i += 1
-    
+
     if len(tmpNum) > 0:
         if duration == 0:
             duration = int(tmpNum) * 60
         else:
             raise ValueError("Invalid duration specified.")
-    
+
     return duration

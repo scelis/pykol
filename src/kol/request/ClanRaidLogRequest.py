@@ -8,7 +8,7 @@ class ClanRaidLogRequest(GenericRequest):
     This class retrieves a list of old raid logs that the clan has completed. In addition, it also
     returns information about any given raid instance.
     """
-    
+
     def __init__(self, session, raidId=None):
         super(ClanRaidLogRequest, self).__init__(session)
         self.url = session.serverURL + "clan_raidlogs.php"
@@ -17,7 +17,7 @@ class ClanRaidLogRequest(GenericRequest):
             self.raidId = raidId
         else:
             self.raidId = None
-    
+
     def parseResponse(self):
         # If this is a request for a particular raid log, only retrieve information about it.
         txt = self.responseText
@@ -25,7 +25,7 @@ class ClanRaidLogRequest(GenericRequest):
             index = txt.find('<b>Current Clan Dungeons:</b>')
             if index > 0:
                 txt = txt[:index]
-        
+
         # Get a list of actions that occurred in Hobopolis.
         actions = []
         dungeonLogCategoryPattern = PatternManager.getOrCompilePattern('dungeonLogCategory')
@@ -41,7 +41,7 @@ class ClanRaidLogRequest(GenericRequest):
                 action["turns"] = int(match.group(4).replace(',', ''))
                 actions.append(action)
         self.responseData["events"] = actions
-        
+
         # Retrieve a list of loot that has been distributed.
         lootDistributed = []
         dungeonLootDistributionPattern = PatternManager.getOrCompilePattern('dungeonLootDistribution')
@@ -54,13 +54,13 @@ class ClanRaidLogRequest(GenericRequest):
             m["receiverId"] = match.group(5)
             lootDistributed.append(m)
         self.responseData["lootDistributed"] = lootDistributed
-        
+
         # Retrieve a list of previous, completed runs.
         previousRuns = []
         dungeonPreviousRunPattern = PatternManager.getOrCompilePattern('dungeonPreviousRun')
         for match in dungeonPreviousRunPattern.finditer(self.responseText):
             run = {}
-            
+
             # Parse the start date.
             dateStr = match.group(1)
             try:
@@ -68,7 +68,7 @@ class ClanRaidLogRequest(GenericRequest):
             except ValueError:
                 date = dateStr
             run["startDate"] = date
-            
+
             # Parse the end date.
             dateStr = match.group(2)
             try:
@@ -76,7 +76,7 @@ class ClanRaidLogRequest(GenericRequest):
             except ValueError:
                 date = dateStr
             run["endDate"] = date
-            
+
             # Get the remaining information.
             run["dungeonName"] = match.group(3)
             run["turns"] = int(match.group(4).replace(',', ''))
