@@ -18,8 +18,7 @@ patterns = {
     # Login-related patterns.
     "accountPwd" : r'var pwdhash = "([0-9a-f]+)";',
     "accountId" : r'var playerid = ([0-9]+);',
-    "accountName" : r'<a [^<>]*href="charsheet\.php"><b>([^<>]+)<\/b><\/a>',
-    "accountUserNameAndId" : r"<b>([^<>]*)<\/b> ?\(#([0-9]+)\)<table",
+    "accountName" : r'<a [^<>]*href="charsheet\.php">(?:<b>)?([^<>]+)<',
     "badPassword" : r'<b>Login failed\. Bad password\.<\/b>',
     "loginChallenge" : r'name="?challenge"?\s+value="?([0-9a-f]+)"?',
     "loginURL" : r'^(.*)login\.php\?loginid=([0-9a-f]+)',
