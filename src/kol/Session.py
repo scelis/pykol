@@ -1,4 +1,4 @@
-from kol.request.CharpaneRequest import CharpaneRequest
+from kol.request.ApiRequest import ApiRequest
 from kol.request.HomepageRequest import HomepageRequest
 from kol.request.LoginRequest import LoginRequest
 from kol.request.LogoutRequest import LogoutRequest
@@ -39,11 +39,11 @@ class Session(object):
         loginRequest.doRequest()
 
         # Get pwd, user ID, and the user's name.
-        charpaneRequest = CharpaneRequest(self)
-        charpaneResponse = charpaneRequest.doRequest()
-        self.pwd = charpaneResponse['pwd']
-        self.userName = charpaneResponse['userName']
-        self.userId = charpaneResponse['userId']
+        request = ApiRequest(self)
+        response = request.doRequest()
+        self.pwd = response["pwd"]
+        self.userName = response["name"]
+        self.userId = int(response["playerid"])
 
     def logout(self):
         "Performs a logut request, closing the session."
