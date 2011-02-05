@@ -63,7 +63,7 @@ well as use and smash items.
 
 Requirements
 ------------
-pykol requires Python 2.5. It does not require any third-party libraries,
+pykol requires Python 2.6. It does not require any third-party libraries,
 however it does use a number of libraries that ship with the standard
 distribution of Python.
 
