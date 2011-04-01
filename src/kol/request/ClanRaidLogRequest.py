@@ -80,5 +80,6 @@ class ClanRaidLogRequest(GenericRequest):
             # Get the remaining information.
             run["dungeonName"] = match.group(3)
             run["turns"] = int(match.group(4).replace(',', ''))
+            run["id"] = int(match.group(5).replace(',', ''))
             previousRuns.append(run)
         self.responseData["previousRuns"] = previousRuns
