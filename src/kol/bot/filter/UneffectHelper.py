@@ -35,18 +35,18 @@ def botProcessKmail(context, **kwargs):
 
         # Get the effect ID.
         if len(arr) < 2:
-            raise Error.Error("You must specify the ID of the effect to remove.", Error.DID_NOT_UNDERSTAND_REQUEST)
+            raise Error.Error("You must specify the ID of the effect to remove.", Error.BOT_REQUEST)
         try:
             effectId = int(arr[1])
         except ValueError:
-            raise Error.Error("Unable to remove effect. Invalid effect ID.", Error.DID_NOT_UNDERSTAND_REQUEST)
+            raise Error.Error("Unable to remove effect. Invalid effect ID.", Error.BOT_REQUEST)
 
         # Ensure the user sent a SGEEA.
         if len(items) != 1:
-            raise Error.Error("Please include just a SGEEA in your kmail.", Error.DID_NOT_UNDERSTAND_REQUEST)
+            raise Error.Error("Please include just a SGEEA in your kmail.", Error.BOT_REQUEST)
         sgeea = ItemDatabase.getItemFromName("soft green echo eyedrop antidote")
         if items[0]["id"] != sgeea["id"] or items[0]["quantity"] != 1:
-            raise Error.Error("Please include just a single SGEEA in your kmail.", Error.DID_NOT_UNDERSTAND_REQUEST)
+            raise Error.Error("Please include just a single SGEEA in your kmail.", Error.BOT_REQUEST)
 
         # Perform the request.
         m = {}

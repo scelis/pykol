@@ -21,7 +21,7 @@ NOT_ENOUGH_ADVENTURES = __i; __i += 1
 NOT_ENOUGH_MEAT = __i; __i += 1
 LIMIT_REACHED = __i; __i += 1
 ALREADY_COMPLETED = __i; __i += 1
-DID_NOT_UNDERSTAND_REQUEST = __i; __i += 1
+BOT_REQUEST = __i; __i += 1
 
 class Error(Exception):
     def __init__(self, msg, code=-1):

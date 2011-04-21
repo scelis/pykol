@@ -313,7 +313,7 @@ class Bot(threading.Thread):
                         handledKmail = True
 
                 except Error.Error, inst:
-                    if inst.code == Error.DID_NOT_UNDERSTAND_REQUEST:
+                    if inst.code == Error.BOT_REQUEST:
                         Report.info("bot", "Invalid kmail request.", inst)
                         self.returnKmail(m, inst.message)
                     else:
@@ -376,7 +376,7 @@ class Bot(threading.Thread):
                             handledChat = True
 
                 except Error.Error, inst:
-                    if inst.code == Error.DID_NOT_UNDERSTAND_REQUEST:
+                    if inst.code == Error.BOT_REQUEST:
                         Report.info("bot", "Invalid chat request.", inst)
                         self.sendChatMessage(inst.message)
                     else:
