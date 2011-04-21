@@ -28,45 +28,45 @@ class CurrentEquipmentRequest(GenericRequest):
 
         hatText = hatPattern.search(self.responseText)
         if hatText:
-            self.responseData["hat"] = ItemDatabase.getItemFromDescId(int(hatText.group(1)), self.session)
+            self.responseData["hat"] = ItemDatabase.getOrDiscoverItemFromDescId(int(hatText.group(1)), self.session)
 
         weaponText = weaponPattern.search(self.responseText)
         if weaponText:
-            self.responseData["weapon"] = ItemDatabase.getItemFromDescId(int(weaponText.group(1)), self.session)
+            self.responseData["weapon"] = ItemDatabase.getOrDiscoverItemFromDescId(int(weaponText.group(1)), self.session)
 
         offhandText = offhandPattern.search(self.responseText)
         if offhandText:
-            self.responseData["offhand"] = ItemDatabase.getItemFromDescId(int(offhandText.group(1)), self.session)
+            self.responseData["offhand"] = ItemDatabase.getOrDiscoverItemFromDescId(int(offhandText.group(1)), self.session)
 
         shirtText = shirtPattern.search(self.responseText)
         if shirtText:
-            self.responseData["shirt"] = ItemDatabase.getItemFromDescId(int(shirtText.group(1)), self.session)
+            self.responseData["shirt"] = ItemDatabase.getOrDiscoverItemFromDescId(int(shirtText.group(1)), self.session)
 
         pantsText = pantsPattern.search(self.responseText)
         if pantsText:
-            self.responseData["pants"] = ItemDatabase.getItemFromDescId(int(pantsText.group(1)), self.session)
+            self.responseData["pants"] = ItemDatabase.getOrDiscoverItemFromDescId(int(pantsText.group(1)), self.session)
 
         accessories = []
         accText = accPattern.search(self.responseText)
         if accText:
             for match in accPattern.finditer(self.responseText):
-                item = ItemDatabase.getItemFromDescId(int(match.group(1)), self.session)
+                item = ItemDatabase.getOrDiscoverItemFromDescId(int(match.group(1)), self.session)
                 item["slot"] = 0
                 accessories.append(item)
         else:
             acc1Text = acc1Pattern.search(self.responseText)
             if acc1Text:
-                item = ItemDatabase.getItemFromDescId(int(acc1Text.group(1)), self.session)
+                item = ItemDatabase.getOrDiscoverItemFromDescId(int(acc1Text.group(1)), self.session)
                 item["slot"] = 1
                 accessories.append(item)
             acc2Text = acc2Pattern.search(self.responseText)
             if acc2Text:
-                item = ItemDatabase.getItemFromDescId(int(acc2Text.group(1)), self.session)
+                item = ItemDatabase.getOrDiscoverItemFromDescId(int(acc2Text.group(1)), self.session)
                 item["slot"] = 2
                 accessories.append(item)
             acc3Text = acc3Pattern.search(self.responseText)
             if acc3Text:
-                item = ItemDatabase.getItemFromDescId(int(acc3Text.group(1)), self.session)
+                item = ItemDatabase.getOrDiscoverItemFromDescId(int(acc3Text.group(1)), self.session)
                 item["slot"] = 3
                 accessories.append(item)
         if len(accessories) > 0:
@@ -74,4 +74,4 @@ class CurrentEquipmentRequest(GenericRequest):
 
         famText = familiarPattern.search(self.responseText)
         if famText:
-            self.responseData["familiar"] = ItemDatabase.getItemFromDescId(int(famText.group(1)), self.session)
+            self.responseData["familiar"] = ItemDatabase.getOrDiscoverItemFromDescId(int(famText.group(1)), self.session)

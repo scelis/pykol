@@ -106,13 +106,13 @@ class GetMessagesRequest(GenericRequest):
             items = []
             for match in singleItemPattern.finditer(rawText):
                 descId = int(match.group(1))
-                item = ItemDatabase.getItemFromDescId(descId, self.session)
+                item = ItemDatabase.getOrDiscoverItemFromDescId(descId, self.session)
                 item["quantity"] = 1
                 items.append(item)
             for match in multiItemPattern.finditer(rawText):
                 descId = int(match.group(1))
                 quantity = int(match.group(2).replace(',', ''))
-                item = ItemDatabase.getItemFromDescId(descId, self.session)
+                item = ItemDatabase.getOrDiscoverItemFromDescId(descId, self.session)
                 item["quantity"] = quantity
                 items.append(item)
             m["items"] = items

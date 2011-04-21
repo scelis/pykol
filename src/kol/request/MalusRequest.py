@@ -17,7 +17,7 @@ class MalusRequest(GenericRequest):
         singleItemPattern = PatternManager.getOrCompilePattern('acquireSingleItem')
         for match in singleItemPattern.finditer(self.responseText):
             descId = int(match.group(1))
-            item = ItemDatabase.getItemFromDescId(descId, self.session)
+            item = ItemDatabase.getOrDiscoverItemFromDescId(descId, self.session)
             item["quantity"] = 1
             items.append(item)
 
@@ -25,7 +25,7 @@ class MalusRequest(GenericRequest):
         for match in multiItemPattern.finditer(self.responseText):
             descId = int(match.group(1))
             quantity = int(match.group(2).replace(',', ''))
-            item = ItemDatabase.getItemFromDescId(descId, self.session)
+            item = ItemDatabase.getOrDiscoverItemFromDescId(descId, self.session)
             item["quantity"] = quantity
             items.append(item)
 

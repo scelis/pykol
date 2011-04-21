@@ -18,12 +18,12 @@ class PulverizeRequest(GenericRequest):
     def parseResponse(self):
         cantPulverizePattern = PatternManager.getOrCompilePattern('cantPulverizeItem')
         if cantPulverizePattern.search(self.responseText) != None:
-            item = ItemDatabase.getItemFromId(self.itemId, self.session)
+            item = ItemDatabase.getOrDiscoverItemFromId(self.itemId, self.session)
             raise Error.Error("'%s' is not an item that can be pulverized." % item["name"], Error.WRONG_KIND_OF_ITEM)
 
         notEnoughItemsPattern = PatternManager.getOrCompilePattern('notEnoughItems')
         if notEnoughItemsPattern.search(self.responseText) != None:
-            item = ItemDatabase.getItemFromId(self.itemId, self.session)
+            item = ItemDatabase.getOrDiscoverItemFromId(self.itemId, self.session)
             if self.quantity == 1:
                 itemStr = item["name"]
             else:
@@ -35,7 +35,7 @@ class PulverizeRequest(GenericRequest):
         singleItemPattern = PatternManager.getOrCompilePattern('acquireSingleItem')
         for match in singleItemPattern.finditer(self.responseText):
             descId = int(match.group(1))
-            item = ItemDatabase.getItemFromDescId(descId, self.session)
+            item = ItemDatabase.getOrDiscoverItemFromDescId(descId, self.session)
             item["quantity"] = 1
             items.append(item)
 
@@ -43,7 +43,7 @@ class PulverizeRequest(GenericRequest):
         for match in multiItemPattern.finditer(self.responseText):
             descId = int(match.group(1))
             quantity = int(match.group(2).replace(',', ''))
-            item = ItemDatabase.getItemFromDescId(descId, self.session)
+            item = ItemDatabase.getOrDiscoverItemFromDescId(descId, self.session)
             item["quantity"] = quantity
             items.append(item)
 

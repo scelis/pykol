@@ -7,7 +7,7 @@ def parseItemsReceived(text, session):
     singleItemPattern = PatternManager.getOrCompilePattern('acquireSingleItem')
     for match in singleItemPattern.finditer(text):
         descId = int(match.group(1))
-        item = ItemDatabase.getItemFromDescId(descId, session)
+        item = ItemDatabase.getOrDiscoverItemFromDescId(descId, session)
         item["quantity"] = 1
         items.append(item)
 
@@ -15,7 +15,7 @@ def parseItemsReceived(text, session):
     for match in multiItemPattern.finditer(text):
         descId = int(match.group(1))
         quantity = int(match.group(2).replace(',', ''))
-        item = ItemDatabase.getItemFromDescId(descId, session)
+        item = ItemDatabase.getOrDiscoverItemFromDescId(descId, session)
         item["quantity"] = quantity
         items.append(item)
 

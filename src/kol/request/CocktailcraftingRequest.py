@@ -39,14 +39,14 @@ class CocktailcraftingRequest(GenericRequest):
         match = singleItemPattern.search(self.responseText)
         if match:
             descId = int(match.group(1))
-            item = ItemDatabase.getItemFromDescId(descId, self.session)
+            item = ItemDatabase.getOrDiscoverItemFromDescId(descId, self.session)
             item["quantity"] = 1
         else:
             multiItemPattern = PatternManager.getOrCompilePattern('acquireMultipleItems')
             match = multiItemPattern.search(self.responseText)
             if match:
                 descId = int(match.group(1))
-                item = ItemDatabase.getItemFromDescId(descId, self.session)
+                item = ItemDatabase.getOrDiscoverItemFromDescId(descId, self.session)
                 quantity = int(match.group(2).replace(',', ''))
                 item["quantity"] = quantity
             else:

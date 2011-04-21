@@ -42,7 +42,7 @@ def addItem(item):
     __itemsByDescId[item["descId"]] = item
     __itemsByName[item["name"]] = item
 
-def getItemFromId(itemId, session=None):
+def getItemFromId(itemId):
     "Returns information about an item given its ID."
     if not __isInitialized:
         init()
@@ -50,15 +50,16 @@ def getItemFromId(itemId, session=None):
     try:
         return __itemsById[itemId].copy()
     except KeyError:
-        cxt = {}
-        FilterManager.executeFiltersForEvent("couldNotFindItem", cxt, session=session, itemId=itemId)
-        if "item" in cxt:
-            item = cxt["item"]
-            addItem(item)
-            return item.copy()
         raise Error.Error("Item ID %s is unknown." % itemId, Error.ITEM_NOT_FOUND)
 
-def getItemFromDescId(descId, session=None):
+def getOrDiscoverItemFromId(itemId, session):
+    try:
+        return getItemFromId(itemId)
+    except Error.Error:
+        discoverMissingItems(session)
+        return getItemFromId(itemId)
+
+def getItemFromDescId(descId):
     "Returns information about an item given its description ID."
     if not __isInitialized:
         init()
@@ -66,15 +67,16 @@ def getItemFromDescId(descId, session=None):
     try:
         return __itemsByDescId[descId].copy()
     except KeyError:
-        cxt = {}
-        FilterManager.executeFiltersForEvent("couldNotFindItem", cxt, session=session, descId=descId)
-        if "item" in cxt:
-            item = cxt["item"]
-            addItem(item)
-            return item.copy()
         raise Error.Error("Item with description ID %s is unknown." % descId, Error.ITEM_NOT_FOUND)
 
-def getItemFromName(itemName, session=None):
+def getOrDiscoverItemFromDescId(descId, session):
+    try:
+        return getItemFromDescId(descId)
+    except Error.Error:
+        discoverMissingItems(session)
+        return getItemFromDescId(descId)
+
+def getItemFromName(itemName):
     "Returns information about an item given its name."
     if not __isInitialized:
         init()
@@ -82,10 +84,31 @@ def getItemFromName(itemName, session=None):
     try:
         return __itemsByName[itemName].copy()
     except KeyError:
-        cxt = {}
-        FilterManager.executeFiltersForEvent("couldNotFindItem", cxt, session=session, itemName=itemName)
-        if "item" in cxt:
-            item = cxt["item"]
-            addItem(item)
-            return item.copy()
         raise Error.Error("The item '%s' is unknown." % itemName, Error.ITEM_NOT_FOUND)
+
+def getOrDiscoverItemFromName(itemName, session):
+    try:
+        return getItemFromName(itemName)
+    except Error.Error:
+        discoverMissingItems(session)
+        return getItemFromName(itemName)
+
+def discoverMissingItems(session):
+    from kol.request.InventoryRequest import InventoryRequest
+    from kol.request.ItemInformationRequest import ItemInformationRequest
+    invRequest = InventoryRequest(session)
+    invRequest.ignoreItemDatabase = True
+    invData = invRequest.doRequest()
+    for item in invData["items"]:
+        if item["id"] not in __itemsById:
+            try:
+                itemRequest = ItemInformationRequest(session, item["id"])
+                itemData = itemRequest.doRequest()
+                item = itemData["item"]
+                addItem(item)
+                Report.trace("itemdatabase", "Discovered new item: %s" % item["name"])
+                
+                context = { "item" : item }
+                FilterManager.executeFiltersForEvent("discoveredNewItem", context, session=session, item=item)
+            except:
+                pass

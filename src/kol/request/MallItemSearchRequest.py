@@ -50,7 +50,7 @@ class MallItemSearchRequest(GenericRequest):
             match = itemDetailsPattern.search(matchText)
             itemId = int(match.group('itemId'))
             try:
-                item = ItemDatabase.getItemFromId(itemId, self.session)
+                item = ItemDatabase.getItemFromId(itemId)
                 item["price"] = int(match.group('price').replace(',', ''))
                 item["storeId"] = int(match.group('storeId'))
                 item["storeName"] = match.group('storeName').replace('<br>', ' ')

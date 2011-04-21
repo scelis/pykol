@@ -29,7 +29,7 @@ class CafeMenuRequest(GenericRequest):
             descId = match.group(2)
             if descId.isdigit():
                 descId = int(descId)
-            item = ItemDatabase.getItemFromDescId(descId, session=self.session)
+            item = ItemDatabase.getItemFromDescId(descId)
             items.append(item)
 
         if len(items) == 0:
