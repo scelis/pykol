@@ -1,6 +1,6 @@
 "This module is used as a database for KoL skill information."
 
-from kol.Error import SkillNotFoundError
+import kol.Error as Error
 from kol.data import Skills
 from kol.manager import FilterManager
 from kol.util import Report
@@ -52,7 +52,7 @@ def getSkillFromId(skillId, session=None):
             skill = cxt["skill"]
             addSkill(skill)
             return skill.copy()
-        raise SkillNotFoundError("Skill ID %s is unknown." % skillId)
+        raise Error.Error("Skill ID %s is unknown." % skillId, Error.SKILL_NOT_FOUND)
 
 def getSkillFromName(skillName, session=None):
     "Returns information about a skill given its name."
@@ -68,4 +68,4 @@ def getSkillFromName(skillName, session=None):
             skill = cxt["skill"]
             addSkill(skill)
             return skill.copy()
-        raise SkillNotFoundError("The skill '%s' is unknown." % skillName)
+        raise Error.Error("The skill '%s' is unknown." % skillName, Error.SKILL_NOT_FOUND)

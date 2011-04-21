@@ -1,7 +1,6 @@
 import BotManager
 import BotUtils
-from kol.Error import Error, RequestError, LoginError, NightlyMaintenanceError, ParseMessageError
-from kol.Error import UserInHardcoreRoninError, UserIsIgnoringError
+import kol.Error as Error
 from kol.Session import Session
 from kol.database import ItemDatabase
 from kol.manager import FilterManager
@@ -150,15 +149,20 @@ class Bot(threading.Thread):
                         # successfully. Reset our current state.
                         self.clearState("cycle")
 
-                except LoginError, inst:
-                    Report.error("bot", inst.message, inst)
-                    timeToSleep = inst.timeToWait
-                except NightlyMaintenanceError, inst:
-                    Report.warning("bot", inst.message, inst)
-                    timeToSleep = 300
-                except Error, inst:
-                    Report.fatal("bot", inst.message, inst)
-                    self.prepareShutdown()
+                except Error.Error, inst:
+                    msg = inst.msg
+                    level = Report.WARNING
+                    if inst.code == Error.NIGHTLY_MAINTENANCE:
+                        timeToSleep = 300
+                    elif inst.code == Error.LOGIN_FAILED_GENERIC:
+                        level = Report.ERROR
+                        timeToSleep = inst.timeToWait
+                    else:
+                        level = Report.FATAL
+                        
+                    Report.report("bot", level, msg, inst)
+                    if level == Report.FATAL:
+                        self.prepareShutdown()
                 except urllib2.URLError, inst:
                     Report.error("bot", "URLError! Let's try logging in again and maybe get a new server in the process.", inst)
                     self.session = None
@@ -308,9 +312,12 @@ class Bot(threading.Thread):
                         self.returnKmail(m, self.params["didNotUnderstandKmailResponse"])
                         handledKmail = True
 
-                except ParseMessageError, inst:
-                    Report.info("bot", "Invalid kmail request.", inst)
-                    self.returnKmail(m, inst.message)
+                except Error.Error, inst:
+                    if inst.code == Error.DID_NOT_UNDERSTAND_REQUEST:
+                        Report.info("bot", "Invalid kmail request.", inst)
+                        self.returnKmail(m, inst.message)
+                    else:
+                        raise inst
 
                 # We are done with this kmail. Clean up the state and write it out.
                 if "processedKmails" in state:
@@ -368,9 +375,12 @@ class Bot(threading.Thread):
                             self.sendKmail(resp)
                             handledChat = True
 
-                except ParseMessageError, inst:
-                    Report.info("bot", "Invalid chat request.", inst)
-                    self.sendChatMessage(inst.message)
+                except Error.Error, inst:
+                    if inst.code == Error.DID_NOT_UNDERSTAND_REQUEST:
+                        Report.info("bot", "Invalid chat request.", inst)
+                        self.sendChatMessage(inst.message)
+                    else:
+                        raise inst
 
                 # We are done with this chat. Clean up the state and write it out.
                 del chats[0]
@@ -464,24 +474,27 @@ class Bot(threading.Thread):
                 r.doRequest()
                 Report.info("bot", "Message sent.")
                 state["sentMessage"] = 1
-            except UserInHardcoreRoninError, inst:
-                Report.info("bot", "User could not receive items/meat.", inst)
-                state["userInHardcoreOrRonin"] = 1
-            except UserIsIgnoringError, inst:
-                Report.info("bot", "The user is ignorning us.", inst)
-                state["userIsIgnoringUs"] = 1
-            self.writeState("kmail")
+            except Error.Error, inst:
+                if inst.code == Error.USER_IN_HARDCORE_RONIN:
+                    Report.info("bot", "User could not receive items/meat.", inst)
+                    state["userInHardcoreOrRonin"] = 1
+                elif inst.code == Error.USER_IS_IGNORING:
+                    Report.info("bot", "The user is ignorning us.", inst)
+                    state["userIsIgnoringUs"] = 1
+                else:
+                    raise inst
+                self.writeState("kmail")
 
         cxt = {}
         self.executeFilter("botPostAttemptSendKmail", cxt, kmail=m)
 
         if "userInHardcoreOrRonin" in state and "ignoreErrors" not in cxt:
             self.clearState("kmail")
-            raise UserInHardcoreRoninError("User is unable to receive items or meat.")
+            raise Error.Error("User is unable to receive items or meat.", Error.USER_IN_HARDCORE_RONIN)
 
         if "userIsIgnoringUs" in state and "ignoreErrors" not in cxt:
             self.clearState("kmail")
-            raise UserIsIgnoringError("User is ignoring us.")
+            raise Error.Error("User is ignoring us.", Error.USER_IS_IGNORING)
 
         # Grab the sent message to delete.
         if "sentMessage" in state and "sentMessageId" not in state:
@@ -497,7 +510,7 @@ class Bot(threading.Thread):
                 del state["sentMessage"]
                 self.writeState("kmail")
                 Report.fatal("bot", "Crap! Message was not sent. Bailing out.")
-                raise RequestError("We thought we sent a message but didn't. Uh oh!")
+                raise Error.Error("We thought we sent a message but didn't. Uh oh!", Error.REQUEST_GENERIC)
 
         # Delete the sent message
         if "sentMessageId" in state:

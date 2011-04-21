@@ -1,7 +1,7 @@
+import kol.Error as Error
 from GenericRequest import GenericRequest
 from kol.manager import PatternManager
 from kol.util import ParseResponseUtils
-from kol.Error import NotEnoughItemsError, InvalidActionError, TooDrunkError
 
 class DrinkBoozeRequest(GenericRequest):
     """
@@ -19,17 +19,16 @@ class DrinkBoozeRequest(GenericRequest):
         # Check for errors
         tooDrunkPattern = PatternManager.getOrCompilePattern('tooDrunk')
         if tooDrunkPattern.search(self.responseText):
-            raise TooDrunkError("You are too drunk to drink more booze")
+            raise Error.Error("You are too drunk to drink more booze.", Error.USER_IS_DRUNK)
         notBoozePattern = PatternManager.getOrCompilePattern('notBooze')
         if notBoozePattern.search(self.responseText):
-            raise InvalidActionError("That item is not booze")
+            raise Error.Error("That item is not booze.", Error.WRONG_KIND_OF_ITEM)
         boozeMissingPattern = PatternManager.getOrCompilePattern('notEnoughItems')
         if boozeMissingPattern.search(self.responseText):
-         raise NotEnoughItemsError("Item not in inventory")
+            raise Error.Error("Item not in inventory.", Error.ITEM_NOT_FOUND)
 
         # Check the results
         results = {}
-
         results["drunkenness"] = ParseResponseUtils.parseDrunkGained(self.responseText)
         results["adventures"] = ParseResponseUtils.parseAdventuresGained(self.responseText)
 

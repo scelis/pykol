@@ -1,5 +1,5 @@
+import kol.Error as Error
 from GenericRequest import GenericRequest
-from kol.Error import InvalidActionError, UserShouldNotBeHereError
 from kol.manager import PatternManager
 from kol.util import ParseResponseUtils
 
@@ -16,14 +16,14 @@ class GenericAdventuringRequest(GenericRequest):
 
         shouldNotBeHerePattern = PatternManager.getOrCompilePattern('userShouldNotBeHere')
         if shouldNotBeHerePattern.search(self.responseText):
-            raise UserShouldNotBeHereError("Unable to adventure. You should not be here.")
+            raise Error.Error("Unable to adventure. You should not be here.", Error.INVALID_LOCATION)
 
         url = self.response.geturl()
         if url.find("/fight.php") >= 0:
             # See if the user tried to perform an invalid action.
             twiddlingThumbsPattern = PatternManager.getOrCompilePattern('twiddlingThumbs')
             if twiddlingThumbsPattern.search(self.responseText):
-                raise InvalidActionError("Could not perform action. Thumbs were twiddled.")
+                raise Error.Error("Could not perform action. Thumbs were twiddled.", Error.INVALID_ACTION)
 
             # Get the monster's name.
             self.responseData["adventureType"] = "combat"
@@ -73,4 +73,4 @@ class GenericAdventuringRequest(GenericRequest):
             self.responseData["meat"] = ParseResponseUtils.parseMeatGainedLost(self.responseText)
             self.responseData["substats"] = ParseResponseUtils.parseSubstatsGainedLost(self.responseText)
         else:
-            raise RequestError("Adventure URL not recognized: %s" % url)
+            raise Error.Error("Adventure URL not recognized: %s" % url, Error.REQUEST_GENERIC)

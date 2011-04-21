@@ -1,5 +1,5 @@
+import kol.Error as Error
 from GenericRequest import GenericRequest
-from kol.Error import RequestError, UserShouldNotBeHereError
 from kol.database import ItemDatabase
 from kol.manager import PatternManager
 
@@ -22,19 +22,17 @@ class CafeMenuRequest(GenericRequest):
         cannotGoPattern = PatternManager.getOrCompilePattern('userShouldNotBeHere')
 
         if cannotGoPattern.search(self.responseText):
-            raise UserShouldNotBeHereError("You cannot reach that cafe")
+            raise Error.Error("You cannot reach that cafe.", Error.INVALID_LOCATION)
 
         items = []
         for match in menuItemPattern.finditer(self.responseText):
             descId = match.group(2)
             if descId.isdigit():
                 descId = int(descId)
-
             item = ItemDatabase.getItemFromDescId(descId, session=self.session)
             items.append(item)
 
         if len(items) == 0:
-            raise RequestError("Retrieved an Empty Menu")
+            raise Error.Error("Retrieved an Empty Menu", Error.REQUEST_GENERIC)
 
         self.responseData["menu"] = items
-

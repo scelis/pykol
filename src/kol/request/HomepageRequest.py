@@ -1,5 +1,5 @@
+import kol.Error as Error
 from GenericRequest import GenericRequest
-from kol.Error import LoginError
 from kol.manager import PatternManager
 
 class HomepageRequest(GenericRequest):
@@ -23,7 +23,7 @@ class HomepageRequest(GenericRequest):
         if serverMatch:
             self.responseData["serverURL"] = serverMatch.group(1)
         else:
-            raise LoginError("Unable to determine server URL from: " + self.response.geturl())
+            raise Error.Error("Unable to determine server URL from: " + self.response.geturl(), Error.LOGIN_FAILED_GENERIC)
 
         # Get the user's challenge string which is used to provide a more secure login mechanism.
         loginChallengePattern = PatternManager.getOrCompilePattern('loginChallenge')
@@ -31,4 +31,4 @@ class HomepageRequest(GenericRequest):
         if challengeMatch:
             self.responseData["loginChallenge"] = challengeMatch.group(1)
         else:
-            raise LoginError("Unable to find login challenge:\n" + self.responseText)
+            raise Error.Error("Unable to find login challenge:\n" + self.responseText, Error.LOGIN_FAILED_GENERIC)

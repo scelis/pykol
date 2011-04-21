@@ -1,7 +1,7 @@
+import kol.Error as Error
 from GenericRequest import GenericRequest
 from kol.manager import PatternManager
 from kol.util import ParseResponseUtils
-from kol.Error import UserShouldNotBeHereError, NotEnoughAdventuresLeftError, RequestError
 
 class CanadianStudiesRequest(GenericRequest):
     def __init__(self, session, turns):
@@ -12,15 +12,14 @@ class CanadianStudiesRequest(GenericRequest):
 
     def parseResponse(self):
         if len(self.responseText) == 0:
-            raise UserShouldNotBeHereError("You cannot use the Mind Control Device yet.")
+            raise Error.Error("You cannot use the Mind Control Device yet.", Error.INVALID_LOCATION)
 
-        NoAdventuresPattern = PatternManager.getOrCompilePattern('noAdvInstitue')
-        InvalidTurnsPattern = PatternManager.getOrCompilePattern('invalidAdvInstitute')
-
-        if NoAdventuresPattern.search(self.responseText):
-            raise NotEnoughAdventuresLeftError("You don't have enough adventures to study at the institute.")
-        if InvalidTurnsPattern.search(self.responseText):
-            raise RequestError("That is an invalid number of turns for studying")
+        noAdventuresPattern = PatternManager.getOrCompilePattern('noAdvInstitue')
+        invalidTurnsPattern = PatternManager.getOrCompilePattern('invalidAdvInstitute')
+        if noAdventuresPattern.search(self.responseText):
+            raise Error.Error("You don't have enough adventures to study at the institute.", Error.NOT_ENOUGH_ADVENTURES)
+        if invalidTurnsPattern.search(self.responseText):
+            raise Error.Error("That is an invalid number of turns for studying." Error.REQUEST_GENERIC)
 
         self.responseData["substats"] = ParseResponseUtils.parseSubstatsGainedLost(self.responseText, checkMuscle=False, checkMoxie=False)
         self.responseData["stats"] = ParseResponseUtils.ParseResponseUtils.parseStatsGainedLost(self.responseText, checkMuscle=False, checkMoxie=False)

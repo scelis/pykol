@@ -1,5 +1,5 @@
+import kol.Error as Error
 from GenericRequest import GenericRequest
-from kol.Error import NotEnoughMeatError, RequestError
 from kol.database import ItemDatabase
 from kol.manager import PatternManager
 from kol.util import ParseResponseUtils
@@ -18,11 +18,11 @@ class MakePasteRequest(GenericRequest):
         # Check for errors.
         noMeatForPastePattern = PatternManager.getOrCompilePattern('noMeatForMeatpasting')
         if noMeatForPastePattern.search(self.responseText):
-            raise NotEnoughMeatError("Unable to make the requested item. You don't have enough meat")
+            raise Error.Error("Unable to make the requested item. You don't have enough meat.", Error.NOT_ENOUGH_MEAT)
 
         # Get the item(s) we received.
         items = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
         if len(items) > 0:
             self.responseData["items"] = item
         else:
-            raise RequestError("Unknown error. No items received.")
+            raise Error.Error("Unknown error. No items received.", Error.REQUEST_GENERIC)

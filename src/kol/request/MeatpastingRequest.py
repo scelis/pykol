@@ -1,5 +1,5 @@
+import kol.Error as Error
 from GenericRequest import GenericRequest
-from kol.Error import InvalidRecipeError, NotEnoughItemsError, NotEnoughAdventuresLeftError, RequestError
 from kol.manager import PatternManager
 from kol.util import ParseResponseUtils
 
@@ -23,15 +23,17 @@ class MeatpastingRequest(GenericRequest):
         itemsDontMeatpastePattern = PatternManager.getOrCompilePattern('itemsDontMeatpaste')
         dontHaveItemsPattern = PatternManager.getOrCompilePattern('dontHaveItemsMeatpaste')
         if dontHaveMeatpastePattern.search(self.responseText):
-            raise NotEnoughItemsError("Unable to combine items. You don't have any meatpaste.")
+            e = Error.Error("Unable to combine items. You don't have any meatpaste.", Error.ITEM_NOT_FOUND)
+            e.itemId = 25
+            raise e
         elif itemsDontMeatpastePattern.search(self.responseText):
-            raise InvalidRecipeError("Unable to combine items. The submitted ingredients do not meatpaste together.")
+            raise Error.Error("Unable to combine items. The submitted ingredients do not meatpaste together.", Error.RECIPE_NOT_FOUND)
         elif dontHaveItemsPattern.search(self.responseText):
-            raise NotEnoughItemsError("Unable to combine items. You don't have all of the items you are trying to meatpaste.")
+            raise Error.Error("Unable to combine items. You don't have all of the items you are trying to meatpaste.", Error.ITEM_NOT_FOUND)
 
         # Find the items attached to the message.
         items = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
         if len(items) > 0:
             self.responseData["items"] = item
         else:
-            raise RequestError("Unknown error.")
+            raise Error.Error("Unknown error meatpasting items: %s" % self.responseText, Error.REQUEST_FATAL)

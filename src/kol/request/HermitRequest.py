@@ -1,11 +1,8 @@
-from kol.Error import RequestError, NotEnoughItemsError, NotEnoughHermitPermitsError, NotSoldHereError
+import kol.Error as Error
+from kol.database import ItemDatabase
 from kol.util import ParseResponseUtils
 from kol.manager import PatternManager
 from kol.request.GenericRequest import GenericRequest
-
-"""
-Need to check when requesting an item he doesn't have as well
-"""
 
 class HermitRequest(GenericRequest):
 
@@ -25,18 +22,24 @@ class HermitRequest(GenericRequest):
 
         # Check for errors.
         if notEnoughCloversPattern.search(self.responseText):
-            raise RequestError("The Hermit doesn't have enough clovers for that")
+            e = Error.Error("The Hermit doesn't have enough clovers for that.", Error.ITEM_NOT_FOUND)
+            e.itemId = 24
+            raise e
         if noTrinketsPattern.search(self.responseText):
-            raise NotEnoughItemsError("You don't have enough worthless items for that")
+            e = Error.Error("You don't have enough worthless items for that.", Error.ITEM_NOT_FOUND)
+            e.itemId = 43
+            raise e
         if noHermitPermitPattern.search(self.responseText):
-            raise NotEnoughHermitPermitsError("You don't have enough hermit permits for that")
+            e = Error.Error("You don't have enough hermit permits for that.", Error.ITEM_NOT_FOUND)
+            e.itemId = 42
+            raise e
         if notHermitItemPattern.search(self.responseText):
-            raise NotSoldHereError("The Hermit doesn't have any of those")
+            e = Error.Error("The Hermit doesn't have any of those.", Error.ITEM_NOT_FOUND)
+            e.itemId = self.requestData['whichitem']
+            raise e
 
         response = {}
-
         items = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
         if len(items) > 0:
             response["items"] = items
-
         self.responseData = response

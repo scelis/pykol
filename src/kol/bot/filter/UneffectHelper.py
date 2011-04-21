@@ -4,7 +4,7 @@ lets players send kmails or chat PMs telling the bot to remove any effect with
 an SGEEA.
 """
 
-from kol.Error import ParseMessageError, DontHaveEffectError, NotEnoughItemsError
+import kol.Error as Error
 from kol.bot import BotUtils
 from kol.database import ItemDatabase
 from kol.manager import FilterManager
@@ -35,18 +35,18 @@ def botProcessKmail(context, **kwargs):
 
         # Get the effect ID.
         if len(arr) < 2:
-            raise ParseMessageError("You must specify the ID of the effect to remove.")
+            raise Error.Error("You must specify the ID of the effect to remove.", Error.DID_NOT_UNDERSTAND_REQUEST)
         try:
             effectId = int(arr[1])
         except ValueError:
-            raise ParseMessageError("Unable to remove effect. Invalid effect ID.")
+            raise Error.Error("Unable to remove effect. Invalid effect ID.", Error.DID_NOT_UNDERSTAND_REQUEST)
 
         # Ensure the user sent a SGEEA.
         if len(items) != 1:
-            raise ParseMessageError("Please include just a SGEEA in your kmail.")
+            raise Error.Error("Please include just a SGEEA in your kmail.", Error.DID_NOT_UNDERSTAND_REQUEST)
         sgeea = ItemDatabase.getItemFromName("soft green echo eyedrop antidote")
         if items[0]["id"] != sgeea["id"] or items[0]["quantity"] != 1:
-            raise ParseMessageError("Please include just a single SGEEA in your kmail.")
+            raise Error.Error("Please include just a single SGEEA in your kmail.", Error.DID_NOT_UNDERSTAND_REQUEST)
 
         # Perform the request.
         m = {}
@@ -56,12 +56,13 @@ def botProcessKmail(context, **kwargs):
         try:
             r.doRequest()
             m["text"] = "Effect successfully removed!"
-        except DontHaveEffectError, inst:
-            m["text"] = "I do not currently have that effect."
-            m["items"] = items
-        except Error, inst:
-            m["text"] = "Unable to remove effect for unknown reason."
-            m["items"] = items
+        except Error.Error, inst:
+            if inst.code == Error.EFFECT_NOT_FOUND:
+                m["text"] = "I do not currently have that effect."
+                m["items"] = items
+            else:
+                m["text"] = "Unable to remove effect for unknown reason."
+                m["items"] = items
 
         bot.sendKmail(m)
         returnCode = FilterManager.FINISHED
@@ -80,12 +81,13 @@ def botProcessChat(context, **kwargs):
             try:
                 r.doRequest()
                 resp = "Effect successfully removed!"
-            except DontHaveEffectError, inst:
-                resp = "I do not currently have that effect."
-            except NotEnoughItemsError, inst:
-                resp = "I do not have any SGEEAs. Would you be kind enough to send me some?"
-            except Error, inst:
-                resp = "Unable to remove effect for unknown reason."
+            except Error.Error, inst:
+                if inst.code == Error.EFFECT_NOT_FOUND:
+                    resp = "I do not currently have that effect."
+                elif inst.code == Error.ITEM_NOT_FOUND:
+                    resp = "I do not have any SGEEAs. Would you be kind enough to send me some?"
+                else:
+                    resp = "Unable to remove effect for unknown reason."
 
             bot.sendChatMessage("/w %s %s" % (chat["userId"], resp))
             returnCode = FilterManager.FINISHED

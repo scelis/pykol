@@ -1,5 +1,5 @@
+import kol.Error as Error
 from GenericRequest import GenericRequest
-from kol.Error import UserShouldNotBeHereError
 
 class MindControlRequest(GenericRequest):
     def __init__(self, session, level):
@@ -10,4 +10,4 @@ class MindControlRequest(GenericRequest):
 
     def parseResponse(self):
         if len(self.responseText) == 0:
-            raise UserShouldNotBeHereError("You cannot use the Mind Control Device yet.")
+            raise Error.Error("You cannot use the Mind Control Device yet.", Error.INVALID_LOCATION)

@@ -1,5 +1,5 @@
+import kol.Error as Error
 from GenericRequest import GenericRequest
-from kol.Error import NotEnoughMeatError, NotSoldHereError,  UserShouldNotBeHereError
 from kol.manager import PatternManager
 from kol.util import ParseResponseUtils
 
@@ -20,17 +20,16 @@ class CafeRequest(GenericRequest):
         self.requestData['whichitem'] = item
 
     def parseResponse(self):
-        # Check for errors.
         notEnoughMeatPattern = PatternManager.getOrCompilePattern('noMeatForStore')
         cannotGoPattern = PatternManager.getOrCompilePattern('userShouldNotBeHere')
         notSoldPattern = PatternManager.getOrCompilePattern('notSoldHere')
 
         if cannotGoPattern.search(self.responseText):
-            raise UserShouldNotBeHereError("You cannot reach that cafe")
+            raise Error.Error("You cannot reach that cafe.", Error.INVALID_LOCATION)
         if notSoldPattern.search(self.responseText):
-            raise NotSoldHereError("This cafe doesn't carry that item.")
+            raise Error.Error("This cafe doesn't carry that item.", Error.ITEM_NOT_FOUND)
         if notEnoughMeatPattern.search(self.responseText):
-            raise NotEnoughMeatError("You do not have enough meat to purchase the item(s).")
+            raise Error.Error("You do not have enough meat to purchase the item(s).", Error.NOT_ENOUGH_MEAT)
 
         response = {}
 

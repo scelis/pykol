@@ -2,7 +2,6 @@ from GenericRequest import GenericRequest
 from kol.util import Report
 from kol.manager import PatternManager
 from kol.database import SkillDatabase
-from kol.Error import SkillMissingError, NotEnoughMeatError, InvalidActionError, SkillNotFoundError, RequestError
 
 class GuildTrainRequest(GenericRequest):
     def __init__(self, session, skillId):
@@ -10,7 +9,7 @@ class GuildTrainRequest(GenericRequest):
         self.url = session.serverURL + "guild.php"
         self.requestData["pwd"] = session.pwd
         self.requestData["action"] = "train"
-        self.requestData["whichskill"] = skillId%1000
+        self.requestData["whichskill"] = skillId
 
     def parseResponse(self):
         weakSkillPattern = PatternManager.getOrCompilePattern('skillTooWeak')
@@ -19,19 +18,15 @@ class GuildTrainRequest(GenericRequest):
         haveSkillPattern = PatternManager.getOrCompilePattern('skillHaveAlready')
 
         if weakSkillPattern.search(self.responseText):
-            raise InvalidActionError("You aren't a high enough level to train that skill")
+            raise Error.Error("You aren't a high enough level to train that skill.", Error.USER_IS_LOW_LEVEL)
         if badSkillPattern.search(self.responseText):
-            raise SkillMissingError("You cannot train that skill at the Guild Hall")
+            raise Error.Error("You cannot train that skill at the Guild Hall.", Error.SKILL_NOT_FOUND)
         if poorSkillPattern.search(self.responseText):
-            raise NotEnoughMeatError("You cannot afford to train that skill")
+            raise Error.Error("You cannot afford to train that skill", Error.NOT_ENOUGH_MEAT)
         if haveSkillPattern.search(self.responseText):
-            raise RequestError("You already know that skill")
+            raise Error.Error("You already know that skill.", Error.ALREADY_COMPLETED)
 
         skillLearnedPattern = PatternManager.getOrCompilePattern('skillLearned')
         match = skillLearnedPattern.search(self.responseText)
-        if match:
-            try:
-                skill = SkillDatabase.getSkillFromName(match.group(1))
-                self.responseData["skill"] = skill
-            except SkillNotFoundError, inst:
-                Report.error("bot", inst.message, inst)
+        skill = SkillDatabase.getSkillFromName(match.group(1))
+        self.responseData["skill"] = skill

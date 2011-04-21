@@ -1,5 +1,5 @@
+import kol.Error as Error
 from GenericRequest import GenericRequest
-from kol.Error import DontHaveEffectError, NotEnoughItemsError, RequestError
 from kol.manager import PatternManager
 from kol.util import Report
 
@@ -21,12 +21,12 @@ class UneffectRequest(GenericRequest):
 
         youDontHaveThatEffectPattern = PatternManager.getOrCompilePattern('youDontHaveThatEffect')
         if youDontHaveThatEffectPattern.search(self.responseText):
-            raise DontHaveEffectError("Unable to remove effect. The user does not have that effect.")
+            raise Error.Error("Unable to remove effect. The user does not have that effect.", Error.EFFECT_NOT_FOUND)
 
         youDontHaveSGEEAPattern = PatternManager.getOrCompilePattern('youDontHaveSGEEA')
         if youDontHaveSGEEAPattern.search(self.responseText):
-            raise NotEnoughItemsError("Unable to remove effect. You do not have a soft green echo eyedrop antidote.")
+            raise Error.Error("Unable to remove effect. You do not have a soft green echo eyedrop antidote.", Error.ITEM_NOT_FOUND)
 
         Report.error("request", "Unknown error occurred when trying to remove an effect")
         Report.error("request", self.responseText)
-        raise RequestError("Unknown error occurred when trying to remove an effect.")
+        raise Error.Error("Unknown error occurred when trying to remove an effect.", Error.REQUEST_FATAL)

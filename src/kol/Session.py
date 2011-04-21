@@ -1,7 +1,7 @@
-from kol.request.ApiRequest import ApiRequest
 from kol.request.HomepageRequest import HomepageRequest
 from kol.request.LoginRequest import LoginRequest
 from kol.request.LogoutRequest import LogoutRequest
+from kol.request.StatusRequest import StatusRequest
 
 import cookielib
 import hashlib
@@ -39,7 +39,7 @@ class Session(object):
         loginRequest.doRequest()
 
         # Get pwd, user ID, and the user's name.
-        request = ApiRequest(self)
+        request = StatusRequest(self)
         response = request.doRequest()
         self.pwd = response["pwd"]
         self.userName = response["name"]

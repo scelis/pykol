@@ -1,5 +1,5 @@
+import kol.Error as Error
 from GenericRequest import GenericRequest
-from kol.Error import RequestError, NotEnoughMeatError, NotSoldHereError, UserIsIgnoringError, MallLimitError
 from kol.manager import PatternManager
 from kol.util import ParseResponseUtils
 
@@ -23,23 +23,23 @@ class MallItemPurchaseRequest(GenericRequest):
     def parseResponse(self):
         cantAffordItemPattern = PatternManager.getOrCompilePattern('cantAffordItem')
         if cantAffordItemPattern.search(self.responseText):
-            raise NotEnoughMeatError("You can not afford to buy this item.")
+            raise Error.Error("You can not afford to buy this item.", Error.NOT_ENOUGH_MEAT)
 
         noItemAtThatPricePattern = PatternManager.getOrCompilePattern('mallNoItemAtThatPrice')
         if noItemAtThatPricePattern.search(self.responseText):
-            raise NotSoldHereError("That item is not sold here at that price.")
+            raise Error.Error("That item is not sold here at that price.", Error.ITEM_NOT_FOUND)
 
         ignoreListPattern = PatternManager.getOrCompilePattern('cantBuyItemIgnoreList')
         if ignoreListPattern.search(self.responseText):
-            raise UserIsIgnoringError("The owner of that store has balleeted you.")
+            raise Error.Error("The owner of that store has balleeted you.", Error.USER_IS_IGNORING)
 
         mallHitLimitPattern = PatternManager.getOrCompilePattern('mallHitLimit')
         if mallHitLimitPattern.search(self.responseText):
-            raise MallLimitError("You have hit the limit for this item at this store.")
+            raise Error.Error("You have hit the limit for this item at this store.", Error.LIMIT_REACHED)
 
         items = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
         if len(items) == 0:
-            raise RequestError("Unknown error: %s" % self.responseText)
+            raise Error.Error("Unknown error: %s" % self.responseText, Error.REQUEST_GENERIC)
         self.responseData["items"] = items
 
         spentMeatPattern = PatternManager.getOrCompilePattern('meatSpent')

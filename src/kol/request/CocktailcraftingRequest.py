@@ -1,4 +1,4 @@
-from kol.Error import InvalidRecipeError, NotEnoughItemsError, NotEnoughAdventuresLeftError, SkillMissingError, RequestError
+import kol.Error as Error
 from kol.database import ItemDatabase
 from kol.manager import PatternManager
 from kol.request.GenericRequest import GenericRequest
@@ -26,13 +26,13 @@ class CocktailcraftingRequest(GenericRequest):
 
         # Check for errors.
         if itemsDontMakeCocktailPattern.search(self.responseText):
-            raise InvalidRecipeError("Unable to make cocktail. The submitted ingredients do not mix together.")
+            raise Error.Error("Unable to make cocktail. The submitted ingredients do not mix together.", Error.RECIPE_NOT_FOUND)
         elif dontHaveSkillPattern.search(self.responseText):
-            raise SkillMissingError("Unable to make cocktail. We are not skilled enough.")
+            raise Error.Error("Unable to make cocktail. We are not skilled enough.", Error.SKILL_NOT_FOUND)
         elif dontHaveItemsPattern.search(self.responseText):
-            raise NotEnoughItemsError("Unable to make cocktail. You don't have all of the items you are trying to mix.")
+            raise Error.Error("Unable to make cocktail. You don't have all of the items you are trying to mix.", Error.ITEM_NOT_FOUND)
         elif dontHaveAdventuresPattern.search(self.responseText):
-            raise NotEnoughAdventuresLeftError("Unable to mix drink(s). We don't have enough adventures.")
+            raise Error.Error("Unable to mix drink(s). We don't have enough adventures.", Error.NOT_ENOUGH_ADVENTURES)
 
         # Find the items attached to the message.
         singleItemPattern = PatternManager.getOrCompilePattern('acquireSingleItem')
@@ -50,6 +50,6 @@ class CocktailcraftingRequest(GenericRequest):
                 quantity = int(match.group(2).replace(',', ''))
                 item["quantity"] = quantity
             else:
-                raise RequestError("Unknown error.")
+                raise Error.Error("Unknown error.", Error.REQUEST_GENERIC)
 
         self.responseData["booze"] = item

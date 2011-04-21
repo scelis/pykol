@@ -1,5 +1,4 @@
 from GenericRequest import GenericRequest
-from kol.Error import ItemNotFoundError
 from kol.database import ItemDatabase
 from kol.manager import PatternManager
 

@@ -1,5 +1,5 @@
+import kol.Error as Error
 from GenericRequest import GenericRequest
-from kol.Error import RequestError
 from kol.database import ItemDatabase
 from kol.manager import PatternManager
 from kol.util import StringUtils
@@ -31,7 +31,7 @@ class GetMessagesRequest(GenericRequest):
 
         if messagesPerPage:
             if messagesPerPage not in [10,20,50,100]:
-                raise RequestError("%s is not a valid number of messages to request per page. Please specify 10, 20, 50, or 100." % messagesPerPage)
+                raise Error.Error("%s is not a valid number of messages to request per page. Please specify 10, 20, 50, or 100." % messagesPerPage, Error.REQUEST_GENERIC)
             self.url += "&per_page=%s" % (messagesPerPage / 10)
 
         if oldestFirst == True:

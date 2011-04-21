@@ -1,7 +1,7 @@
+import kol.Error as Error
 from GenericRequest import GenericRequest
 from kol.manager import PatternManager
 from kol.util import ParseResponseUtils
-from kol.Error import NotEnoughItemsError, InvalidActionError, TooFullError
 
 class EatFoodRequest(GenericRequest):
     """
@@ -18,17 +18,16 @@ class EatFoodRequest(GenericRequest):
         # Check for errors
         tooFullPattern = PatternManager.getOrCompilePattern('tooFull')
         if tooFullPattern.search(self.responseText):
-            raise TooFullError("You are too full to eat that.")
+            raise Error.Error("You are too full to eat that.", Error.USER_IS_FULL)
         notFoodPattern = PatternManager.getOrCompilePattern('notFood')
         if notFoodPattern.search(self.responseText):
-            raise InvalidActionError("That item is not food")
+            raise Error.Error("That item is not food.", Error.WRONG_KIND_OF_ITEM)
         foodMissingPattern = PatternManager.getOrCompilePattern('notEnoughItems')
         if foodMissingPattern.search(self.responseText):
-         raise NotEnoughItemsError("Item not in inventory")
+            raise Error.Error("Item not in inventory.", Error.ITEM_NOT_FOUND)
 
         # Check the results
         results = {}
-
         results["adventures"] = ParseResponseUtils.parseAdventuresGained(self.responseText)
 
         substats = ParseResponseUtils.parseSubstatsGainedLost(self.responseText)

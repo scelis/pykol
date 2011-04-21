@@ -1,5 +1,5 @@
+import kol.Error as Error
 from GenericRequest import GenericRequest
-from kol.Error import RequestError, InvalidActionError, NotEnoughAdventuresLeftError
 from kol.database import ItemDatabase
 from kol.manager import PatternManager
 from kol.util import ParseResponseUtils
@@ -19,9 +19,9 @@ class BarrelRequest(GenericRequest):
         notBarrelPattern = PatternManager.getOrCompilePattern('usedBarrel')
         noAdventuresPattern = PatternManager.getOrCompilePattern('noAdventures')
         if notBarrelPattern.match(self.responseText):
-            raise InvalidActionError("Barrel already opened or doesn't exist. (#%s)" % self.requestData['smash'])
+            raise Error.Error("Barrel already opened or doesn't exist. (#%s)" % self.requestData['smash'], Error.INVALID_ACTION)
         if noAdventuresPattern.match(self.responseText):
-            raise NotEnoughAdventuresLeftError("You don't have enough adventures to smash that")
+            raise Error.Error("You don't have enough adventures to smash that", Error.NOT_ENOUGH_ADVENTURES)
 
         url = self.response.geturl()
         if url.find("/fight.php") >= 0:
@@ -46,7 +46,6 @@ class BarrelRequest(GenericRequest):
             self.responseData["meat"] = ParseResponseUtils.parseMeatGainedLost(self.responseText)
             self.responseData["substats"] = ParseResponseUtils.parseSubstatsGainedLost(self.responseText)
 
-
         item = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
         if len(item) > 0:
             self.responseData["items"] = item
@@ -54,5 +53,3 @@ class BarrelRequest(GenericRequest):
         hp = ParseResponseUtils.parseHPGainedLost(self.responseText)
         if hp != 0:
             self.responseData["hp"] = hp
-
-

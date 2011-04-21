@@ -1,5 +1,5 @@
+import kol.Error as Error
 from GenericRequest import GenericRequest
-from kol.Error import UnableToPulverizeItemError, NotEnoughItemsError
 from kol.database import ItemDatabase
 from kol.manager import PatternManager
 
@@ -19,7 +19,7 @@ class PulverizeRequest(GenericRequest):
         cantPulverizePattern = PatternManager.getOrCompilePattern('cantPulverizeItem')
         if cantPulverizePattern.search(self.responseText) != None:
             item = ItemDatabase.getItemFromId(self.itemId, self.session)
-            raise UnableToPulverizeItemError("'%s' is not an item that can be pulverized." % item["name"])
+            raise Error.Error("'%s' is not an item that can be pulverized." % item["name"], Error.WRONG_KIND_OF_ITEM)
 
         notEnoughItemsPattern = PatternManager.getOrCompilePattern('notEnoughItems')
         if notEnoughItemsPattern.search(self.responseText) != None:
@@ -28,7 +28,7 @@ class PulverizeRequest(GenericRequest):
                 itemStr = item["name"]
             else:
                 itemStr = item["plural"]
-            raise NotEnoughItemsError("You do not have %s %s" % (self.quantity, itemStr))
+            raise Error.Error("You do not have %s (%s)." % (itemStr, self.quantity), Error.ITEM_NOT_FOUND)
 
         items = []
 

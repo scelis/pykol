@@ -1,6 +1,6 @@
+import kol.Error as Error
 from GenericRequest import GenericRequest
 from kol.manager import PatternManager
-from kol.Error import RequestError
 
 class AutoSellRequest(GenericRequest):
     "Sells items via the autosell system"
@@ -23,7 +23,7 @@ class AutoSellRequest(GenericRequest):
             self.requestData["mode"] = self.QUANTITY
             self.requestData["quantity"] = amount
         else:
-            raise RequestError("Invalid AutoSell Mode Selected.")
+            raise Error.Error("Invalid AutoSell Mode Selected.", Error.REQUEST_GENERIC)
 
         for item in itemList:
             self.requestData[("item"+str(item["id"]))] = str(item["id"])

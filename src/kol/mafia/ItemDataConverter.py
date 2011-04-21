@@ -1,4 +1,4 @@
-from kol.Error import ItemNotFoundError
+import kol.Error as Error
 from kol.Session import Session
 from kol.database import ItemDatabase
 from kol.request.ItemDescriptionRequest import ItemDescriptionRequest
@@ -469,11 +469,14 @@ def mergeItems():
                 for k,v in item["enchantments"].iteritems():
                     savedItem["enchantments"][k] = v
             _items[i] = savedItem
-        except ItemNotFoundError:
-            r = ItemDescriptionRequest(_session, item["descId"])
-            itemInfo = r.doRequest()
-            for k,v in itemInfo.iteritems():
-                item[k] = v
+        except Error.Error, inst:
+            if inst.code == Error.ITEM_NOT_FOUND:
+                r = ItemDescriptionRequest(_session, item["descId"])
+                itemInfo = r.doRequest()
+                for k,v in itemInfo.iteritems():
+                    item[k] = v
+            else:
+                raise inst
 
 def writeItems():
     f = open("Items.py", "w")

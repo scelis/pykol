@@ -1,5 +1,5 @@
+import kol.Error as Error
 from GenericRequest import GenericRequest
-from kol.Error import RequestError, NotEnoughMeatError, NotSoldHereError, NotAStoreError, UserShouldNotBeHereError
 from kol.database import ItemDatabase
 from kol.manager import PatternManager
 from kol.util import ParseResponseUtils
@@ -41,17 +41,17 @@ class StoreRequest(GenericRequest):
         invalidStorePattern = PatternManager.getOrCompilePattern('invalidStore')
         notSoldPattern = PatternManager.getOrCompilePattern('notSoldHere')
         if len(self.responseText) == 0:
-            raise UserShouldNotBeHereError("You cannot visit that store yet.")
+            raise Error.Error("You cannot visit that store yet.", Error.INVALID_LOCATION)
         if invalidStorePattern.search(self.responseText):
-            raise NotAStoreError("The store you tried to visit doesn't exist.")
+            raise Error.Error("The store you tried to visit doesn't exist.", Error.INVALID_LOCATION)
         if notSoldPattern.search(self.responseText):
-            raise NotSoldHereError("This store doesn't carry that item.")
+            raise Error.Error("This store doesn't carry that item.", Error.ITEM_NOT_FOUND)
         if notEnoughMeatPattern.search(self.responseText):
-            raise NotEnoughMeatError("You do not have enough meat to purchase the item(s).")
+            raise Error.Error("You do not have enough meat to purchase the item(s).", Error.NOT_ENOUGH_MEAT)
 
         items = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
         if len(items) == 0:
-            raise RequestError("Unknown error. No items received.")
+            raise Error.Error("Unknown error. No items received.", Error.REQUEST_FATAL)
         self.responseData["items"] = items
 
         meatSpentPattern = PatternManager.getOrCompilePattern('meatSpent')

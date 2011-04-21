@@ -1,6 +1,6 @@
 "This module is used as a database for KoL item information."
 
-from kol.Error import ItemNotFoundError
+import kol.Error as Error
 from kol.data import Items
 from kol.manager import FilterManager
 from kol.util import Report
@@ -56,7 +56,7 @@ def getItemFromId(itemId, session=None):
             item = cxt["item"]
             addItem(item)
             return item.copy()
-        raise ItemNotFoundError("Item ID %s is unknown." % itemId)
+        raise Error.Error("Item ID %s is unknown." % itemId, Error.ITEM_NOT_FOUND)
 
 def getItemFromDescId(descId, session=None):
     "Returns information about an item given its description ID."
@@ -72,7 +72,7 @@ def getItemFromDescId(descId, session=None):
             item = cxt["item"]
             addItem(item)
             return item.copy()
-        raise ItemNotFoundError("Item with description ID %s is unknown." % descId)
+        raise Error.Error("Item with description ID %s is unknown." % descId, Error.ITEM_NOT_FOUND)
 
 def getItemFromName(itemName, session=None):
     "Returns information about an item given its name."
@@ -88,4 +88,4 @@ def getItemFromName(itemName, session=None):
             item = cxt["item"]
             addItem(item)
             return item.copy()
-        raise ItemNotFoundError("The item '%s' is unknown." % itemName)
+        raise Error.Error("The item '%s' is unknown." % itemName, Error.ITEM_NOT_FOUND)

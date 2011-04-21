@@ -1,5 +1,5 @@
+import kol.Error as Error
 from GenericRequest import GenericRequest
-from kol.Error import LoginError, IncorrectPasswordError
 from kol.manager import PatternManager
 
 import hashlib
@@ -28,26 +28,38 @@ class LoginRequest(GenericRequest):
 
         waitFifteenMinutesPattern = PatternManager.getOrCompilePattern('waitFifteenMinutesLoginError')
         if waitFifteenMinutesPattern.search(self.responseText):
-            raise LoginError("Too many login attempts in too short a span of time. Please wait fifteen minutes and try again.", 900)
+            e = Error.Error("Too many login attempts in too short a span of time. Please wait fifteen minutes and try again.", Error.LOGIN_FAILED_GENERIC)
+            e.timeToWait = 900
+            raise e
 
         waitFiveMinutesPattern = PatternManager.getOrCompilePattern('waitFiveMinutesLoginError')
         if waitFiveMinutesPattern.search(self.responseText):
-            raise LoginError("Too many login attempts in too short a span of time. Please wait five minutes and try again.", 300)
+            e = Error.Error("Too many login attempts in too short a span of time. Please wait five minutes and try again.", Error.LOGIN_FAILED_GENERIC)
+            e.timeToWait = 300
+            raise e
 
         waitOneMinutePattern = PatternManager.getOrCompilePattern('waitOneMinuteLoginError')
         if waitOneMinutePattern.search(self.responseText):
-            raise LoginError("Too many login attempts in too short a span of time. Please wait a minute and try again.", 60)
+            e = Error.Error("Too many login attempts in too short a span of time. Please wait a minute and try again.", Error.LOGIN_FAILED_GENERIC)
+            e.timeToWait = 60
+            raise e
 
         waitTwoMinutesPattern = PatternManager.getOrCompilePattern('waitTwoMinutesLoginError')
         if waitTwoMinutesPattern.search(self.responseText):
-            raise LoginError("Your previous session did not close correctly. Please wait a couple of minutes and try again.", 120)
+            e = Error.Error("Your previous session did not close correctly. Please wait a couple of minutes and try again.", Error.LOGIN_FAILED_GENERIC)
+            e.timeToWait = 120
+            raise e
 
         badPasswordPattern = PatternManager.getOrCompilePattern('badPassword')
         if badPasswordPattern.search(self.responseText):
-            raise IncorrectPasswordError("Login failed. Bad password.")
+            raise Error.Error("Login failed. Bad password.", Error.LOGIN_FAILED_BAD_PASSWORD)
 
         tooManyFailuresFromIPPattern = PatternManager.getOrCompilePattern('tooManyLoginsFailuresFromThisIP')
         if tooManyFailuresFromIPPattern.search(self.responseText):
-            raise LoginError("Too many login failures from this IP. Please wait 15 minutes and try again.", 900)
+            e = Error.Error("Too many login failures from this IP. Please wait 15 minutes and try again.", Error.LOGIN_FAILED_GENERIC)
+            e.timeToWait = 900
+            raise e
 
-        raise LoginError("Unknown login error:\n" + self.responseText, 900)
+        e = Error.Error("Unknown login error.", Error.LOGIN_FAILED_GENERIC)
+        e.timeToWait = 900
+        raise e

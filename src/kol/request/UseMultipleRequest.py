@@ -1,7 +1,7 @@
+import kol.Error as Error
 from GenericRequest import GenericRequest
 from kol.manager import PatternManager
 from kol.util import ParseResponseUtils
-from kol.Error import NotEnoughItemsError, InvalidActionError
 
 class UseMultipleRequest(GenericRequest):
     "Uses multiple items at once"
@@ -20,11 +20,11 @@ class UseMultipleRequest(GenericRequest):
         # First parse for errors
         notEnoughPattern = PatternManager.getOrCompilePattern("notEnoughToUse")
         if notEnoughPattern.search(self.responseText):
-            raise NotEnoughItemsError("You don't have that many of that item")
+            raise Error.Error("You don't have that many of that item.", Error.ITEM_NOT_FOUND)
 
         notMultiPattern = PatternManager.getOrCompilePattern("notMultiUse")
         if notMultiPattern.search(self.responseText):
-            raise InvalidActionError("You cannot multi-use that item")
+            raise Error.Error("You cannot multi-use that item.", Error.WRONG_KIND_OF_ITEM)
 
         # Find out what happened
         items = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)

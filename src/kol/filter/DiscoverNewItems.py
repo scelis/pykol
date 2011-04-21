@@ -3,7 +3,7 @@ This module is used to discover information about items that don't already exist
 ItemDatabase.
 """
 
-from kol.Error import ItemNotFoundError
+import kol.Error as Error
 from kol.manager import FilterManager
 from kol.request.ClosetContentsRequest import ClosetContentsRequest
 from kol.request.ItemDescriptionRequest import ItemDescriptionRequest
@@ -35,7 +35,7 @@ def couldNotFindItem(context, **kwargs):
         if match:
             item = {"id":int(match.group(1)), "descId":descId, "name":match.group(2)}
         else:
-            raise ItemNotFoundError("Could not find item associated with description ID '%s'." % descId)
+            raise Error.Error("Could not find item associated with description ID '%s'." % descId, Error.ITEM_NOT_FOUND)
 
     elif "itemId" in kwargs:
         itemId = kwargs["itemId"]
@@ -44,7 +44,7 @@ def couldNotFindItem(context, **kwargs):
         if match:
             item = {"id":itemId, "descId":int(match.group(1)), "name":match.group(2)}
         else:
-            raise ItemNotFoundError("Could not find item associated with ID '%s'." % itemId)
+            raise Error.Error("Could not find item associated with ID '%s'." % itemId, Error.ITEM_NOT_FOUND)
 
     elif "itemName" in kwargs:
         itemName = kwargs["itemName"]
@@ -53,7 +53,7 @@ def couldNotFindItem(context, **kwargs):
         if match:
             item = {"id":int(match.group(1)), "descId":int(match.group(2)), "name":itemName}
         else:
-            raise ItemNotFoundError("Could not find item with name '%s'." % itemName)
+            raise Error.Error("Could not find item with name '%s'." % itemName, Error.ITEM_NOT_FOUND)
 
     if item != None:
         r = ItemDescriptionRequest(session, item["descId"])
