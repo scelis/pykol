@@ -11,8 +11,7 @@ class InventoryManager(object):
 
     def refreshInventory(self):
         self.items = {}
-        for i in range(1,4):
-            r = InventoryRequest(self.session, which=i)
-            data = r.doRequest()
-            for item in data["items"]:
-                self.items[item["id"]] = item["quantity"]
+        r = InventoryRequest(self.session)
+        data = r.doRequest()
+        for item in data["items"]:
+            self.items[item["id"]] = item["quantity"]

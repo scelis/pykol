@@ -112,7 +112,7 @@ class MailboxManager(object):
         giftPackages = {}
 
         # Get a list of all gift packages in our inventory.
-        r = InventoryRequest(self.session, which=3)
+        r = InventoryRequest(self.session)
         responseData = r.doRequest()
         items = responseData["items"]
         for item in items:
