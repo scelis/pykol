@@ -315,7 +315,7 @@ class Bot(threading.Thread):
                 except Error.Error, inst:
                     if inst.code == Error.BOT_REQUEST:
                         Report.info("bot", "Invalid kmail request.", inst)
-                        self.returnKmail(m, inst.message)
+                        self.returnKmail(m, inst.msg)
                     else:
                         raise inst
 
@@ -378,7 +378,7 @@ class Bot(threading.Thread):
                 except Error.Error, inst:
                     if inst.code == Error.BOT_REQUEST:
                         Report.info("bot", "Invalid chat request.", inst)
-                        self.sendChatMessage(inst.message)
+                        self.sendChatMessage(inst.msg)
                     else:
                         raise inst
 
