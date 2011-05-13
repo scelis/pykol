@@ -55,5 +55,5 @@ class StoreRequest(GenericRequest):
         self.responseData["items"] = items
 
         meatSpentPattern = PatternManager.getOrCompilePattern('meatSpent')
-        match = spentMeatPattern.search(self.responseText)
+        match = meatSpentPattern.search(self.responseText)
         self.responseData['meatSpent'] = int(match.group(1).replace(',', ''))
