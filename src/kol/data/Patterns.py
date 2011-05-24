@@ -214,10 +214,10 @@ patterns = {
     # Ascension History patterns.
     "fullAscension" : r'</tr><td[^>]*>([0-9]+).*?</td><td[^>]*>([0-9/]+).*?</td><td[^>]*><span[^>]*>([0-9,]+).*?</span>.*?</td><td[^>]*><img [^>]*title="(.*?)"[^>]*></td><td[^>]*>(.*?)</td><td[^>]*>(<span[^>]*>)?([0-9,]+)(</span>)?</td><td[^>]*>(<span[^>]*>)?([0-9,]+)(</span>)?</td><td[^>]*><img [^>]*title="(.*?)"[^>]*></td><td[^>]*>(<img [^>]*title="(.*?)"[^>]*>|<img src="http://images.kingdomofloathing.com/otherimages/spacer.gif" width=30 height=30>)(<img [^>]*title="(.*?)"[^>]*>|</td>)',
     "familiarAscension" : r'^(.*?) \(([0-9.]+)%\)',
-    "playerName" : r'Ascension History \(<a[^>]*><font[^>]*>(.*?)</font></a>\)',
+    "playerName" : r'Ascension History \(<a[^>]*><font[^>]*>(.*?)<\/font><\/a>\)',
     
-    # Username patterns.
-    "username" : r'<body><center><table[^>]*><tr><td style[^>]*><b>(.*?)</b></td></tr>',
+    # User Profile patterns.
+    "profileUserName" : r'<td valign="?center"?><center><b>([^<>]+)<\/b> \(#[0-9]+\)<br>',
 
     # Clan patterns.
     "clanName" : r'<a href="clan_hall\.php">([^<>]*)<\/a>',
