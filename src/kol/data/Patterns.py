@@ -217,7 +217,7 @@ patterns = {
     "playerName" : r'Ascension History \(<a[^>]*><font[^>]*>(.*?)<\/font><\/a>\)',
     
     # User Profile patterns.
-    "profileUserName" : r'<td valign="?center"?><center><b>([^<>]+)<\/b> \(#[0-9]+\)<br>',
+    "profileUserName" : r'<td valign="?center"?>(?:<center>)?<b>([^<>]+)<\/b> \(#[0-9]+\)<br>',
 
     # Clan patterns.
     "clanName" : r'<a href="clan_hall\.php">([^<>]*)<\/a>',
