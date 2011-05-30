@@ -34,6 +34,8 @@ HTML_ENTITY_ENCODINGS = {
     'Ó' : "&Oacute;",
     'ö' : "&ouml;",
     'Ö' : "&Ouml;",
+    'ø' : "&oslash;",
+    'Ø' : "&Oslash;",
     'ú' : "&uacute;",
     'Ú' : "&Uacute;",
     'ü' : "&uuml;",
