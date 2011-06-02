@@ -17,6 +17,6 @@ class JukeboxRequest(GenericRequest):
             response["effects"] = effectResponse
         hpResponse = ParseResponseUtils.parseHPGainedLost(self.responseText)
         if hpResponse != 0:
-            reponse["hp"] = hpResponse
+            response["hp"] = hpResponse
 
         self.responseData = response

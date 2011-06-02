@@ -1,7 +1,7 @@
 from GenericRequest import GenericRequest
-from kol.util import Report
 from kol.manager import PatternManager
 from kol.database import SkillDatabase
+import kol.Error as Error
 
 class GuildTrainRequest(GenericRequest):
     def __init__(self, session, skillId):

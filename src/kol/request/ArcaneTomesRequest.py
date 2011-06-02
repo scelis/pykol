@@ -12,5 +12,5 @@ class ArcaneTomesRequest(GenericRequest):
 
     def parseResponse(self):
         self.responseData["substats"] = ParseResponseUtils.parseSubstatsGainedLost(self.responseText, checkMuscle=False, checkMoxie=False)
-        self.responseData["stats"] = ParseResponseUtils.ParseResponseUtils.parseStatsGainedLost(self.responseText, checkMuscle=False, checkMoxie=False)
+        self.responseData["stats"] = ParseResponseUtils.parseStatsGainedLost(self.responseText, checkMuscle=False, checkMoxie=False)
         self.responseData["level"] = ParseResponseUtils.parseLevelsGained(self.responseText)

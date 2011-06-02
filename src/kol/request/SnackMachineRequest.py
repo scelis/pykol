@@ -9,10 +9,9 @@ simulates clicking on it, not selecting a snack.
 class SnackMachineRequest(GenericRequest):
     "Uses the Snack Machine in the rumpus room"
     def __init__(self, session):
-        super(OldTimeyRadioRequest, self).__init__(session)
+        super(SnackMachineRequest, self).__init__(session)
         self.url = session.serverURL + 'clan_rumpus.php?action=click&spot=9&furni=2'
 
     def parseResponse(self):
-        response = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
-
-        self.responseData = response
+        items = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
+        self.responseData["items"] = items

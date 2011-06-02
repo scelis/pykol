@@ -56,7 +56,7 @@ class AscensionHistoryRequest(GenericRequest):
             try:
                 ascEnd = datetime.strptime(ascDate, "%m/%d/%y")
             except ValueError:
-                ascEnd = dateStr
+                ascEnd = ascDate
         
             runlength = timedelta(ascDays - 1)
             ascStart = ascEnd - runlength

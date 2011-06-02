@@ -59,10 +59,10 @@ class CafeRequest(GenericRequest):
 
         hpResponse = ParseResponseUtils.parseHPGainedLost(self.responseText)
         if hpResponse != 0:
-            reponse["hp"] = hpResponse
+            response["hp"] = hpResponse
 
         mpResponse = ParseResponseUtils.parseMPGainedLost(self.responseText)
         if mpResponse != 0:
-            reponse["mp"] = mpResponse
+            response["mp"] = mpResponse
 
         self.responseData = response

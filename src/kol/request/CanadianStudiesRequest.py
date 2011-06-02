@@ -19,8 +19,8 @@ class CanadianStudiesRequest(GenericRequest):
         if noAdventuresPattern.search(self.responseText):
             raise Error.Error("You don't have enough adventures to study at the institute.", Error.NOT_ENOUGH_ADVENTURES)
         if invalidTurnsPattern.search(self.responseText):
-            raise Error.Error("That is an invalid number of turns for studying." Error.REQUEST_GENERIC)
+            raise Error.Error("That is an invalid number of turns for studying.", Error.REQUEST_GENERIC)
 
         self.responseData["substats"] = ParseResponseUtils.parseSubstatsGainedLost(self.responseText, checkMuscle=False, checkMoxie=False)
-        self.responseData["stats"] = ParseResponseUtils.ParseResponseUtils.parseStatsGainedLost(self.responseText, checkMuscle=False, checkMoxie=False)
+        self.responseData["stats"] = ParseResponseUtils.parseStatsGainedLost(self.responseText, checkMuscle=False, checkMoxie=False)
         self.responseData["level"] = ParseResponseUtils.parseLevelsGained(self.responseText)

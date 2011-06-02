@@ -23,6 +23,6 @@ class MakePasteRequest(GenericRequest):
         # Get the item(s) we received.
         items = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
         if len(items) > 0:
-            self.responseData["items"] = item
+            self.responseData["items"] = items
         else:
             raise Error.Error("Unknown error. No items received.", Error.REQUEST_GENERIC)
