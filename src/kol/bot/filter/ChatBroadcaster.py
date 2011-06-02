@@ -89,7 +89,7 @@ def handlePrivateChat(context, **kwargs):
             bot.writeState("global")
             bot.sendChatMessage("No longer broadcasting /clan to the other clan channels.")
         else:
-            bot.sendChatMessage("You do not have permission to perform this action.")
+            bot.sendChatMessage("/w %s You do not have permission to perform this action." % chat["userId"])
         returnCode = FilterManager.FINISHED
     elif chat["text"] == "unsquelch":
         if BotUtils.canUserPerformAction(chat["userId"], "squelch", bot):
@@ -97,7 +97,7 @@ def handlePrivateChat(context, **kwargs):
             bot.writeState("global")
             bot.sendChatMessage("Now broadcasting /clan to the other clan channels.")
         else:
-            bot.sendChatMessage("You do not have permission to perform this action.")
+            bot.sendChatMessage("/w %s You do not have permission to perform this action." % chat["userId"])
         returnCode = FilterManager.FINISHED
     elif chat["text"] == "squelchall":
         if BotUtils.canUserPerformAction(chat["userId"], "squelch", bot):
@@ -106,7 +106,7 @@ def handlePrivateChat(context, **kwargs):
                 aBot.writeState("global")
                 aBot.sendChatMessage("All bots have been squelched.")
         else:
-            bot.sendChatMessage("You do not have permission to perform this action.")
+            bot.sendChatMessage("/w %s You do not have permission to perform this action." % chat["userId"])
         returnCode = FilterManager.FINISHED
     elif chat["text"] == "unsquelchall":
         if BotUtils.canUserPerformAction(chat["userId"], "squelch", bot):
@@ -115,7 +115,7 @@ def handlePrivateChat(context, **kwargs):
                 aBot.writeState("global")
                 aBot.sendChatMessage("All bots have been unsquelched.")
         else:
-            bot.sendChatMessage("You do not have permission to perform this action.")
+            bot.sendChatMessage("/w %s You do not have permission to perform this action." % chat["userId"])
         returnCode = FilterManager.FINISHED
     elif chat["text"] == "who":
         response = bot.sendChatMessage("/who")
