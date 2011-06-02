@@ -54,6 +54,8 @@ def parseMessages(text, isGet):
     linkedPlayerPattern = PatternManager.getOrCompilePattern("chatLinkedPlayer")
     multiLinePattern = PatternManager.getOrCompilePattern("chatMultiLineStart")
     multiEmotePattern = PatternManager.getOrCompilePattern("chatMultiLineEmote")
+    playerLoggedOnPattern = PatternManager.getOrCompilePattern("chatPlayerLoggedOn")
+    playerLoggedOffPattern = PatternManager.getOrCompilePattern("chatPlayerLoggedOff")
 
     # Get the chat messages.
     chats = []
@@ -189,6 +191,24 @@ def parseMessages(text, isGet):
                 parsedChat = True
 
         if isGet:
+            # See if a user logged in.
+            if parsedChat == False:
+                match = playerLoggedOnPattern.search(line)
+                if match:
+                    chat["type"] = "logonNotification"
+                    chat["userId"] = int(match.group(1))
+                    chat["userName"] = match.group(2)
+                    parsedChat = True
+
+            # See if a user logged out.
+            if parsedChat == False:
+                match = playerLoggedOffPattern.search(line)
+                if match:
+                    chat["type"] = "logoffNotification"
+                    chat["userId"] = int(match.group(1))
+                    chat["userName"] = match.group(2)
+                    parsedChat = True
+
             # See if this was a private message.
             if parsedChat == False:
                 match = privateChatPattern.search(line)

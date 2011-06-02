@@ -88,6 +88,8 @@ patterns = {
     "chatMultiLineStart" : r'<b><a target="?mainpane"? href="showplayer\.php\?who=(-?[0-9]+)"><font color="?#?\w+"?>([^<>]+)<\/font><\/b><\/a>:$',
     "chatMultiLineEmote" : r'<b><i><a target="?mainpane"? href="showplayer\.php\?who=(-?[0-9]+)"><font color="?#?\w+"?>([^<>]+)<\/b><\/font><\/a>$',
     "outgoingPrivate" : r'<font color="?blue"?><b>private to <a class=nounder target="?mainpane"? href="?showplayer.php\?who=([0-9]+)"?><font color="?blue"?>(.*?)</font></a></b>:(.*?)</font></br>',
+    "chatPlayerLoggedOn" : r'<font color=green><a target=mainpane href=\'showplayer\.php\?who=([0-9]+)\'><font color=green><b>([^<>]+)<\/b><\/font><\/a> logged on\.<\/font>$',
+    "chatPlayerLoggedOff" : r'<font color=green><a target=mainpane href=\'showplayer\.php\?who=([0-9]+)\'><font color=green><b>([^<>]+)<\/b><\/font><\/a> logged off\.<\/font>$',
 
     # Clan dungeon patterns.
     "dungeonActivity" : r'(?:^|<br>|<br><b>|<b>)([^<>]+) \(#([0-9,]+)\) ([^<>]+) \(([0-9,]+) turns?\)',
