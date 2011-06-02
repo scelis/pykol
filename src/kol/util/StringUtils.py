@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import re
 
 HTML_ENTITY_ENCODINGS = {
     '"' : "&quot;",
@@ -53,3 +54,6 @@ def htmlEntityDecode(text):
         text = text.replace(v, k)
     text = text.replace("&amp;", '&')
     return text
+
+def htmlRemoveTags(text):
+    return re.sub(r'<[^>]*?>', '', text)
