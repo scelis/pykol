@@ -218,6 +218,10 @@ patterns = {
     
     # User Profile patterns.
     "profileUserName" : r'<td valign="?center"?>(?:<center>)?<b>([^<>]+)<\/b> \(#[0-9]+\)<br>',
+    "profileClan" : r'<a class=nounder href="showclan\.php\?whichclan=([0-9]+)">(.*?)<\/a>',
+    "profileNumAscensions" : r'Ascensions<\/a>:<\/b><\/td><td>([0-9,]+)<\/td>',
+    "profileNumTrophies" : r'Trophies Collected:<\/b><\/td><td>([0-9,]+)<\/td>',
+    "profileNumTattoos" : r'Tattoos Collected:<\/b><\/td><td>([0-9,]+)<\/td>',
 
     # Clan patterns.
     "clanName" : r'<a href="clan_hall\.php">([^<>]*)<\/a>',
