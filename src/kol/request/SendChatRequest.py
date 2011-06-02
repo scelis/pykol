@@ -13,4 +13,4 @@ class SendChatRequest(GenericRequest):
 
     def parseResponse(self):
         # Parse the chat messages returned.
-        self.responseData["chatMessages"] = ChatUtils.parseMessages(self.responseText, False)
+        self.responseData["chatMessages"] = ChatUtils.parseOutgoingChatMessages(self.responseText)

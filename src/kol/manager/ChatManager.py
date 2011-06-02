@@ -123,6 +123,6 @@ class ChatManager(object):
 
         for chat in chats:
             if 'listen' in chat['type'] or 'channel' in chat['type']:
-                self.currentChannel = chat['current']
+                self.currentChannel = chat['currentChannel']
 
         return chats

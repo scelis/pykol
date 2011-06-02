@@ -24,23 +24,39 @@ CHAT_CHANNELS = [
     "villa",
 ]
 
-def parseMessages(text, isGet):
+def parseIncomingChatMessage(text):
+    return parseChatMessages(text, True)
+    
+def parseOutgoingChatMessages(text):
+    return parseChatMessages(text, False)
+
+def parseChatMessages(text, isIncoming):
     """
-    This function parses chats passed to it.
-    The flag isGet should be set to true when accessed through GetChatMessagesRequest().  It should be false when parsing the response of sent messages (for /c, /l, /s, and /who responses).
+    This function parses chats passed to it. The chats are assumed to come from a GetChatMessagesRequest.
     Returns a list of chats, each of which is a dictionary possibly containing the following keys:
         "type" : What kind of chat this is.  Current possible values are
-            "channel", "listen", "listen:start", "listen:stop", "normal", "emote", "private", "system message", "mod warning", "mod announcement", "notification:kmail", "unknown"
-        "current" : The current channel as indicated when sending a /c, /s, or /l request
+            "channel"
+            "listen"
+            "listen:start"
+            "listen:stop"
+            "normal"
+            "emote"
+            "private"
+            "system message"
+            "mod warning"
+            "mod announcement"
+            "notification:kmail"
+            "unknown"
+        "currentChannel" : The current channel as indicated when sending a /c, /s, or /l request
+        "otherChannels" : The other channels being listened to as indicated by a /l request
         "description" : The description of the current channel as indicated when sending a /c or /s request
-        "other" : The channels being listened to as indicated by a /l request
         "channel" : The channel this chat message was posted from
         "userId" : The user id number of the user sending this chat message
         "userName" : The user name of the user sending this chat message
         "text" : The text of the current chat message
-        "multiline" : A flag indicating whether this is a multiline message such as a haiku or a message from the Gothy Effect
+        "isMultiline" : A flag indicating whether this is a multiline message such as a haiku or a message from the Gothy Effect
     """
-
+    
     # Prepare the patterns.
     htmlCommentPattern = PatternManager.getOrCompilePattern("htmlComment")
     htmlTagPattern = PatternManager.getOrCompilePattern("htmlTag")
@@ -60,71 +76,66 @@ def parseMessages(text, isGet):
     # Get the chat messages.
     chats = []
 
-    # Check for /c, /s, and /l responses, as well as outgoing private messages
-    if not isGet:
+    # Check for responses to outgoing chat commands.
+    if isIncoming == False:
+        outPrivatePattern = PatternManager.getOrCompilePattern("outgoingPrivate")
         chatNewChannelPattern = PatternManager.getOrCompilePattern("newChatChannel")
         chatListenPattern = PatternManager.getOrCompilePattern("chatListenResponse")
         chatListenStartPattern = PatternManager.getOrCompilePattern("chatStartListen")
         chatListenStopPattern = PatternManager.getOrCompilePattern("chatStopListen")
-        outPrivatePattern = PatternManager.getOrCompilePattern("outgoingPrivate")
 
         # See if it is an outgoing private message
-        chat = {}
         match = outPrivatePattern.search(text)
         if match:
+            chat = {}
             chat["type"] = "private"
             chat["userName"] = match.group(2)
             chat["userId"] = int(match.group(1))
             chat["text"] = match.group(3).strip()
-
             text = text[:match.start()] + text[match.end():]
             chats.append(chat)
 
         # See if the user changed chat channels through /c or /s
-        chat = {}
         match = chatNewChannelPattern.search(text)
         if match:
+            chat = {}
             chat["type"] = "channel"
-            chat["current"] = match.group(1)
+            chat["currentChannel"] = match.group(1)
             chat["description"] = match.group(2).replace('<br>','')
-
             text = text[:match.start()] + text[match.end():]
             chats.append(chat)
 
         # See if it is a /l response
-        chat = {}
         match = chatListenPattern.search(text)
         if match:
+            chat = {}
             listen = match.group()
             currentPattern = PatternManager.getOrCompilePattern("chatListenCurrent")
             otherPattern = PatternManager.getOrCompilePattern("chatListenOthers")
             chat["type"] = "listen"
-            chat["current"] = currentPattern.search(listen).group(1)
-
+            chat["currentChannel"] = currentPattern.search(listen).group(1)
             other = []
             for channel in otherPattern.finditer(listen):
                 other.append(channel.group(1))
-            chat["other"] = other
-
+            chat["otherChannels"] = other
             text = text[:match.start()] + text[match.end():]
             chats.append(chat)
 
-        # See if it is a /l <channel> response
-        chat = {}
+        # See if it is a /l <channel> response to start listening to a channel
         match = chatListenStartPattern.search(text)
         if match:
-            chat["type"] = ""
+            chat = {}
+            chat["type"] = "listen:start"
             chat["channel"] = match.group(1)
-            chat["text"] = ""
-
             text = text[:match.start()] + text[match.end():]
             chats.append(chat)
+        
+        # See if it is a /l <channel> response to stop listening to a channel
         match = chatListenStopPattern.search(text)
         if match:
-            chat["type"] = ""
+            chat = {}
+            chat["type"] = "listen:stop"
             chat["channel"] = match.group(1)
-            chat["text"] = ""
-
             text = text[:match.start()] + text[match.end():]
             chats.append(chat)
 
@@ -190,7 +201,7 @@ def parseMessages(text, isGet):
                 chat["text"] = match.group(3).strip()
                 parsedChat = True
 
-        if isGet:
+        if isIncoming == True:
             # See if a user logged in.
             if parsedChat == False:
                 match = playerLoggedOnPattern.search(line)
@@ -235,8 +246,7 @@ def parseMessages(text, isGet):
                     chat["type"] = "normal"
                     chat["userId"] = int(match.group(1))
                     chat["userName"] = match.group(2)
-                    chat["text"] = ""
-                    chat["multiline"] = True
+                    chat["isMultiline"] = True
                     parsedChat = True
 
             # See if this is the start of a multi-line emote (Gothy or Haiku)
@@ -247,8 +257,7 @@ def parseMessages(text, isGet):
                     chat["type"] = "emote"
                     chat["userId"] = int(match.group(1))
                     chat["userName"] = match.group(2)
-                    chat["text"] = ""
-                    chat["multiline"] = True
+                    chat["isMultiline"] = True
                     parsedChat = True
 
         else:
@@ -271,7 +280,7 @@ def parseMessages(text, isGet):
         if parsedChat == False:
             # If the last chat was flagged as starting a multiline
             if len(chats) > 0 and "multiline" in chats[-1]:
-                if chats[-1]["multiline"] == True:
+                if chats[-1]["isMultiline"] == True:
                     if len(chats[-1]["text"]) > 0:
                         chats[-1]["text"] += "\n"
                     line = line.replace('<Br>','\n')
