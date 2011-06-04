@@ -10,7 +10,8 @@ class ClanWhitelistRequest(GenericRequest):
 
     def parseResponse(self):
         # Get the set of clan ranks.
-        ranks = {}
+        ranks = []
+        ranksById = {}
         rankContainerPattern = PatternManager.getOrCompilePattern('clanRankContainer')
         match = rankContainerPattern.search(self.responseText)
         if match:
@@ -18,10 +19,11 @@ class ClanWhitelistRequest(GenericRequest):
             rankPattern = PatternManager.getOrCompilePattern('clanRank')
             for rankMatch in rankPattern.finditer(rankText):
                 rank = {}
-                rank["name"] = rankMatch.group(2)
-                rank["number"] = int(rankMatch.group(3))
-                ranks[int(rankMatch.group(1))] = rank
-            self.responseData["ranks"] = ranks
+                rank["rankId"] = int(rankMatch.group(1))
+                rank["rankName"] = rankMatch.group(2)
+                rank["rankNumber"] = int(rankMatch.group(3))
+                ranks.append(rank)
+                ranksById[rank["rankId"]] = rank
 
         # Get a list of users who are whitelisted to the clan.
         members = []
@@ -33,10 +35,27 @@ class ClanWhitelistRequest(GenericRequest):
             member["clanTitle"] = match.group('clanTitle')
             rankId = match.group('clanRankId')
             rankName = match.group('clanRankName')
+            rankNumber = None
             if rankId != None:
-                rank = ranks[int(rankId)]
+                rank = ranksById[int(rankId)]
+                member["rankId"] = rank["rankId"]
+                member["rankName"] = rank["rankName"]
+                member["rankNumber"] = rank["rankNumber"]
             elif rankName != None:
-                rank = {"name" : rankName}
-            member["clanRank"] = rank
+                member["rankName"] = rankName
+                foundRank = False
+                for rank in ranks:
+                    if rank["rankName"] == rankName:
+                        foundRank = True
+                        break
+                if foundRank == False:
+                    rank = {}
+                    rank["rankId"] = -1
+                    rank["rankName"] = rankName
+                    rank["rankNumber"] = -1
+                    ranks.append(rank)
             members.append(member)
+
+        self.responseData["ranks"] = ranks
         self.responseData["members"] = members
+
