@@ -147,6 +147,7 @@ patterns = {
     'noMeatForStore' : r"(?:You can't afford that many of that item)|(?:You can't afford that item)|(?:You can't afford to purchase that)",
     'invalidStore' : r"You've been sent back here by some kind of bug",
     'notSoldHere' : r"(?:This store doesn't sell that item)|(?:Invalid item selected)",
+    "storeInventory" : r'width=30 height=30><\/td><td>([^<>]+?)(?: \(([0-9]+)\))?<\/td><td>([0-9,]+)</td><td>([^.]*)</'
 
     # Hermit patterns.
     'noTrinkets' : r"You don't have enough stuff",
