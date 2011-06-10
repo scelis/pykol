@@ -12,22 +12,33 @@ class StoreInventoryRequest(GenericRequest):
                 self.url = session.serverURL + 'managestore.php'
 
 	def parseResponse(self):
+		"""
+		Searches managestore.php for item name, quantity, price, limit, and ID.
+		Returns the items with the usual keys in the item data base along with:
+
+			quantity -- The number of the item in your mall store.
+			   price -- The price of the item in your mall store.
+			   limit -- The limit on the item in your mall store.
+		"""
 		storeInventoryPattern = PatternManager.getOrCompilePattern('storeInventory')
 
 		items = []
-
-		for item in storeInventoryPattern.finditer(self.responseText):
-			name = item.group(1)
-			if item.group(2) == None:
-				amnt = 1
+		for match in storeInventoryPattern.finditer(self.responseText):
+			name = match.group(1)
+			if match.group(2) == None:
+				quantity = 1
 			else:
-				amnt = int(item.group(2))
-			price = item.group(3)
-			if item.group(4) == '<font size=1>(unlimited)</font>&nbsp;&nbsp;':
+				quantity = int(match.group(2))
+			price = int(match.group(3).replace(',',''))
+			if match.group(4) == '<font size=1>(unlimited)</font>&nbsp;&nbsp;':
 				limit = 0
 			else:
-				limit = item.group(4)	
-			m = {"item":name, "amnt":amnt, "price":price, "limit":limit}
-			items.append(m)
+				limit = int(match.group(4))
+			itemID = int(match.group(5))
+			item = ItemDatabase.getOrDiscoverItemFromId(itemID, self.session)
+			item["quantity"] = quantity
+			item["price"] = price
+			item["limit"] = limit
+			items.append(item)
 
 		self.responseData["items"] = items
