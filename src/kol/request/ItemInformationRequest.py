@@ -20,10 +20,12 @@ class ItemInformationRequest(ApiRequest):
         item["name"] = data["name"]
         if "plural" in data and len(data["plural"]) > 0:
             item["plural"] = data["plural"]
-        if "image" in data and len(data["image"]) > 0:
+        if "picture" in data and len(data["picture"]) > 0:
             item["image"] = "%s.gif" % data["picture"]
         if "type" in data:
             item["type"] = data["type"]
+            if item["type"] == "gift":
+                item["type"] = "gift package"
         if "sellvalue" in data and int(data["sellvalue"] > 0):
             item["autosell"] = int(data["sellvalue"])
         if "power" in data:
