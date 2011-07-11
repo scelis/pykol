@@ -245,4 +245,7 @@ patterns = {
     "clanLogMeatSpentArmy" : r'spent (?P<meat>[0-9,]+) Meat on the clan army\.$',
     "clanLogChangedRank" : r'changed Rank for <a class=nounder href=\'showplayer\.php\?who=[0-9]+\'>(?P<userName>.*) \(#(?P<userId>[0-9]+)\)<\/a>\.$',
     "clanLogChangedTitle" : r'changed title for <a class=nounder href=\'showplayer\.php\?who=[0-9]+\'>(?P<userName>.*) \(#(?P<userId>[0-9]+)\)<\/a>\. \((?P<clanTitle>.*)\)$',
+    
+    # Search player Patterns
+    "searchPlayers" : r'showplayer.php\?who=([0-9]+)">([^<]*)</a>',
 }
