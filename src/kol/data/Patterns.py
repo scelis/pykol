@@ -247,5 +247,5 @@ patterns = {
     "clanLogChangedTitle" : r'changed title for <a class=nounder href=\'showplayer\.php\?who=[0-9]+\'>(?P<userName>.*) \(#(?P<userId>[0-9]+)\)<\/a>\. \((?P<clanTitle>.*)\)$',
     
     # Search player Patterns
-    "searchPlayers" : r'showplayer.php\?who=([0-9]+)">([^<]*)</a>',
+    "searchPlayers" : r'showplayer\.php\?who=([0-9]+)">([^<]*)<\/a>',
 }
