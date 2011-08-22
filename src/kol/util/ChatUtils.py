@@ -365,10 +365,10 @@ def cleanChatText(dirtyText):
             elif text[textEnd] == ' ':
                 textEnd += 1
 
-            if urlIndex == len(url) - 1:
+            if urlIndex == len(url):
                 found = True
 
-        newText = text[:match.start()] + url + text[textEnd+1:]
+        newText = text[:match.start()] + url + text[textEnd:]
         text = newText
         match = linkPattern.search(text)
 
