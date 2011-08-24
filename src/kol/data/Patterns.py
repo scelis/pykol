@@ -248,4 +248,9 @@ patterns = {
     
     # Search player Patterns
     "searchPlayers" : r'showplayer\.php\?who=([0-9]+)">([^<]*)<\/a>',
+    
+    # Traveling Trader Patterns
+    "traderNotTradingForThatItem" : r'<td>The trader is not trading for that item\.<\/td>',
+    "traderCantTradeForThatMany" : r'<td>You can\'t trade for that many ',
+    "traderNotEnoughWads" : r'<td>You don\'t have enough twinkly wads to trade for that many ',
 }
