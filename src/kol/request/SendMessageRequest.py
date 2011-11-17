@@ -31,6 +31,7 @@ class SendMessageRequest(GenericRequest):
         ignoringPattern = PatternManager.getOrCompilePattern('userIgnoringUs')
         notEnoughItemsPattern = PatternManager.getOrCompilePattern('notEnoughItemsToSend')
         sentMessagePattern = PatternManager.getOrCompilePattern('messageSent')
+        trendyPattern = PatternManager.getOrCompilePattern('kmailNotSentUserTrendy')
 
         if hardcoreRoninPattern.search(self.responseText):
             raise Error.Error("Unable to send items or meat. User is in hardcore or ronin.", Error.USER_IN_HARDCORE_RONIN)
@@ -38,6 +39,8 @@ class SendMessageRequest(GenericRequest):
             raise Error.Error("Unable to send message. User is ignoring us.", Error.USER_IS_IGNORING)
         elif notEnoughItemsPattern.search(self.responseText):
             raise Error.Error("You don't have enough of one of the items you're trying to send.", Error.ITEM_NOT_FOUND)
+        elif trendyPattern.search(self.responseText):
+            raise Error.Error("Unable to send items or meat. User is too trendy.", Error.USER_IN_HARDCORE_RONIN)
         elif sentMessagePattern.search(self.responseText) == None:
             Report.alert("system", "Received unknown response when attempting to send a message.")
             Report.alert("system", self.responseText)
