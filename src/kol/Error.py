@@ -17,6 +17,7 @@ USER_IS_IGNORING = __i; __i += 1
 USER_IS_DRUNK = __i; __i += 1
 USER_IS_FULL = __i; __i += 1
 USER_IS_LOW_LEVEL = __i; __i += 1
+USER_NOT_FOUND = __i; __i += 1
 NOT_ENOUGH_ADVENTURES = __i; __i += 1
 NOT_ENOUGH_MEAT = __i; __i += 1
 LIMIT_REACHED = __i; __i += 1
