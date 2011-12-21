@@ -258,7 +258,7 @@ patterns = {
     # Crimbo Patterns
     "crimboItemIsNotCandy" : r"<td>That's not candy!<\/td>",
     "crimboNotEnoughCandy" : r"<td>You don't have that much candy!<\/td>",
-    "crimboCandyCreditsReceived" : r"That gives you ([0-9,]+) Candy Credits\.  You can trade in your",
+    "crimboCandyCreditsReceived" : r"That gives you ([0-9,]+) Candy Credits?\.  You can trade in your",
     "crimboInvalidGift" : r"<td>Invalid gift selected\.  Bah Humbug!<\/td>",
     "crimboInvalidPlayer" : r"<td>Sorry, I couldn't find the player ",
     "crimboUserAlreadyReceivedGift" : r"<td>The factory workers inform you that your intended recipient already has one of those\.<\/td>",
