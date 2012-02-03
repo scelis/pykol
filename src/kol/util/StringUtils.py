@@ -1,58 +1,14 @@
-# -*- coding: utf-8 -*-
+import htmlentitydefs
 import re
 
-HTML_ENTITY_ENCODINGS = {
-    '"' : "&quot;",
-    "'" : "&apos;",
-    '<' : "&lt;",
-    '>' : "&gt;",
-    '™' : "&trade;",
-    '©' : "&copy;",
-    '®' : "&reg;",
-    '°' : "&deg;",
-    '¡' : "&iexcl;",
-    '¿' : "&iquest;",
-    'æ' : "&aelig;",
-    'Æ' : "&AElig;",
-    'á' : "&aacute;",
-    'Á' : "&Aacute;",
-    'ä' : "&auml;",
-    'Ä' : "&Auml;",
-    'å' : "&aring;",
-    'Å' : "&Aring;",
-    'ß' : "&szlig;",
-    'é' : "&eacute;",
-    'É' : "&Eacute;",
-    'ë' : "&euml;",
-    'Ë' : "&Euml;",
-    'í' : "&iacute;",
-    'Í' : "&Iacute;",
-    'ï' : "&iuml;",
-    'Ï' : "&Iuml;",
-    'ñ' : "&ntilde;",
-    'Ñ' : "&Ntilde;",
-    'ó' : "&oacute;",
-    'Ó' : "&Oacute;",
-    'ö' : "&ouml;",
-    'Ö' : "&Ouml;",
-    'ø' : "&oslash;",
-    'Ø' : "&Oslash;",
-    'ú' : "&uacute;",
-    'Ú' : "&Uacute;",
-    'ü' : "&uuml;",
-    'Ü' : "&Uuml;",
-}
-
 def htmlEntityEncode(text):
-    text = text.replace('&', "&amp;")
-    for k,v in HTML_ENTITY_ENCODINGS.iteritems():
-        text = text.replace(k, v)
+    for k,v in htmlentitydefs.codepoint2name.iteritems():
+        text = text.replace(unichr(k).encode('utf-8'), "&%s;" % v)
     return text
 
 def htmlEntityDecode(text):
-    for k,v in HTML_ENTITY_ENCODINGS.iteritems():
-        text = text.replace(v, k)
-    text = text.replace("&amp;", '&')
+    for k,v in htmlentitydefs.name2codepoint.iteritems():
+        text = text.replace("&%s;" % k, unichr(v).encode('utf-8'))
     return text
 
 def htmlRemoveTags(text):
