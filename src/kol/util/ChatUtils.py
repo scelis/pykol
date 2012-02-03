@@ -247,6 +247,7 @@ def parseChatMessages(text, isIncoming):
                     chat["userId"] = int(match.group(1))
                     chat["userName"] = match.group(2)
                     chat["isMultiline"] = True
+                    chat["text"] = ""
                     parsedChat = True
 
             # See if this is the start of a multi-line emote (Gothy or Haiku)
@@ -258,6 +259,7 @@ def parseChatMessages(text, isIncoming):
                     chat["userId"] = int(match.group(1))
                     chat["userName"] = match.group(2)
                     chat["isMultiline"] = True
+                    chat["text"] = ""
                     parsedChat = True
 
         else:
@@ -279,7 +281,7 @@ def parseChatMessages(text, isIncoming):
         # Handle unrecognized chat messages.
         if parsedChat == False:
             # If the last chat was flagged as starting a multiline
-            if len(chats) > 0 and "multiline" in chats[-1]:
+            if len(chats) > 0 and "isMultiline" in chats[-1]:
                 if chats[-1]["isMultiline"] == True:
                     if len(chats[-1]["text"]) > 0:
                         chats[-1]["text"] += "\n"
