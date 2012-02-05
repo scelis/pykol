@@ -227,6 +227,10 @@ patterns = {
     "profileNumTrophies" : r'Trophies Collected:<\/b><\/td><td>([0-9,]+)<\/td>',
     "profileNumTattoos" : r'Tattoos Collected:<\/b><\/td><td>([0-9,]+)<\/td>',
 
+    # Quest Log patterns.
+    "questsCompleted" : r'<b>([\w\s,\.\'\?!]+)<\/b>(?!<\/td>)<br>([\w\s,\.\'\?!]+)<p>',
+
+
     # Clan patterns.
     "clanName" : r'<a href="clan_hall\.php">([^<>]*)<\/a>',
     "clanCredo" : r'<textarea name=newcredo[^<>]*>([^<>]*)</textarea>',
