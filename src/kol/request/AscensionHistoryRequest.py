@@ -49,10 +49,10 @@ class AscensionHistoryRequest(GenericRequest):
             ascSign = ascension.group(5).strip()
             ascTurns = int(ascension.group(7).replace(',',''))
             ascDays = int(ascension.group(10).replace(',',''))
-            ascFamiliarData = ascension.group(12)
-            ascMode = ascension.group(14)
-            ascPath = ascension.group(16)
+            ascFamiliarData = ascension.group(13)
+            ascMode = ascension.group(15)
             
+            ascPath = ascension.group(17)
             try:
                 ascEnd = datetime.strptime(ascDate, "%m/%d/%y")
             except ValueError:
@@ -67,7 +67,7 @@ class AscensionHistoryRequest(GenericRequest):
             ascFamiliar = ''
             ascFamUsage = ''
     
-            if ascFamiliarData == "No Data":
+            if ascFamiliarData == "No Data" or ascFamiliarData is None:
                 ascFamiliar = "None"
                 ascFamUsage = 0
             else:
