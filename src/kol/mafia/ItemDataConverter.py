@@ -1,18 +1,19 @@
 import kol.Error as Error
-from kol.Session import Session
 from kol.database import ItemDatabase
-from kol.request.ItemDescriptionRequest import ItemDescriptionRequest
 from kol.serialize import ItemsSerializer
 
 import re
 import sys
 import urllib2
 
+CONCOCTIONS_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/concoctions.txt"
 EQUIPMENT_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/equipment.txt"
+FOLD_GROUPS_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/foldgroups.txt"
 FULLNESS_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/fullness.txt"
 INEBRIETY_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/inebriety.txt"
 ITEM_DESCS_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/itemdescs.txt"
 MODIFIERS_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/modifiers.txt"
+NPC_STORES_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/npcstores.txt"
 OUTFITS_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/outfits.txt"
 PACKAGES_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/packages.txt"
 SPLEEN_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/spleenhit.txt"
@@ -42,7 +43,7 @@ ENCHANTMENT_MAPPINGS = {
     'Maximum HP' : 'maximumHP',
     'Maximum MP' : 'maximumMP',
     'Meat Drop' : 'meatDrop',
-    'Melee Damage' : 'meleeDamage',
+    'Melee Damage' : 'weaponDamage',
     'Moxie Percent' : 'moxiePercent',
     'Muscle Percent' : 'musclePercent',
     'Mysticality Percent' : 'mysticalityPercent',
@@ -61,16 +62,26 @@ ENCHANTMENT_MAPPINGS = {
     'Stench Damage' : 'stenchDamage',
     'Stench Resistance' : 'stenchResistance',
     'Stench Spell Damage' : 'stenchSpellDamage',
+    'Weapon Damage' : 'weaponDamage'
 }
+
+GIFT_PACKAGES = [
+    "raffle prize box",
+    "Warehouse 23 crate",
+    "anniversary gift box",
+    "bindle of joy",
+    "moist sack",
+    "foreign box",
+    "Uncle Crimbo's Sack"
+]
 
 _items = []
 _itemsById = {}
 _itemsByName = {}
 _opener = urllib2.build_opener()
-_session = None
 
-def main(argv=sys.argv):
-    login(argv[1], argv[2])
+
+def main():
     readItemDescsFile()
     readEquipmentFile()
     readFullnessFile()
@@ -79,17 +90,17 @@ def main(argv=sys.argv):
     readPackagesFile()
     readOutfitsFile()
     readZapGroupsFile()
+    readFoldGroupsFile()
     readTradeItemsFile()
+    readNPCStoresFile()
     readModifiersFile()
     fixupItems()
-    mergeItems()
-    _session.logout()
     writeItems()
 
-def login(username, password):
-    global _session
-    _session = Session()
-    _session.login(username, password)
+
+def itemByName(name):
+    return _itemsByName[name.lower()]
+
 
 def readItemDescsFile():
     text = _opener.open(ITEM_DESCS_FILE).read()
@@ -99,17 +110,19 @@ def readItemDescsFile():
             if len(parts) >= 3:
                 itemId = int(parts[0])
                 descId = int(parts[1])
-                name = parts[2]
-                item = {"id" : int(parts[0]), "descId" : int(parts[1]), "name" : parts[2]}
+                image = parts[2]
+                name = parts[3]
+                item = {"id" : itemId, "descId" : descId, "name" : name, "image" : image}
 
-                if len(parts) > 3:
-                    plural = parts[3]
+                if len(parts) > 4:
+                    plural = parts[4]
                     if plural != name + 's':
-                        item["plural"] = parts[3]
+                        item["plural"] = plural
 
                 _items.append(item)
                 _itemsById[itemId] = item
-                _itemsByName[name] = item
+                _itemsByName[name.lower()] = item
+
 
 def readEquipmentFile():
     currentType = None
@@ -146,13 +159,12 @@ def readEquipmentFile():
                             offHandType = ""
 
                     try:
-                        item = _itemsByName[name]
+                        item = itemByName(name)
                     except KeyError:
                         continue
 
                     # Set the power
-                    if power > 0 or currentType == "weapon" or \
-                        (currentType == "off-hand" and offHandType == "shield"):
+                    if power > 0 or currentType == "weapon" or (currentType == "off-hand" and offHandType == "shield"):
                         item["power"] = power
 
                     # Set the requirements
@@ -160,18 +172,15 @@ def readEquipmentFile():
                         muscleMatch = REQUIRED_MUSCLE_PATTERN.search(requirements)
                         if muscleMatch:
                             muscle = int(muscleMatch.group(1))
-                            if muscle > 0:
-                                item["requiredMuscle"] = muscle
+                            item["requiredMuscle"] = muscle
                         mysticalityMatch = REQUIRED_MYSTICALITY_PATTERN.search(requirements)
                         if mysticalityMatch:
                             myst = int(mysticalityMatch.group(1))
-                            if myst > 0:
-                                item["requiredMysticality"] = myst
+                            item["requiredMysticality"] = myst
                         moxieMatch = REQUIRED_MOXIE_PATTERN.search(requirements)
                         if moxieMatch:
                             moxie = int(moxieMatch.group(1))
-                            if moxie > 0:
-                                item["requiredMoxie"] = moxie
+                            item["requiredMoxie"] = moxie
 
                     # Set the type
                     if currentType == "weapon":
@@ -184,22 +193,24 @@ def readEquipmentFile():
                     else:
                         item["type"] = currentType
 
+
 def readFullnessFile():
     text = _opener.open(FULLNESS_FILE).read()
     for line in text.splitlines():
         if len(line) > 0 and line[0] != '#':
             parts = line.split('\t')
-            if len(parts) >= 7:
+            if len(parts) >= 8:
                 name = parts[0]
                 fullness = int(parts[1])
                 level = int(parts[2])
-                adv = parts[3]
-                musc = parts[4]
-                myst = parts[5]
-                mox = parts[6]
+                quality = parts[3]
+                adv = parts[4]
+                musc = parts[5]
+                myst = parts[6]
+                mox = parts[7]
 
                 try:
-                    item = _itemsByName[name]
+                    item = itemByName(name)
                 except KeyError:
                     continue
 
@@ -207,31 +218,38 @@ def readFullnessFile():
                     item["fullness"] = fullness
                 if level > 0:
                     item["levelRequired"] = level
-                if adv != "0":
+                if len(quality) > 0:
+                    item["quality"] = quality
+                if adv != "0" and len(adv) > 0:
                     item["adventuresGained"] = adv
-                if musc != "0":
+                if musc != "0" and len(musc) > 0:
                     item["muscleGained"] = musc
-                if myst != "0":
+                if myst != "0" and len(myst) > 0:
                     item["mysticalityGained"] = myst
-                if mox != "0":
+                if mox != "0" and len(mox) > 0:
                     item["moxieGained"] = mox
+
 
 def readInebrietyFile():
     text = _opener.open(INEBRIETY_FILE).read()
     for line in text.splitlines():
         if len(line) > 0 and line[0] != '#':
             parts = line.split('\t')
-            if len(parts) >= 7:
+            if len(parts) >= 8:
                 name = parts[0]
                 drunkenness = int(parts[1])
                 level = int(parts[2])
-                adv = parts[3]
-                musc = parts[4]
-                myst = parts[5]
-                mox = parts[6]
+                quality = parts[3]
+                adv = parts[4]
+                musc = parts[5]
+                myst = parts[6]
+                mox = parts[7]
+                if name == "ice-cold Sir Schlitz":
+                    print quality
+                    print drunkenness
 
                 try:
-                    item = _itemsByName[name]
+                    item = itemByName(name)
                 except KeyError:
                     continue
 
@@ -239,31 +257,35 @@ def readInebrietyFile():
                     item["drunkenness"] = drunkenness
                 if level > 0:
                     item["levelRequired"] = level
-                if adv != "0":
+                if len(quality) > 0:
+                    item["quality"] = quality
+                if adv != "0" and len(adv) > 0:
                     item["adventuresGained"] = adv
-                if musc != "0":
+                if musc != "0" and len(musc) > 0:
                     item["muscleGained"] = musc
-                if myst != "0":
+                if myst != "0" and len(myst) > 0:
                     item["mysticalityGained"] = myst
-                if mox != "0":
+                if mox != "0" and len(mox) > 0:
                     item["moxieGained"] = mox
+
 
 def readSpleenFile():
     text = _opener.open(SPLEEN_FILE).read()
     for line in text.splitlines():
         if len(line) > 0 and line[0] != '#':
             parts = line.split('\t')
-            if len(parts) >= 7:
+            if len(parts) >= 8:
                 name = parts[0]
                 spleen = int(parts[1])
                 level = int(parts[2])
-                adv = parts[3]
-                musc = parts[4]
-                myst = parts[5]
-                mox = parts[6]
+                quality = parts[3]
+                adv = parts[4]
+                musc = parts[5]
+                myst = parts[6]
+                mox = parts[7]
 
                 try:
-                    item = _itemsByName[name]
+                    item = itemByName(name)
                 except KeyError:
                     continue
 
@@ -271,14 +293,17 @@ def readSpleenFile():
                     item["spleen"] = spleen
                 if level > 0:
                     item["levelRequired"] = level
-                if adv != "0":
+                if len(quality) > 0:
+                    item["quality"] = quality
+                if adv != "0" and len(adv) > 0:
                     item["adventuresGained"] = adv
-                if musc != "0":
+                if musc != "0" and len(musc) > 0:
                     item["muscleGained"] = musc
-                if myst != "0":
+                if myst != "0" and len(myst) > 0:
                     item["mysticalityGained"] = myst
-                if mox != "0":
+                if mox != "0" and len(mox) > 0:
                     item["moxieGained"] = mox
+
 
 def readPackagesFile():
     text = _opener.open(PACKAGES_FILE).read()
@@ -287,14 +312,18 @@ def readPackagesFile():
             parts = line.split('\t')
             if len(parts) >= 4:
                 name = parts[0]
-                numItems = int(parts[1])
+                numItems = int(parts[2])
+                price = int(parts[3])
 
                 try:
-                    item = _itemsByName[name]
+                    item = itemByName(name)
                 except KeyError:
                     continue
 
+                item["type"] = "gift package"
                 item["numPackageItems"] = numItems
+                item["npcPrice"] = price
+
 
 def readOutfitsFile():
     text = _opener.open(OUTFITS_FILE).read()
@@ -308,10 +337,12 @@ def readOutfitsFile():
                 for thisItem in outfitItems:
                     thisItem = thisItem.strip()
                     try:
-                        item = _itemsByName[thisItem]
+                        item = itemByName(thisItem)
                     except KeyError:
                         continue
                     item["outfit"] = outfitName
+                    item["outfitId"] = outfitId
+
 
 def readZapGroupsFile():
     text = _opener.open(ZAP_GROUPS_FILE).read()
@@ -321,10 +352,25 @@ def readZapGroupsFile():
             for thisItem in zapItems:
                 thisItem = thisItem.strip()
                 try:
-                    item = _itemsByName[thisItem]
+                    item = itemByName(thisItem)
                 except KeyError:
                     continue
                 item["isZappable"] = True
+
+
+def readFoldGroupsFile():
+    text = _opener.open(FOLD_GROUPS_FILE).read()
+    for line in text.splitlines():
+        if len(line) > 1 and line[0] != '#':
+            foldItems = line.split(',')
+            for thisItem in foldItems:
+                thisItem = thisItem.strip()
+                try:
+                    item = itemByName(thisItem)
+                except KeyError:
+                    continue
+                item["isFoldable"] = True
+
 
 def readTradeItemsFile():
     text = _opener.open(TRADE_ITEMS_FILE).read()
@@ -334,7 +380,9 @@ def readTradeItemsFile():
             if len(parts) >= 5:
                 itemId = int(parts[0])
                 itemName = parts[1]
-                itemTypeId = parts[2]
+                itemTypes = parts[2].split(',')
+                for i in range(len(itemTypes)):
+                    itemTypes[i] = itemTypes[i].strip()
                 itemTradeStr = parts[3]
                 autosell = int(parts[4])
 
@@ -346,18 +394,64 @@ def readTradeItemsFile():
                 if autosell > 0:
                     item["autosell"] = autosell
 
-                if itemTypeId == "usable":
+                if "food" in itemTypes:
+                    item["type"] = "food"
+                elif "drink" in itemTypes:
+                    item["type"] = "booze"
+                elif "grow" in itemTypes:
+                    item["type"] = "familiar"
+                elif "familiar" in itemTypes:
+                    item["type"] = "familiar equipment"
+
+                if "mp" in itemTypes or "hp" in itemTypes or "hpmp" in itemTypes or "usable" in itemTypes or "message" in itemTypes:
                     item["isUsable"] = True
-                elif itemTypeId == "multiple":
+                if "multiple" in itemTypes:
                     item["isUsable"] = True
                     item["isMultiUsable"] = True
-                elif itemTypeId == "grow":
-                    item["type"] = "familiar"
-                elif itemTypeId == "familiar":
-                    item["type"] = "familiar equipment"
-                elif itemTypeId == "reusable":
+                if "reusable" in itemTypes:
                     item["isUsable"] = True
-                    item["notConsumedWhenUsed"] = True
+                    item["isReusable"] = True
+                if "zap" in itemTypes:
+                    item["isZappable"] = True
+                if "sphere" in itemTypes:
+                    item["isSphere"] = True
+                if "combat" in itemTypes:
+                    item["isCombatUsable"] = True
+                if "combat reusable" in itemTypes:
+                    item["isCombatUsable"] = True
+                    item["isCombatReusable"]  = True
+                if "curse" in itemTypes:
+                    item["isUsableOnOthers"] = True
+                if "bounty" in itemTypes:
+                    item["isBounty"] = True
+                if "candy" in itemTypes:
+                    item["isCandy"] = True
+
+                if "type" not in item:
+                    if "isUsable" in item and item["isUsable"] and "isCombatUsable" in item and item["isCombatUsable"]:
+                        item["type"] = "combat / usable item"
+                    elif "isUsable" in item and item["isUsable"]:
+                        item["type"] = "usable"
+                    elif "isCombatUsable" in item and item["isCombatUsable"]:
+                        item["type"] = "combat item"
+
+def readNPCStoresFile():
+    text = _opener.open(NPC_STORES_FILE).read()
+    for line in text.splitlines():
+        if len(line) > 0 and line[0] != '#':
+            parts = line.split('\t')
+            if len(parts) >= 3:
+                storeName = parts[0]
+                storeId = parts[1]
+                itemName = parts[2]
+                price = int(parts[3])
+                try:
+                    item = itemByName(itemName)
+                except KeyError:
+                    continue
+                item["npcStoreId"] = storeId
+                item["npcPrice"] = price
+
 
 def readModifiersFile():
     text = _opener.open(MODIFIERS_FILE).read()
@@ -372,7 +466,7 @@ def readModifiersFile():
                 modifiers = parts[1].strip()
 
                 try:
-                    item = _itemsByName[itemName]
+                    item = itemByName(itemName)
                     item["enchantments"] = {}
                 except KeyError:
                     continue
@@ -429,6 +523,7 @@ def readModifiersFile():
                 if "enchantments" in item and len(item["enchantments"]) == 0:
                     del item["enchantments"]
 
+
 def fixupItems():
     for item in _items:
         if "enchantments" in item:
@@ -452,31 +547,13 @@ def fixupItems():
                     if k in enchantments:
                         enchantments[v] = enchantments[k]
                         del enchantments[k]
-
-def mergeItems():
-    ItemDatabase.init()
-    for i in range(len(_items)):
-        item = _items[i]
+    for itemName in GIFT_PACKAGES:
         try:
-            savedItem = ItemDatabase.getItemFromId(item["id"])
+            item = itemByName(itemName)
+            item["type"] = "gift package"
+        except KeyError:
+            pass
 
-            for k,v in item.iteritems():
-                if k != "enchantments" and k != "type":
-                    savedItem[k] = v
-            if "enchantments" in item and len(item["enchantments"]) > 0:
-                if "enchantments" not in savedItem:
-                    savedItem["enchantments"] = {}
-                for k,v in item["enchantments"].iteritems():
-                    savedItem["enchantments"][k] = v
-            _items[i] = savedItem
-        except Error.Error, inst:
-            if inst.code == Error.ITEM_NOT_FOUND:
-                r = ItemDescriptionRequest(_session, item["descId"])
-                itemInfo = r.doRequest()
-                for k,v in itemInfo.iteritems():
-                    item[k] = v
-            else:
-                raise inst
 
 def writeItems():
     f = open("Items.py", "w")
