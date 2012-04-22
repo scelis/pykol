@@ -250,15 +250,15 @@ patterns = {
     "clanLogMeatSpentArmy" : r'spent (?P<meat>[0-9,]+) Meat on the clan army\.$',
     "clanLogChangedRank" : r'changed Rank for <a class=nounder href=\'showplayer\.php\?who=[0-9]+\'>(?P<userName>.*) \(#(?P<userId>[0-9]+)\)<\/a>\.$',
     "clanLogChangedTitle" : r'changed title for <a class=nounder href=\'showplayer\.php\?who=[0-9]+\'>(?P<userName>.*) \(#(?P<userId>[0-9]+)\)<\/a>\. \((?P<clanTitle>.*)\)$',
-    
+
     # Search player Patterns
     "searchPlayers" : r'showplayer\.php\?who=([0-9]+)">([^<]*)<\/a>',
-    
+
     # Traveling Trader Patterns
     "traderNotTradingForThatItem" : r'<td>The trader is not trading for that item\.<\/td>',
     "traderCantTradeForThatMany" : r'<td>You can\'t trade for that many ',
     "traderNotEnoughWads" : r'<td>You don\'t have enough twinkly wads to trade for that many ',
-    
+
     # Crimbo Patterns
     "crimboItemIsNotCandy" : r"<td>That's not candy!<\/td>",
     "crimboNotEnoughCandy" : r"<td>You don't have that much candy!<\/td>",
@@ -266,4 +266,12 @@ patterns = {
     "crimboInvalidGift" : r"<td>Invalid gift selected\.  Bah Humbug!<\/td>",
     "crimboInvalidPlayer" : r"<td>Sorry, I couldn't find the player ",
     "crimboUserAlreadyReceivedGift" : r"<td>The factory workers inform you that your intended recipient already has one of those\.<\/td>",
+
+    # Curse Patterns
+    "dontHaveThatItem" : r"<td>You don't have that item\.<\/td>",
+    "cantFireArrowAtSelf" : r"<td>You can't fire that at yourself\. +Your accuracy at point-blank range is terrible\.<\/td>",
+    "userAlreadyHitWithArrow" : r"<td>That player has already been hit with a time's arrow today\.<\/td>",
+    "cantFireArrowAtHardcoreRonin": r"<td>You can't fire a time's arrow at somebody in Ronin or Hardcore\.<\/td>",
+    "cantCursePlayerNotFound" : r"<td>That player could not be found\. +Confound it\.<\/td>",
+    "fireArrowSuccess" : r"It hits with a satisfying <i>thwock<\/i>",
 }

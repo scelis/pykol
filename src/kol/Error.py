@@ -7,6 +7,7 @@ REQUEST_GENERIC = __i; __i += 1
 REQUEST_FATAL = __i; __i += 1
 INVALID_ACTION = __i; __i += 1
 INVALID_LOCATION = __i; __i += 1
+INVALID_USER = __i; __i += 1
 ITEM_NOT_FOUND = __i; __i += 1
 SKILL_NOT_FOUND = __i; __i += 1
 EFFECT_NOT_FOUND = __i; __i += 1
@@ -28,6 +29,6 @@ class Error(Exception):
     def __init__(self, msg, code=-1):
         self.msg = msg
         self.code = code
-        
+
     def __str__(self):
         return self.msg
