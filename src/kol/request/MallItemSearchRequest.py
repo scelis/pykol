@@ -58,7 +58,7 @@ class MallItemSearchRequest(GenericRequest):
                 limit = match.group('limit').replace(',', '')
                 if len(limit) > 0:
                     limit = int(limit)
-                item["limit"] = limit
+                    item["limit"] = limit
                 if matchText.find('limited"') >= 0:
                     item["hitLimit"] = True
                 items.append(item)
