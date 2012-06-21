@@ -166,9 +166,9 @@ class Bot(threading.Thread):
                             level = cxt["level"]
                         else:
                             level = Report.FATAL
-                        Report.report("bot", level, msg, inst)
-                        if level == Report.FATAL:
-                            self.prepareShutdown()
+                    Report.report("bot", level, msg, inst)
+                    if level == Report.FATAL:
+                        self.prepareShutdown()
                 except urllib2.URLError, inst:
                     Report.error("bot", "URLError! Let's try logging in again and maybe get a new server in the process.", inst)
                     self.session = None
