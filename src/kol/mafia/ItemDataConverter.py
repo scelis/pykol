@@ -3,7 +3,6 @@ from kol.database import ItemDatabase
 from kol.serialize import ItemsSerializer
 
 import re
-import sys
 import urllib2
 
 CONCOCTIONS_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/concoctions.txt"
