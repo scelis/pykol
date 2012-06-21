@@ -158,11 +158,17 @@ class Bot(threading.Thread):
                         level = Report.ERROR
                         timeToSleep = inst.timeToWait
                     else:
-                        level = Report.FATAL
-                        
-                    Report.report("bot", level, msg, inst)
-                    if level == Report.FATAL:
-                        self.prepareShutdown()
+                        cxt = {}
+                        self.executeFilter("botUnknownException", cxt, inst=inst)
+                        if "timeToSleep" in cxt:
+                            timeToSleep = cxt["timeToSleep"]
+                        else:
+                            self.prepareShutdown()
+                        if "level" in cxt:
+                            level = cxt["level"]
+                        Report.report("bot", level, msg, inst)
+                        if level == Report.FATAL:
+                            self.prepareShutdown()
                 except urllib2.URLError, inst:
                     Report.error("bot", "URLError! Let's try logging in again and maybe get a new server in the process.", inst)
                     self.session = None
