@@ -205,7 +205,6 @@ items = [
         "descId" : 346365116,
         "name" : "tortoise's blessing",
         "image" : "lump.gif",
-        "autosell" : 1,
     },
     {
         "id" : 19,
@@ -681,7 +680,6 @@ items = [
         "type" : "hat",
         "image" : "headdress.gif",
         "power" : 15,
-        "autosell" : 1,
         "enchantments" :
         {
             "maximumHP" : "+1",
@@ -711,7 +709,6 @@ items = [
         "descId" : 244181505,
         "name" : "golden twig",
         "image" : "stick.gif",
-        "autosell" : 45,
     },
     {
         "id" : 67,
@@ -744,8 +741,6 @@ items = [
         "type" : "usable",
         "image" : "tent1.gif",
         "autosell" : 20,
-        "npcPrice" : 40,
-        "npcStoreId" : "m",
         "isUsable" : True,
     },
     {
@@ -836,10 +831,13 @@ items = [
         "id" : 78,
         "descId" : 547934955,
         "name" : "pretty bouquet",
-        "type" : "usable",
+        "type" : "off-hand item",
         "image" : "bouquet.gif",
         "autosell" : 2,
-        "isUsable" : True,
+        "enchantments" :
+        {
+            "moxie" : "+3",
+        },
     },
     {
         "id" : 79,
@@ -903,7 +901,6 @@ items = [
         "name" : "unlocked meat locker",
         "type" : "usable",
         "image" : "meatlocker.gif",
-        "autosell" : 6,
         "isUsable" : True,
     },
     {
@@ -1458,6 +1455,8 @@ items = [
         "plural" : "sets of sweet rims",
         "image" : "rims.gif",
         "autosell" : 45,
+        "npcPrice" : 300,
+        "npcStoreId" : "m",
     },
     {
         "id" : 136,
@@ -1536,10 +1535,9 @@ items = [
         "id" : 145,
         "descId" : 858596394,
         "name" : "barbed-wire fence",
-        "type" : "combat / usable item",
+        "type" : "combat item",
         "image" : "fence.gif",
         "autosell" : 31,
-        "isUsable" : True,
         "isCombatUsable" : True,
         "isZappable" : True,
     },
@@ -2050,7 +2048,6 @@ items = [
         "name" : "birthday candle",
         "type" : "usable",
         "image" : "candle.gif",
-        "autosell" : 50,
         "isUsable" : True,
     },
     {
@@ -3033,10 +3030,10 @@ items = [
         "id" : 270,
         "descId" : 483845177,
         "name" : "white picket fence",
-        "type" : "usable",
+        "type" : "combat item",
         "image" : "smallfence.gif",
         "autosell" : 15,
-        "isUsable" : True,
+        "isCombatUsable" : True,
     },
     {
         "id" : 271,
@@ -3159,7 +3156,6 @@ items = [
         "type" : "hat",
         "image" : "gasmask.gif",
         "power" : 50,
-        "autosell" : 16,
         "requiredMoxie" : 10,
         "enchantments" :
         {
@@ -4240,63 +4236,54 @@ items = [
         "descId" : 216588286,
         "name" : "linoleum sword hilt",
         "image" : "hilt.gif",
-        "autosell" : 95,
     },
     {
         "id" : 367,
         "descId" : 352682215,
         "name" : "linoleum stick",
         "image" : "stick.gif",
-        "autosell" : 95,
     },
     {
         "id" : 368,
         "descId" : 129537220,
         "name" : "linoleum crossbow string",
         "image" : "string.gif",
-        "autosell" : 95,
     },
     {
         "id" : 369,
         "descId" : 499995791,
         "name" : "asbestos sword hilt",
         "image" : "hilt.gif",
-        "autosell" : 95,
     },
     {
         "id" : 370,
         "descId" : 153682830,
         "name" : "asbestos stick",
         "image" : "stick.gif",
-        "autosell" : 95,
     },
     {
         "id" : 371,
         "descId" : 983432397,
         "name" : "asbestos crossbow string",
         "image" : "string.gif",
-        "autosell" : 95,
     },
     {
         "id" : 372,
         "descId" : 869589567,
         "name" : "chrome sword hilt",
         "image" : "hilt.gif",
-        "autosell" : 95,
     },
     {
         "id" : 373,
         "descId" : 424084004,
         "name" : "chrome stick",
         "image" : "stick.gif",
-        "autosell" : 95,
     },
     {
         "id" : 374,
         "descId" : 328326637,
         "name" : "chrome crossbow string",
         "image" : "string.gif",
-        "autosell" : 95,
     },
     {
         "id" : 375,
@@ -5093,7 +5080,6 @@ items = [
         "name" : "chef-skull-in-the-box",
         "plural" : "chef-skulls-in-the-box",
         "image" : "chefinbox.gif",
-        "autosell" : 87,
     },
     {
         "id" : 442,
@@ -5101,7 +5087,6 @@ items = [
         "name" : "bartender-skull-in-the-box",
         "plural" : "bartender-skulls-in-the-box",
         "image" : "bartinbox.gif",
-        "autosell" : 78,
     },
     {
         "id" : 443,
@@ -5514,7 +5499,6 @@ items = [
         "name" : "Mr. Container",
         "type" : "container",
         "image" : "backpack.gif",
-        "autosell" : 999,
         "enchantments" :
         {
             "itemDrop" : "+3",
@@ -5526,7 +5510,6 @@ items = [
         "name" : "Newbiesport&trade; backpack",
         "type" : "container",
         "image" : "backpack.gif",
-        "autosell" : 75,
         "enchantments" :
         {
             "itemDrop" : "+1",
@@ -5538,7 +5521,6 @@ items = [
         "name" : "hemp backpack",
         "type" : "container",
         "image" : "backpack.gif",
-        "autosell" : 95,
         "enchantments" :
         {
             "itemDrop" : "+2",
@@ -6524,7 +6506,6 @@ items = [
         "plural" : "Children's Meals of the Damned",
         "type" : "food",
         "image" : "foodbag.gif",
-        "autosell" : 31,
         "quality" : "crappy",
     },
     {
@@ -7783,7 +7764,6 @@ items = [
         "type" : "shirt",
         "image" : "mrshirt.gif",
         "power" : 30,
-        "autosell" : 35,
         "enchantments" :
         {
             "muscle" : "+1",
@@ -7887,7 +7867,6 @@ items = [
         "type" : "shirt",
         "image" : "wtee1.gif",
         "power" : 15,
-        "autosell" : 20,
     },
     {
         "id" : 693,
@@ -8294,7 +8273,6 @@ items = [
         "name" : "one million meat pancakes",
         "plural" : "short stacks of one million meat pancakes",
         "image" : "meatstack.gif",
-        "autosell" : 11,
     },
     {
         "id" : 726,
@@ -8624,7 +8602,6 @@ items = [
         "name" : "ghost cucumber",
         "type" : "food",
         "image" : "cuke.gif",
-        "autosell" : 75,
         "fullness" : 2,
         "quality" : "decent",
         "adventuresGained" : "2-6",
@@ -8638,7 +8615,6 @@ items = [
         "name" : "dill",
         "plural" : "handfuls of dill",
         "image" : "dill.gif",
-        "autosell" : 75,
     },
     {
         "id" : 760,
@@ -8646,7 +8622,6 @@ items = [
         "name" : "vinegar",
         "plural" : "bottles of vinegar",
         "image" : "vinegar.gif",
-        "autosell" : 77,
     },
     {
         "id" : 761,
@@ -8654,7 +8629,6 @@ items = [
         "name" : "brine",
         "plural" : "piles of brine",
         "image" : "disease.gif",
-        "autosell" : 77,
     },
     {
         "id" : 762,
@@ -8662,7 +8636,6 @@ items = [
         "name" : "especially salty dog",
         "type" : "booze",
         "image" : "rocks.gif",
-        "autosell" : 154,
         "drunkenness" : 4,
         "quality" : "good",
         "adventuresGained" : "9-13",
@@ -8675,7 +8648,6 @@ items = [
         "descId" : 783150399,
         "name" : "ghostly pickling solution",
         "image" : "vinegar.gif",
-        "autosell" : 255,
     },
     {
         "id" : 764,
@@ -8683,7 +8655,6 @@ items = [
         "name" : "spectral pickle",
         "type" : "food",
         "image" : "pickle.gif",
-        "autosell" : 352,
         "fullness" : 4,
         "quality" : "EPIC",
         "adventuresGained" : "20-26",
@@ -8697,7 +8668,6 @@ items = [
         "name" : "briny vinegar",
         "plural" : "bottles of briny vinegar",
         "image" : "vinegar.gif",
-        "autosell" : 160,
     },
     {
         "id" : 766,
@@ -8706,7 +8676,6 @@ items = [
         "plural" : "ghost pickles on a stick",
         "type" : "familiar",
         "image" : "familiar19.gif",
-        "autosell" : 450,
     },
     {
         "id" : 767,
@@ -8739,7 +8708,6 @@ items = [
         "name" : "voodoo doll",
         "type" : "off-hand item",
         "image" : "voodoodoll.gif",
-        "autosell" : 25,
         "enchantments" :
         {
             "mysticality" : "+1",
@@ -8841,7 +8809,6 @@ items = [
         "type" : "weapon (1-handed utensil)",
         "image" : "ironspoon.gif",
         "power" : 110,
-        "autosell" : 115,
         "requiredMysticality" : 40,
         "enchantments" :
         {
@@ -8855,7 +8822,6 @@ items = [
         "type" : "accessory",
         "image" : "cumberbund.gif",
         "power" : 100,
-        "autosell" : 105,
         "requiredMysticality" : 35,
         "enchantments" :
         {
@@ -8868,7 +8834,6 @@ items = [
         "name" : "Mob Penguin cellular phone",
         "type" : "combat item",
         "image" : "phone.gif",
-        "autosell" : 105,
         "isCombatUsable" : True,
     },
     {
@@ -8878,7 +8843,6 @@ items = [
         "plural" : "scrolls of pasta summoning",
         "type" : "usable",
         "image" : "scroll1.gif",
-        "autosell" : 150,
         "isUsable" : True,
     },
     {
@@ -8887,7 +8851,6 @@ items = [
         "name" : "mafia aria",
         "type" : "usable",
         "image" : "music.gif",
-        "autosell" : 110,
         "isUsable" : True,
         "isMultiUsable" : True,
     },
@@ -11911,7 +11874,6 @@ items = [
         "type" : "weapon (1-handed utensil)",
         "image" : "bopener.gif",
         "power" : 30,
-        "autosell" : 50,
         "requiredMysticality" : 0,
         "enchantments" :
         {
@@ -12584,7 +12546,6 @@ items = [
         "name" : "clockwork bartender-head-in-the-box",
         "plural" : "clockwork bartender-heads-in-the-box",
         "image" : "cbartbox.gif",
-        "autosell" : 255,
     },
     {
         "id" : 1110,
@@ -12592,7 +12553,6 @@ items = [
         "name" : "clockwork chef-head-in-the-box",
         "plural" : "clockwork chef-heads-in-the-box",
         "image" : "cchefbox.gif",
-        "autosell" : 225,
     },
     {
         "id" : 1111,
@@ -12997,9 +12957,8 @@ items = [
         "type" : "booze",
         "image" : "shot.gif",
         "autosell" : 120,
-        "drunkenness" : 1,
-        "quality" : "decent",
-        "adventuresGained" : "2",
+        "drunkenness" : 3,
+        "quality" : "crappy",
         "isZappable" : True,
     },
     {
@@ -13010,8 +12969,7 @@ items = [
         "image" : "pie.gif",
         "autosell" : 45,
         "fullness" : 3,
-        "quality" : "decent",
-        "adventuresGained" : "3-9",
+        "quality" : "crappy",
     },
     {
         "id" : 1150,
@@ -14359,7 +14317,6 @@ items = [
         "type" : "off-hand item",
         "image" : "greenbal.gif",
         "power" : 10,
-        "autosell" : 50,
         "enchantments" :
         {
             "muscle" : "+1",
@@ -14995,21 +14952,18 @@ items = [
         "descId" : 960128590,
         "name" : "blood flower",
         "image" : "bflower.gif",
-        "autosell" : 75,
     },
     {
         "id" : 1318,
         "descId" : 926885042,
         "name" : "lovecat tail",
         "image" : "cattail.gif",
-        "autosell" : 50,
     },
     {
         "id" : 1319,
         "descId" : 510934356,
         "name" : "plastic passion fruit",
         "image" : "passion.gif",
-        "autosell" : 25,
     },
     {
         "id" : 1320,
@@ -15017,7 +14971,6 @@ items = [
         "name" : "questionable taco",
         "type" : "food",
         "image" : "taco.gif",
-        "autosell" : 25,
         "fullness" : 3,
         "quality" : "decent",
         "adventuresGained" : "4-5",
@@ -15029,7 +14982,6 @@ items = [
         "plural" : "bottles of Doc's Miracle Cure",
         "type" : "usable",
         "image" : "cureall.gif",
-        "autosell" : 50,
         "isUsable" : True,
     },
     {
@@ -15428,7 +15380,6 @@ items = [
         "descId" : 271254707,
         "name" : "pirate zombie head",
         "image" : "cpirates.gif",
-        "autosell" : 360,
     },
     {
         "id" : 1359,
@@ -15436,7 +15387,6 @@ items = [
         "name" : "ninja pirate zombie robot head",
         "type" : "usable",
         "image" : "npzrhead.gif",
-        "autosell" : 360,
         "isUsable" : True,
     },
     {
@@ -15444,7 +15394,6 @@ items = [
         "descId" : 520455613,
         "name" : "pirate zombie robot head",
         "image" : "rpirate.gif",
-        "autosell" : 350,
     },
     {
         "id" : 1361,
@@ -15612,7 +15561,6 @@ items = [
         "type" : "accessory",
         "image" : "figwreath.gif",
         "power" : 20,
-        "autosell" : 30,
         "isMaxEquipOne" : True,
         "enchantments" :
         {
@@ -15626,7 +15574,6 @@ items = [
         "type" : "accessory",
         "image" : "figuncle.gif",
         "power" : 20,
-        "autosell" : 30,
         "enchantments" :
         {
             "muscle" : "+1",
@@ -15642,7 +15589,6 @@ items = [
         "type" : "accessory",
         "image" : "figelf.gif",
         "power" : 10,
-        "autosell" : 30,
     },
     {
         "id" : 1378,
@@ -15651,7 +15597,6 @@ items = [
         "type" : "accessory",
         "image" : "fignut.gif",
         "power" : 10,
-        "autosell" : 30,
     },
     {
         "id" : 1379,
@@ -15660,7 +15605,6 @@ items = [
         "type" : "accessory",
         "image" : "figdeer.gif",
         "power" : 10,
-        "autosell" : 30,
         "isMaxEquipOne" : True,
         "enchantments" :
         {
@@ -15737,7 +15681,6 @@ items = [
         "plural" : "yo-yo-yo",
         "type" : "combat item",
         "image" : "yoyo.gif",
-        "autosell" : 31,
         "isCombatUsable" : True,
         "isZappable" : True,
     },
@@ -15747,7 +15690,6 @@ items = [
         "name" : "top",
         "type" : "combat item",
         "image" : "top.gif",
-        "autosell" : 35,
         "isCombatUsable" : True,
     },
     {
@@ -15756,7 +15698,6 @@ items = [
         "name" : "ball",
         "type" : "combat item",
         "image" : "toyball.gif",
-        "autosell" : 31,
         "isCombatUsable" : True,
     },
     {
@@ -15765,7 +15706,6 @@ items = [
         "name" : "kite",
         "type" : "combat item",
         "image" : "kite.gif",
-        "autosell" : 29,
         "isCombatUsable" : True,
     },
     {
@@ -15774,7 +15714,6 @@ items = [
         "name" : "pet rock",
         "type" : "familiar",
         "image" : "petrock.gif",
-        "autosell" : 31,
     },
     {
         "id" : 1394,
@@ -15782,7 +15721,6 @@ items = [
         "name" : "stuffed doppelshifter",
         "type" : "combat item",
         "image" : "stuffdopp.gif",
-        "autosell" : 29,
         "isCombatUsable" : True,
     },
     {
@@ -15791,7 +15729,6 @@ items = [
         "name" : "teddy bear",
         "type" : "familiar",
         "image" : "teddybear.gif",
-        "autosell" : 120,
     },
     {
         "id" : 1396,
@@ -15801,7 +15738,6 @@ items = [
         "type" : "weapon (1-handed flail)",
         "image" : "duckstring.gif",
         "power" : 100,
-        "autosell" : 111,
         "requiredMuscle" : 35,
         "enchantments" :
         {
@@ -15815,7 +15751,6 @@ items = [
         "name" : "toy soldier",
         "type" : "combat item",
         "image" : "soldier.gif",
-        "autosell" : 79,
         "isCombatUsable" : True,
         "isCombatReusable" : True,
     },
@@ -15825,7 +15760,6 @@ items = [
         "name" : "doll house",
         "type" : "usable",
         "image" : "dollhouse.gif",
-        "autosell" : 116,
         "isUsable" : True,
     },
     {
@@ -15835,7 +15769,6 @@ items = [
         "type" : "accessory",
         "image" : "train.gif",
         "power" : 60,
-        "autosell" : 185,
         "requiredMysticality" : 15,
         "isMaxEquipOne" : True,
         "enchantments" :
@@ -15850,7 +15783,6 @@ items = [
         "type" : "off-hand item",
         "image" : "marionette.gif",
         "power" : 110,
-        "autosell" : 88,
         "requiredMysticality" : 40,
         "enchantments" :
         {
@@ -15864,7 +15796,6 @@ items = [
         "type" : "off-hand item",
         "image" : "sockmonk.gif",
         "power" : 110,
-        "autosell" : 89,
         "requiredMysticality" : 40,
         "enchantments" :
         {
@@ -15878,7 +15809,6 @@ items = [
         "type" : "off-hand item",
         "image" : "ragdoll.gif",
         "power" : 110,
-        "autosell" : 106,
         "requiredMysticality" : 40,
         "enchantments" :
         {
@@ -15938,7 +15868,6 @@ items = [
         "name" : "wreath-shaped Crimbo cookie",
         "type" : "food",
         "image" : "scook1.gif",
-        "autosell" : 50,
         "fullness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-12",
@@ -15949,7 +15878,6 @@ items = [
         "name" : "bell-shaped Crimbo cookie",
         "type" : "food",
         "image" : "scook2.gif",
-        "autosell" : 50,
         "fullness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-12",
@@ -15960,7 +15888,6 @@ items = [
         "name" : "tree-shaped Crimbo cookie",
         "type" : "food",
         "image" : "scook3.gif",
-        "autosell" : 50,
         "fullness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-12",
@@ -24657,7 +24584,6 @@ items = [
         "type" : "accessory",
         "image" : "tpvampire.gif",
         "power" : 10,
-        "autosell" : 30,
     },
     {
         "id" : 2202,
@@ -24666,7 +24592,6 @@ items = [
         "type" : "accessory",
         "image" : "tpyuletroll.gif",
         "power" : 10,
-        "autosell" : 30,
     },
     {
         "id" : 2203,
@@ -24675,7 +24600,6 @@ items = [
         "type" : "accessory",
         "image" : "tpskelrein.gif",
         "power" : 10,
-        "autosell" : 30,
         "isMaxEquipOne" : True,
         "enchantments" :
         {
@@ -24689,7 +24613,6 @@ items = [
         "type" : "accessory",
         "image" : "tppentagram.gif",
         "power" : 20,
-        "autosell" : 30,
         "isMaxEquipOne" : True,
         "enchantments" :
         {
@@ -24703,7 +24626,6 @@ items = [
         "type" : "accessory",
         "image" : "tplinnea.gif",
         "power" : 20,
-        "autosell" : 30,
         "enchantments" :
         {
             "muscle" : "+1",
@@ -24971,7 +24893,6 @@ items = [
         "plural" : "arses-a'fire elixir",
         "type" : "usable",
         "image" : "peppervial.gif",
-        "autosell" : 100,
         "isUsable" : True,
         "isMultiUsable" : True,
     },
@@ -24982,7 +24903,6 @@ items = [
         "plural" : "glasses of cosmic lemonade",
         "type" : "usable",
         "image" : "milk.gif",
-        "autosell" : 100,
         "isUsable" : True,
         "isMultiUsable" : True,
     },
@@ -24993,7 +24913,6 @@ items = [
         "plural" : "bags of powdered toad horn",
         "type" : "usable",
         "image" : "sack2.gif",
-        "autosell" : 100,
         "isUsable" : True,
     },
     {
@@ -26441,7 +26360,6 @@ items = [
         "plural" : "bunches of bananas",
         "type" : "usable",
         "image" : "bananas.gif",
-        "autosell" : 5,
         "isUsable" : True,
         "isMultiUsable" : True,
     },
@@ -26451,7 +26369,6 @@ items = [
         "name" : "banana",
         "type" : "food",
         "image" : "banana.gif",
-        "autosell" : 1,
         "fullness" : 1,
         "quality" : "crappy",
         "adventuresGained" : "1",
@@ -26473,7 +26390,6 @@ items = [
         "name" : "banana cream pie",
         "type" : "food",
         "image" : "creampie.gif",
-        "autosell" : 10,
         "fullness" : 3,
         "quality" : "good",
         "adventuresGained" : "6-12",
@@ -26487,7 +26403,6 @@ items = [
         "name" : "banana daiquiri",
         "type" : "booze",
         "image" : "daquiri.gif",
-        "autosell" : 10,
         "drunkenness" : 3,
         "quality" : "good",
         "adventuresGained" : "6-10",
@@ -26502,7 +26417,6 @@ items = [
         "plural" : "bungles in the jungle",
         "type" : "booze",
         "image" : "fruitym.gif",
-        "autosell" : 25,
         "drunkenness" : 4,
         "quality" : "awesome",
         "adventuresGained" : "13-17",
@@ -26516,7 +26430,6 @@ items = [
         "name" : "banana spritzer",
         "type" : "combat / usable item",
         "image" : "potion7.gif",
-        "autosell" : 10,
         "isUsable" : True,
         "isMultiUsable" : True,
         "isCombatUsable" : True,
@@ -54121,6 +54034,7 @@ items = [
         "id" : 4959,
         "descId" : 373563238,
         "name" : "Knob nuts",
+        "plural" : "pairs of Knob Nuts",
         "type" : "food",
         "image" : "knobnuts.gif",
         "autosell" : 35,
@@ -54637,6 +54551,7 @@ items = [
         "image" : "gsramune.gif",
         "autosell" : 5,
         "isUsable" : True,
+        "isMultiUsable" : True,
     },
     {
         "id" : 5020,
@@ -54647,6 +54562,7 @@ items = [
         "image" : "gsramune.gif",
         "autosell" : 5,
         "isUsable" : True,
+        "isMultiUsable" : True,
     },
     {
         "id" : 5021,
@@ -54657,6 +54573,7 @@ items = [
         "image" : "gsramune.gif",
         "autosell" : 5,
         "isUsable" : True,
+        "isMultiUsable" : True,
     },
     {
         "id" : 5022,
@@ -55296,6 +55213,7 @@ items = [
         "image" : "bandaidbox.gif",
         "autosell" : 100,
         "isUsable" : True,
+        "isMultiUsable" : True,
     },
     {
         "id" : 5078,
@@ -56996,7 +56914,7 @@ items = [
         "image" : "pail.gif",
         "autosell" : 30,
         "drunkenness" : 10,
-        "quality" : "good",
+        "quality" : "decent",
         "adventuresGained" : "16-20",
         "muscleGained" : "10-50",
         "mysticalityGained" : "10-50",
@@ -58977,6 +58895,7 @@ items = [
         "id" : 5413,
         "descId" : 136515861,
         "name" : "candycaine powder",
+        "plural" : "pouches of candycaine powder",
         "type" : "combat item",
         "image" : "powder.gif",
         "autosell" : 25,
@@ -60449,6 +60368,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "muscleGained" : "10-20",
     },
     {
         "id" : 5574,
@@ -60460,6 +60380,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "muscleGained" : "20-30",
     },
     {
         "id" : 5575,
@@ -60471,6 +60392,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "muscleGained" : "30-40",
     },
     {
         "id" : 5576,
@@ -60482,6 +60404,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "moxieGained" : "10-20",
     },
     {
         "id" : 5577,
@@ -60493,6 +60416,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "moxieGained" : "20-30",
     },
     {
         "id" : 5578,
@@ -60504,6 +60428,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "moxieGained" : "30-40",
     },
     {
         "id" : 5579,
@@ -60515,6 +60440,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "moxieGained" : "10-20",
     },
     {
         "id" : 5580,
@@ -60526,6 +60452,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "moxieGained" : "20-30",
     },
     {
         "id" : 5581,
@@ -60537,6 +60464,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "moxieGained" : "30-40",
     },
     {
         "id" : 5582,
@@ -60548,6 +60476,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "mysticalityGained" : "10-20",
     },
     {
         "id" : 5583,
@@ -60559,6 +60488,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "mysticalityGained" : "20-30",
     },
     {
         "id" : 5584,
@@ -60570,6 +60500,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "mysticalityGained" : "30-40",
     },
     {
         "id" : 5585,
@@ -60581,6 +60512,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "moxieGained" : "10-20",
     },
     {
         "id" : 5586,
@@ -60592,6 +60524,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "moxieGained" : "20-30",
     },
     {
         "id" : 5587,
@@ -60603,6 +60536,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "moxieGained" : "30-40",
     },
     {
         "id" : 5588,
@@ -60614,6 +60548,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "muscleGained" : "5-10",
+        "mysticalityGained" : "5-10",
+        "moxieGained" : "5-10",
     },
     {
         "id" : 5589,
@@ -60625,6 +60562,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "muscleGained" : "10-15",
+        "mysticalityGained" : "10-15",
+        "moxieGained" : "10-15",
     },
     {
         "id" : 5590,
@@ -60636,6 +60576,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "muscleGained" : "15-20",
+        "mysticalityGained" : "15-20",
+        "moxieGained" : "15-20",
     },
     {
         "id" : 5591,
@@ -60647,6 +60590,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "mysticalityGained" : "10-20",
     },
     {
         "id" : 5592,
@@ -60658,6 +60602,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "mysticalityGained" : "20-30",
     },
     {
         "id" : 5593,
@@ -60669,6 +60614,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "mysticalityGained" : "30-40",
     },
     {
         "id" : 5594,
@@ -60680,6 +60626,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "muscleGained" : "10-20",
     },
     {
         "id" : 5595,
@@ -60691,6 +60638,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "muscleGained" : "20-30",
     },
     {
         "id" : 5596,
@@ -60702,6 +60650,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "muscleGained" : "30-40",
     },
     {
         "id" : 5597,
@@ -60713,6 +60662,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "muscleGained" : "10-20",
     },
     {
         "id" : 5598,
@@ -60724,6 +60674,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "muscleGained" : "20-30",
     },
     {
         "id" : 5599,
@@ -60735,6 +60686,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "muscleGained" : "30-40",
     },
     {
         "id" : 5600,
@@ -60746,6 +60698,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "mysticalityGained" : "10-20",
     },
     {
         "id" : 5601,
@@ -60757,6 +60710,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "mysticalityGained" : "20-30",
     },
     {
         "id" : 5602,
@@ -60768,6 +60722,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "mysticalityGained" : "30-40",
     },
     {
         "id" : 5603,
@@ -60779,6 +60734,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "moxieGained" : "10-20",
     },
     {
         "id" : 5604,
@@ -60790,6 +60746,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "moxieGained" : "20-30",
     },
     {
         "id" : 5605,
@@ -60801,6 +60758,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "moxieGained" : "30-40",
     },
     {
         "id" : 5606,
@@ -60812,6 +60770,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "muscleGained" : "10-20",
     },
     {
         "id" : 5607,
@@ -60823,6 +60782,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "muscleGained" : "20-30",
     },
     {
         "id" : 5608,
@@ -60834,6 +60794,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "muscleGained" : "30-40",
     },
     {
         "id" : 5609,
@@ -60845,6 +60806,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "mysticalityGained" : "10-20",
     },
     {
         "id" : 5610,
@@ -60856,6 +60818,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "mysticalityGained" : "20-30",
     },
     {
         "id" : 5611,
@@ -60867,6 +60830,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "mysticalityGained" : "30-40",
     },
     {
         "id" : 5612,
@@ -60878,6 +60842,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "muscleGained" : "10-20",
     },
     {
         "id" : 5613,
@@ -60889,6 +60854,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "muscleGained" : "20-30",
     },
     {
         "id" : 5614,
@@ -60900,6 +60866,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "muscleGained" : "30-40",
     },
     {
         "id" : 5615,
@@ -60911,6 +60878,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "muscleGained" : "5-10",
+        "mysticalityGained" : "5-10",
+        "moxieGained" : "5-10",
     },
     {
         "id" : 5616,
@@ -60922,6 +60892,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "muscleGained" : "10-15",
+        "mysticalityGained" : "10-15",
+        "moxieGained" : "10-15",
     },
     {
         "id" : 5617,
@@ -60933,6 +60906,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "muscleGained" : "15-20",
+        "mysticalityGained" : "15-20",
+        "moxieGained" : "15-20",
     },
     {
         "id" : 5618,
@@ -60944,6 +60920,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "muscleGained" : "5-10",
+        "mysticalityGained" : "5-10",
+        "moxieGained" : "5-10",
     },
     {
         "id" : 5619,
@@ -60955,6 +60934,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "muscleGained" : "10-15",
+        "mysticalityGained" : "10-15",
+        "moxieGained" : "10-15",
     },
     {
         "id" : 5620,
@@ -60966,6 +60948,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "muscleGained" : "15-20",
+        "mysticalityGained" : "15-20",
+        "moxieGained" : "15-20",
     },
     {
         "id" : 5621,
@@ -60977,6 +60962,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "muscleGained" : "1-5",
+        "mysticalityGained" : "15-20",
+        "moxieGained" : "1-5",
     },
     {
         "id" : 5622,
@@ -60988,6 +60976,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "muscleGained" : "5-10",
+        "mysticalityGained" : "25-30",
+        "moxieGained" : "5-10",
     },
     {
         "id" : 5623,
@@ -60999,6 +60990,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "muscleGained" : "5-15",
+        "mysticalityGained" : "30-50",
+        "moxieGained" : "5-15",
     },
     {
         "id" : 5624,
@@ -61010,6 +61004,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "muscleGained" : "5-10",
+        "mysticalityGained" : "5-10",
+        "moxieGained" : "5-10",
     },
     {
         "id" : 5625,
@@ -61021,6 +61018,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "muscleGained" : "10-15",
+        "mysticalityGained" : "10-15",
+        "moxieGained" : "10-15",
     },
     {
         "id" : 5626,
@@ -61032,17 +61032,23 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "muscleGained" : "15-20",
+        "mysticalityGained" : "15-20",
+        "moxieGained" : "15-20",
     },
     {
         "id" : 5627,
         "descId" : 793096692,
-        "name" : "Herring Daquiri",
+        "name" : "Herring Daiquiri",
         "type" : "booze",
         "image" : "daquiri.gif",
         "autosell" : 10,
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "muscleGained" : "5-10",
+        "mysticalityGained" : "5-10",
+        "moxieGained" : "5-10",
     },
     {
         "id" : 5628,
@@ -61054,6 +61060,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "muscleGained" : "10-15",
+        "mysticalityGained" : "10-15",
+        "moxieGained" : "10-15",
     },
     {
         "id" : 5629,
@@ -61065,6 +61074,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "muscleGained" : "15-20",
+        "mysticalityGained" : "15-20",
+        "moxieGained" : "15-20",
     },
     {
         "id" : 5630,
@@ -61076,6 +61088,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "moxieGained" : "10-20",
     },
     {
         "id" : 5631,
@@ -61087,6 +61100,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "moxieGained" : "20-30",
     },
     {
         "id" : 5632,
@@ -61098,6 +61112,7 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "moxieGained" : "30-40",
     },
     {
         "id" : 5633,
@@ -61109,6 +61124,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "muscleGained" : "5-10",
+        "mysticalityGained" : "5-10",
+        "moxieGained" : "5-10",
     },
     {
         "id" : 5634,
@@ -61120,6 +61138,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "muscleGained" : "10-15",
+        "mysticalityGained" : "10-15",
+        "moxieGained" : "10-15",
     },
     {
         "id" : 5635,
@@ -61131,6 +61152,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "muscleGained" : "15-20",
+        "mysticalityGained" : "15-20",
+        "moxieGained" : "15-20",
     },
     {
         "id" : 5636,
@@ -61142,6 +61166,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "good",
         "adventuresGained" : "4-5",
+        "muscleGained" : "5-10",
+        "mysticalityGained" : "5-10",
+        "moxieGained" : "5-10",
     },
     {
         "id" : 5637,
@@ -61153,6 +61180,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "6-7",
+        "muscleGained" : "10-15",
+        "mysticalityGained" : "10-15",
+        "moxieGained" : "10-15",
     },
     {
         "id" : 5638,
@@ -61164,6 +61194,9 @@ items = [
         "drunkenness" : 2,
         "quality" : "awesome",
         "adventuresGained" : "8-9",
+        "muscleGained" : "15-20",
+        "mysticalityGained" : "15-20",
+        "moxieGained" : "15-20",
     },
     {
         "id" : 5639,
@@ -61242,7 +61275,7 @@ items = [
         "name" : "ancient calendar",
         "type" : "off-hand item (shield)",
         "image" : "calshield.gif",
-        "power" : 0,
+        "power" : 70,
         "autosell" : 400,
         "requiredMuscle" : 20,
         "enchantments" :
@@ -61297,5 +61330,611 @@ items = [
         "descId" : 687015026,
         "name" : "mime soul fragment",
         "image" : "mimefrag.gif",
+    },
+    {
+        "id" : 5653,
+        "descId" : 335730473,
+        "name" : "key-o-tron",
+        "type" : "usable",
+        "image" : "keyotron.gif",
+        "isUsable" : True,
+        "isReusable" : True,
+    },
+    {
+        "id" : 5654,
+        "descId" : 251468978,
+        "name" : "nailswurst",
+        "plural" : "nailswursten",
+        "type" : "food",
+        "image" : "brat.gif",
+        "autosell" : 50,
+        "npcPrice" : 500,
+        "npcStoreId" : "q",
+        "fullness" : 2,
+        "quality" : "crappy",
+    },
+    {
+        "id" : 5655,
+        "descId" : 629334636,
+        "name" : "used beer",
+        "plural" : "cans of used beer",
+        "type" : "booze",
+        "image" : "beer.gif",
+        "autosell" : 50,
+        "npcPrice" : 500,
+        "npcStoreId" : "q",
+        "drunkenness" : 2,
+        "quality" : "crappy",
+    },
+    {
+        "id" : 5656,
+        "descId" : 475026869,
+        "name" : "Huggler Radio",
+        "type" : "usable",
+        "image" : "radio.gif",
+        "isUsable" : True,
+        "isReusable" : True,
+    },
+    {
+        "id" : 5657,
+        "descId" : 651860360,
+        "name" : "fettucini &eacute;pines Inconnu recipe",
+        "type" : "usable",
+        "image" : "document.gif",
+        "isUsable" : True,
+    },
+    {
+        "id" : 5658,
+        "descId" : 928584221,
+        "name" : "slap and slap again recipe",
+        "type" : "usable",
+        "image" : "document.gif",
+        "isUsable" : True,
+    },
+    {
+        "id" : 5659,
+        "descId" : 183506527,
+        "name" : "insulting hat",
+        "type" : "hat",
+        "image" : "insultinghat.gif",
+        "power" : 10,
+    },
+    {
+        "id" : 5660,
+        "descId" : 119178756,
+        "name" : "offensive moustache",
+        "type" : "accessory",
+        "image" : "chaplinstache.gif",
+        "isMaxEquipOne" : True,
+    },
+    {
+        "id" : 5661,
+        "descId" : 326755469,
+        "name" : "hairshirt",
+        "type" : "shirt",
+        "image" : "hairshirt.gif",
+        "power" : 150,
+        "requiredMuscle" : 40,
+    },
+    {
+        "id" : 5662,
+        "descId" : 954388471,
+        "name" : "Olympic-sized Clan crate",
+        "type" : "usable",
+        "image" : "crate.gif",
+        "isUsable" : True,
+    },
+    {
+        "id" : 5663,
+        "descId" : 430497097,
+        "name" : "cursed microwave",
+        "type" : "usable",
+        "image" : "microwave.gif",
+        "isUsable" : True,
+    },
+    {
+        "id" : 5664,
+        "descId" : 986465445,
+        "name" : "cursed pony keg",
+        "type" : "usable",
+        "image" : "ponykeg.gif",
+        "isUsable" : True,
+    },
+    {
+        "id" : 5665,
+        "descId" : 121533471,
+        "name" : "How to Tolerate Jerks",
+        "type" : "usable",
+        "image" : "book4.gif",
+        "isUsable" : True,
+    },
+    {
+        "id" : 5666,
+        "descId" : 241401359,
+        "name" : "How to Hold a Grudge",
+        "type" : "usable",
+        "image" : "book3.gif",
+        "isUsable" : True,
+    },
+    {
+        "id" : 5667,
+        "descId" : 475297640,
+        "name" : "puppet strings",
+        "plural" : "sets of puppet strings",
+        "image" : "puppetstrings.gif",
+        "isUsableOnOthers" : True,
+    },
+    {
+        "id" : 5668,
+        "descId" : 847980181,
+        "name" : "bagged stuffed &quot;L&quot;",
+        "image" : "baggedl.gif",
+        "isUsableOnOthers" : True,
+    },
+    {
+        "id" : 5669,
+        "descId" : 916155099,
+        "name" : "stuffed club",
+        "type" : "weapon (1-handed club)",
+        "image" : "stuffedclub.gif",
+        "power" : 1,
+        "requiredMuscle" : 0,
+    },
+    {
+        "id" : 5670,
+        "descId" : 994892887,
+        "name" : "fettucini &eacute;pines Inconnu",
+        "plural" : "bowls of fettucini &eacute;pines Inconnu",
+        "type" : "food",
+        "image" : "bowl.gif",
+        "autosell" : 61,
+    },
+    {
+        "id" : 5671,
+        "descId" : 474516688,
+        "name" : "slap and slap again",
+        "plural" : "slaps and slaps again",
+        "type" : "booze",
+        "image" : "rocks.gif",
+        "autosell" : 61,
+        "drunkenness" : 3,
+        "quality" : "decent",
+    },
+    {
+        "id" : 5674,
+        "descId" : 619356758,
+        "name" : "stuffed &quot;L&quot;",
+        "image" : "stuffedl.gif",
+    },
+    {
+        "id" : 5675,
+        "descId" : 762938251,
+        "name" : "watered-down Red Minotaur",
+        "type" : "usable",
+        "image" : "redmin.gif",
+        "autosell" : 1,
+        "isUsable" : True,
+        "spleen" : 2,
+    },
+    {
+        "id" : 5676,
+        "descId" : 340353804,
+        "name" : "pool torpedo",
+        "type" : "combat item",
+        "image" : "pooltorpedo.gif",
+        "autosell" : 1,
+        "isCombatUsable" : True,
+    },
+    {
+        "id" : 5677,
+        "descId" : 179669496,
+        "name" : "Ze&trade; goggles",
+        "type" : "hat",
+        "image" : "zegoggles.gif",
+        "power" : 30,
+        "enchantments" :
+        {
+            "itemDrop" : "[25*zone(The Sea)]",
+        },
+    },
+    {
+        "id" : 5678,
+        "descId" : 737657801,
+        "name" : "soggy used band-aid",
+        "type" : "combat item",
+        "image" : "soggybandaid.gif",
+        "isCombatUsable" : True,
+    },
+    {
+        "id" : 5679,
+        "descId" : 129136271,
+        "name" : "stylish swimsuit",
+        "type" : "pants",
+        "image" : "speedo.gif",
+        "power" : 40,
+        "autosell" : 1,
+        "requiredMuscle" : 5,
+        "enchantments" :
+        {
+            "moxie" : "+5",
+            "sleazeDamage" : "+10",
+        },
+    },
+    {
+        "id" : 5680,
+        "descId" : 891641724,
+        "name" : "lost key",
+        "type" : "usable",
+        "image" : "lostkey.gif",
+        "isUsable" : True,
+    },
+    {
+        "id" : 5681,
+        "descId" : 329990148,
+        "name" : "P.B.L.T.",
+        "plural" : "P.B.L.Ts.",
+        "type" : "food",
+        "image" : "sammich.gif",
+        "autosell" : 5,
+        "fullness" : 3,
+        "quality" : "decent",
+        "adventuresGained" : "6-8",
+        "muscleGained" : "18-25",
+    },
+    {
+        "id" : 5682,
+        "descId" : 742783144,
+        "name" : "note from Clancy",
+        "type" : "usable",
+        "image" : "document_thumb.gif",
+        "isUsable" : True,
+    },
+    {
+        "id" : 5683,
+        "descId" : 334424636,
+        "name" : "BURT",
+        "plural" : "BURTs (Reynolds)",
+        "type" : "usable",
+        "image" : "burt.gif",
+        "isUsable" : True,
+        "isReusable" : True,
+    },
+    {
+        "id" : 5684,
+        "descId" : 810042563,
+        "name" : "handful of juicy garbage",
+        "plural" : "handfuls of juicy garbage",
+        "type" : "usable",
+        "image" : "juicytrash.gif",
+        "isUsable" : True,
+    },
+    {
+        "id" : 5685,
+        "descId" : 969839389,
+        "name" : "bugbear communicator badge",
+        "type" : "accessory",
+        "image" : "bugbearbadge.gif",
+    },
+    {
+        "id" : 5686,
+        "descId" : 826921536,
+        "name" : "quantum nanopolymer spider web",
+        "type" : "combat item",
+        "image" : "web.gif",
+        "autosell" : 60,
+        "isCombatUsable" : True,
+    },
+    {
+        "id" : 5687,
+        "descId" : 969666221,
+        "name" : "bugbear autopsy tweezers",
+        "image" : "tweezers.gif",
+        "autosell" : 50,
+    },
+    {
+        "id" : 5688,
+        "descId" : 184896228,
+        "name" : "UV monocular",
+        "type" : "accessory",
+        "image" : "monocular.gif",
+        "requiredMysticality" : 22,
+        "isMaxEquipOne" : True,
+        "enchantments" :
+        {
+            "itemDrop" : "+5",
+        },
+    },
+    {
+        "id" : 5689,
+        "descId" : 239079328,
+        "name" : "drone self-destruct chip",
+        "type" : "combat item",
+        "image" : "targetchip.gif",
+        "autosell" : 75,
+        "isCombatUsable" : True,
+    },
+    {
+        "id" : 5690,
+        "descId" : 405841257,
+        "name" : "Jeff Goldblum larva",
+        "image" : "goldblumlarva.gif",
+    },
+    {
+        "id" : 5691,
+        "descId" : 643034783,
+        "name" : "pacification grenade",
+        "type" : "combat item",
+        "image" : "pacgrenade.gif",
+        "autosell" : 75,
+        "isCombatUsable" : True,
+    },
+    {
+        "id" : 5692,
+        "descId" : 915600766,
+        "name" : "quantum disintegrator pistol",
+        "type" : "weapon (1-handed pistol)",
+        "image" : "bugraygun.gif",
+        "power" : 75,
+        "requiredMoxie" : 22,
+    },
+    {
+        "id" : 5693,
+        "descId" : 705663632,
+        "name" : "phase-tuned shield generator belt",
+        "type" : "accessory",
+        "image" : "bugbelt.gif",
+        "requiredMysticality" : 22,
+        "isMaxEquipOne" : True,
+    },
+    {
+        "id" : 5694,
+        "descId" : 394841381,
+        "name" : "Thwaitgold woolybear statuette",
+        "image" : "thwaitwooly.gif",
+    },
+    {
+        "id" : 5695,
+        "descId" : 320593140,
+        "name" : "bugbear detector",
+        "type" : "accessory",
+        "image" : "evilometer.gif",
+    },
+    {
+        "id" : 5696,
+        "descId" : 608714645,
+        "name" : "bugbear purification pill",
+        "type" : "usable",
+        "image" : "pill.gif",
+        "isUsable" : True,
+    },
+    {
+        "id" : 5697,
+        "descId" : 560375054,
+        "name" : "1 meat",
+        "image" : "1meat.gif",
+        "autosell" : 1,
+    },
+    {
+        "id" : 5701,
+        "descId" : 480226445,
+        "name" : "Moping Artistic Goth Kid",
+        "type" : "familiar",
+        "image" : "mopinggoth.gif",
+    },
+    {
+        "id" : 5702,
+        "descId" : 523128911,
+        "name" : "little wooden mannequin",
+        "type" : "familiar equipment",
+        "image" : "statue.gif",
+        "autosell" : 75,
+    },
+    {
+        "id" : 5703,
+        "descId" : 683289268,
+        "name" : "crayon shavings",
+        "plural" : "handfuls of crayon shavings",
+        "type" : "combat / usable item",
+        "image" : "crayonshavings.gif",
+        "autosell" : 10,
+        "isUsable" : True,
+        "isCombatUsable" : True,
+    },
+    {
+        "id" : 5704,
+        "descId" : 828000331,
+        "name" : "wax bugbear",
+        "type" : "usable",
+        "image" : "waxbugbear.gif",
+        "isUsable" : True,
+    },
+    {
+        "id" : 5705,
+        "descId" : 216949439,
+        "name" : "wax hat",
+        "outfit" : "Wax Wardrobe",
+        "outfitId" : 85,
+        "image" : "waxhat2.gif",
+        "autosell" : 70,
+        "enchantments" :
+        {
+            "moxie" : "+7",
+            "maximumHP" : "+10",
+        },
+    },
+    {
+        "id" : 5706,
+        "descId" : 321480099,
+        "name" : "wax pants",
+        "outfit" : "Wax Wardrobe",
+        "outfitId" : 85,
+        "image" : "waxpants.gif",
+        "autosell" : 110,
+        "enchantments" :
+        {
+            "moxie" : "+7",
+            "initiative" : "+10",
+        },
+    },
+    {
+        "id" : 5707,
+        "descId" : 531424139,
+        "name" : "FDKOL commendation",
+        "image" : "fdkol_medal.gif",
+    },
+    {
+        "id" : 5708,
+        "descId" : 251354482,
+        "name" : "drop of water-37",
+        "plural" : "drops of water-37",
+        "type" : "usable",
+        "image" : "doublewater.gif",
+        "npcPrice" : 1000,
+        "npcStoreId" : "fdkol",
+        "isUsable" : True,
+        "isMultiUsable" : True,
+    },
+    {
+        "id" : 5709,
+        "descId" : 682209073,
+        "name" : "fireman's helmet",
+        "type" : "hat",
+        "image" : "firemanhat.gif",
+        "power" : 150,
+        "requiredMuscle" : 60,
+        "enchantments" :
+        {
+            "musclePercent" : "+10",
+            "mysticalityPercent" : "+10",
+            "moxiePercent" : "+10",
+            "hotResistance" : "+3",
+        },
+    },
+    {
+        "id" : 5712,
+        "descId" : 439484541,
+        "name" : "fire axe",
+        "type" : "weapon (2-handed axe)",
+        "image" : "firemanaxe.gif",
+        "power" : 200,
+        "requiredMuscle" : 85,
+        "enchantments" :
+        {
+            "coldDamage" : "+200",
+        },
+    },
+    {
+        "id" : 5713,
+        "descId" : 287341107,
+        "name" : "enchanted fire extinguisher",
+        "type" : "off-hand item",
+        "image" : "extinguisher.gif",
+        "requiredMysticality" : 200,
+        "enchantments" :
+        {
+            "spellDamagePercent" : "+100",
+            "coldSpellDamage" : "+30",
+        },
+    },
+    {
+        "id" : 5714,
+        "descId" : 503915099,
+        "name" : "FDKOL tattoo",
+        "type" : "usable",
+        "image" : "fdkoltattoo.gif",
+        "isUsable" : True,
+    },
+    {
+        "id" : 5715,
+        "descId" : 862298428,
+        "name" : "Hjodor's Guide to Arctic Dalmatians",
+        "plural" : "copies of Hjodor's Guide to Arctic Dalmatians",
+        "type" : "usable",
+        "image" : "book3.gif",
+        "isUsable" : True,
+    },
+    {
+        "id" : 5716,
+        "descId" : 981247067,
+        "name" : "Hjodor's Guide to Arctic Dalmatians (used)",
+        "type" : "usable",
+        "image" : "book3.gif",
+        "isUsable" : True,
+        "isReusable" : True,
+    },
+    {
+        "id" : 5717,
+        "descId" : 167850388,
+        "name" : "FDKOL hotcakes",
+        "type" : "food",
+        "image" : "hotcakes.gif",
+        "npcPrice" : 5000,
+        "npcStoreId" : "fdkol",
+        "fullness" : 6,
+        "quality" : "awesome",
+        "adventuresGained" : "23-27",
+    },
+    {
+        "id" : 5718,
+        "descId" : 905055490,
+        "name" : "hot egg",
+        "type" : "usable",
+        "image" : "hotegg.gif",
+        "isUsable" : True,
+        "isReusable" : True,
+    },
+    {
+        "id" : 5719,
+        "descId" : 434336289,
+        "name" : "smoking grass",
+        "plural" : "blades of smoking grass",
+        "type" : "combat item",
+        "image" : "smokinggrass.gif",
+        "autosell" : 23,
+        "isCombatUsable" : True,
+    },
+    {
+        "id" : 5720,
+        "descId" : 846565515,
+        "name" : "fiery wing",
+        "type" : "food",
+        "image" : "fierywing.gif",
+        "fullness" : 1,
+        "quality" : "good",
+    },
+    {
+        "id" : 5721,
+        "descId" : 446914873,
+        "name" : "wings of fire",
+        "plural" : "wingses of fire",
+        "type" : "accessory",
+        "image" : "wingsoffire.gif",
+        "requiredMysticality" : 100,
+        "enchantments" :
+        {
+            "hotDamage" : "+25",
+            "hotSpellDamage" : "+25",
+        },
+    },
+    {
+        "id" : 5722,
+        "descId" : 902073594,
+        "name" : "fire hose",
+        "type" : "weapon (2-handed hose)",
+        "image" : "firehose.gif",
+        "power" : 200,
+        "requiredMoxie" : 85,
+        "enchantments" :
+        {
+            "coldDamage" : "+200",
+        },
+    },
+    {
+        "id" : 5723,
+        "descId" : 819615103,
+        "name" : "bottle of fire",
+        "type" : "usable",
+        "image" : "firebottle.gif",
+        "isUsable" : True,
     },
 ]
