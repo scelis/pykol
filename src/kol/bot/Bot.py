@@ -159,13 +159,13 @@ class Bot(threading.Thread):
                         timeToSleep = inst.timeToWait
                     else:
                         cxt = {}
-                        self.executeFilter("botUnknownException", cxt, inst=inst)
+                        self.executeFilter("botStandardException", cxt, inst=inst)
                         if "timeToSleep" in cxt:
                             timeToSleep = cxt["timeToSleep"]
-                        else:
-                            self.prepareShutdown()
                         if "level" in cxt:
                             level = cxt["level"]
+                        else:
+                            level = Report.FATAL
                         Report.report("bot", level, msg, inst)
                         if level == Report.FATAL:
                             self.prepareShutdown()
