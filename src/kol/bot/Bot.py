@@ -157,6 +157,8 @@ class Bot(threading.Thread):
                     elif inst.code == Error.LOGIN_FAILED_GENERIC:
                         level = Report.ERROR
                         timeToSleep = inst.timeToWait
+                    elif inst.code == Error.NOT_LOGGED_IN:
+                        timeToSleep = 600
                     else:
                         cxt = {}
                         self.executeFilter("botStandardException", cxt, inst=inst)
