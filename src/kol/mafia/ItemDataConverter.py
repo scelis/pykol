@@ -10,13 +10,12 @@ EQUIPMENT_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data
 FOLD_GROUPS_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/foldgroups.txt"
 FULLNESS_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/fullness.txt"
 INEBRIETY_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/inebriety.txt"
-ITEM_DESCS_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/itemdescs.txt"
+ITEM_DESCS_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/items.txt"
 MODIFIERS_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/modifiers.txt"
 NPC_STORES_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/npcstores.txt"
 OUTFITS_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/outfits.txt"
 PACKAGES_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/packages.txt"
 SPLEEN_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/spleenhit.txt"
-TRADE_ITEMS_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/tradeitems.txt"
 ZAP_GROUPS_FILE = "https://kolmafia.svn.sourceforge.net/svnroot/kolmafia/src/data/zapgroups.txt"
 
 REQUIRED_MUSCLE_PATTERN = re.compile("Mus: ([0-9]+)")
@@ -90,7 +89,6 @@ def main():
     readOutfitsFile()
     readZapGroupsFile()
     readFoldGroupsFile()
-    readTradeItemsFile()
     readNPCStoresFile()
     readModifiersFile()
     fixupItems()
@@ -108,13 +106,65 @@ def readItemDescsFile():
             parts = line.split('\t')
             if len(parts) >= 3:
                 itemId = int(parts[0])
-                descId = int(parts[1])
-                image = parts[2]
-                name = parts[3]
+                name = parts[1]
+                descId = int(parts[2])
+                image = parts[3]
                 item = {"id" : itemId, "descId" : descId, "name" : name, "image" : image}
 
-                if len(parts) > 4:
-                    plural = parts[4]
+                itemTypes = parts[4].split(',')
+                for i in range(len(itemTypes)):
+                    itemTypes[i] = itemTypes[i].strip()
+                itemTradeStr = parts[5]
+                autosell = 0
+                if len(parts[6]) > 0:
+                    autosell = int(parts[6])
+
+                if autosell > 0:
+                    item["autosell"] = autosell
+
+                if "food" in itemTypes:
+                    item["type"] = "food"
+                elif "drink" in itemTypes:
+                    item["type"] = "booze"
+                elif "grow" in itemTypes:
+                    item["type"] = "familiar"
+                elif "familiar" in itemTypes:
+                    item["type"] = "familiar equipment"
+
+                if "mp" in itemTypes or "hp" in itemTypes or "hpmp" in itemTypes or "usable" in itemTypes or "message" in itemTypes:
+                    item["isUsable"] = True
+                if "multiple" in itemTypes:
+                    item["isUsable"] = True
+                    item["isMultiUsable"] = True
+                if "reusable" in itemTypes:
+                    item["isUsable"] = True
+                    item["isReusable"] = True
+                if "zap" in itemTypes:
+                    item["isZappable"] = True
+                if "sphere" in itemTypes:
+                    item["isSphere"] = True
+                if "combat" in itemTypes:
+                    item["isCombatUsable"] = True
+                if "combat reusable" in itemTypes:
+                    item["isCombatUsable"] = True
+                    item["isCombatReusable"]  = True
+                if "curse" in itemTypes:
+                    item["isUsableOnOthers"] = True
+                if "bounty" in itemTypes:
+                    item["isBounty"] = True
+                if "candy" in itemTypes:
+                    item["isCandy"] = True
+
+                if "type" not in item:
+                    if "isUsable" in item and item["isUsable"] and "isCombatUsable" in item and item["isCombatUsable"]:
+                        item["type"] = "combat / usable item"
+                    elif "isUsable" in item and item["isUsable"]:
+                        item["type"] = "usable"
+                    elif "isCombatUsable" in item and item["isCombatUsable"]:
+                        item["type"] = "combat item"
+
+                if len(parts) > 7:
+                    plural = parts[7]
                     if plural != name + 's':
                         item["plural"] = plural
 
@@ -370,69 +420,6 @@ def readFoldGroupsFile():
                     continue
                 item["isFoldable"] = True
 
-
-def readTradeItemsFile():
-    text = _opener.open(TRADE_ITEMS_FILE).read()
-    for line in text.splitlines():
-        if len(line) > 0 and line[0] != '#':
-            parts = line.split('\t')
-            if len(parts) >= 5:
-                itemId = int(parts[0])
-                itemName = parts[1]
-                itemTypes = parts[2].split(',')
-                for i in range(len(itemTypes)):
-                    itemTypes[i] = itemTypes[i].strip()
-                itemTradeStr = parts[3]
-                autosell = int(parts[4])
-
-                try:
-                    item = _itemsById[itemId]
-                except KeyError:
-                    continue
-
-                if autosell > 0:
-                    item["autosell"] = autosell
-
-                if "food" in itemTypes:
-                    item["type"] = "food"
-                elif "drink" in itemTypes:
-                    item["type"] = "booze"
-                elif "grow" in itemTypes:
-                    item["type"] = "familiar"
-                elif "familiar" in itemTypes:
-                    item["type"] = "familiar equipment"
-
-                if "mp" in itemTypes or "hp" in itemTypes or "hpmp" in itemTypes or "usable" in itemTypes or "message" in itemTypes:
-                    item["isUsable"] = True
-                if "multiple" in itemTypes:
-                    item["isUsable"] = True
-                    item["isMultiUsable"] = True
-                if "reusable" in itemTypes:
-                    item["isUsable"] = True
-                    item["isReusable"] = True
-                if "zap" in itemTypes:
-                    item["isZappable"] = True
-                if "sphere" in itemTypes:
-                    item["isSphere"] = True
-                if "combat" in itemTypes:
-                    item["isCombatUsable"] = True
-                if "combat reusable" in itemTypes:
-                    item["isCombatUsable"] = True
-                    item["isCombatReusable"]  = True
-                if "curse" in itemTypes:
-                    item["isUsableOnOthers"] = True
-                if "bounty" in itemTypes:
-                    item["isBounty"] = True
-                if "candy" in itemTypes:
-                    item["isCandy"] = True
-
-                if "type" not in item:
-                    if "isUsable" in item and item["isUsable"] and "isCombatUsable" in item and item["isCombatUsable"]:
-                        item["type"] = "combat / usable item"
-                    elif "isUsable" in item and item["isUsable"]:
-                        item["type"] = "usable"
-                    elif "isCombatUsable" in item and item["isCombatUsable"]:
-                        item["type"] = "combat item"
 
 def readNPCStoresFile():
     text = _opener.open(NPC_STORES_FILE).read()
