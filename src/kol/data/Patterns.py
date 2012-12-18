@@ -77,7 +77,7 @@ patterns = {
     "privateChat" : r'<a target="?mainpane"? href="showplayer\.php\?who=([0-9]+)"><font color="?blue"?><b>([^)]+) \(private\):<\/b><\/font><\/a> <font color="?blue"?>(.*)</font>$',
     "chatNewKmailNotification" : r'<a target="?mainpane"? href="messages\.php"><font color="?green"?>New message received from <a target="?mainpane"? href=\'showplayer\.php\?who=([0-9]+)\'><font color="?green"?>([^<>]+)<\/font><\/a>\.<\/font><\/a>$',
     "chatLink" : r'<a target="?_blank"? href="([^"]+)"><font color="?blue"?>\[link\]<\/font><\/a> ',
-    "chatWhoResponse" : r'<table><tr><td class=tiny><center><b>Players in this channel:',
+    "chatWhoResponse" : r'<table><tr><td class=tiny><center><b>Players in (?:this channel|channel \w+):',
     "chatWhoPerson" : r'<a target="?mainpane"? href="showplayer\.php\?who=([0-9]+)"><font color="?#?\w+"?>([^<>]+)<\/font><\/a>',
     "chatLinkedPlayer" : r"<a style='color: #?\w+' href='showplayer\.php\?who=([0-9]+)' target=mainpane>([^<]+)<\/a>",
     "newChatChannel" : r"<font color=[^>]+>You are now talking in channel: ([^\,]+?)\.<p><p>(.*?)</font>",
