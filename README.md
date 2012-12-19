@@ -78,17 +78,16 @@ Developers are strongly encouraged to add unit tests for new features that they 
 To run the test suite:
 
 1. Add the ```pykol\src``` directory to your Python path. On Windows, this will involve a trip to
-Environment Variables (see [this Python path on Windows tutorial](http://www.katsbits.com/tutorials/blender/setting-up-windows-python-path-system-variable.php) for an example). On Mac OS X or on Linux, you can add an ```export PYTHONPATH``` statement to your ```~/.bashrc``` file.
-For example, add this to the .bashrc file in your home directory (don't forget to either restart the terminal or ```source ~/.bashrc``` afterwards):
+	Environment Variables (see [this Python path on Windows tutorial](http://www.katsbits.com/tutorials/blender/setting-up-windows-python-path-system-variable.php) for an example). On Mac OS X or on Linux, you can add an ```export PYTHONPATH``` statement to your ```~/.bashrc``` file.
+	For example, add this to the .bashrc file in your home directory (don't forget to either restart the terminal or ```source ~/.bashrc``` afterwards):
 
-```export PYTHONPATH=$PYTHONPATH:/Users/yourname/Documents/py-kol/src```
+	```export PYTHONPATH=$PYTHONPATH:/Users/yourname/Documents/py-kol/src```
 
 2. Run the full test suite from the command line, and pass in a username and password for your character (the tests include logging in, etc).
-
-```
-# cd py-kol/src
-src# python kol/test/TestAll.py username password
-```
+	```
+	# cd py-kol/src
+	src# python kol/test/TestAll.py username password
+	```
 
 How can I contribute?
 ---------------------
