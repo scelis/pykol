@@ -44,7 +44,7 @@ patterns = {
     "itemAutosell" : r'<br>Selling Price: <b>(\d*) Meat\.<\/b>',
     "itemImage" : r'<img src="http:\/\/images\.kingdomofloathing\.com\/itemimages\/(.*?)"',
     "itemName" : r'<b>(.+?)<\/b>',
-    "itemType" : r'<br>Type: <b>([^<]*)(.*)<\/b><br>',
+    "itemType" : r'<br>Type: <b>([^<]*)<.*\/b><br>',
     "tooFull" : r"You're too full to eat that\.",
     "tooDrunk" : r"You're way too drunk already\.",
     "notBooze" : r"That's not booze\.",
