@@ -23,7 +23,7 @@ class ItemDescriptionRequest(GenericRequest):
         typePattern = PatternManager.getOrCompilePattern("itemType")
         match = typePattern.search(self.responseText)
         if match:
-            self.responseData["type"] = match.group(1)
+            self.responseData["type"] = match.group(1).rstrip()
 
         # Get the autosell value.
         autosellPattern = PatternManager.getOrCompilePattern("itemAutosell")
