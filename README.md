@@ -23,6 +23,7 @@ The following is some example code that demonstrates how to login to The Kingdom
 of Loathing, grab the contents of your inbox, access the item database, as
 well as use and smash items.
 
+```python
 	from kol.Session import Session
 	from kol.database import ItemDatabase
 	from kol.request.GetMessagesRequest import GetMessagesRequest
@@ -60,12 +61,34 @@ well as use and smash items.
 
 	# Now we logout.
 	s.logout()
+```
 
 Requirements
 ------------
 pykol requires Python 2.6. It does not require any third-party libraries,
 however it does use a number of libraries that ship with the standard
 distribution of Python.
+
+Running the Unit Tests
+----------------------
+pykol includes a [unittest](http://docs.python.org/2/library/unittest.html) suite,
+to showcase some of its functionality and to help ensure that new game changes don't break your existing code.
+Developers are strongly encouraged to add unit tests for new features that they create.
+
+To run the test suite:
+
+1. Add the ```pykol\src``` directory to your Python path. On Windows, this will involve a trip to
+Environment Variables (see [this Python path on Windows tutorial](http://www.katsbits.com/tutorials/blender/setting-up-windows-python-path-system-variable.php) for an example). On Mac OS X or on Linux, you can add an ```export PYTHONPATH``` statement to your ```~/.bashrc``` file.
+For example, add this to the .bashrc file in your home directory (don't forget to either restart the terminal or ```source ~/.bashrc``` afterwards):
+
+```export PYTHONPATH=$PYTHONPATH:/Users/yourname/Documents/py-kol/src```
+
+2. Run the full test suite from the command line, and pass in a username and password for your character (the tests include logging in, etc).
+
+```
+# cd py-kol/src
+src# python kol/test/TestAll.py username password
+```
 
 How can I contribute?
 ---------------------
