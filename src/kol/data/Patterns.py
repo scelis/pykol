@@ -280,5 +280,5 @@ patterns = {
     'dailyBountyItem' : r'<input type=hidden name=action value="takebounty"><input type=hidden name=whichitem value=(?P<itemid>[0-9]+)>',
     'bountyChosen' : r'Get out there and collect those',
     'bountyActive1' : r"I'm still waiting for you to bring me",
-    'bountyActive2' : r"You have (.*) collected (.*) so far"
+    'bountyActive2' : r"You have (.*) collected (.*) so far",
 }
