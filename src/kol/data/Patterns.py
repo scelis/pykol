@@ -274,4 +274,11 @@ patterns = {
     "cantFireArrowAtHardcoreRonin": r"<td>You can't fire a time's arrow at somebody in Ronin or Hardcore\.<\/td>",
     "cantCursePlayerNotFound" : r"<td>That player could not be found\. +Confound it\.<\/td>",
     "fireArrowSuccess" : r"It hits with a satisfying <i>thwock<\/i>",
+    
+    # Bounty Hunter Hunter patterns.
+    'bountyAvailable' : r"These are the things I'm currently paying bounties on",
+    'dailyBountyItem' : r'<input type=hidden name=action value="takebounty"><input type=hidden name=whichitem value=(?P<itemid>[0-9]+)>',
+    'bountyChosen' : r'Get out there and collect those',
+    'bountyActive1' : r"I'm still waiting for you to bring me",
+    'bountyActive2' : r"You have (.*) collected (.*) so far"
 }

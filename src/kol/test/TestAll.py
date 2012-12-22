@@ -1,6 +1,7 @@
 import TestData
 import TestGetItemDescriptionRequest
 import TestItemDatabase
+import TestBountyHunter
 import TestLogin
 import TestLogout
 from kol.util import Report
@@ -18,6 +19,7 @@ def main(argv=sys.argv):
     suite.addTest(TestItemDatabase.Main())
     suite.addTest(TestLogin.Main())
     suite.addTest(TestGetItemDescriptionRequest.Main())
+    suite.addTest(TestBountyHunter.Main())
     suite.addTest(TestLogout.Main())
     
     # Run the test suite.
