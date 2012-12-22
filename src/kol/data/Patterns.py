@@ -274,4 +274,10 @@ patterns = {
     "cantFireArrowAtHardcoreRonin": r"<td>You can't fire a time's arrow at somebody in Ronin or Hardcore\.<\/td>",
     "cantCursePlayerNotFound" : r"<td>That player could not be found\. +Confound it\.<\/td>",
     "fireArrowSuccess" : r"It hits with a satisfying <i>thwock<\/i>",
+
+    # Nash Crosby's Still Patterns
+    "wrongStillProfession": r"<td>No still for you\.</td>",
+    "invalidStillItem": "<td>Nash Crosby doesn\'t want anything to do with that item.</td>",
+    "stillItemNotFound": "<td>You don\'t have that many of that item, Chief.</td>",
+    "stillMaxLimit": "<td>The still can\'t handle that much action today.</td>",
 }
