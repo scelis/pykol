@@ -276,8 +276,8 @@ patterns = {
     "fireArrowSuccess" : r"It hits with a satisfying <i>thwock<\/i>",
 
     # Nash Crosby's Still Patterns
-    "wrongStillProfession": r"<td>No still for you\.</td>",
-    "invalidStillItem": "<td>Nash Crosby doesn\'t want anything to do with that item.</td>",
-    "stillItemNotFound": "<td>You don\'t have that many of that item, Chief.</td>",
-    "stillMaxLimit": "<td>The still can\'t handle that much action today.</td>",
+    "wrongStillProfession": r"<td>No still for you\.<\/td>",
+    "invalidStillItem": r"<td>Nash Crosby doesn\'t want anything to do with that item\.<\/td>",
+    "stillItemNotFound": r"<td>You don\'t have that many of that item, Chief.<\/td>",
+    "stillMaxLimit": r"<td>The still can\'t handle that much action today\.<\/td>",
 }
