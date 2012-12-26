@@ -25,7 +25,7 @@ class NashCrosbysStillRequest(GenericRequest):
         if ItemNotFoundPattern.search(self.responseText):
             raise Error.Error("Not enough of that item.", Error.ITEM_NOT_FOUND)
         if maxLimitPattern.search(self.responseText):
-            raise Error.Error("Still can\'t be used anymore today.", Error.STILL_LIMIT)
+            raise Error.Error("Still can\'t be used anymore today.", Error.LIMIT_REACHED)
 
         # Find the items attached to the message.
         singleItemPattern = PatternManager.getOrCompilePattern('acquireSingleItem')
