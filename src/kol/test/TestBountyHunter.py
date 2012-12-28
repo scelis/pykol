@@ -20,12 +20,12 @@ class Main(unittest.TestCase):
 
             # Pick the first bounty and accept it
             bountyId = bounties[0]['id']
-            acceptBountyRequest = BountyHunterRequest(s, action='takebounty', item=bountyId)
+            acceptBountyRequest = BountyHunterRequest(s, action=BountyHunterRequest.ACCEPT_BOUNTY, item=bountyId)
             response = acceptBountyRequest.doRequest()
             self.assertTrue(response['bountyActive'], "bountyActive should be set to true after an accept requestio0k-p")
             self.assertFalse(response['bountyAvailable'], "bountyAvailable should be false after accepting the bounty")
             
             # Abandon the bounty
-            abandonBountyRequest = BountyHunterRequest(s, 'abandonbounty')
+            abandonBountyRequest = BountyHunterRequest(s, action=BountyHunterRequest.ABANDON_BOUNTY)
             response = abandonBountyRequest.doRequest()
             self.assertTrue(response['bountyAvailable'], "bountyAvailable should be true again after abandoning the bounty")

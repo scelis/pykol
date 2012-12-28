@@ -5,6 +5,11 @@ from kol.request.GenericRequest import GenericRequest
 class BountyHunterRequest(GenericRequest):
     """Interacts with the Bounty Hunter Hunter in the Forest Village."""
     
+    VISIT = None
+    ACCEPT_BOUNTY = 'takebounty'
+    ABANDON_BOUNTY = 'abandonbounty'
+    BUY = 'buy'
+    
     def __init__(self, session, action=None, item=None, quantity=None):
         """Initialize a Bounty Hunter Hunter request.
         
