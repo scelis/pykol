@@ -280,4 +280,11 @@ patterns = {
     "invalidStillItem": r"<td>Nash Crosby doesn\'t want anything to do with that item\.<\/td>",
     "stillItemNotFound": r"<td>You don\'t have that many of that item, Chief.<\/td>",
     "stillMaxLimit": r"<td>The still can\'t handle that much action today\.<\/td>",
+
+    # Bounty Hunter Hunter patterns.
+    'bountyAvailable' : r"These are the things I'm currently paying bounties on",
+    'dailyBountyItem' : r'<input type=hidden name=action value="takebounty"><input type=hidden name=whichitem value=(?P<itemid>[0-9]+)>',
+    'bountyChosen' : r'Get out there and collect those',
+    'bountyActive1' : r"I'm still waiting for you to bring me",
+    'bountyActive2' : r"You have (.*) collected (.*) so far",
 }
