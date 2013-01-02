@@ -2,6 +2,7 @@ from kol.request.HomepageRequest import HomepageRequest
 from kol.request.LoginRequest import LoginRequest
 from kol.request.LogoutRequest import LogoutRequest
 from kol.request.StatusRequest import StatusRequest
+from kol.request.CharpaneRequest import CharpaneRequest
 
 import cookielib
 import hashlib
@@ -38,12 +39,17 @@ class Session(object):
         loginRequest = LoginRequest(self, homepageResponse["loginChallenge"])
         loginRequest.doRequest()
 
+        # Load the charpane once to make StatusRequest report the rollover time
+        charpaneRequest = CharpaneRequest(self)
+        charpaneRequest.doRequest()
+
         # Get pwd, user ID, and the user's name.
         request = StatusRequest(self)
         response = request.doRequest()
         self.pwd = response["pwd"]
         self.userName = response["name"]
         self.userId = int(response["playerid"])
+        self.rollover = int(response["rollover"])
 
     def logout(self):
         "Performs a logut request, closing the session."
