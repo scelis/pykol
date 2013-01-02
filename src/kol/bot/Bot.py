@@ -42,7 +42,7 @@ class Bot(threading.Thread):
 
         self.params = params
         self.id = params["userName"]
-        self.stateIds = ["global", "cycle", "job", "kmail"]
+        self.stateIds = ["global", "rollover", "cycle", "job", "kmail"]
         self.states = {}
         self.session = None
         self.runBot = True
@@ -219,6 +219,20 @@ class Bot(threading.Thread):
         # Open the main map to clear the bot's alerts.
         r = MainMapRequest(self.session)
         r.doRequest()
+
+        # Determine when next rollover happens, in UTC unix time format
+        nextRollover = self.session.rollover
+
+        # Clear rollover state if it is a different KoL day than last session
+        if "expires" in self.states["rollover"]:
+            rolloverTimeDiff = abs(nextRollover - self.states["rollover"]["expires"])
+            if rolloverTimeDiff >= 12*60*60:  # half a day
+                self.executeFilter("botPreClearRollover")
+                self.clearState("rollover")
+
+        # Set rollover state to be cleared next rollover
+        self.states["rollover"]["expires"] = nextRollover
+        self.writeState("rollover")
 
         # Create a MailboxManager.
         if "doWork:kmail" in self.params:
