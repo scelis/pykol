@@ -232,7 +232,6 @@ class Bot(threading.Thread):
 
         # Set rollover state to be cleared next rollover
         self.states["rollover"]["expires"] = nextRollover
-        self.writeState("rollover")
 
         # Create a MailboxManager.
         if "doWork:kmail" in self.params:
