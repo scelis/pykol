@@ -26,7 +26,7 @@ CHAT_CHANNELS = [
 
 def parseIncomingChatMessage(text):
     return parseChatMessages(text, True)
-    
+
 def parseOutgoingChatMessages(text):
     return parseChatMessages(text, False)
 
@@ -270,9 +270,13 @@ def parseChatMessages(text, isIncoming):
                     chat["users"] = []
                     chatWhoPersonPattern = PatternManager.getOrCompilePattern("chatWhoPerson")
                     for match in chatWhoPersonPattern.finditer(line):
-                        userId = match.group(1)
-                        userName = match.group(2)
-                        chat["users"].append({"userId":userId, "userName":userName})
+                        userClass = match.group(1)
+                        userId = match.group(2)
+                        userName = match.group(3)
+                        userInfo = {"userId" : userId, "userName" : userName}
+                        if userClass == "afk":
+                            userInfo["isAway"] = True
+                        chat["users"].append(userInfo)
                     parsedChat = True
 
         if parsedChat and "text" in chat:
