@@ -18,6 +18,7 @@ CHAT_CHANNELS = [
     "normal"
     "pvp",
     "radio",
+    "slimetube",
     "trade",
     "valhalla",
     "veteran",
