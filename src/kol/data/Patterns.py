@@ -247,7 +247,6 @@ patterns = {
     # Quest Log patterns.
     "questsCompleted" : r'<b>([\w\s,\.\'\?!]+)<\/b>(?!<\/td>)<br>([\w\s,\.\'\?!]+)<p>',
 
-
     # Clan patterns.
     "clanName" : r'<a href="clan_hall\.php">([^<>]*)<\/a>',
     "clanCredo" : r'<textarea name=newcredo[^<>]*>([^<>]*)</textarea>',
@@ -304,8 +303,8 @@ patterns = {
     'bountyChosen' : r'Get out there and collect those',
     'bountyActive1' : r"I'm still waiting for you to bring me",
     'bountyActive2' : r"You have (.*) collected (.*) so far",
-    
-    # Wok related patterns. TODO: fix text?
+
+    # Wok related patterns.
     "dontHaveItemsForWok" : r"<td>You don't have the materials for that amount of wokkage\.</td>",
     "dontHaveAdventuresForWok" : r"<td>You don't have that many adventures left\.",
     "noWokAccess" : "What wok are you tokking about\?",
