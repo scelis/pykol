@@ -105,6 +105,23 @@ patterns = {
     "dontHaveSkillToMixCocktail" : r"<td>You don't have the skill necessary to make that cocktail\.</td>",
     "dontHaveItemsForThatCocktail" : r"<td>You don't have enough of one of the necessary items to make a cocktail that tasty\.</td>",
     "dontHaveAdventuresToMixCocktail" : r"<td>You don't have that many adventures left\. +It takes <i>time<\/i> to make a good cocktail, man\.</td>",
+    "bartenderExplosion" : r"Smoke begins to pour from the head of your bartender-in-the-box. It begins to vibrate noisily, spits out a few drinks at random, and then explodes\.",
+
+    # Cooking patterns.
+    "itemsDontCook" : r"<td>Those two items don't combine to make anything tasty\.</td>",
+    "dontHaveSkillToCook" : r"<td>You don't have the skill necessary to cook this item\.</td>",
+    "dontHaveItemsForCook" : r"<td>You don't have enough of one of the ingredients of that dish\.</td>",
+    "dontHaveAdventuresToCook" : r"<td>You don't have that many adventures left\. +It takes <i>time<\/i> to cook stuff, man\.</td>",
+    "chefExplosion" : r"Smoke begins to pour from the head of your chef-in-the-box. It begins to vibrate noisily, spits out a few dishes at random, and then explodes\.",
+
+    # Campground patterns.
+    "campgroundHasOven" : r"You've got an E-Z Cook&trade; oven installed in your kitchen.",
+    "campgroundHasRange" : r"You've got a Dramatic&trade; range installed in your kitchen.",
+    "campgroundHasChef" : r"You've got a (clockwork )?Chef-in-the-box. He'll help you cook fancy dishes, and make it so cooking doesn't cost an Adventure!",
+    "campgroundHasShaker" : r"You've got a My First Shaker&trade; cocktailcrafting kit in your kitchen.",
+    "campgroundHasKit" : r"You've got a Queue Du Coq cocktailcrafting kit in your kitchen.",
+    "campgroundHasBartender" : r"You've got a (clockwork )?Bartender-in-the-box. He'll help you mix up fancy cocktails, and make it so cocktailcrafting doesn't cost an Adventure!",
+    "campgroundHasMat" : r"Your kitchen is equipped with a sushi-rolling mat.",
 
     # Character Pane patterns.
     'characterLevel' : r'<br>Level ([0-9]+)<br>(.*?)<table',
@@ -287,4 +304,11 @@ patterns = {
     'bountyChosen' : r'Get out there and collect those',
     'bountyActive1' : r"I'm still waiting for you to bring me",
     'bountyActive2' : r"You have (.*) collected (.*) so far",
+    
+    # Wok related patterns. TODO: fix text?
+    "dontHaveItemsForWok" : r"<td>You don't have the materials for that amount of wokkage\.</td>",
+    "dontHaveAdventuresForWok" : r"<td>You don't have that many adventures left\.",
+    "noWokAccess" : "What wok are you tokking about\?",
+    "dontHaveSkillForWok" : r"<td>You don't have the skill necessary",
+
 }
