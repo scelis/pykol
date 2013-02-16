@@ -28,7 +28,7 @@ class MallItemSearchRequest(GenericRequest):
 
     def __init__(self, session, searchQuery, category=CATEGORY_ALL, noLimits=False, maxPrice=0, numResults=0):
         super(MallItemSearchRequest, self).__init__(session)
-        self.url = session.serverURL + 'searchmall.php'
+        self.url = session.serverURL + 'mall.php'
         self.requestData['didadv'] = 1
         self.requestData['pudnuggler'] = searchQuery
         self.requestData['category'] = category
