@@ -500,7 +500,7 @@ class Bot(threading.Thread):
                     Report.info("bot", "User could not receive items/meat.", inst)
                     state["userInHardcoreOrRonin"] = 1
                 elif inst.code == Error.USER_IS_IGNORING:
-                    Report.info("bot", "The user is ignorning us.", inst)
+                    Report.info("bot", "The user is ignorning us or we are ignoring them.", inst)
                     state["userIsIgnoringUs"] = 1
                 else:
                     raise inst

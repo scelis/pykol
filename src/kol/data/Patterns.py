@@ -63,6 +63,7 @@ patterns = {
     "notEnoughItemsToSend" : r"<center><table><tr><td>You don't have enough of one of the items you're trying to send\.<\/td><\/tr><\/table><\/center>",
     "messageSent" : r"<td><center>Message sent\.<\/center><\/td>",
     "kmailNotSentUserTrendy" : r"<center><table><tr><td>That player would never use something as old and outmoded as",
+    "weAreIgnoringUser" : r"<td>This message could not be sent, because that player is on your ignore list\.<\/td>",
 
     # Error patterns.
     "cantPulverizeItem" : r"<td>That's not something you can pulverize\.<\/td>",
