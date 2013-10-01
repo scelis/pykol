@@ -18,7 +18,7 @@ class GenericAdventuringRequest(GenericRequest):
         if shouldNotBeHerePattern.search(self.responseText):
             raise Error.Error("Unable to adventure. You should not be here.", Error.INVALID_LOCATION)
 
-        url = self.response.geturl()
+        url = self.response.url
         if url.find("/fight.php") >= 0:
             # See if the user tried to perform an invalid action.
             twiddlingThumbsPattern = PatternManager.getOrCompilePattern('twiddlingThumbs')

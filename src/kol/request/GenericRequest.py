@@ -1,7 +1,6 @@
 import kol.Error as Error
 from kol.util import Report
 
-import urllib
 
 class GenericRequest(object):
     "A generic request to a Kingdom of Loathing server."
@@ -20,17 +19,17 @@ class GenericRequest(object):
 
         Report.debug("request", "Requesting %s" % self.url)
 
-        self.response = self.session.opener.open(self.url, urllib.urlencode(self.requestData))
-        self.responseText = self.response.read()
+        self.response = self.session.opener.open(self.url, self.requestData)
+        self.responseText = self.response.text
 
         Report.debug("request", "Received response: %s" % self.url)
         Report.debug("request", "Response Text: %s" % self.responseText)
 
-        if self.response.geturl().find("/maint.php") >= 0:
+        if self.response.url.find("/maint.php") >= 0:
             self.session.isConnected = False
             raise Error.Error("Nightly maintenance in progress.", Error.NIGHTLY_MAINTENANCE)
 
-        if self.response.geturl().find("/login.php") >= 0:
+        if self.response.url.find("/login.php") >= 0:
             if self.session.isConnected:
                 self.session.isConnected = False
                 raise Error.Error("You are no longer connected to the server.", Error.NOT_LOGGED_IN)

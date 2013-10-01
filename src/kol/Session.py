@@ -6,13 +6,61 @@ from kol.request.CharpaneRequest import CharpaneRequest
 
 import cookielib
 import hashlib
+
 import urllib2
+import urllib
+
+try:
+    import requests
+except ImportError:
+    requests = None
+
+
+class Response(object):
+    "This class abstracts handling request responses created by an opener"
+
+    def __init__(self, text, url):
+        self.text = text
+        self.url = url
+
+
+class urllibOpener(object):
+    "This class provides a generic wrapper around urllib2 stuff"
+
+    def __init__(self):
+        self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookielib.CookieJar()))
+
+    def open(self, url, requestData):
+        self.response = self.opener.open(url, urllib.urlencode(requestData))
+        return Response(self.response.read(), self.response.geturl())
+
+class requestsOpener(object):
+    "This class provides a generic wrapper around requests"
+
+    def __init__(self):
+        self.opener = requests.Session()
+
+    def open(self, url, requestData):
+        self.response = self.opener.post(url, data = requestData)
+        return Response(self.response.text, self.response.url)
+
+
+
+    
+
+
+
+
+
 
 class Session(object):
     "This class represents a user's session with The Kingdom of Loathing."
 
     def __init__(self):
-        self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookielib.CookieJar()))
+        if requests:
+            self.opener = requestsOpener()
+        else:  
+            self.opener = urllibOpener()
         self.isConnected = False
         self.userId = None
         self.userName = None
