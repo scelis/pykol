@@ -255,7 +255,7 @@ patterns = {
     "clanAcceptingApps" : r'<p>Your clan is currently accepting applications\.<br>',
     "clanRankContainer" : r'<select name=level[0-9]+>(.*?)<\/select>',
     "clanRank" : r'<option value=([0-9]+)(?: selected)?>(.*?) \(&deg;([0-9]+)\)<\/option>',
-    "clanWhitelistMember" : r'<tr><td><input type=hidden name=player[0-9]+ value=[0-9]+><a href=\'showplayer\.php\?who=(?P<userId>[0-9]+)\' class=nounder><b>(?P<userName>[^<>]+)</b> \(#[0-9]+\)<\/a><\/td><td>(?:<select.*?<option value=(?P<clanRankId>[0-9]+) selected>.*?<\/select>|(?P<clanRankName>[^<>]+))<\/td><td>(?:<input type=text class=text size=[0-9]+ name=title[0-9]+ value=")?(?P<clanTitle>[^<>]+)(?:">)?<\/td>',
+    "clanWhitelistMember" : r'''<tr><td><input type=hidden name=(?:player[0-9]+|who) value=[0-9]+><a href='showplayer\.php\?who=(?P<userId>[0-9]+)' class=nounder><b>(?P<userName>[^<>]+)</b> \(#[0-9]+\)<\/a><\/td><td>(?:<select.*?<option value=(?P<clanRankId>[0-9]+) selected>.*?<\/select>|(?P<clanRankName>[^<>]+))<\/td><td>(?:<input type=text class=text size=[0-9]+ name=title[0-9]+ value=")?(?P<clanTitle>[^<>]*)(?:">)?<\/td>''',
     "clanLogEntry" : r'>(?P<date>[0-9/]+, [0-9:]+(?:AM|PM)): (?:<a class=nounder href=\'showplayer\.php\?who=[0-9]+\'>)?(?P<userName>[^<>]+) \(#(?P<userId>[0-9]+)\)(?:<\/a>)? (?P<action>.*?)(?=<br>)',
     "clanLogFax" : r'faxed in a (?P<monsterName>.*)$',
     "clanLogAttack" : r'launched an attack against (?P<clanName>.*)\.$',
