@@ -310,5 +310,10 @@ patterns = {
     "dontHaveAdventuresForWok" : r"<td>You don't have that many adventures left\.",
     "noWokAccess" : "What wok are you tokking about\?",
     "dontHaveSkillForWok" : r"<td>You don't have the skill necessary",
+    
+    # Mall Add items related patterns.
+    "dontHaveEnoughOfItem" : r"<td>You don't have enough of those",
+    "dontHaveThatItem" : r"<td>You don't have that item.([0-9]+)",
+    "itemAddedSuccessfully" : r"<td>\(([0-9]+)\) (.*) for ([0-9]+) meat each",
 
 }
