@@ -11,7 +11,7 @@ class PutItemInStoreRequest(GenericRequest):
     It looks like items are now added only one at a time.
     
     Notes about new URL: http://www.kingdomofloathing.com/backoffice.php
-    itemid: This is item ID with a letter 'h' before it. 
+    itemid: this will contain an "h" in front of it if the item is in Hangk's
     
     There is now a submitted field name '_'. This appears to be the milliseconds since epoch.
     Testing will need to be done to see how important this is. Presumably you could just append
@@ -27,7 +27,10 @@ class PutItemInStoreRequest(GenericRequest):
         self.requestData['ajax'] = 1
 
         
-        self.requestData['itemid'] = "h%s" % item["id"]
+        if "isInHangks" in item:
+            self.requestData['itemid'] = "h%s" % item["id"]
+        else:
+            self.requestData['itemid'] = item["id"]
         if "price" in item:
             self.requestData['price'] = item["price"]
         else:
