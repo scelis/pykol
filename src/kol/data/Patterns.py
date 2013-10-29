@@ -166,8 +166,8 @@ patterns = {
     'noMeatForStore' : r"(?:You can't afford that many of that item)|(?:You can't afford that item)|(?:You can't afford to purchase that)",
     'invalidStore' : r"You've been sent back here by some kind of bug",
     'notSoldHere' : r"(?:This store doesn't sell that item)|(?:Invalid item selected)",
-    "storeInventory" : r'width=30 height=30><\/td><td>([^<>]+?)(?: \(([0-9]+)\))?<\/td><td>([0-9,]+)</td><td>([^.]*)</td><td><a href="managestore.php\?action=take&whichitem=([0-9]+)">',
-
+    "storeInventory" : r'<tr class="deets" rel="([0-9]+)" after="([0-9]+)">(.*?)<b>(.*?)</b></td><td valign="center" align="center">([0-9]+)</td(.*?)name="price\[([0-9]+)\]" value="([0-9]+)"(.*?)name="limit\[[0-9]+\]" value="([0-9]+)"(.*?)cheapest: ([0-9]+)</span>', 
+    
     # Hermit patterns.
     'noTrinkets' : r"You don't have enough stuff",
     'noHermitPermits' : r"You don't have enough Hermit Permits to trade for that many",
