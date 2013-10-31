@@ -317,6 +317,7 @@ patterns = {
     "itemAddedSuccessfully" : r"<td>\(([0-9]+)\) (.*) for ([0-9]+) meat each",
     "dontHaveThatManyInStore" : "You don't have that many in your store.",
     "itemTakenSuccessfully" : "You acquire",
-   
+    "mallPricesUnlimited" : r"<tr><td>unlimited:</td><td><b>([0-9]+)</b> x([0-9]+)</td><td><b>([0-9]+)</b> x([0-9]+)</td><td><b>([0-9]+)</b> x([0-9]+)</td><td><b>([0-9]+)</b> x([0-9]+)</td></tr>",
+    "mallPricesLimited" : r"<tr><td>limited:</td><td><b>([0-9]+)</b>\(([0-9]+)/day\) x([0-9]+)</td><td><b>([0-9]+)</b>\(([0-9]+)/day\) x([0-9]+)</td><td><b>([0-9]+)</b>\(([0-9]+)/day\) x([0-9]+)</td></tr>",
 
 }
