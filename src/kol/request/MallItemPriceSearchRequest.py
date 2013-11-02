@@ -47,11 +47,12 @@ class SearchMallPriceRequest(GenericRequest):
 
         for match in mallPricesLimitedPattern.finditer(self.responseText):            
             limited = []
-            price = {"price" : match.group(9), "limit" : match.group(10), "count" : match.group(11)}
+            print 
+            price = {"price" : match.group(1), "limit" : match.group(2), "count" : match.group(3)}
             limited.append(price)
-            price = {"price" : match.group(12), "limit" : match.group(13), "count" : match.group(14)}
+            price = {"price" : match.group(4), "limit" : match.group(5), "count" : match.group(6)}
             limited.append(price)
-            price = {"price" : match.group(15), "limit" : match.group(16), "count" : match.group(17)}
+            price = {"price" : match.group(7), "limit" : match.group(8), "count" : match.group(9)}
             limited.append(price)
             
             item["limited"] = limited
