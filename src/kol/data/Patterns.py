@@ -314,7 +314,7 @@ patterns = {
     # Sept 2013 Mall interface patterns
     "dontHaveEnoughOfItem" : r"<td>You don't have enough of those",
     "dontHaveThatItem" : r"<td>You don't have that item.([0-9]+)",
-    "itemAddedSuccessfully" : r"<td>\(([0-9]+)\) (.*) for ([0-9]+) meat each",
+    "itemAddedSuccessfully" : r"<td>\(([0-9]+)\) (.*) for ([0-9,]+) meat each",
     "dontHaveThatManyInStore" : "You don't have that many in your store.",
     "itemTakenSuccessfully" : "You acquire",
     "mallPricesUnlimited" : r"<tr><td>unlimited:</td><td><b>([0-9,]+)</b> x([0-9]+).*?</td><td><b>([0-9,]+)</b> x([0-9]+).*?</td><td><b>([0-9,]+)</b> x([0-9]+).*?</td><td><b>([0-9,]+)</b> x([0-9]+).*?</td></tr>",
