@@ -32,13 +32,13 @@ class SearchMallPriceRequest(GenericRequest):
 
         for match in mallPricesUnlimitedPattern.finditer(self.responseText):
             unlimited = []
-            price = {"price" : match.group(1), "count" : match.group(2)}
+            price = {"price" : match.group(1).replace(",", ""), "count" : match.group(2).replace(",", "")}
             unlimited.append(price)
-            price = {"price" : match.group(3), "count" : match.group(4)}
+            price = {"price" : match.group(3).replace(",", ""), "count" : match.group(4).replace(",", "")}
             unlimited.append(price)       
-            price = {"price" : match.group(5), "count" : match.group(6)}
+            price = {"price" : match.group(5).replace(",", ""), "count" : match.group(6).replace(",", "")}
             unlimited.append(price)        
-            price = {"price" : match.group(7), "count" : match.group(8)}
+            price = {"price" : match.group(7).replace(",", ""), "count" : match.group(8).replace(",", "")}
             unlimited.append(price)             
             
             item["unlimited"] = unlimited
@@ -48,11 +48,11 @@ class SearchMallPriceRequest(GenericRequest):
         for match in mallPricesLimitedPattern.finditer(self.responseText):            
             limited = []
             print 
-            price = {"price" : match.group(1), "limit" : match.group(2), "count" : match.group(3)}
+            price = {"price" : match.group(1).replace(",", ""), "limit" : match.group(2).replace(",", ""), "count" : match.group(3).replace(",", "")}
             limited.append(price)
-            price = {"price" : match.group(4), "limit" : match.group(5), "count" : match.group(6)}
+            price = {"price" : match.group(4).replace(",", ""), "limit" : match.group(5).replace(",", ""), "count" : match.group(6).replace(",", "")}
             limited.append(price)
-            price = {"price" : match.group(7), "limit" : match.group(8), "count" : match.group(9)}
+            price = {"price" : match.group(7).replace(",", ""), "limit" : match.group(8).replace(",", ""), "count" : match.group(9).replace(",", "")}
             limited.append(price)
             
             item["limited"] = limited
