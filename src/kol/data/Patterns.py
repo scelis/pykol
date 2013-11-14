@@ -92,6 +92,7 @@ patterns = {
     "outgoingPrivate" : r'<font color="?blue"?><b>private to <a class=nounder target="?mainpane"? href="?showplayer.php\?who=([0-9]+)"?><font color="?blue"?>(.*?)</font></a></b>:(.*?)</font></br>',
     "chatPlayerLoggedOn" : r'<font color=green><a target=mainpane href=\'showplayer\.php\?who=([0-9]+)\'><font color=green><b>([^<>]+)<\/b><\/font><\/a> logged on\.<\/font>$',
     "chatPlayerLoggedOff" : r'<font color=green><a target=mainpane href=\'showplayer\.php\?who=([0-9]+)\'><font color=green><b>([^<>]+)<\/b><\/font><\/a> logged off\.<\/font>$',
+    "chatTalkieFrequency" : r'<font color=green>The frequency is (.*?), Mr. Rather\.<\/font>',
 
     # Clan dungeon patterns.
     "dungeonActivity" : r'(?:^|<br>|<br><b>|<b>)([^<>]+) \(#([0-9,]+)\) ([^<>]+) \(([0-9,]+) turns?\)',
@@ -320,6 +321,6 @@ patterns = {
     "mallPricesUnlimited" : r"<tr><td>unlimited:</td><td><b>([0-9,]+)</b> x([0-9]+).*?</td><td><b>([0-9,]+)</b> x([0-9]+).*?</td><td><b>([0-9,]+)</b> x([0-9]+).*?</td><td><b>([0-9,]+)</b> x([0-9]+).*?</td></tr>",
     "mallPricesLimited" : r"<tr><td>limited:</td><td><b>([0-9,]+)</b>\(([0-9]+)/day\) x([0-9]+).*?</td><td><b>([0-9,]+)</b>\(([0-9]+)/day\) x([0-9]+).*?</td><td><b>([0-9,]+)</b>\(([0-9]+)/day\) x([0-9]+).*?</td></tr>",
     "mallPriceNotUpdated" : "Nothing updated",
-    "mallTransactions" : r"([1-9][1-9]/[1-9][1-9]/[1-9][1-9] [1-9][1-9]:[1-9][1-9]:[1-9][1-9]) <a class=nounder href=\"showplayer.php\?who=([0-9]+)\"><b>(.*?)<\/b><\/a> bought ([0-9]+) \((.*?)\) for ([0-9]+) Meat.<br>"
+    "mallTransactions" : r"([1-9][1-9]/[1-9][1-9]/[1-9][1-9] [1-9][1-9]:[1-9][1-9]:[1-9][1-9]) <a class=nounder href=\"showplayer.php\?who=([0-9]+)\"><b>(.*?)<\/b><\/a> bought ([0-9]+) \((.*?)\) for ([0-9]+) Meat.<br>",
     
 }
