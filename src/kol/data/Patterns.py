@@ -167,7 +167,7 @@ patterns = {
     'noMeatForStore' : r"(?:You can't afford that many of that item)|(?:You can't afford that item)|(?:You can't afford to purchase that)",
     'invalidStore' : r"You've been sent back here by some kind of bug",
     'notSoldHere' : r"(?:This store doesn't sell that item)|(?:Invalid item selected)",
-    "storeInventory" : r'<tr class="deets" rel="([0-9]+)" after="([0-9]+)">(.*?)<b>(.*?)</b></td><td valign="center" align="center">([0-9]+)</td(.*?)name="price\[([0-9]+)\]" value="([0-9]+)"(.*?)name="limit\[[0-9]+\]" value="([0-9]+)"(.*?)cheapest: ([0-9]+)</span>', 
+    "storeInventory" : r'<tr class="deets" rel="([0-9]+)" after="([0-9]+)">(.*?)<b>(.*?)</b></td><td valign="center" align="center">([0-9]+)</td(.*?)name="price\[([0-9]+)\]" value="([0-9,]+)"(.*?)name="limit\[[0-9]+\]" value="([0-9]+)"(.*?)cheapest: ([0-9]+)</span>', 
     
     # Hermit patterns.
     'noTrinkets' : r"You don't have enough stuff",
@@ -322,5 +322,4 @@ patterns = {
     "mallPricesLimited" : r"<tr><td>limited:</td><td><b>([0-9,]+)</b>\(([0-9]+)/day\) x([0-9]+).*?</td><td><b>([0-9,]+)</b>\(([0-9]+)/day\) x([0-9]+).*?</td><td><b>([0-9,]+)</b>\(([0-9]+)/day\) x([0-9]+).*?</td></tr>",
     "mallPriceNotUpdated" : "Nothing updated",
     "mallTransactions" : r"([1-9][1-9]/[1-9][1-9]/[1-9][1-9] [1-9][1-9]:[1-9][1-9]:[1-9][1-9]) <a class=nounder href=\"showplayer.php\?who=([0-9]+)\"><b>(.*?)<\/b><\/a> bought ([0-9]+) \((.*?)\) for ([0-9]+) Meat.<br>",
-    
 }
