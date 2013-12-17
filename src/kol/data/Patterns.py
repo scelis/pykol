@@ -92,6 +92,7 @@ patterns = {
     "outgoingPrivate" : r'<font color="?blue"?><b>private to <a class=nounder target="?mainpane"? href="?showplayer.php\?who=([0-9]+)"?><font color="?blue"?>(.*?)</font></a></b>:(.*?)</font></br>',
     "chatPlayerLoggedOn" : r'<font color=green><a target=mainpane href=\'showplayer\.php\?who=([0-9]+)\'><font color=green><b>([^<>]+)<\/b><\/font><\/a> logged on\.<\/font>$',
     "chatPlayerLoggedOff" : r'<font color=green><a target=mainpane href=\'showplayer\.php\?who=([0-9]+)\'><font color=green><b>([^<>]+)<\/b><\/font><\/a> logged off\.<\/font>$',
+    "chatTalkieFrequency" : r'<font color=green>The frequency is (.*?), Mr. Rather\.<\/font>',
 
     # Clan dungeon patterns.
     "dungeonActivity" : r'(?:^|<br>|<br><b>|<b>)([^<>]+) \(#([0-9,]+)\) ([^<>]+) \(([0-9,]+) turns?\)',
@@ -166,8 +167,8 @@ patterns = {
     'noMeatForStore' : r"(?:You can't afford that many of that item)|(?:You can't afford that item)|(?:You can't afford to purchase that)",
     'invalidStore' : r"You've been sent back here by some kind of bug",
     'notSoldHere' : r"(?:This store doesn't sell that item)|(?:Invalid item selected)",
-    "storeInventory" : r'width=30 height=30><\/td><td>([^<>]+?)(?: \(([0-9]+)\))?<\/td><td>([0-9,]+)</td><td>([^.]*)</td><td><a href="managestore.php\?action=take&whichitem=([0-9]+)">',
-
+    "storeInventory" : r'<tr class="deets" rel="([0-9]+)" after="([0-9]+)">(.*?)<b>(.*?)</b></td><td valign="center" align="center">([0-9]+)</td(.*?)name="price\[([0-9]+)\]" value="([0-9,]+)"(.*?)name="limit\[[0-9]+\]" value="([0-9]+)"(.*?)cheapest: ([0-9]+)</span>', 
+    
     # Hermit patterns.
     'noTrinkets' : r"You don't have enough stuff",
     'noHermitPermits' : r"You don't have enough Hermit Permits to trade for that many",
@@ -310,5 +311,15 @@ patterns = {
     "dontHaveAdventuresForWok" : r"<td>You don't have that many adventures left\.",
     "noWokAccess" : "What wok are you tokking about\?",
     "dontHaveSkillForWok" : r"<td>You don't have the skill necessary",
-
+    
+    # Sept 2013 Mall interface patterns
+    "dontHaveEnoughOfItem" : r"<td>You don't have enough of those",
+    "dontHaveThatItem" : r"<td>You don't have that item.([0-9]+)",
+    "itemAddedSuccessfully" : r"<td>\(([0-9]+)\) (.*) for ([0-9,]+) meat each",
+    "dontHaveThatManyInStore" : "You don't have that many in your store.",
+    "itemTakenSuccessfully" : "You acquire",
+    "mallPricesUnlimited" : r"<tr><td>unlimited:</td><td><b>([0-9,]+)</b> x([0-9]+).*?</td><td><b>([0-9,]+)</b> x([0-9]+).*?</td><td><b>([0-9,]+)</b> x([0-9]+).*?</td><td><b>([0-9,]+)</b> x([0-9]+).*?</td></tr>",
+    "mallPricesLimited" : r"<tr><td>limited:</td><td><b>([0-9,]+)</b>\(([0-9]+)/day\) x([0-9]+).*?</td><td><b>([0-9,]+)</b>\(([0-9]+)/day\) x([0-9]+).*?</td><td><b>([0-9,]+)</b>\(([0-9]+)/day\) x([0-9]+).*?</td></tr>",
+    "mallPriceNotUpdated" : "Nothing updated",
+    "mallTransactions" : r"([1-9][1-9]/[1-9][1-9]/[1-9][1-9] [1-9][1-9]:[1-9][1-9]:[1-9][1-9]) <a class=nounder href=\"showplayer.php\?who=([0-9]+)\"><b>(.*?)<\/b><\/a> bought ([0-9]+) \((.*?)\) for ([0-9]+) Meat.<br>",
 }
