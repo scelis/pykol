@@ -479,6 +479,13 @@ class Bot(threading.Thread):
         # Here we try to actually send the message.
         if "sentMessage" not in state:
 
+            # Add a common footer to the kmail
+            if "commonKmailFooter" in self.params and len(self.params["commonKmailFooter"]) > 0:
+                if len(m["text"]) > 0:
+                    m["text"] = m["text"] + "\n\n" + self.params["commonKmailFooter"]
+                else:
+                    m["text"] = self.params["commonKmailFooter"]
+
             # Log the message we are sending
             Report.info("bot", "Sending message to %s." % m["userId"])
             Report.info("bot", "Text: %s" % m["text"])
