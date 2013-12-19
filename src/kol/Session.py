@@ -4,15 +4,24 @@ from kol.request.LogoutRequest import LogoutRequest
 from kol.request.StatusRequest import StatusRequest
 from kol.request.CharpaneRequest import CharpaneRequest
 
+
+
 import cookielib
 import hashlib
-import urllib2
+
+try:
+    import requests
+    from Opener import RequestsOpener as Opener
+except ImportError:
+    from Opener import StandardOpener as Opener
+
 
 class Session(object):
     "This class represents a user's session with The Kingdom of Loathing."
 
     def __init__(self):
-        self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookielib.CookieJar()))
+        self.opener = Opener()
+            
         self.isConnected = False
         self.userId = None
         self.userName = None

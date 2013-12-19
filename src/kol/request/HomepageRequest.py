@@ -19,11 +19,11 @@ class HomepageRequest(GenericRequest):
     def parseResponse(self):
         # Get the URL of the server that we were told to use.
         loginUrlPattern = PatternManager.getOrCompilePattern('loginURL')
-        serverMatch = loginUrlPattern.match(self.response.geturl())
+        serverMatch = loginUrlPattern.match(self.response.url)
         if serverMatch:
             self.responseData["serverURL"] = serverMatch.group(1)
         else:
-            raise Error.Error("Unable to determine server URL from: " + self.response.geturl(), Error.LOGIN_FAILED_GENERIC)
+            raise Error.Error("Unable to determine server URL from: " + self.response.url, Error.LOGIN_FAILED_GENERIC)
 
         # Get the user's challenge string which is used to provide a more secure login mechanism.
         loginChallengePattern = PatternManager.getOrCompilePattern('loginChallenge')

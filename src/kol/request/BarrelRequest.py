@@ -23,7 +23,7 @@ class BarrelRequest(GenericRequest):
         if noAdventuresPattern.match(self.responseText):
             raise Error.Error("You don't have enough adventures to smash that", Error.NOT_ENOUGH_ADVENTURES)
 
-        url = self.response.geturl()
+        url = self.response.url
         if url.find("/fight.php") >= 0:
             # Get the monster's name.
             self.responseData["adventureType"] = "combat"
