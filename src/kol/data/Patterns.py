@@ -322,4 +322,21 @@ patterns = {
     "mallPricesLimited" : r"<tr><td>limited:</td><td><b>([0-9,]+)</b>\(([0-9]+)/day\) x([0-9]+).*?</td><td><b>([0-9,]+)</b>\(([0-9]+)/day\) x([0-9]+).*?</td><td><b>([0-9,]+)</b>\(([0-9]+)/day\) x([0-9]+).*?</td></tr>",
     "mallPriceNotUpdated" : "Nothing updated",
     "mallTransactions" : r"([1-9][1-9]/[1-9][1-9]/[1-9][1-9] [1-9][1-9]:[1-9][1-9]:[1-9][1-9]) <a class=nounder href=\"showplayer.php\?who=([0-9]+)\"><b>(.*?)<\/b><\/a> bought ([0-9]+) \((.*?)\) for ([0-9]+) Meat.<br>",
+    
+    #Trade related patterns
+    "traderIgnoringUs" : r"<td>You can't make an offer to a player who has placed you on his or her ignore list\.",
+    "traderIsInRoninHC" : r"<td>That player cannot receive Meat or items from other players\.",
+    "traderHasNotEnoughMeat" : r"<td>You don't have that much Meat\.",
+    "traderHasNotEnoughItems" : r"<td>You don't have enough of one of the items you're trying to send.",
+    "traderBannedFromChat" : r"<td>You can't send offers while you're banned from the chat\.",
+    "tradeSentSuccessfully" : r"<td>Your trade offer has been sent\.",
+    "tradeItem" : (r"<tr><td><img onclick\='descitem\((?P<itemdescid>[0-9]+)\).*?<b>(?P<itemname>.*?)\((?P<quantity>[0-9,]+])\)</td>'", re.DOTALL),
+    "tradeMessage" : (r'<table cellpadding=5><tr><td.*?><b>Note:</b><Br><?/?c?e?n?t?e?r?>?(?P<message>.*?)</td></tr></table>', re.DOTALL),
+    "tradePendingResponseIncoming" : (r'You will give (?P<playername>.*?) \(#(?P<playerid>[0-9]+)\):<br><table>(?P<outgoingitems>.*?)</table><img src="http://images\.kingdomofloathing\.com/itemimages/meat\.gif" width=30 height=30><b>:</b> (?P<outgoingmeat>[0-9,]+)<br><hr>.*? will give you:<br><table>(?P<incomingitems>.*?)</table><img src\="http://images\.kingdomofloathing\.com/itemimages/meat\.gif" width=30 height=30><b>:</b> (?P<incomingmeat>[0-9,]+)<br>(?P<message>.*?)<a href="makeoffer\.php\?action\=accept&pwd\=.*?&whichoffer\=(?P<tradeid>[0-9]+)">accept', re.DOTALL),
+    "tradePendingResponseOutgoing" : (r'You will give [^()]*?:<br><table>(?P<outgoingitems>.*?)</table><img src="http://images\.kingdomofloathing\.com/itemimages/meat\.gif" width=30 height=30><b>:</b> (?P<outgoingmeat>[0-9,]+?)<br><hr>(?P<playername>.*?) \(#(?P<playerid>[0-9]+?)\) will give you:<br><table>(?P<incomingitems>.*?)</table><img src="http://images\.kingdomofloathing\.com/itemimages/meat\.gif" width=30 height=30><b>:</b> (?P<incomingmeat>[0-9,]+)<br>(?P<message>.*?)<a href="makeoffer\.php\?action=cancel2&whichoffer=(?P<tradeid>[0-9]+?)">cancel', re.DOTALL),
+    "tradePendingOfferIncoming" : (r'Offer from (?P<playername>.*?) \(#(?P<playerid>[0-9]+)\)<br><table>(?P<incomingitems>.*?)</table><img src="http://images\.kingdomofloathing\.com/itemimages/meat\.gif" width=30 height=30><b>:</b> (?P<incomingmeat>[0-9,]+)<br>(?P<message>.*?)<a href="counteroffer\.php\?whichoffer=(?P<tradeid>[0-9]+)">respond', re.DOTALL),
+    "tradePendingOfferOutgoing" : (r'Offered to (?P<playername>.*?) \(#(?P<playerid>[0-9]+)\)<br><table>(?P<outgoingitems>.*?)</table><img src="http://images\.kingdomofloathing\.com/itemimages/meat\.gif" width=30 height=30><b>:</b> (?P<outgoingmeat>[0-9,]+)<br>(?P<message>.*?)<a href="makeoffer\.php\?action=cancel&whichoffer=(?P<tradeid>[0-9]+)">cancel this offer', re.DOTALL),
+    "tradeResponseSentSuccessfully" : r'Pending Responses \(Outgoing\)',
+    "tradeCancelledSuccessfully" : r'Offer cancelled\.',
+    "tradeAccepted" : r'Offer Accepted\.',
 }
