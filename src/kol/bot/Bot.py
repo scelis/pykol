@@ -449,12 +449,18 @@ class Bot(threading.Thread):
 
     def returnKmail(self, message, introText):
         m = {"userId":message["userId"], "meat":message["meat"], "items":message["items"]}
-        m["text"] = introText + "\n\nOriginalMessage:\n--------------------\n" + message["text"]
+        try:
+            m["text"] = introText + "\n\nOriginalMessage:\n--------------------\n" + message["text"]
+        except:
+            m["text"] = introText
         self.sendKmail(m)
 
     def quoteKmail(self, message, newText):
         m = {"userId":message["userId"]}
-        m["text"] = newText + "\n\nOriginalMessage:\n--------------------\n" + message["text"]
+        try:
+            m["text"] = newText + "\n\nOriginalMessage:\n--------------------\n" + message["text"]
+        except:
+            m["text"] = newText
         self.sendKmail(m)
 
     def sendKmail(self, m):
