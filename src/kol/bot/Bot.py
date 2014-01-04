@@ -16,6 +16,7 @@ from kol.util import Report
 import httplib
 import os
 import pickle
+import socket
 import threading
 import time
 import urllib2
@@ -177,6 +178,10 @@ class Bot(threading.Thread):
                     timeToSleep = 120
                 except httplib.BadStatusLine, inst:
                     Report.error("bot", "Bad HTTP Status! Let's try logging in again and maybe get a new server in the process.", inst)
+                    self.session = None
+                    timeToSleep = 120
+                except socket.error, inst:
+                    Report.error("bot", "Socket error! Let's try logging in again and maybe get a new server in the process.", inst)
                     self.session = None
                     timeToSleep = 120
                 except Exception, inst:
