@@ -10,7 +10,7 @@ class WokRequest(GenericRequest):
         self.url = session.serverURL + "guild.php"
         self.requestData['pwd'] = session.pwd
         self.requestData['action'] = 'wokcook'
-        self.requestData['qty'] = numMake
+        self.requestData['quantity'] = numMake
         self.requestData['whichitem'] = itemid1
 
 
