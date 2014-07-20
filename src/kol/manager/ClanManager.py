@@ -1,5 +1,5 @@
 from kol.request.AddPlayerToClanWhitelistRequest import AddPlayerToClanWhitelistRequest
-from kol.request.GetClanWhitelistRequest import GetClanWhitelistRequest
+#from kol.request.GetClanWhitelistRequest import GetClanWhitelistRequest
 from kol.request.LoadClanAdminRequest import LoadClanAdminRequest
 from kol.request.ToggleAcceptingClanApplicationsRequest import ToggleAcceptingClanApplicationsRequest
 
@@ -22,10 +22,10 @@ class ClanManager(object):
         self.clanWebsite = data["clanWebsite"]
         self.acceptingApplications = data["acceptingApps"]
 
-    def loadClanRanks(self):
-        r = GetClanWhitelistRequest(self.session)
-        data = r.doRequest()
-        self.clanRanks = data["ranks"]
+    #def loadClanRanks(self):
+    #   r = GetClanWhitelistRequest(self.session)
+    #   data = r.doRequest()
+    #   self.clanRanks = data["ranks"]
 
     def setAcceptApplications(self, acceptApplications):
         if self.acceptingApplications == None:
