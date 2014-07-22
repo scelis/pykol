@@ -34,6 +34,6 @@ class MeatpastingRequest(GenericRequest):
         # Find the items attached to the message.
         items = ParseResponseUtils.parseItemsReceived(self.responseText, self.session)
         if len(items) > 0:
-            self.responseData["items"] = item
+            self.responseData["items"] = items
         else:
             raise Error.Error("Unknown error meatpasting items: %s" % self.responseText, Error.REQUEST_FATAL)
