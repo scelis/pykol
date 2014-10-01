@@ -41,3 +41,21 @@ class CursePlayerRequest(GenericRequest):
             if not successPattern.search(self.responseText):
                 print self.responseText
                 raise Error.Error("Unknown error.", Error.REQUEST_GENERIC)
+
+        elif self.curseItemId == 7698:
+            cantUseOnSelfPattern = PatternManager.getOrCompilePattern('cantUseSpiderOnSelf')
+            if cantUseOnSelfPattern.search(self.responseText):
+                raise Error.Error("You can't use a rubber spider on yourself.", Error.INVALID_USER)
+
+            cantUseHardcoreRonin = PatternManager.getOrCompilePattern('cantUseSpiderOnHardcoreRonin')
+            if cantUseHardcoreRonin.search(self.responseText):
+                raise Error.Error("You can't use a rubber spider on a person in hardcore or ronin.", Error.USER_IN_HARDCORE_RONIN)
+
+            alreadyHitPattern = PatternManager.getOrCompilePattern('userAlreadyHitWithSpider')
+            if alreadyHitPattern.search(self.responseText):
+                raise Error.Error("That person already has a rubber spider on them.", Error.ALREADY_COMPLETED)
+
+            successPattern = PatternManager.getOrCompilePattern('useSpiderSuccess')
+            if not successPattern.search(self.responseText):
+                print self.responseText
+                raise Error.Error("Unknown error.", Error.REQUEST_GENERIC)
