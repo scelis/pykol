@@ -42,7 +42,7 @@ patterns = {
     "inventorySingleItem" : r'<img [^>]*descitem\(([0-9]+)[^>]*></td><td[^>]*><b[^>]*>([^<>]+)</b>&nbsp;<span><\/span>',
     "inventoryMultipleItems" : r'<img [^>]*descitem\(([0-9]+)[^>]*></td><td[^>]*><b[^>]*>([^<>]+)</b>&nbsp;<span>\(([0-9]+)\)<\/span>',
     "itemAutosell" : r'<br>Selling Price: <b>(\d*) Meat\.<\/b>',
-    "itemImage" : r'<img src="http:\/\/images\.kingdomofloathing\.com\/itemimages\/(.*?)"',
+    "itemImage" : r'\/\/images\.kingdomofloathing\.com\/itemimages\/(.*?)"',
     "itemName" : r'<b>(.+?)<\/b>',
     "itemType" : r'<br>Type: <b>([^<]*)<.*\/b><br>',
     "tooFull" : r"You're too full to eat that\.",
@@ -54,9 +54,9 @@ patterns = {
     "notMultiUse" : r"<table><tr><td>That item isn't usable in quantity.</td></tr></table>",
 
     # Message-related patterns.
-    "brickMessage" : r"http:\/\/images\.kingdomofloathing\.com\/adventureimages\/(brokewin|bigbrick)\.gif",
-    "candyHeartMessage" : r"http:\/\/images\.kingdomofloathing\.com\/otherimages\/heart\/hearttop\.gif",
-    "coffeeMessage" : r"http:\/\/images\.kingdomofloathing\.com\/otherimages\/heart\/cuptop\.gif",
+    "brickMessage" : r"\/\/images\.kingdomofloathing\.com\/adventureimages\/(brokewin|bigbrick)\.gif",
+    "candyHeartMessage" : r"\/\/images\.kingdomofloathing\.com\/otherimages\/heart\/hearttop\.gif",
+    "coffeeMessage" : r"\/\/images\.kingdomofloathing\.com\/otherimages\/heart\/cuptop\.gif",
     "fullMessage" : ('<tr><td[^>]*><input type=checkbox name="sel([0-9]+)".*?<b>[^<]*<\/b> <a href="showplayer\.php\?who=([0-9]+)">([^<]*)<\/a>.*?<b>Date:<\/b>([^<]*?)</b>.*?<blockquote>(.*?)<\/blockquote>', re.DOTALL),
     "userInHardcoreRonin" : r'<center><table><tr><td>That player cannot receive Meat or items from other players right now\.',
     "userIgnoringUs" : r"<center><table><tr><td>This message could not be sent, because you are on that player's ignore list\.<\/td><\/tr><\/table><\/center>",
