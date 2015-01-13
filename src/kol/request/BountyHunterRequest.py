@@ -2,6 +2,7 @@ from kol.database import ItemDatabase
 from kol.manager import PatternManager
 from kol.request.GenericRequest import GenericRequest
 
+# TODO: This request needs to be redone, since the BHH interface has changed
 class BountyHunterRequest(GenericRequest):
     """Interacts with the Bounty Hunter Hunter in the Forest Village."""
     
@@ -47,26 +48,13 @@ class BountyHunterRequest(GenericRequest):
             bountyAvailable = False
 
         bountyChosenPattern = PatternManager.getOrCompilePattern('bountyChosen')
-        bountyActivePattern1 = PatternManager.getOrCompilePattern('bountyActive1')
-        bountyActivePattern2 = PatternManager.getOrCompilePattern('bountyActive2')
         
-        if bountyChosenPattern.search(self.responseText) or \
-            bountyActivePattern1.search(self.responseText) or \
-            bountyActivePattern2.search(self.responseText):
+        if bountyChosenPattern.search(self.responseText):
                 bountyActive = True
         else:
             bountyActive = False
-
-        dailyBounties = []
-        if bountyAvailable:
-            bountyPattern = PatternManager.getOrCompilePattern('dailyBountyItem')
-            for match in bountyPattern.finditer(self.responseText):
-                itemId = int(match.group('itemid'))
-                item = ItemDatabase.getItemFromId(itemId)
-                dailyBounties.append(item)
         
         response['bountyAvailable'] = bountyAvailable
         response['bountyActive'] = bountyActive
-        response['dailyBounties'] = dailyBounties
         
         self.responseData = response

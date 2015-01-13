@@ -302,9 +302,7 @@ patterns = {
     # Bounty Hunter Hunter patterns.
     'bountyAvailable' : r"These are the things I'm currently paying bounties on",
     'dailyBountyItem' : r'<input type=hidden name=action value="takebounty"><input type=hidden name=whichitem value=(?P<itemid>[0-9]+)>',
-    'bountyChosen' : r'Get out there and collect those',
-    'bountyActive1' : r"I'm still waiting for you to bring me",
-    'bountyActive2' : r"You have (.*) collected (.*) so far",
+    'bountyChosen' : r"Come back when you've collected",
 
     # Wok related patterns.
     "dontHaveItemsForWok" : r"<td>You don't have the materials for that amount of wokkage\.</td>",
