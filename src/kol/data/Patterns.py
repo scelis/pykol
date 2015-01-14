@@ -292,6 +292,10 @@ patterns = {
     "cantFireArrowAtHardcoreRonin": r"<td>You can't fire a time's arrow at somebody in Ronin or Hardcore\.<\/td>",
     "cantCursePlayerNotFound" : r"<td>That player could not be found\. +Confound it\.<\/td>",
     "fireArrowSuccess" : r"It hits with a satisfying <i>thwock<\/i>",
+    "cantUseSpiderOnSelf" : r"You decide against scaring yourself with that spider.",
+    "userAlreadyHitWithSpider" : r"You run across an already hidden spider when you go to hide this spider, and decide to wait a while.",
+    "cantUseSpiderOnHardcoreRonin" : r"That item cannot be used on a player in Ronin or Hardcore.",
+    "useSpiderSuccess" : r"You carefully hide the spider where .* is sure to find it.",
 
     # Nash Crosby's Still Patterns
     "wrongStillProfession": r"<td>No still for you\.<\/td>",
