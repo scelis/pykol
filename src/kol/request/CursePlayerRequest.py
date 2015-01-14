@@ -57,5 +57,4 @@ class CursePlayerRequest(GenericRequest):
 
             successPattern = PatternManager.getOrCompilePattern('useSpiderSuccess')
             if not successPattern.search(self.responseText):
-                print self.responseText
                 raise Error.Error("Unknown error.", Error.REQUEST_GENERIC)
