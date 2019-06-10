@@ -1,6 +1,10 @@
 pykol
 =====
 
+IMPORTANT
+---------
+pykol is no longer under active development and has been archived. If you are interested in a more recent project, check out [libkol](https://github.com/python-kol/libkol).
+
 What is it?
 -----------
 The purpose of pykol is to create a [Python](http://www.python.org/) package that makes it extremely easy to develop code that works with [The Kingdom of Loathing](http://www.kingdomofloathing.com). pykol can be used for anything from writing short scripts to complex bots. In fact, both [kBay](http://forums.kingdomofloathing.com:8080/vb/showthread.php?t=141613) and [wadbot](http://forums.kingdomofloathing.com:8080/vb/showthread.php?t=152258) are built completely on top of it.
